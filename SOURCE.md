@@ -39,7 +39,7 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 | `implementation/web/src/main.ts` | 129 | web/src/main.ts 1-121 | Entry; shell and styles from the components. |
 | `implementation/web/src/mode.ts` | 10 | web/src/mode.ts 1-9 | Over display-mode. |
 | `implementation/web/src/odds-panel.ts` | 67 | web/src/table.ts 1023-1081 | The possible-hands panel. |
-| `implementation/web/src/poker.css` | 273 | web/src/style.css 1-359 | Rules only poker needs; the rest moved to theme, controls, card-graphics, chip-graphics, table-layout and guided-tour. |
+| `implementation/web/src/poker.css` | 267 | web/src/style.css 1-359 | Rules only poker needs; the rest moved to theme, controls, card-graphics, chip-graphics, table-layout and guided-tour. |
 | `implementation/web/src/rooms.ts` | 25 | web/src/background.ts 1-181 | The two room looks; the drawing moved to theme. |
 | `implementation/web/src/screens.ts` | 232 | web/src/screens.ts 1-230 | Home, name, lobby, end and help screens. |
 | `implementation/web/src/shell.ts` | 7 | web/src/main.ts 118-121 | Starts the installable shell; the only web module that imports web-host. |
@@ -64,8 +64,8 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 | `implementation/web/index.html` | 10 | web/index.html 1-21 | The body and the entry; web-host's Vite configuration writes the head. |
 | `implementation/web/vite.config.ts` | 21 | web/vite.config.ts 1-28 | Returns web-host's `webHostConfig` with the theme's colours. |
 | `implementation/web/tsconfig.json` | 17 | web/tsconfig.json 1-16 | |
-| `implementation/apple/generate-project.ts` | 29 | ios/project.yml 1-150, prepare-project.py | Runs apple-host's renderer with the installed components' Swift folders. |
-| `implementation/android/generate-project.ts` | 46 | android/settings.gradle.kts, build.gradle.kts, app/build.gradle.kts 1-150, AndroidManifest.xml | Runs android-host's renderer with the installed components' Android folders and the source's dependencies. |
+| `implementation/apple/generate-project.ts` | 41 | ios/project.yml 1-150, prepare-project.py | Runs apple-host's renderer with the installed components' Swift folders. |
+| `implementation/android/generate-project.ts` | 56 | android/settings.gradle.kts, build.gradle.kts, app/build.gradle.kts 1-150, AndroidManifest.xml | Runs android-host's renderer with the installed components' Android folders and the source's dependencies. |
 | `locales/generated/` | 6 files | i18n generator output | Written by `scripts/make_component.py` with translations' generator from `locales/strings.json`. |
 
 ## Stand-ins (`implementation/stand-ins/`, installed when the design leaves the component out)
@@ -175,7 +175,7 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 | `implementation/repository/scripts/build-ipa.sh` | 30 | McInPoker ios/build-ipa.sh 1-19 | The generated project, its signing variables and export options. |
 | `implementation/repository/scripts/build-apple-testflight.sh` | 93 | McInPoker scripts/build-apple-testflight.sh 1-81 | Stops first when the Apple helpers are missing. |
 | `implementation/repository/release/app.json` | 11 | new | The application description publish_release.py turns into my-app.json (a template). |
-| `implementation/repository/gitignore` | 58 | new | Installed as .gitignore. |
+| `implementation/repository/gitignore` | 61 | new | Installed as .gitignore. |
 
 ## Rules, text, assets
 

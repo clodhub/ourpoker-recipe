@@ -1,0 +1,14 @@
+import { assert, load } from './runtime.mjs';
+const m = await load('web/index.ts');
+assert.equal(m.allCards().length, 52);
+assert.equal(new Set(m.allCards()).size, 52);
+assert.equal(m.faceModel('Ah').red, true);
+assert.equal(m.faceModel('As').red, false);
+assert.equal(m.faceModel(null).kind, 'back');
+assert.throws(() => m.faceModel('invalid'));
+for (const rank of '23456789') assert.equal(m.faceModel(rank + 'h').centre.pips.length, Number(rank));
+assert.equal(m.flipState(0).showing, 'from');
+assert.equal(m.flipState(1).showing, 'to');
+assert.ok(Math.abs(m.flipState(0.5).scaleX) < 1e-10);
+assert.equal(m.cardMetrics(100).height, 140);
+assert.deepEqual(m.dealPlan(3).map(x => x.delayMs), [0, 340, 680]);

@@ -11,6 +11,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const componentsRoot = process.env.OURPOKER_COMPONENTS ?? join(root, "..", "..", "components");
 // The ourapps checkout whose catalogue validator is used: OURAPPS, else ../../ourapps beside the recipes folder.
 const ourapps = process.env.OURAPPS ?? join(root, "..", "..", "ourapps");
+const catalogueFoundations = existsSync(join(ourapps, 'shared/src/foundations.ts'));
 const { validateRecipe, isSafeSvg } = await import(pathToFileURL(join(ourapps, "shared/src/catalogue.ts")).href);
 const { checkCondition } = await import(pathToFileURL(join(ourapps, "shared/src/conditions.ts")).href);
 
@@ -78,24 +79,25 @@ function answerProblem(q: Obj, value: Json): string | null {
 }
 
 
-// What the validator is told about the components: settings from each component.json, profiles from each suitability.json.
-function validatorContext(): { settings: Record<string, Obj[]>; profiles: Record<string, Obj[]> } {
-  const settings: Record<string, Obj[]> = { [APPLICATION]: ownManifest.collect };
-  const profiles: Record<string, Obj[]> = {};
-  for (const c of recipe.components) {
-    settings[c.preferred.name] = manifests.get(c.id)!.collect;
-    profiles[c.preferred.name] = suitability(slugOf(c.preferred.name)).profiles;
-  }
-  return { settings, profiles };
+function validatorContext() {
+  const settings = (m: Obj) => m.collect.map((s: Obj) => ({ ...s, hasDefault: Object.hasOwn(s, "default") }));
+  const foundations = (m: Obj) => ({ ...Object.fromEntries(["platforms", "classes", "implements", "upstream", "compatibility", "maintenance", "files", "artefacts"].map(key => [key, m[key]])), licence: m.identity.licence });
+  const facts = new Map(recipe.components.map((c: Obj) => {
+    const m = manifests.get(c.id)!;
+    return [c.preferred.name, { name: m.identity.name, version: m.identity.version, foundations: foundations(m),
+      provides: m.provides, requires: m.requires, settings: settings(m), profiles: suitability(slugOf(c.preferred.name)).profiles }];
+  }));
+  return { authority: foundations(ownManifest), components: { source: componentsRoot, find: (name: string) => facts.get(name) ?? null },
+    application: { settings: settings(ownManifest), provides: ownManifest.provides, requires: ownManifest.requires } };
 }
 
 const everyQuestionEffect = (): [Obj, string, any][] => recipe.questions.flatMap((q: Obj) => q.effects.flatMap((e: Obj) => Object.entries(e.sets ?? {}).map(([target, value]) => [q, target, value] as [Obj, string, any])));
 
-test("recipe.json passes the ourapps catalogue validator, with the components' settings and profiles", () => {
+test("recipe.json passes the ourapps catalogue validator, with the components' settings and profiles", { skip: !catalogueFoundations && 'selected catalogue validator has no foundation contract; set OURAPPS to a compatible checkout' }, () => {
   const result = validateRecipe(recipe, validatorContext());
   assert.ok(result.ok, result.ok ? "" : result.errors.join("\n"));
   assert.equal(recipe.name, "ourapps-ae/ourpoker");
-  assert.equal(recipe.version, "0.5.2");
+  assert.equal(recipe.version, "0.6.0");
   assert.equal(recipe.components.length, 39);
   assert.equal(recipe.questions.length, 28);
 });

@@ -84,13 +84,28 @@
     },
     {
       "name": "writeWrapper",
-      "description": "Copies the Gradle wrapper (gradlew, gradlew.bat and gradle/wrapper/gradle-wrapper.jar) into directory and makes gradlew executable, so ./gradlew builds the project with no Gradle installed.",
+      "description": "Copies the Gradle wrapper and exact dependency locks and checksums into the project. The supplied dependency files default to the standalone host's resolved inputs.",
       "params": [
         {
           "name": "directory",
           "required": true,
           "schema": {
             "type": "string"
+          }
+        },
+        {
+          "name": "dependencyFiles",
+          "required": false,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "buildscript-gradle.lockfile": {"type": "string", "minLength": 1},
+              "app/buildscript-gradle.lockfile": {"type": "string", "minLength": 1},
+              "app/gradle.lockfile": {"type": "string", "minLength": 1},
+              "gradle/verification-metadata.xml": {"type": "string", "minLength": 1}
+            },
+            "required": ["buildscript-gradle.lockfile", "app/buildscript-gradle.lockfile", "app/gradle.lockfile", "gradle/verification-metadata.xml"],
+            "additionalProperties": false
           }
         }
       ],

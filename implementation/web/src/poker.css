@@ -4,14 +4,8 @@
 :root {
   --gold: #e0b35a;
   --bg: #0b0908;
-  --surface: rgba(38, 36, 31, 0.35);
-  --edge: rgba(224, 179, 90, 0.3);
   --felt: #2e4a3a;
   --felt-edge: #5a3a22;
-  --text: #f1ebe0;
-  --muted: rgba(241, 235, 224, 0.65);
-  --danger: #ff6b6b;
-  --good: #39b54a;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--background); color: var(--text); font-family: -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -232,7 +226,7 @@ body:has(.zoom) .betbar.pinned { display: none; }
 
 .spot { position: absolute; transform: translate(-50%, -50%); z-index: 2; }
 .spot.arriving { opacity: 0; }
-.flight { position: absolute; z-index: 6; transform: translate(-50%, -50%); transition: left 0.45s ease-in-out, top 0.45s ease-in-out; }
+.flight { transition: left 0.45s ease-in-out, top 0.45s ease-in-out; }
 .spot.deck, .spot.burn { z-index: 1; }
 .deckcard { position: absolute; left: -10px; top: -14px; }
 .spot.deck .deckcard .card, .spot.burn .deckcard .card { box-shadow: 0 1px 2px rgba(0,0,0,0.7); }

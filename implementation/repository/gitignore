@@ -36,6 +36,9 @@ android/gradlew
 android/gradlew.bat
 android/gradle/
 android/app/build.gradle.kts
+android/buildscript-gradle.lockfile
+android/app/buildscript-gradle.lockfile
+android/app/gradle.lockfile
 android/app/src/main/AndroidManifest.xml
 android/app/src/main/res/mipmap-anydpi-v26/
 android/app/src/main/res/values/strings.xml

@@ -1,0 +1,13 @@
+import { assert, load } from './runtime.mjs';
+const m = await load('server/index.ts');
+assert.deepEqual(m.parseTargets('web ios android macos windows tvos'), ['iphone', 'ipad', 'mac', 'tv']);
+assert.deepEqual(m.parseTargets('web'), []);
+assert.throws(() => m.parseTargets('ios ios'));
+assert.throws(() => m.parseTargets('watch'));
+const settings = { bundleIdentifier: 'org.example.classdemo', displayName: 'Class Demo', scheme: 'Demo', targets: 'ios' };
+const rendered = m.renderApple(settings);
+assert.deepEqual(m.renderApple(settings), rendered);
+assert.match(rendered.files['project.yml'], /supportedDestinations: \[iOS\]/);
+assert.ok(!Object.keys(rendered.files).some(path => path.includes('TV')));
+assert.deepEqual(m.renderApple({ ...settings, targets: 'web' }).files, {});
+assert.throws(() => m.validateSettings({ ...settings, bundleIdentifier: 'Bad' }));

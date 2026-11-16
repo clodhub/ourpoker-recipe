@@ -1,0 +1,18 @@
+[
+  {
+    "path": "buildscript-gradle.lockfile",
+    "digest": "fc0f1f56fe2879961ead8f4201896bc522cb1409dd779fac6b84fbcce51ee093"
+  },
+  {
+    "path": "app/buildscript-gradle.lockfile",
+    "digest": "e4a6c3491a87c07fba697ac1da0e01cc29dde400f5d3a08031a0c7b46961f9f9"
+  },
+  {
+    "path": "app/gradle.lockfile",
+    "digest": "5e62429e0c7c43175d0e2a1aa389360ee845a07203c9798462cf770013871dad"
+  },
+  {
+    "path": "gradle/verification-metadata.xml",
+    "digest": "2d291098eaa33e800104354f2526dc01ff4ce0e7d07ac158fd8d3fb5201d8c61"
+  }
+]

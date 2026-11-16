@@ -95,6 +95,9 @@ def read(path):
 
 def dump(path, value, sort=False):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
+    if Path(path).name == 'component.json':
+        Path(path).write_bytes(model.canonical(value))
+        return
     Path(path).write_text(json.dumps(value, indent=2, ensure_ascii=False, sort_keys=sort) + "\n", encoding="utf-8")
 
 
@@ -380,6 +383,7 @@ def build_manifest(files):
                            "deployedReason": "Deploys nothing itself: the server, web, native and desktop builds are produced by the components the recipe selects."},
         "verification": [suite()],
         "upgrade": {"policy": "patch", "migration": "files-only"},
+        **read(ROOT / "authoring/foundations.json"),
     }
 
 

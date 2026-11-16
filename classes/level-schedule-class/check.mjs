@@ -1,0 +1,13 @@
+import { assert, load } from './runtime.mjs';
+const m = await load('server/index.ts');
+const levels = [{ label: 'one', values: { stake: 10 } }, { label: 'two', values: { stake: 20 } }];
+const schedule = m.createSchedule(levels, { levelSeconds: 10 });
+assert.equal(m.currentLevel(schedule, 9999).level, 1);
+assert.equal(m.currentLevel(schedule, 10000).level, 2);
+assert.equal(m.currentLevel(schedule, 20000).values.stake, 40);
+assert.equal(m.msUntilNext(schedule, 9999), 1);
+const stop = m.createSchedule(levels, { levelSeconds: 10, afterLastLevel: 'stop' });
+assert.equal(m.currentLevel(stop, 999999).level, 2);
+assert.equal(m.nextLevel(stop, 10000), null);
+assert.throws(() => m.createSchedule([]));
+assert.equal(levels[1].values.stake, 20);

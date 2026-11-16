@@ -1,0 +1,12 @@
+import { assert, load } from './runtime.mjs';
+const m = await load('server/index.ts');
+assert.deepEqual(m.parseTargets('tvos web ios'), ['ios', 'web', 'tvos']);
+assert.throws(() => m.parseTargets('web web'));
+assert.equal(m.secretName('class/signing-key'), 'CLASS_SIGNING_KEY');
+assert.throws(() => m.secretName('token=value'));
+const settings = { applicationId: 'class-demo', applicationName: 'Class Demo', targets: 'web', webDeploy: 'none', storeCredentials: 'none', hostingAccount: 'none' };
+const result = m.renderRelease(settings);
+assert.deepEqual(m.renderRelease(settings), result);
+assert.ok('.github/workflows/ci-web.yml' in result.files);
+assert.ok(!('.github/workflows/ci-android.yml' in result.files));
+assert.equal(m.validateSettings(settings).storeCredentials, null);

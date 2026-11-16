@@ -1,0 +1,13 @@
+import { assert, load } from './runtime.mjs';
+const m = await load('server/index.ts');
+const a = m.seededSource('class-fixture'), b = m.seededSource('class-fixture');
+const values = Array.from({ length: 100 }, () => a.next());
+assert.deepEqual(values, Array.from({ length: 100 }, () => b.next()));
+assert.ok(values.every(x => x >= 0 && x < 1));
+assert.ok(new Set(values).size > 95);
+const input = [1, 2, 3, 4, 5];
+assert.deepEqual(a.shuffle(input).sort(), input);
+assert.deepEqual(input, [1, 2, 3, 4, 5]);
+assert.throws(() => a.int(0));
+assert.throws(() => a.pick([]));
+assert.throws(() => m.createSource({ source: 'unknown' }));

@@ -1,0 +1,14 @@
+import { assert, load } from './runtime.mjs';
+const m = await load('server/index.ts');
+const settings = { inviteAddress: 'https://example.org/play', codeLength: 6 };
+const invitation = { code: 'ABC234', roomId: 'room-one' };
+assert.deepEqual(m.parseInvite(settings, m.inviteLink(settings, invitation)), invitation);
+assert.equal(m.normaliseCode('abc-234'), 'ABC234');
+assert.equal(m.inviteLink(settings, { code: 'INVALID', roomId: null }), null);
+assert.equal(m.parseInvite(settings, 'https://other.example/?code=ABC234'), null);
+assert.equal(m.generateCode(6, () => 0).length, 6);
+const web = await load('web/index.ts');
+let copied;
+assert.equal(await web.shareInvitation('https://example.org', 'join', { writeText: async text => { copied = text; } }), 'copied');
+assert.equal(copied, 'https://example.org');
+assert.equal(await web.shareInvitation('x', 'join', {}), 'unavailable');

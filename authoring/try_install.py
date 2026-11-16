@@ -14,14 +14,14 @@ passed. Then, per answers: evaluates the design with aepm's evaluator (aepm.reci
   android node generate-project.ts; only the answered languages' strings; ./gradlew :app:assembleDebug where ANDROID_HOME is set
   browser headless Chrome over the DevTools protocol: the page loads with web-host's head, the room list comes from the
           server, a player names themself and sits down, the server lists them, a computer player (or a second person) joins,
-          the game starts and the player's two cards are dealt, the table fits a 1280x800 window; no script error; screenshots
-          of home, lobby and table are kept beside the design
+           the game starts, the Fold control completes a hand with balanced chips and payouts, and the table fits a 1280x800 window;
+           screenshots of home, lobby, table and settlement are kept beside the design
 
 With options, for designs that have the target:
   --android         the build points at a server of its own on this machine (-PserverUrl=http://10.0.2.2:PORT);
                     ./gradlew :app:testDebugUnitTest; the AVD --avd (default ourpoker) boots headless as emulator-5584, the APK
-                    replaces any earlier install (its data too) with its permissions granted, and the app is played to a dealt hand:
-                    name, seat, a computer player, start, the action buttons; the server lists the player; no crash;
+                     installs the app with permissions granted and completes a hand through its Fold control:
+                     name, seat, a computer player, start, settlement with balanced chips/payouts; the server lists the player; no crash;
                     android-table.png is kept. Needs ANDROID_HOME and the AVD (INSTRUCTIONS.md part 4, Android).
   --windows HOST    npm ci, npm run check and npm run package:win here (unsigned x64 NSIS installer, APP_VERSION the recipe version);
                     on HOST over ssh (PowerShell and Node): silent install, the installed exe played to a dealt hand over the DevTools
@@ -176,7 +176,7 @@ def prepare_store(work, components):
         suites = {s["id"]: s.get("status") for s in report["suites"]}
         reviews[ref["name"]] = {"requiredLocal": report["summary"]["required-local"], "summary": report["summary"], "suites": suites, "attempts": attempts}
         if report["summary"]["required-local"] == "passed":
-            publish_review(store, ref, report, identities / "guardian.pem")
+            publish_review(store, ref, report, identities / "guardian.pem", policy=policy_path)
     blocked = {name: r for name, r in reviews.items() if r.get("requiredLocal") != "passed"}
     return store, policy_path, refs, reviews, blocked
 
@@ -319,7 +319,7 @@ def native(work, name, app, results, start_server, options):
                     continue
                 derived = ios / "build/DerivedData"  # as INSTRUCTIONS.md part 4 builds: inside the application, ignored by its .gitignore
                 run(["xcodebuild", "-project", "OurPoker.xcodeproj", "-scheme", scheme, "-destination", destination,
-                     "-derivedDataPath", str(derived), "CODE_SIGNING_ALLOWED=NO", "build"], work, f"{name}-xcodebuild-{platform}", cwd=ios, timeout=3600)
+                     "-derivedDataPath", str(derived), "-onlyUsePackageVersionsFromResolvedFile", "CODE_SIGNING_ALLOWED=NO", "build"], work, f"{name}-xcodebuild-{platform}", cwd=ios, timeout=3600)
                 bundle = next(derived.glob(f"Build/Products/{products}/{scheme}.app"))
                 found = sorted(p.stem for p in [*bundle.glob("*.lproj"), *bundle.glob("Contents/Resources/*.lproj")] if p.stem != "Base")
                 if found != sorted(languages):
@@ -352,7 +352,7 @@ def native(work, name, app, results, start_server, options):
 # ---- the Android emulator (--android) ----
 
 def android_run(work, name, apk, package, port, avd, reverse=None, shot="android-table.png"):
-    """Installs apk on a new emulator of AVD avd and plays to a dealt hand against the local server on port. With reverse
+    """Install apk and complete a hand through the emulator's Fold control. With reverse
     (a device port), the device's localhost:<reverse> reaches that server (for a build that calls localhost)."""
     sdk = Path(os.environ["ANDROID_HOME"])
     adb, serial = str(sdk / "platform-tools/adb"), "emulator-5584"
@@ -429,6 +429,41 @@ def android_run(work, name, apk, package, port, avd, reverse=None, shot="android
         else:
             raise Step(f"android: the server does not list the player: {rooms}")
         (shots / shot).write_bytes(subprocess.run([adb, "-s", serial, "exec-out", "screencap", "-p"], capture_output=True, timeout=60).stdout)
+        import urllib.request
+        room = next(room['id'] for room in rooms if 'Droid' in room['names'])
+        address = f'http://127.0.0.1:{port}/r/{room}'
+        request = urllib.request.Request(address + '/display', data=b'{}', headers={'content-type': 'application/json'})
+        with urllib.request.urlopen(request, timeout=10) as response:
+            observer = json.loads(response.read())
+        played_hand, chips, completed, tapped = None, None, None, 0.0
+        deadline = time.time() + 180
+        while time.time() < deadline:
+            request = urllib.request.Request(address + '/state', headers={'authorization': 'Bearer ' + observer['token']})
+            with urllib.request.urlopen(request, timeout=10) as response:
+                view = json.loads(response.read())
+            person = next(player for player in view['players'] if player['name'] == 'Droid')
+            result = view.get('lastResult')
+            action = person.get('lastAction') or {}
+            if played_hand is not None and result and result['no'] == played_hand and not result['voided'] and action.get('kind') == 'fold' and action.get('auto') is False:
+                total = sum(player['stack'] + player['totalIn'] for player in view['players'])
+                if total != chips or any(sum(winner['amount'] for winner in pot['winners']) != pot['amount'] for pot in result['pots']):
+                    raise Step('android: chips or pot payouts do not balance after the hand')
+                if not any(row['no'] == played_hand and not row['voided'] for row in view['history']):
+                    raise Step('android: the completed hand was not recorded')
+                completed = {'hand': played_hand, 'action': 'fold', 'chips': chips, 'result': result}
+                break
+            if view['phase'] == 'betting' and view['hand']['actorId'] == person['id'] and time.time() - tapped > 3:
+                found = screen()
+                if 'Fold' in found:
+                    played_hand = view['hand']['no']
+                    chips = sum(player['stack'] + player['totalIn'] for player in view['players'])
+                    device('shell', 'input', 'tap', *map(str, found['Fold']))
+                    tapped = time.time()
+            time.sleep(0.3)
+        if completed is None:
+            raise Step('android: the Fold control did not complete a hand')
+        (shots / 'android-hand.json').write_text(json.dumps(completed, indent=2) + '\n')
+        (shots / (Path(shot).stem + '-settled.png')).write_bytes(subprocess.run([adb, '-s', serial, 'exec-out', 'screencap', '-p'], capture_output=True, timeout=60).stdout)
         # Installed again over its data (`adb install -r`, as an update arrives): the app opens at the room list, not the table.
         device("shell", "am", "force-stop", package)
         device("install", "-r", "-g", str(apk), timeout=300)
@@ -441,8 +476,8 @@ def android_run(work, name, apk, package, port, avd, reverse=None, shot="android
         crashes = device("logcat", "-d", "-b", "crash")
         if package in crashes:
             raise Step(f"android: the app crashed\n{crashes[-2000:]}")
-        return (f"passed on AVD {avd}: launched, player seated (server lists \"Droid\"), a computer player added, a hand dealt with the action "
-                "buttons shown; installed again over its data, it opened at the room list; no crash")
+        return (f"passed on AVD {avd}: launched, player seated (server lists \"Droid\"), a computer player added, hand {completed['hand']} "
+                f"completed through Fold with {completed['chips']} chips conserved and matched payouts; installed again over its data, it opened at the room list; no crash")
     finally:
         run([adb, "-s", serial, "emu", "kill"], work, f"{name}-android-stop", check=False)
         try:
@@ -953,7 +988,7 @@ def browser_smoke(work, name, chrome, page, server, processes):
     script = work / "browser-smoke.mjs"
     script.write_text(BROWSER_SMOKE)
     output = run(["node", str(script)], work, f"{name}-browser", env={**os.environ, "DEBUG_PORT": str(port), "PAGE": page, "SERVER": server,
-                                                                    "SHOT": str(work / "designs" / name / "browser.png")}, timeout=180)
+                                                                    "SHOT": str(work / "designs" / name / "browser.png")}, timeout=300)
     del process
     return output.strip().splitlines()[-1]
 
@@ -1004,7 +1039,7 @@ await shoot("lobby");
 const lobbyPrompt = await evaluate("document.querySelector('[data-guide=start]').title");
 // A second player: none with fill-empty (Start is offered to one person and the computers fill the table), a computer player
 // where the design has them, otherwise a person joining over the server's API.
-let second;
+let second, secondSession;
 if (await evaluate("!document.querySelector('[data-guide=start]').disabled")) {
   second = "computers filling the table when one person pressed Start";
 } else if (await evaluate("!!document.querySelector('[data-guide=addBot]')")) {
@@ -1013,7 +1048,8 @@ if (await evaluate("!document.querySelector('[data-guide=start]').disabled")) {
 } else {
   const room = (await (await fetch(`${server}/rooms`)).json()).find((r) => r.names.includes("Smoke")).id;
   const joined = await fetch(`${server}/r/${room}/join`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: "Second" }) });
-  if (!joined.ok) throw new Error(`second player: ${joined.status}`);
+   if (!joined.ok) throw new Error(`second player: ${joined.status}`);
+   secondSession = await joined.json();
   second = "a second person";
 }
 await wait("!!document.querySelector('[data-guide=start]') && !document.querySelector('[data-guide=start]').disabled", "start enabled");
@@ -1028,10 +1064,44 @@ await shoot("table");
 // The table and this player's seat lie inside the window.
 const fits = await evaluate("(() => { const t = document.querySelector('.table').getBoundingClientRect(); return t.bottom <= innerHeight + 1 && t.top >= 0; })()");
 if (!fits) throw new Error("the table does not fit the window at 1280x800");
+const session = await evaluate("({token:localStorage.getItem('token'),roomId:localStorage.getItem('roomId')})");
+const readView = async token => {
+  const response = await fetch(`${server}/r/${session.roomId}/state`, { headers: { authorization: `Bearer ${token}` } });
+  if (!response.ok) throw new Error(`state ${response.status}`);
+  return response.json();
+};
+let playedHand = null, chips = null, completed = null;
+for (const until = Date.now() + 180000; Date.now() < until;) {
+  const view = await readView(session.token);
+  const person = view.players.find(player => player.id === view.you);
+  if (playedHand !== null && view.lastResult?.no === playedHand && !view.lastResult.voided && person?.lastAction?.kind === 'fold' && person.lastAction.auto === false) {
+    const total = view.players.reduce((sum, player) => sum + player.stack + player.totalIn, 0);
+    if (total !== chips) throw new Error(`chips changed from ${chips} to ${total}`);
+    for (const pot of view.lastResult.pots) if (pot.winners.reduce((sum, winner) => sum + winner.amount, 0) !== pot.amount) throw new Error('pot payout does not match its amount');
+    if (!view.history.some(round => round.no === playedHand && !round.voided)) throw new Error('settled hand was not recorded');
+    completed = { hand: playedHand, action: 'fold', chips, result: view.lastResult, players: view.players.map(player => ({ id: player.id, stack: player.stack, totalIn: player.totalIn })) };
+    break;
+  }
+  if (view.legal.fold) {
+    const clicked = await evaluate("(() => { const button=[...document.querySelectorAll('.movechoices button')].find(b => /^Fold$/i.test(b.textContent.trim()) && !b.disabled); if (!button) return false; button.click(); return true; })()");
+    if (clicked) {
+      playedHand = view.hand.no;
+      chips = view.players.reduce((sum, player) => sum + player.stack + player.totalIn, 0);
+    }
+  } else if (secondSession) {
+    const other = await readView(secondSession.token);
+    if (other.legal.fold) await fetch(`${server}/r/${session.roomId}/action`, { method: 'POST', headers: { authorization: `Bearer ${secondSession.token}`, 'content-type': 'application/json' }, body: JSON.stringify({ type: 'fold', expectedVersion: other.version }) });
+  }
+  await pause(300);
+}
+if (!completed) throw new Error('the browser did not complete a hand through its Fold control');
+fs.writeFileSync(process.env.SHOT.replace(/\.png$/, '-hand.json'), JSON.stringify(completed, null, 2) + '\n');
+await pause(400);
+await shoot('settled');
 if (exceptions.length) throw new Error(`script errors: ${JSON.stringify(exceptions)}`);
 const calls = requests.filter((url) => url.startsWith(server)).length;
 socket.close();
-console.log(`passed: title OurPoker, web-host head, room list from ${server}, player seated (server lists "Smoke"), lobby says "${lobbyPrompt}", a hand dealt with ${second}, the table fits 1280x800, ${calls} requests to the server, no script error`);
+console.log(`passed: title OurPoker, web-host head, room list from ${server}, player seated (server lists "Smoke"), lobby says "${lobbyPrompt}", a hand dealt with ${second}, hand ${completed.hand} completed through the browser Fold control with ${completed.chips} chips conserved and matched payouts, the table fits 1280x800, ${calls} requests to the server, no script error`);
 process.exit(0);
 """
 

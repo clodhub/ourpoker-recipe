@@ -14,7 +14,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent.parent
 COMPONENTS = Path(os.environ.get("OURPOKER_COMPONENTS") or HERE.parent.parent / "components")  # the component checkouts
 sys.path.insert(0, str(HERE.parent.parent / "aepm"))  # a sibling checkout, unless PYTHONPATH already names one
-from aepm.application import GRAMMARS  # noqa: E402  (the setting grammars a class's patterns come from)
+from aepm.model import canonical, digest  # noqa: E402
 
 # Order follows paper Section 5.3.
 ORDER = [
@@ -301,57 +301,10 @@ def connections_from(manifests, application, included_when):
     return out
 
 
-def written_settings(slug):
-    """setting id -> True when the recipe always writes it: the slot's configuration, and question `sets` that give a value for
-    every answer (a literal, a map, a scale load, or the answer of a question whose answer is never empty text)."""
-    out = {setting: True for setting in CONFIGURATION.get(slug, {})}
-    for question in QUESTIONS:
-        for effect in question["effects"]:
-            for target, form in effect.get("sets", {}).items():
-                instance, _, setting = target.partition(".")
-                if instance != slug:
-                    continue
-                if isinstance(form, dict) and ("ref" in form or "template" in form):
-                    always = False
-                elif form == "$answer":
-                    always = question["type"] != "text" or question.get("default", "") != ""
-                else:
-                    always = True
-                out[setting] = out.get(setting, False) or always
-    return out
-
-
-def slot_class(slug, manifest, connections):
-    """What the recipe relies on in the slot (the component standard, "Recipe slots and component classes"): the interfaces its
-    connections take from it and feed into it, and a JSON Schema of the settings the recipe writes on it."""
-    by_id = {port["id"]: port for key in ("provides", "requires") for port in manifest[key]}
-    out_ports = sorted({c["source"]["port"] for c in connections if c["source"]["instance"] == slug})
-    in_ports = sorted({c["target"]["port"] for c in connections if c["target"]["instance"] == slug})
-    provides = [{"type": by_id[p]["type"], "version": by_id[p]["version"]} for p in out_ports]
-    requires = [{"type": by_id[p]["type"], "version": by_id[p]["version"], **({"optional": True} if by_id[p].get("optional") else {})}
-                for p in in_ports]
-    declarations = {item["id"]: item for item in manifest["collect"]}
-    written = written_settings(slug)
-    # the slot's job writes `provider` from the selected profile (rule 17) and the profile's own settings (rule 23)
-    for job in JOBS:
-        if job["slot"] != slug:
-            continue
-        if "provider" in declarations:
-            written["provider"] = True
-        profiles = {p["id"]: p for p in read(COMPONENTS / slug / "suitability.json")["profiles"]}
-        chosen = [profiles[c["profile"]].get("settings") or {} for c in job["candidates"]]
-        for setting in set().union(*chosen):
-            written[setting] = written.get(setting, False) or all(setting in s for s in chosen)
-    properties = {}
-    for setting in sorted(written):
-        declaration = declarations[setting]
-        schema = {"type": declaration["type"]}
-        if declaration["type"] == "string":
-            schema["pattern"] = "^" + GRAMMARS[declaration["grammar"]] + "$"
-        properties[setting] = schema
-    return {"provides": provides, "requires": requires,
-            "configuration": {"$schema": "https://json-schema.org/draft/2020-12/schema", "type": "object", "properties": properties,
-                              "required": sorted(s for s, always in written.items() if always), "additionalProperties": True}}
+def slot_class(slug):
+    """Exact reference to the independently authored class contract."""
+    descriptor = read(HERE.parent.parent / 'classes' / (slug + '-class') / 'class.json')
+    return {'name': descriptor['name'], 'version': descriptor['version'], 'digest': digest(canonical(descriptor))}
 
 
 def main() -> None:
@@ -366,12 +319,12 @@ def main() -> None:
     for slug in ORDER:
         ident = manifests[slug]["identity"]
         assert ident["name"] == f"ourapps-ae/{slug}"
-        components.append({"id": slug, "class": slot_class(slug, manifests[slug], connections),
+        components.append({"id": slug, "class": slot_class(slug),
                            "preferred": {"name": ident["name"], "version": ident["version"]},
                            "configuration": CONFIGURATION.get(slug, {}), "includedWhen": included_when.get(slug)})
 
     recipe = {
-        "format": 1, "name": "ourapps-ae/ourpoker", "version": "0.5.2", "title": "OurPoker",
+        "format": 1, "name": "ourapps-ae/ourpoker", "version": "0.6.0", "title": "OurPoker",
         "summary": "A complete Texas hold'em game for two to nine players: phones, tablets, computers, the web and a television as a shared table, optional video, computer players, lessons, rebuys and rising blinds.",
         "category": "games", "tags": ["cards", "multiplayer", "poker", "texas-holdem", "tournament"],
         "targets": {"client": ALL_TARGETS, "server": ["hosting-provider", "own-hardware"]},

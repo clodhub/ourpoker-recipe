@@ -1,0 +1,14 @@
+import { assert, load } from './runtime.mjs';
+const m = await load('web/index.ts');
+assert.deepEqual(m.displayCapabilities(true), { canAct: false, canCapture: false, canSeePrivate: false });
+assert.deepEqual(m.displayCapabilities(false), { canAct: true, canCapture: true, canSeePrivate: true });
+const events = [];
+globalThis.document = { documentElement: { dataset: {} } };
+globalThis.window = { dispatchEvent: event => events.push(event) };
+const mode = m.createMode('player', 'class-mode');
+assert.equal(mode.current(), 'player');
+mode.publish('board');
+assert.equal(mode.current(), 'board');
+assert.equal(document.documentElement.dataset.mode, 'board');
+assert.equal(events[0].type, 'class-mode');
+assert.deepEqual(events[0].detail, { mode: 'board' });

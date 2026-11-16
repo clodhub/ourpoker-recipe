@@ -2,9 +2,10 @@
 // android-host's renderer and installed settings. Run from this folder: `node generate-project.ts`, then `./gradlew assembleDebug`.
 // The server address is the design's; `./gradlew assembleDebug -PserverUrl=<address>` builds against another one (an emulator
 // reaches this Mac's localhost as http://10.0.2.2:<port>).
-import { cpSync, existsSync, readdirSync, rmSync } from "node:fs";
+import { cpSync, existsSync, readFileSync, readdirSync, rmSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
-import { androidHostSettings, renderAndroid, writeAndroid, writeWrapper } from "../components/android-host/server/index.ts";
+import { androidHostSettings, renderAndroid, writeAndroid, writeWrapper, type DependencyFiles } from "../components/android-host/server/index.ts";
 
 const components = new URL("../components/", import.meta.url);
 const has = (path: string) => existsSync(new URL(path, components));
@@ -12,7 +13,16 @@ const has = (path: string) => existsSync(new URL(path, components));
 const componentFolders = readdirSync(components).filter((name) => has(`${name}/android/src/main/java`)).sort().map((name) => `../components/${name}/android`);
 const video = has("video-calls/android/src/main/java");
 const here = fileURLToPath(new URL(".", import.meta.url));
-writeWrapper(here);
+const dependencyRoot = new URL(`./dependency-locks/${video ? 'video' : 'no-video'}/`, import.meta.url);
+const inventory: { path: string; digest: string }[] = JSON.parse(readFileSync(new URL('inventory.json', dependencyRoot), 'utf8'));
+const dependencyPaths = ['buildscript-gradle.lockfile', 'app/buildscript-gradle.lockfile', 'app/gradle.lockfile', 'gradle/verification-metadata.xml'];
+if (inventory.length !== dependencyPaths.length || new Set(inventory.map(item => item.path)).size !== inventory.length || inventory.some(item => !dependencyPaths.includes(item.path))) throw new Error('invalid Android dependency inventory');
+const dependencyFiles = Object.fromEntries(inventory.map(item => {
+  const raw = readFileSync(new URL(item.path, dependencyRoot));
+  if (createHash('sha256').update(raw).digest('hex') !== item.digest) throw new Error(`Android dependency digest mismatch: ${item.path}`);
+  return [item.path, raw.toString('utf8')];
+})) as DependencyFiles;
+writeWrapper(here, dependencyFiles);
 writeAndroid(here, renderAndroid(androidHostSettings, {
   componentFolders,
   // LiveKit's audio switch is published on JitPack.
