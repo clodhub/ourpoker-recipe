@@ -1,0 +1,52 @@
+# Unsigned builds of the Apple clients on a macOS runner: iPhone and iPad (simulator), Mac (Mac Catalyst) and Apple TV
+# (simulator) for the targets in components/ourapps-release/server/release.json. Runs on a version tag or when started by hand.
+name: apple-builds
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apple-builds-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apple:
+    runs-on: macos-26
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: ios
+    steps:
+      - uses: actions/checkout@v7
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "27"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "26.5"
+      - run: brew install xcodegen
+      - name: Generate the project
+        run: |
+          node generate-project.ts
+          xcodegen generate
+      - name: Build iPhone and iPad
+        run: >-
+          xcodebuild -project OurPoker.xcodeproj -scheme OurPoker -destination 'generic/platform=iOS Simulator'
+          -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO build
+      - name: Build Mac and Apple TV
+        run: |
+          targets=$(python3 -c 'import json; print(json.load(open("../components/ourapps-release/server/release.json"))["targets"])')
+          echo "targets: $targets"
+          if [[ " $targets " == *" macos "* ]]; then
+            xcodebuild -project OurPoker.xcodeproj -scheme OurPoker -destination 'generic/platform=macOS,variant=Mac Catalyst' \
+              -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO build
+          fi
+          if [[ " $targets " == *" tvos "* ]]; then
+            xcodebuild -project OurPoker.xcodeproj -scheme OurPokerTV -destination 'generic/platform=tvOS Simulator' \
+              -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO build
+          fi

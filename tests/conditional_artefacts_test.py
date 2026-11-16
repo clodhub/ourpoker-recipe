@@ -31,10 +31,10 @@ RESULTS = C.run(WORLD)
 
 # Marks, derived from the import and path strings of each source file (tests also from the application files they import), plus
 # the web package files, which declare livekit-client for video-calls.
-EXPECTED_MARKS = {"android-host": 1, "apple-host": 1, "computer-players": 1, "guided-tour": 5, "ourapps-release": 3, "store-update": 11, "video-calls": 20,
+EXPECTED_MARKS = {"android-host": 1, "apple-host": 1, "computer-players": 1, "guided-tour": 5, "ourapps-release": 4, "store-update": 11, "video-calls": 20,
                   "web-host": 2, "windows-desktop": 9}
 # The repository files that build one host: installed with the release pipeline and that host (a list mark: both).
-EXPECTED_RELEASE_MARKS = {"android-host": 1, "apple-host": 3, "web-host": 1, "windows-desktop": 3}
+EXPECTED_RELEASE_MARKS = {"android-host": 1, "apple-host": 4, "web-host": 1, "windows-desktop": 3}
 RELEASE = "ourapps-release"
 
 
@@ -80,6 +80,7 @@ class Marks(unittest.TestCase):
     def test_repository_files_install_only_with_the_release_pipeline(self):
         repository = [a for a in MANIFEST["artefacts"] if a["source"].startswith("implementation/repository/")]
         self.assertEqual(sorted(a["destination"] for a in repository), [
+            ".github/workflows/aepm-update.yml", ".github/workflows/apple-builds.yml",
             ".github/workflows/apple-testflight.yml", ".github/workflows/ci-android.yml", ".github/workflows/ci-server.yml", ".github/workflows/ci-web.yml",
             ".github/workflows/platform-packages.yml", ".github/workflows/release.yml", ".gitignore", "release/app.json", "scripts/build-apple-testflight.sh",
             "scripts/build-ipa.sh", "scripts/build-windows.sh", "scripts/inspect-windows.ps1"])

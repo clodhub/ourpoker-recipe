@@ -95,5 +95,6 @@ async function pack() {
   }, null, 2) + '\n');
   console.log(`Unsigned x64 Windows installer ${version} built; checked here: the executable is x64 and unsigned, the packaged scripts match their sources, the page and its files are inside. Not checked here: installing and starting it on Windows (scripts/inspect-windows.ps1 does that on Windows).`);
 }
-if (require.main === module) pack().catch((error) => { console.error(error); process.exitCode = 1; });
+// electron-builder leaves a set exit code at 0 after a failed build, so a failure ends the process here.
+if (require.main === module) pack().catch((error) => { console.error(error); process.exit(1); });
 module.exports = { config, sources };

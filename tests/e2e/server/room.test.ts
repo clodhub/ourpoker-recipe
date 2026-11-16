@@ -331,7 +331,9 @@ describe("live connections", () => {
         if (m !== "pong" && m.type === "view" && m.view!.version > after) return m.view!;
       }
     };
-    return { ws, next, nextView, closed };
+    // Closes the connection and waits for the room's answering close, so no close is still being handled when the next test resets the room.
+    const end = (code = 1000) => { ws.close(code); return closed; };
+    return { ws, next, nextView, closed, end };
   }
 
   const hello = (token: string, odds = false) => JSON.stringify({ type: "hello", token, odds });
@@ -346,14 +348,14 @@ describe("live connections", () => {
     await join("Bob");
     const second = await c.nextView(first.version);
     expect(second.players.map((p) => p.name)).toEqual(["Ann", "Bob"]);
-    c.ws.close();
+    await c.end();
   });
 
   it("answers pings without a view", async () => {
     const c = await connect(BASE + "/ws");
     c.ws.send("ping");
     expect(await c.next()).toBe("pong");
-    c.ws.close();
+    await c.end();
   });
 
   it("turns away an unknown token", async () => {
@@ -387,7 +389,7 @@ describe("live connections", () => {
     c.ws.send(JSON.stringify({ type: "odds", on: false }));
     const m = (await c.next()) as { view: View };
     expect(m.view.odds ?? []).toEqual([]);
-    c.ws.close();
+    await c.end();
   });
 
   it("gives a display the table without hidden cards", async () => {
@@ -400,7 +402,7 @@ describe("live connections", () => {
     const v = await c.nextView(-1);
     expect(v.display).toBe(true);
     expect(v.players.every((p) => p.cards.every((x) => x === null))).toBe(true);
-    c.ws.close();
+    await c.end();
   });
 
   it("keeps a player with a connection present, and away once the app closes it", async () => {
@@ -416,7 +418,7 @@ describe("live connections", () => {
     expect(before.players.find((p) => p.id === a.playerId)!.connected).toBe(true);
     // Ann's app goes to the background: her connection closes normally; Bob sees her away and
     // the game paused for the host.
-    ca.ws.close(1000);
+    await ca.end(1000);
     for (;;) {
       const v = await cb.nextView(before.version);
       if (!v.players.find((p) => p.id === a.playerId)!.connected) {
@@ -433,8 +435,8 @@ describe("live connections", () => {
     const back = await again.nextView(-1);
     expect(back.players.find((p) => p.id === a.playerId)!.connected).toBe(true);
     expect(back.pauseReasons).toEqual([]);
-    again.ws.close();
-    cb.ws.close();
+    await again.end();
+    await cb.end();
   });
 
   it("sends the room list on connect and after a change", async () => {
@@ -447,7 +449,7 @@ describe("live connections", () => {
       const m = (await c.next()) as { type: string; rooms: RoomInfo[] };
       if (m.rooms[0].names.includes("Ann")) break;
     }
-    c.ws.close();
+    await c.end();
   });
 
   it("holds the clock for everyone while a player reads a guide, and lets go when the connection closes", async () => {
@@ -470,12 +472,12 @@ describe("live connections", () => {
     expect(later.hand!.settleMs).toBe(held.hand!.settleMs);
     // A look is only for the end of a hand: ignored mid-hand.
     ca.ws.send(JSON.stringify({ type: "hold", kind: "look" }));
-    ca.ws.close(1000);
+    await ca.end(1000);
     for (;;) {
       const v = await cb.nextView(held.version);
       if (v.holds.length === 0) break;
     }
-    cb.ws.close();
+    await cb.end();
   });
 
   it("empties the room at once when the last person leaves after closing the connection", async () => {
@@ -485,7 +487,7 @@ describe("live connections", () => {
     c.ws.send(hello(a.token));
     const seen = await c.nextView(-1);
     // The app closes its connection before leaving, with the version it last saw.
-    c.ws.close(1000);
+    await c.end(1000);
     await new Promise((r) => setTimeout(r, 200));
     const r = await act(a.token, { type: "leave" }, seen.version);
     expect(r.status).toBe(200);
@@ -521,10 +523,10 @@ describe("live connections", () => {
     const room = await connect(BASE + "/ws", origin);
     room.ws.send(hello(a.token));
     expect((await room.nextView(-1)).you).toBe(a.playerId);
-    room.ws.close(1000);
+    await room.end(1000);
     const directory = await connect(ROOT + "/rooms/ws", origin);
     expect(await directory.next()).toMatchObject({ type: "rooms" });
-    directory.ws.close(1000);
+    await directory.end(1000);
   });
 
   it("rejects lookalike desktop origins without permitting arbitrary custom schemes", async () => {

@@ -58,10 +58,10 @@ Each component sits in a slot named after it: the slot's class is what the recip
 
 ## Building it
 
-With aepm and the published catalogue: `aepm fetch ourpoker@0.6.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
+With aepm and the published catalogue: `aepm fetch ourpoker@0.7.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
 
 ```
-python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.6.0 > INSTRUCTIONS.md
+python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.7.0 > INSTRUCTIONS.md
 ```
 
 It takes you through `aepm questions`, `aepm design`, `aepm resolve` and `aepm install`, then the build and run commands for each device.
@@ -83,10 +83,14 @@ The default answers, `book-club`, `poker-league`, `company-event`, `company-even
 
 ## Status
 
-Version 0.6.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
+Version 0.7.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
 
 - Server on Node; the web client in a browser: a player sits, a computer player joins and a hand is played to its settlement with every chip counted.
 - iPhone and iPad, Mac (Mac Catalyst) and Apple TV apps built for their simulators and Mac; the Android app built, unit-tested and played on the emulator to a settled hand; the desktop web build for Windows.
 - Substitution: the `theme` slot filled with `ourapps-ae/theme-high-contrast`.
+- Windows 11 in PowerShell, from a local store: `aepm doctor` (Node 26 found), `aepm install`, the server's type check, tests and start, the web client's type check and build, and the desktop tests and build. The installer is not built there: that machine's Smart App Control refuses the unsigned uninstaller step of packaging.
+- An in-place update of an installed `local-web` application (33 components; serverAddress and webAddress changed): `aepm propose-update --trusted --allow-network` staged it and ran every package's checks, then `aepm approve` with the owner key, `aepm apply` and `aepm recover`. A tree that still holds `node_modules` is refused for its links; INSTRUCTIONS.md says which folders to remove first.
+- The Android app built and unit-tested on Windows 11 with strict Gradle dependency verification.
+- The GitHub workflows pass actionlint; the Android room-list check and the browser check they run were run on a Mac against a local server.
 
-Not run: Cloudflare deployment; the Windows installer on Windows; GitHub workflows and releases; signed Android, Windows and Apple builds; App Store, TestFlight and store publishing; video with a real LiveKit account and keys. The open items are in `INTEGRATION-GAPS.md`.
+Not run: Cloudflare deployment; the Windows installer built on Windows (Smart App Control on that machine refuses packaging's unsigned uninstaller step; GitHub's Windows runner builds it) and run there; GitHub workflows and releases on GitHub; signed Android, Windows and Apple builds; App Store, TestFlight and store publishing; video with a real LiveKit account and keys. The open items are in `INTEGRATION-GAPS.md`.

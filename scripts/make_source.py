@@ -120,7 +120,7 @@ desktop = {
     "package.json": ("desktop/package.json 1-21", "Name templated."),
     "package-lock.json": ("desktop/package-lock.json", "Exact versions of electron and electron-builder."),
     "scripts/build.cjs": ("desktop/scripts/build.cjs 1-4", ""),
-    "scripts/package.cjs": ("desktop/scripts/package.cjs 1-93", "Unsigned Windows installer settings; stages configuration.cjs; writes the icon, name, publisher and version into the executable."),
+    "scripts/package.cjs": ("desktop/scripts/package.cjs 1-93", "Unsigned Windows installer settings; stages configuration.cjs; writes the icon, name, publisher and version into the executable; a failed build exits 1."),
     "src/configuration.cjs": ("desktop/src/main.cjs 1-12, verify.cjs", "The windows-desktop configuration document, shared by main and verify."),
     "src/main.cjs": ("desktop/src/main.cjs 1-12", ""),
     "src/verify.cjs": ("desktop/src/verify.cjs 1-135", ""),
@@ -130,8 +130,10 @@ desktop = {
 # The repository files, at the application root; GitHub's ${{ }} keeps the workflows out of aepm's templates.
 repository = {
     "workflows/ci-server.yml": ("McInPoker .github/workflows/ci-server.yml 1-36", "Server type check and tests; Node 26.5."),
-    "workflows/ci-web.yml": ("McInPoker .github/workflows/ci-web.yml 1-35", "Web type check and build."),
-    "workflows/ci-android.yml": ("McInPoker .github/workflows/ci-android.yml 1-34", "generate-project.ts first; unit tests and debug build."),
+    "workflows/ci-web.yml": ("McInPoker .github/workflows/ci-web.yml 1-35", "Web type check and build; a hand played by test/browser.mjs in headless Chrome against the server started on the runner."),
+    "workflows/ci-android.yml": ("McInPoker .github/workflows/ci-android.yml 1-34", "generate-project.ts first; unit tests and debug build; the app started in an emulator until it shows the room list from the server started on the runner."),
+    "workflows/apple-builds.yml": ("new", "Unsigned iPhone and iPad, Mac Catalyst and Apple TV builds on a macOS runner, on a version tag or by hand."),
+    "workflows/aepm-update.yml": ("new", "Weekly update proposal as a pull request; on merge, owner approval from AEPM_OWNER_KEY, apply and commit."),
     "workflows/platform-packages.yml": ("McInPoker .github/workflows/platform-packages.yml 65-93", "Windows only, also on pushes; the installer installed, started and uninstalled."),
     "workflows/release.yml": ("McInPoker .github/workflows/release.yml 1-307", "Jobs per target found in the installation; secret names from ourapps-release's release.json; unsigned builds when the secrets are absent; the Windows installer attached; web and server deploys."),
     "workflows/apple-testflight.yml": ("McInPoker .github/workflows/apple-testflight.yml 1-82", "Runs only with the store credentials; reservation inline."),

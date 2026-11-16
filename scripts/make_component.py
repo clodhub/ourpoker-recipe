@@ -279,6 +279,7 @@ REPOSITORY = {
     "workflows/ci-web.yml": ["web-host"], "workflows/ci-android.yml": ["android-host"],
     "workflows/platform-packages.yml": ["windows-desktop"], "scripts/build-windows.sh": ["windows-desktop"], "scripts/inspect-windows.ps1": ["windows-desktop"],
     "workflows/apple-testflight.yml": ["apple-host"], "scripts/build-apple-testflight.sh": ["apple-host"], "scripts/build-ipa.sh": ["apple-host"],
+    "workflows/apple-builds.yml": ["apple-host"], "workflows/aepm-update.yml": [],
 }
 
 

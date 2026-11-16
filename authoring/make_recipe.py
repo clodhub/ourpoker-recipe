@@ -324,7 +324,7 @@ def main() -> None:
                            "configuration": CONFIGURATION.get(slug, {}), "includedWhen": included_when.get(slug)})
 
     recipe = {
-        "format": 1, "name": "ourapps-ae/ourpoker", "version": "0.6.0", "title": "OurPoker",
+        "format": 1, "name": "ourapps-ae/ourpoker", "version": "0.7.0", "title": "OurPoker",
         "summary": "A complete Texas hold'em game for two to nine players: phones, tablets, computers, the web and a television as a shared table, optional video, computer players, lessons, rebuys and rising blinds.",
         "category": "games", "tags": ["cards", "multiplayer", "poker", "texas-holdem", "tournament"],
         "targets": {"client": ALL_TARGETS, "server": ["hosting-provider", "own-hardware"]},

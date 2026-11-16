@@ -1,6 +1,6 @@
 # OurPoker recipe: instructions
 
-Package `ourapps-ae/ourpoker` 0.6.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
+Package `ourapps-ae/ourpoker` 0.7.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
 
 ## 1. For the agent
 
@@ -121,14 +121,14 @@ A small group stays inside the free tiers: the small and medium bands both fit `
 
 ## 3. Install
 
-Needs Python 3.12, Node 26.5 and git. aepm is the installer: `git clone https://github.com/ourapps-ae/aepm`, then define the command for this shell (bash or zsh):
+Needs Python 3.12, Node 26.5 and git. aepm is the installer: `git clone https://github.com/ourapps-ae/aepm`, then define the command for this shell (bash or zsh; PowerShell on Windows is below):
 
 ```
 AEPM="$PWD/aepm"
 aepm() { PYTHONPATH="$AEPM" python3 -B -m aepm "$@"; }
 ```
 
-STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.6.0).
+STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.7.0).
 
 1. Fetch the recipe and every component it names, with their release and guardian attestations, then read these instructions from the recipe's archive:
    ```
@@ -150,11 +150,17 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    ```
    A refusal lists each error as `{code, path}` (for example `unanswered` with the question id); fix the answer and run it again.
 
+   Check this machine's build tools for the design's targets:
+   ```
+   aepm doctor ourpoker@<version> --store STORE --answers answers.json
+   ```
+   It prints each tool with the version range the packages need (`node` for the server, web and Windows; `xcodebuild` and `xcodegen` for Apple targets; `java` and `sdkmanager` for Android), what it found and `ok`, `missing` or `wrong-version`, and exits 1 unless all are `ok`. With `--install` it runs the listed installer (Homebrew on macOS, winget on Windows, apt-get on Linux) for each missing tool; a wrong version and the steps in `manual` (Xcode, the Android SDK packages) are left to you. Apple targets build only on macOS.
+
    To put another component in a slot, list the catalogue components that fit it, fetch the one chosen into STORE, and name it in `--substitute` (repeat for several slots):
    ```
    aepm alternatives ourpoker@<version> theme --store STORE --from https://ourapps.app
-   aepm fetch ourapps-ae/theme-high-contrast@0.2.0 --store STORE --from https://ourapps.app
-   aepm design ourpoker@<version> --store STORE --answers answers.json --substitute theme=ourapps-ae/theme-high-contrast@0.2.0 --out definition.json
+   aepm fetch ourapps-ae/theme-high-contrast@0.3.0 --store STORE --from https://ourapps.app
+   aepm design ourpoker@<version> --store STORE --answers answers.json --substitute theme=ourapps-ae/theme-high-contrast@0.3.0 --out definition.json
    ```
    `alternatives` prints `[{name, version, fits, reasons}]`. `design` refuses a component that does not fit (`unfit` with the reason) and records the choice in the design's `selections` as `{component, version, reason: "substituted"}`. A substitute in a job's slot (`server-host`, `realtime-rooms`, `video-calls`) replaces the job's selection.
 5. Lock the exact packages:
@@ -180,6 +186,37 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    ```
    aepm checks every package's release and guardian signatures against POLICY, places the files, renders each setting into the files that name it, and records the design in `APP/.aepm/`. It runs no package code. Then put the application in its repository and build and run it (part 4).
 
+On Windows, in PowerShell (Windows PowerShell 5.1 or PowerShell 7) with Python 3.12 as `python`, define the command and give each multi-line Python step on standard input:
+
+```
+Set-ExecutionPolicy -Scope Process RemoteSigned -Force   # this window only: lets PowerShell run npm and npx
+$env:PYTHONPATH = "$PWD\aepm"
+function aepm { python -B -m aepm @args }
+aepm fetch ourpoker@<version> --with-dependencies --store STORE
+@'
+import json, sys, tarfile
+s, v = sys.argv[1:]
+d = next(e["digest"] for e in json.load(open(s + "/catalogue.json"))["entries"] if e["name"] == "ourapps-ae/ourpoker" and e["version"] == v)
+sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())
+'@ | python - STORE <version> > INSTRUCTIONS.md
+aepm questions ourpoker@<version> --store STORE
+aepm design ourpoker@<version> --store STORE --answers answers.json --out definition.json
+aepm doctor ourpoker@<version> --store STORE --answers answers.json
+aepm resolve definition.json --catalogue STORE\catalogue.json --out lock.json
+python -B -m aepm.test_identities "$PWD\identities"
+curl.exe -fsSL https://ourapps.app/policy/levelnpolicy.json -o levelnpolicy.json
+@'
+import json
+level_n = json.load(open("levelnpolicy.json"))
+mine = json.load(open("identities/policy.json"))
+policy = {"format": 1, "keys": {"release": level_n["keys"]["release"], "guardian": level_n["keys"]["guardian"], "owner": mine["keys"]["owner"]}, "trustedExecution": []}
+json.dump(policy, open("policy.json", "w"), indent=2)
+'@ | python -
+aepm install definition.json --lock lock.json --store STORE --policy POLICY --target APP
+```
+
+STORE, POLICY and APP are absolute Windows paths (for example `$HOME\ourpoker-store`; APP needs a short parent folder, part 4, Windows). Write `answers.json` without a byte order mark: with an editor, or `Set-Content answers.json '{"targets": ["web", "windows"], "server": "own-hardware"}' -Encoding ascii`. `doctor --install` installs a missing Node with winget; a Node below 26.5 is `wrong-version`: `winget upgrade --exact --id OpenJS.NodeJS`, then open a new PowerShell.
+
 ## 4. Build and run
 
 What `aepm install` writes into the application folder. `web/`, `ios/` and `android/` hold their client's sources in every design; what builds them comes only with the target in brackets (web-host's `vite.config.ts`, apple-host's and android-host's `generate-project.ts`), so build only the clients the design targets. `desktop/` appears only with Windows.
@@ -196,13 +233,13 @@ verification/ end-to-end checks for the platforms
 components/   one folder per component of the design; server-host's server/ holds wrangler.jsonc and start.ts
 .aepm/        aepm's records: definition, lock, assembly, packages, receipts
 .gitignore    what the repository leaves out (part 4, "Repository and releases")
-.github/      workflows/: ci-server, release; ci-web (web), ci-android (android), platform-packages (windows),
-              apple-testflight (ios, macos, tvos)                                         (publish or releases)
+.github/      workflows/: ci-server, release, aepm-update; ci-web (web), ci-android (android),
+              platform-packages (windows), apple-testflight, apple-builds (ios, macos, tvos)   (publish or releases)
 scripts/      build-windows.sh, inspect-windows.ps1 (windows); build-ipa.sh, build-apple-testflight.sh (ios, macos, tvos)
 release/      app.json, what my-app.json says about the application                       (publish or releases)
 ```
 
-Every value that depends on an answer is already in the installed files (aepm renders the templates), and the generated string files are shipped, so nothing has to be generated before the commands below; the Apple and Android `generate-project.ts` steps write the native projects from them. Tools: Node 26.5 with npm 11. Apple: Xcode 26 or later and XcodeGen. Android: JDK 17 or later and the Android SDK (platform 36); the project carries its Gradle wrapper. Windows: Node 26.5 on a Mac or on Windows to build the installer; Windows 10 or 11 (x64) to run it.
+Every value that depends on an answer is already in the installed files (aepm renders the templates), and the generated string files are shipped, so nothing has to be generated before the commands below; the Apple and Android `generate-project.ts` steps write the native projects from them. Tools (what `aepm doctor` checks, part 3): Node 26.5 or a later 26 with npm 11 for the server, web and Windows. Apple: macOS with Xcode 27 and XcodeGen 2.46 or later; the Apple targets build only on a Mac, not on Windows or Linux. Android: a JDK 17 to 26 and the Android command-line tools 22.0 (23.0 replaces `sdkmanager` with a new tool) with platform 36 and build-tools 36.0.0; the project carries its Gradle wrapper. Windows: Node on a Mac or on Windows to build the installer (not on a Windows machine with Smart App Control on, part 4, Windows); Windows 10 or 11 (x64) to run it.
 
 ### Repository and releases
 
@@ -218,7 +255,9 @@ When the repository already exists, push to it instead: `git remote add origin h
 
 `.gitignore` leaves out dependencies, build outputs, signing keys and aepm's package copies and archives (`.aepm/packages/`, `.aepm/archives/`, 37 MB for the default design). aepm's records in `.aepm/` (definition, lock, assembly, receipts, evidence) are committed: they show which packages built the application. The machine that installed the application keeps the full `.aepm/` that `aepm verify` and updates need; aepm's update work folder (`.<name>.aepm-transaction/`) sits beside the application folder, outside the repository.
 
-With `publish` or `releases` yes the application has GitHub Actions. A push to main runs `ci-server`, `ci-web`, `ci-android` and `platform-packages` (the unsigned Windows installer built, installed silently, started and uninstalled on Windows) for the parts that changed; each can also be started by hand (`gh workflow run ci-web.yml`). A version tag runs `release`: it builds the web client, the Android APK and the Windows installer the design has and publishes a GitHub Release (not a draft or pre-release) carrying `ourpoker.apk`, `web.zip`, the installer `ourpoker-<version>-windows-x64-unsigned.exe`, `icon.png`, `CHANGELOG.md` and, uploaded last, `my-app.json` for ourapps.app. The installer is attached but not offered in `my-app.json`: the ourapps contract lists a desktop package only after that package has passed download, install and start checks. `apple-platform-testflight` runs only when the store starts it for a Mac or Apple TV build.
+With `publish` or `releases` yes the application has GitHub Actions. A push to main runs, for the parts that changed: `ci-server` (type check and tests); `ci-web` (type check and build, then the server started on the runner and `web/test/browser.mjs` playing a hand in headless Chrome against it); `ci-android` (unit tests and the debug build against the runner's server, then the app started in an Android 36 emulator until it shows the room list, through `components/ourapps-release/server/scripts/android_screen.py`); and `platform-packages` (the unsigned Windows installer built, installed silently, started and uninstalled on Windows). Each can also be started by hand (`gh workflow run ci-web.yml`). `apple-builds` builds the iPhone and iPad, Mac (Mac Catalyst) and Apple TV clients unsigned on a macOS runner with Xcode 27, for the design's Apple targets, on a version tag or by hand.
+
+`aepm-update` keeps the application on the newest published recipe version. Weekly (Monday 05:17 UTC) or by hand (`gh workflow run aepm-update.yml`, optionally `-f version=<version>`) it designs that version with the answers and substitutions recorded in `.aepm/definition.json`, has `aepm propose-update --trusted --allow-network` stage it and run the packages' checks, and opens a pull request carrying `.aepm/update/definition.json` and a summary of the package versions that change. Merging that pull request runs it again on main: proposed again, approved with the owner's private key, applied, and committed to main. It needs the repository secret `AEPM_OWNER_KEY`, the private key whose public key is the policy's owner key (`gh secret set AEPM_OWNER_KEY --repo <owner>/<name> < identities/owner.pem`), and the repository setting that lets GitHub Actions create pull requests (Settings, Actions, General, "Allow GitHub Actions to create and approve pull requests"). The script is `components/ourapps-release/server/scripts/aepm_update.py`. It trusts Level N's keys from https://ourapps.app/policy/levelnpolicy.json and runs the checks of exactly the packages it fetched. The runner's checkout holds no `node_modules`; before proposing, the script installs the current design again (`aepm install` of `.aepm/definition.json` and `.aepm/lock.json`) to put back the package copies the repository leaves out. The commit the apply job pushes starts no other workflow (a push made with the workflow's own token starts none); start `ci-server`, `ci-web` and `ci-android` by hand after it. A version tag runs `release`: it builds the web client, the Android APK and the Windows installer the design has and publishes a GitHub Release (not a draft or pre-release) carrying `ourpoker.apk`, `web.zip`, the installer `ourpoker-<version>-windows-x64-unsigned.exe`, `icon.png`, `CHANGELOG.md` and, uploaded last, `my-app.json` for ourapps.app. The installer is attached but not offered in `my-app.json`: the ourapps contract lists a desktop package only after that package has passed download, install and start checks. `apple-platform-testflight` runs only when the store starts it for a Mac or Apple TV build.
 
 The workflows read the secret names from `components/ourapps-release/server/release.json`, which aepm rendered from the reference answers: the reference in capitals, with hyphens as underscores, then a suffix. A secret that is not set is skipped, and that part stays unsigned or is not deployed:
 
@@ -258,10 +297,10 @@ In a second terminal:
 cd <application>/web
 npm ci
 npm run typecheck
-npm run dev              # http://localhost:5173; or `npm run build` then `npx vite preview --port 5173`
+npm run dev              # prints its address: http://localhost:5173, or the next free port (5174, ...) when 5173 is taken
 ```
 
-Open the address Vite prints (`http://localhost:5173`, or the next free port when that one is taken); the server accepts the web client from any localhost or 127.0.0.1 port. The web client calls the design's `serverAddress` (default `http://localhost:8788`); `VITE_SERVER=<address> npm run build` builds it against another server. With video in the design the server reads `LIVEKIT_URL`, `LIVEKIT_API_KEY` and `LIVEKIT_API_SECRET` from its environment (a LiveKit account); without them every other part works and video stays off.
+Open the address Vite prints; `npm run build` then `npx vite preview` serves the built client the same way. The server accepts the web client from any localhost or 127.0.0.1 port, so a port other than 5173 needs no change. In PowerShell the commands are the same; set an environment value before the command that reads it: `$env:PORT = '8790'; npm start`, `$env:VITE_SERVER = '<address>'; npm run build` (`Remove-Item Env:VITE_SERVER` clears it). The web client calls the design's `serverAddress` (default `http://localhost:8788`); `VITE_SERVER=<address> npm run build` builds it against another server. With video in the design the server reads `LIVEKIT_URL`, `LIVEKIT_API_KEY` and `LIVEKIT_API_SECRET` from its environment (a LiveKit account); without them every other part works and video stays off.
 
 ### Own hardware
 
@@ -280,22 +319,33 @@ Wrangler prints the worker's address. The worker's name is the `name` in `compon
 
 ### Two-step deploy
 
-The clients carry the server's address, which is known only after the server's first deploy:
+The clients carry the server's address, and the server accepts a web client only from `webAddress`; both addresses are known only after a first deploy. With Cloudflare, from the first install (APP):
 
-1. Install with `serverAddress` left at its default, then deploy the server (Cloudflare above, or own hardware) and note its https address.
-2. Add `serverAddress` with that address, and `webAddress` with the https address the web client will be served from, to `answers.json`. Run `aepm design`, `aepm resolve` and `aepm install` again into a new APP (part 3, steps 4, 5 and 7; or update the installed application with `aepm propose-update`, `aepm approve` and `aepm apply`).
-3. Deploy the server again from the new APP: it accepts the web client only from `webAddress` (and from localhost). Then build the clients below.
+1. Deploy the server (Cloudflare above, or own hardware) and note its https address. Build the web client against it and publish it as its own worker, from `APP/web` with the server's Wrangler (`<name>` is the web worker's name, for example `ourpoker-web`):
+   ```
+   npm ci
+   VITE_SERVER=<server address> npm run build
+   node -e 'const fs = require("fs"), d = fs.readFileSync("../components/server-host/server/wrangler.jsonc", "utf8").match(/"(\w+_date)": "([^"]+)"/); fs.writeFileSync("wrangler.jsonc", JSON.stringify({ name: process.argv[1], [d[1]]: d[2], assets: { directory: "./dist" } }))' <name>
+   ../server/node_modules/.bin/wrangler deploy
+   ```
+   The first line after the build writes `web/wrangler.jsonc`: the worker name, the server's date setting and the `dist` folder as static files. It serves at `https://<name>.<your subdomain>.workers.dev`, the subdomain the server's deploy printed. That is the web address.
+2. Add both addresses to `answers.json` (`"serverAddress": "<server address>", "webAddress": "<web address>"`) and update the installed application in place. Stop its server first. aepm refuses a tree that holds links, and dependency folders hold them (`node_modules/.bin`), so remove the dependency and build folders, then design, lock, trust, propose, approve and apply:
+   ```
+   rm -rf APP/server/node_modules APP/web/node_modules APP/desktop/node_modules APP/web/dist APP/desktop/build APP/desktop/artifacts APP/ios/build APP/android/build APP/android/app/build APP/android/.gradle
+   find APP -type l          # prints nothing once no link is left
+   aepm design ourpoker@<version> --store STORE --answers answers.json --out next.json
+   aepm resolve next.json --catalogue STORE/catalogue.json --out next-lock.json
+   python3 -c 'import json,sys; p=json.load(open(sys.argv[1])); p["trustedExecution"]=sorted(set(p["trustedExecution"])|{x["digest"] for x in json.load(open(sys.argv[2]))["packages"]}); json.dump(p,open(sys.argv[1],"w"),indent=2)' POLICY next-lock.json
+   aepm propose-update APP next.json --store STORE --policy POLICY --trusted --allow-network --out proposal.json
+   aepm approve proposal.json --key identities/owner.pem --policy POLICY --out approval.json
+   aepm apply APP proposal.json --approval approval.json --policy POLICY
+   ```
+   `propose-update` installs the next design into a stage in `.<APP name>.aepm-transaction/` beside APP and runs every package's declared checks there: `--trusted` runs package code, so the policy lists the digest of each package in `next-lock.json` in `trustedExecution` (the `python3` line adds them), and `--allow-network` lets the checks' `npm ci` download. Without `--trusted` it refuses with `trusted-execution-required`. `approve` signs the proposal with the owner key, which must be the policy's `owner` key; `apply` checks that neither APP nor the stage has changed since the proposal and swaps them. `aepm recover APP` completes or reverses an interrupted `apply`. Then run `npm ci` again in `server/` and `web/` (and `desktop/`). The answers and selections the update used are in `APP/.aepm/definition.json`.
 
-For a web client run on localhost, `VITE_SERVER=<address> npm run build` alone points it at the deployed server without reinstalling.
+   Installing the design again into a new folder also works: `aepm install next.json --lock next-lock.json --store STORE --policy POLICY --target NEXT`; then move anything you added to APP (`CHANGELOG.md`, `.git/`) across and use NEXT from here on.
+3. Deploy the server again (`npm ci`, `npm run deploy` in `server/`): it now accepts the web client from `webAddress` (and from localhost). Rebuild and publish the web client from `web/` as in step 1 without `VITE_SERVER` (it now calls `serverAddress`), then build the other clients below; they call `serverAddress`.
 
-Publishing the web client: copy `web/dist/` to the host at the `webAddress` answer (the account named by `webDeploy`). On Cloudflare, from `web/` after `npm run build`, with the server's Wrangler:
-
-```
-node -e 'const fs = require("fs"), d = fs.readFileSync("../components/server-host/server/wrangler.jsonc", "utf8").match(/"(\w+_date)": "([^"]+)"/); fs.writeFileSync("wrangler.jsonc", JSON.stringify({ name: process.argv[1], [d[1]]: d[2], assets: { directory: "./dist" } }))' <name>
-../server/node_modules/.bin/wrangler deploy
-```
-
-The first line writes `web/wrangler.jsonc`: the worker name, the server's date setting and the `dist` folder as static files. It serves at `https://<name>.<your subdomain>.workers.dev`, the subdomain the server's deploy printed; answer `webAddress` with that address in step 2.
+For a web client run on localhost, `VITE_SERVER=<address> npm run build` alone points it at a deployed server without reinstalling. On other hosts, publishing the web client is copying `web/dist/` to the host at `webAddress` (the account named by `webDeploy`).
 
 To check a web client in a browser, built and served here or deployed (headless Chrome; it sits at an empty table, plays to a dealt hand through the page's own controls, ends that game and leaves):
 
@@ -307,6 +357,8 @@ WEB_CHECK_URL=https://<web worker>.<your subdomain>.workers.dev/ WEB_CHECK_SERVE
 It prints one `PASS` line per step and keeps screenshots of home, lobby and the table (1280x800 and 390x844) in `WEB_CHECK_OUT`. Any http or https addresses work, so the same command checks `npx vite preview` against the server on this machine.
 
 ### Apple (Xcode; an Apple developer membership only for devices and TestFlight)
+
+Apple targets need a Mac: Xcode runs only on macOS, so on Windows or Linux leave `ios`, `macos` and `tvos` out of `targets` or build them on a Mac (or with `apple-builds` on GitHub's macOS runner).
 
 ```
 cd <application>/ios
@@ -349,6 +401,18 @@ $ANDROID_HOME/platform-tools/adb shell am start -n <packageId>/.MainActivity
 
 The app calls the design's `serverAddress`; `./gradlew :app:assembleDebug -PserverUrl=<address>` builds it against another server. In the emulator `localhost` is the emulator itself: for the server running on the Mac, build with `-PserverUrl=http://10.0.2.2:8788`. `-PversionName=<version>` sets the version the app shows (local builds show `0.0.0-dev`). Release builds (`./gradlew :app:assembleRelease`) read the keystore from `OURPOKER_KEYSTORE`, `OURPOKER_KEYSTORE_PASSWORD`, `OURPOKER_KEY_ALIAS` and `OURPOKER_KEY_PASSWORD` (from the secret named by `androidSigning`).
 
+On Windows, in PowerShell: a JDK (`winget install --exact --id EclipseAdoptium.Temurin.21.JDK`, or the Temurin zip unpacked with `JAVA_HOME` set to it), and the command-line tools 22.0 unpacked as `<sdk>\cmdline-tools\latest` (the manual step `aepm doctor` prints). Then, with `$env:JAVA_HOME`, `$env:ANDROID_HOME = '<sdk>'` and `<sdk>\cmdline-tools\latest\bin` on `PATH`:
+
+```
+("y`n" * 20) | sdkmanager --sdk_root=$env:ANDROID_HOME --licenses
+sdkmanager --sdk_root=$env:ANDROID_HOME "platform-tools" "platforms;android-36" "build-tools;36.0.0"
+cd <application>\android
+node generate-project.ts
+.\gradlew.bat :app:assembleDebug :app:testDebugUnitTest
+```
+
+Gradle checks every downloaded file against `gradle/verification-metadata.xml` on macOS, Windows and Linux alike.
+
 ### Windows (built on a Mac or on Windows)
 
 ```
@@ -362,7 +426,9 @@ npm start                # runs the desktop application on this machine
 APP_VERSION=<version> npm run package:win   # artifacts/<applicationId>-<version>-windows-x64-unsigned.exe, an unsigned x64 installer
 ```
 
-On Windows use the same commands in PowerShell, with `$env:APP_VERSION='<version>'; npm run package:win`. On a Windows 10 or 11 machine, `<installer>.exe /S /D=<folder>` installs without questions (or run it and follow the installer); `<folder>\<applicationName>.exe` starts the application and `"<folder>\Uninstall <applicationName>.exe" /S` removes it. The installer is unsigned: a copy marked as downloaded from the internet meets SmartScreen's warning, and Smart App Control, where it is on, can refuse it. The application calls the design's `serverAddress`; for the Mac's own server, forward it to the Windows machine, for example `ssh -R 127.0.0.1:8788:localhost:8788 <windows machine>`. Building and packaging need no account.
+On Windows, in PowerShell after `Set-ExecutionPolicy -Scope Process RemoteSigned -Force` (part 3), the same commands with `$env:APP_VERSION = '<version>'; npm run package:win`. Packaging runs the unsigned installer it has just made to write its uninstaller. Where Smart App Control is on (Windows Security, App and browser control), it refuses that file, and `npm run package:win` stops with `spawn UNKNOWN` and exit status 1. The installer is then built by the `platform-packages` and `release` workflows on GitHub's Windows runner, or on a Mac; building it on that machine needs Smart App Control off or a code-signing certificate for the installer. On a Windows 10 or 11 machine, `<installer>.exe /S /D=<folder>` installs without questions (or run it and follow the installer); `<folder>\<applicationName>.exe` starts the application and `"<folder>\Uninstall <applicationName>.exe" /S` removes it. The installer is unsigned: a copy marked as downloaded from the internet meets SmartScreen's warning, and Smart App Control, where it is on, refuses it. The application calls the design's `serverAddress`; for the Mac's own server, forward it to the Windows machine, for example `ssh -R 127.0.0.1:8788:localhost:8788 <windows machine>`. Building and packaging need no account.
+
+On Windows a path holds at most 260 characters unless long paths are on. aepm assembles the application beside APP and its package copies reach about 210 characters below APP, so give APP a short parent folder, such as `apps\ourpoker` at the root of a drive, or turn long paths on as administrator: `Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled -Value 1`. With a long parent folder `aepm install` stops with `invalid-input` at `assemble`.
 
 ### Versions
 

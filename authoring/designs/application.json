@@ -11,7 +11,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/web-host",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "theme",
@@ -91,7 +91,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/apple-host",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "theme",
@@ -158,7 +158,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/android-host",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "theme",
@@ -210,7 +210,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/windows-desktop",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "windows-desktop-configuration",
@@ -239,7 +239,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/server-host",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "room-session",
@@ -317,7 +317,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/realtime-rooms",
-      "version": "0.8.0",
+      "version": "0.9.0",
       "ports": [
         {
           "id": "game-adapter",
@@ -356,7 +356,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/invitations",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "ports": [
         {
           "id": "invitations",
@@ -391,7 +391,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/display-mode",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "display-mode-configuration",
@@ -420,7 +420,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/video-calls",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "video-calls-configuration",
@@ -479,7 +479,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/preferences",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "ports": [
         {
           "id": "preferences",
@@ -523,7 +523,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/turn-engine",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "game-rules",
@@ -672,7 +672,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/theme",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "theme",
@@ -714,7 +714,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/controls",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "theme",
@@ -743,7 +743,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/table-layout",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "theme",
@@ -782,7 +782,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/card-graphics",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "theme",
@@ -836,7 +836,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/chip-graphics",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "theme",
@@ -882,7 +882,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/sound-cues",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "preferences",
@@ -928,7 +928,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/guided-tour",
-      "version": "0.6.0",
+      "version": "0.7.0",
       "ports": [
         {
           "id": "controls",
@@ -977,7 +977,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/translations",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "language",
@@ -1004,7 +1004,7 @@
       "name": "OurPoker",
       "kind": "application",
       "status": "example",
-      "revision": "0.6.0",
+      "revision": "0.7.0",
       "ports": [
         {
           "id": "wrapped-game-adapter",

@@ -1,12 +1,13 @@
-# The web client's type check and build, when the web client, its text, the rules or a component changes.
+# The web client's type check and build, then a hand played in headless Chrome against the server started on the runner,
+# when the web client, the server, its text, the rules or a component changes.
 name: ci-web
 
 on:
   push:
     branches: [main]
-    paths: ["web/**", "resources/**", "rules/**", "components/**", ".github/workflows/ci-web.yml"]
+    paths: ["web/**", "server/**", "resources/**", "rules/**", "components/**", ".github/workflows/ci-web.yml"]
   pull_request:
-    paths: ["web/**", "resources/**", "rules/**", "components/**", ".github/workflows/ci-web.yml"]
+    paths: ["web/**", "server/**", "resources/**", "rules/**", "components/**", ".github/workflows/ci-web.yml"]
   workflow_dispatch:
 
 permissions:
@@ -20,17 +21,45 @@ concurrency:
 jobs:
   web:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    defaults:
-      run:
-        working-directory: web
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: "26.5"
           cache: npm
-          cache-dependency-path: web/package-lock.json
+          cache-dependency-path: |
+            web/package-lock.json
+            server/package-lock.json
       - run: npm ci
+        working-directory: web
       - run: npm run typecheck
+        working-directory: web
       - run: npm run build
+        working-directory: web
+      - run: npm ci
+        working-directory: server
+      - name: Start the server and serve the web client built against it
+        run: |
+          (cd server && PORT=8788 HOST=127.0.0.1 DATA_DIRECTORY="$RUNNER_TEMP/rooms" npm start > "$RUNNER_TEMP/server.log" 2>&1 &)
+          for _ in $(seq 60); do curl -fs http://127.0.0.1:8788/health && break; sleep 1; done
+          curl -fsS http://127.0.0.1:8788/health
+          cd web
+          VITE_SERVER=http://127.0.0.1:8788 npm run build -- --outDir "$RUNNER_TEMP/web-check-dist"
+          (npx vite preview --outDir "$RUNNER_TEMP/web-check-dist" --host 127.0.0.1 --port 5173 --strictPort > "$RUNNER_TEMP/preview.log" 2>&1 &)
+          for _ in $(seq 30); do curl -fs -o /dev/null http://127.0.0.1:5173/ && break; sleep 1; done
+          curl -fsS -o /dev/null http://127.0.0.1:5173/
+      - name: Play a hand in headless Chrome
+        working-directory: web
+        run: |
+          WEB_CHECK_URL=http://127.0.0.1:5173/ WEB_CHECK_SERVER=http://127.0.0.1:8788 WEB_CHECK_OUT="$RUNNER_TEMP/web-check" \
+            CHROME="$(command -v google-chrome)" node test/browser.mjs
+      - if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: web-check
+          path: |
+            ${{ runner.temp }}/web-check/*.png
+            ${{ runner.temp }}/server.log
+            ${{ runner.temp }}/preview.log
+          if-no-files-found: ignore

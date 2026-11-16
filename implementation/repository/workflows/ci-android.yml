@@ -1,13 +1,14 @@
-# The Android unit tests and debug build, when the Android project, its text, the shared fixtures or a component changes.
+# The Android unit tests and debug build, then the app started in an emulator until it shows the room list from the server
+# started on the runner, when the Android project, the server, its text, the shared fixtures or a component changes.
 # The project files and the Gradle wrapper come from generate-project.ts; Gradle downloads are cached.
 name: ci-android
 
 on:
   push:
     branches: [main]
-    paths: ["android/**", "resources/**", "server/fixtures/**", "components/**", ".github/workflows/ci-android.yml"]
+    paths: ["android/**", "server/**", "resources/**", "server/fixtures/**", "components/**", ".github/workflows/ci-android.yml"]
   pull_request:
-    paths: ["android/**", "resources/**", "server/fixtures/**", "components/**", ".github/workflows/ci-android.yml"]
+    paths: ["android/**", "server/**", "resources/**", "server/fixtures/**", "components/**", ".github/workflows/ci-android.yml"]
   workflow_dispatch:
 
 permissions:
@@ -21,19 +22,55 @@ concurrency:
 jobs:
   android:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
-    defaults:
-      run:
-        working-directory: android
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           node-version: "26.5"
+          cache: npm
+          cache-dependency-path: server/package-lock.json
       - run: node generate-project.ts
+        working-directory: android
       - uses: actions/setup-java@v6
         with:
           distribution: temurin
-          java-version: "17"
+          java-version: "21"
           cache: gradle
-      - run: ./gradlew --no-daemon testDebugUnitTest assembleDebug
+      # 10.0.2.2 is the runner itself as the emulator sees it.
+      - run: ./gradlew --no-daemon testDebugUnitTest assembleDebug -PserverUrl=http://10.0.2.2:8788
+        working-directory: android
+      - name: Start the server
+        run: |
+          npm ci
+          (PORT=8788 HOST=127.0.0.1 DATA_DIRECTORY="$RUNNER_TEMP/rooms" npm start > "$RUNNER_TEMP/server.log" 2>&1 &)
+          for _ in $(seq 60); do curl -fs http://127.0.0.1:8788/health && break; sleep 1; done
+          curl -fsS http://127.0.0.1:8788/health
+        working-directory: server
+      - name: Enable the emulator's hardware acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 36
+          target: google_apis
+          arch: x86_64
+          profile: pixel_7
+          disable-animations: true
+          emulator-options: -no-window -no-audio -no-snapshot -no-boot-anim -camera-back none
+          working-directory: android
+          # First start: the lesson offer is skipped and a name saved; the room list shows the server's rooms.
+          script: >-
+            python3 ../components/ourapps-release/server/scripts/android_screen.py app/build/outputs/apk/debug/app-debug.apk
+            --tap "No, I know how to play" --enter "Your name=Runner" --then Save --until "Sit down" --until Casino
+            --shot "$RUNNER_TEMP/room-list.png"
+      - if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: android-check
+          path: |
+            ${{ runner.temp }}/room-list.png
+            ${{ runner.temp }}/server.log
+          if-no-files-found: ignore

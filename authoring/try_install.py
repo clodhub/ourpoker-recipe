@@ -402,15 +402,15 @@ def android_run(work, name, apk, package, port, avd, reverse=None, shot="android
         device("logcat", "-c")
         device("shell", "am", "start", "-W", "-n", f"{package}/.MainActivity")
         tap("No, I know how to play", "Your name")
-        for _ in range(3):  # the name field takes the text once it has the focus
+        for _ in range(3):  # the name field takes the text once it has the focus; typed text can show a moment later
             found = screen()
-            if "Droid" in found:
+            if any("Droid" in label for label in found):
                 break
             if "Your name" in found:
                 device("shell", "input", "tap", *map(str, found["Your name"]))
                 time.sleep(1)
                 device("shell", "input", "text", "Droid")
-                time.sleep(1)
+                time.sleep(3)
         device("shell", "input", "keyevent", "111")
         tap("Save", "Sit down")
         tap("Sit down", "Add a computer player")
