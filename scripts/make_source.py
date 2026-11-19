@@ -143,6 +143,7 @@ repository = {
     "scripts/build-apple-testflight.sh": ("McInPoker scripts/build-apple-testflight.sh 1-81", "Stops first when the Apple helpers are missing."),
     "release/app.json": ("new", "The application description publish_release.py turns into my-app.json (a template)."),
     "gitignore": ("new", "Installed as .gitignore."),
+    "gitattributes": ("new", "Installed as .gitattributes: every file keeps its bytes on Windows checkouts."),
 }
 
 
@@ -203,7 +204,7 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 ## Implementation: desktop (`implementation/desktop/`, destination `desktop/`)
 
 {table("Desktop", "implementation/desktop/", desktop, "implementation/desktop")}
-## Repository (`implementation/repository/`, destination `.github/`, `scripts/`, `release/`, `.gitignore`)
+## Repository (`implementation/repository/`, destination `.github/`, `scripts/`, `release/`, `.gitignore`, `.gitattributes`)
 
 {table("Repository", "implementation/repository/", repository, "implementation/repository")}
 ## Rules, text, assets

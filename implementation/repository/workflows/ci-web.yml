@@ -54,6 +54,11 @@ jobs:
         run: |
           WEB_CHECK_URL=http://127.0.0.1:5173/ WEB_CHECK_SERVER=http://127.0.0.1:8788 WEB_CHECK_OUT="$RUNNER_TEMP/web-check" \
             CHROME="$(command -v google-chrome)" node test/browser.mjs
+      - name: Stop the local servers
+        if: always()
+        run: |
+          mapfile -t pids < <(lsof -t -sTCP:LISTEN -i tcp:8788 -i tcp:5173 || true)
+          if (( ${#pids[@]} )); then kill "${pids[@]}"; fi
       - if: always()
         uses: actions/upload-artifact@v7
         with:

@@ -48,7 +48,8 @@ if action in ('apple-prepare', 'apple'):
         native.write_document(root / 'ios/build/test-server.json', {'runId': context['runId'], 'port': port})
         common = ['xcodebuild', '-quiet', '-project', options['project'], '-scheme', options['scheme'],
                   '-clonedSourcePackagesDirPath', options['package_cache'], '-packageCachePath', root / 'ios/build/package-cache', '-disablePackageRepositoryCache']
-        native.run(context, [*common, '-resolvePackageDependencies', '-onlyUsePackageVersionsFromResolvedFile'], cwd=root / 'ios', timeout=300)
+        native.run(context, [*common, '-derivedDataPath', options['derived_data'], '-resolvePackageDependencies', '-onlyUsePackageVersionsFromResolvedFile'],
+                   cwd=root / 'ios', timeout=300)
         native.run(context, [*common, '-derivedDataPath', options['derived_data'], '-destination', 'generic/platform=iOS Simulator',
                              '-disableAutomaticPackageResolution', '-onlyUsePackageVersionsFromResolvedFile', f'OURPOKER_TEST_SERVER_ADDRESS=http://127.0.0.1:{port}',
                              'CODE_SIGNING_ALLOWED=NO', 'build-for-testing'], cwd=root / 'ios', timeout=600)

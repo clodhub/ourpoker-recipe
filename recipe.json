@@ -1,7 +1,7 @@
 {
   "format": 1,
   "name": "ourapps-ae/ourpoker",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "title": "OurPoker",
   "summary": "A complete Texas hold'em game for two to nine players: phones, tablets, computers, the web and a television as a shared table, optional video, computer players, lessons, rebuys and rising blinds.",
   "category": "games",
@@ -56,7 +56,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/apple-host",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "bundleIdentifier": "app.ourapps.ourpoker",
@@ -121,7 +121,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/ourapps-release",
-        "version": "0.7.0"
+        "version": "0.8.0"
       },
       "configuration": {
         "applicationId": "ourpoker",
@@ -257,7 +257,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/video-calls",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": "video"
@@ -532,7 +532,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/theme",
-        "version": "0.7.0"
+        "version": "0.8.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -546,7 +546,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/controls",
-        "version": "0.7.0"
+        "version": "0.8.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -560,7 +560,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/table-layout",
-        "version": "0.7.0"
+        "version": "0.8.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -574,7 +574,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/card-graphics",
-        "version": "0.7.0"
+        "version": "0.8.0"
       },
       "configuration": {
         "cornerStyle": "rounded",
@@ -591,7 +591,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/chip-graphics",
-        "version": "0.7.0"
+        "version": "0.8.0"
       },
       "configuration": {
         "denominations": "casino 5000 1000 500 100 25 5 1",
@@ -608,7 +608,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/sound-cues",
-        "version": "0.7.0"
+        "version": "0.8.0"
       },
       "configuration": {
         "soundManifest": "sounds",
@@ -625,7 +625,7 @@
       },
       "preferred": {
         "name": "ourapps-ae/guided-tour",
-        "version": "0.7.0"
+        "version": "0.8.0"
       },
       "configuration": {},
       "includedWhen": "lessons"

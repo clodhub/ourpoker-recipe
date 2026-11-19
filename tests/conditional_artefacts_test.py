@@ -80,12 +80,12 @@ class Marks(unittest.TestCase):
     def test_repository_files_install_only_with_the_release_pipeline(self):
         repository = [a for a in MANIFEST["artefacts"] if a["source"].startswith("implementation/repository/")]
         self.assertEqual(sorted(a["destination"] for a in repository), [
-            ".github/workflows/aepm-update.yml", ".github/workflows/apple-builds.yml",
+            ".gitattributes", ".github/workflows/aepm-update.yml", ".github/workflows/apple-builds.yml",
             ".github/workflows/apple-testflight.yml", ".github/workflows/ci-android.yml", ".github/workflows/ci-server.yml", ".github/workflows/ci-web.yml",
             ".github/workflows/platform-packages.yml", ".github/workflows/release.yml", ".gitignore", "release/app.json", "scripts/build-apple-testflight.sh",
             "scripts/build-ipa.sh", "scripts/build-windows.sh", "scripts/inspect-windows.ps1"])
         for artefact in repository:
-            self.assertEqual(artefact["destination"] == ".gitignore", RELEASE not in marks(artefact), artefact["source"])
+            self.assertEqual(artefact["destination"] in (".gitattributes", ".gitignore"), RELEASE not in marks(artefact), artefact["source"])
             self.assertEqual(artefact["template"], artefact["destination"] == "release/app.json", artefact["source"])
         for name, answers in C.answer_sets(WORLD).items():
             with self.subTest(name):
@@ -97,6 +97,7 @@ class Marks(unittest.TestCase):
                 self.assertEqual(RELEASE in present, bool(answers.get("publish") or answers.get("releases")))
                 self.assertEqual(".github/workflows/ci-android.yml" in installed, RELEASE in present and "android-host" in present)
                 self.assertIn(".gitignore", installed)
+                self.assertIn(".gitattributes", installed)
 
     def test_native_files_that_name_an_optional_components_types_are_marked(self):
         # Swift and Kotlin reach a component through its types, not a path: only the marked modules may name them.

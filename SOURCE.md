@@ -158,17 +158,17 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 | `implementation/desktop/src/verify.cjs` | 134 | desktop/src/verify.cjs 1-135 |  |
 | `implementation/desktop/test/integration.test.cjs` | 31 | desktop/test/integration.test.cjs 1-20 | Adds the check that every packaged script's relative requires are packaged. |
 
-## Repository (`implementation/repository/`, destination `.github/`, `scripts/`, `release/`, `.gitignore`)
+## Repository (`implementation/repository/`, destination `.github/`, `scripts/`, `release/`, `.gitignore`, `.gitattributes`)
 
 ### Repository
 
 | File | Lines | Origin (the source's recipe/ folder) | Notes |
 |---|---|---|---|
 | `implementation/repository/workflows/ci-server.yml` | 36 | McInPoker .github/workflows/ci-server.yml 1-36 | Server type check and tests; Node 26.5. |
-| `implementation/repository/workflows/ci-web.yml` | 65 | McInPoker .github/workflows/ci-web.yml 1-35 | Web type check and build; a hand played by test/browser.mjs in headless Chrome against the server started on the runner. |
-| `implementation/repository/workflows/ci-android.yml` | 76 | McInPoker .github/workflows/ci-android.yml 1-34 | generate-project.ts first; unit tests and debug build; the app started in an emulator until it shows the room list from the server started on the runner. |
-| `implementation/repository/workflows/apple-builds.yml` | 52 | new | Unsigned iPhone and iPad, Mac Catalyst and Apple TV builds on a macOS runner, on a version tag or by hand. |
-| `implementation/repository/workflows/aepm-update.yml` | 100 | new | Weekly update proposal as a pull request; on merge, owner approval from AEPM_OWNER_KEY, apply and commit. |
+| `implementation/repository/workflows/ci-web.yml` | 70 | McInPoker .github/workflows/ci-web.yml 1-35 | Web type check and build; a hand played by test/browser.mjs in headless Chrome against the server started on the runner. |
+| `implementation/repository/workflows/ci-android.yml` | 81 | McInPoker .github/workflows/ci-android.yml 1-34 | generate-project.ts first; unit tests and debug build; the app started in an emulator until it shows the room list from the server started on the runner. |
+| `implementation/repository/workflows/apple-builds.yml` | 53 | new | Unsigned iPhone and iPad, Mac Catalyst and Apple TV builds on a macOS runner, on a version tag or by hand. |
+| `implementation/repository/workflows/aepm-update.yml` | 125 | new | Weekly update proposal as a pull request; on merge, owner approval from AEPM_OWNER_KEY, apply and commit. |
 | `implementation/repository/workflows/platform-packages.yml` | 48 | McInPoker .github/workflows/platform-packages.yml 65-93 | Windows only, also on pushes; the installer installed, started and uninstalled. |
 | `implementation/repository/workflows/release.yml` | 455 | McInPoker .github/workflows/release.yml 1-307 | Jobs per target found in the installation; secret names from ourapps-release's release.json; unsigned builds when the secrets are absent; the Windows installer attached; web and server deploys. |
 | `implementation/repository/workflows/apple-testflight.yml` | 114 | McInPoker .github/workflows/apple-testflight.yml 1-82 | Runs only with the store credentials; reservation inline. |
@@ -178,6 +178,7 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 | `implementation/repository/scripts/build-apple-testflight.sh` | 93 | McInPoker scripts/build-apple-testflight.sh 1-81 | Stops first when the Apple helpers are missing. |
 | `implementation/repository/release/app.json` | 11 | new | The application description publish_release.py turns into my-app.json (a template). |
 | `implementation/repository/gitignore` | 61 | new | Installed as .gitignore. |
+| `implementation/repository/gitattributes` | 2 | new | Installed as .gitattributes: every file keeps its bytes on Windows checkouts. |
 
 ## Rules, text, assets
 
@@ -200,8 +201,8 @@ Copied from the source and mapped back to the application layout by the artefact
 | Files | Lines | Origin |
 |---|---|---|
 | `tests/e2e/server/*.test.ts` (6) | 680 | server/test/room.test.ts, adapter.test.ts, video.test.ts and services.test.ts (split into update-links.test.ts and video-services.test.ts, one optional component each); hand.test.ts is new (a server hand without a network) |
-| `tests/e2e/web/*` (10) | 1184 | web/test/* (browser.mjs checks a built or deployed client through its controls; dev-build.mjs the development build's board mode and layouts; session.test.mjs the reconnect) |
-| `tests/e2e/verification/*` (15) | 691 | verification/* |
+| `tests/e2e/web/*` (10) | 1185 | web/test/* (browser.mjs checks a built or deployed client through its controls; dev-build.mjs the development build's board mode and layouts; session.test.mjs the reconnect) |
+| `tests/e2e/verification/*` (15) | 692 | verification/* |
 | `tests/e2e/apple/*` (6) | 339 | ios/OurPokerTests/{Contract,Session,Guide,ChallengeLayout}Tests.swift, OurPokerUITests/HomeButtonsUITests.swift, VerificationSupport/ServerAddress.swift |
 | `tests/e2e/android/*` (3) | 190 | android app/src/test FixturesTest.kt, SoundSettingTest.kt; androidTest FixtureScreenTest.kt (strings looked up by name) |
 | `tests/fixtures/*.json` (15) | 3575 | server/fixtures/* |

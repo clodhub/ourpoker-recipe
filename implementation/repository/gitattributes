@@ -1,0 +1,2 @@
+# Every file keeps its bytes on every checkout: pinned dependency files are checked by digest and shell scripts run on Windows.
+* -text

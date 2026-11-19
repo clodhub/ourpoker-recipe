@@ -183,6 +183,8 @@ def artefact_pairs(files):
             add(f, ".github/workflows/" + f[len("implementation/repository/workflows/"):])
         elif f == "implementation/repository/gitignore":
             add(f, ".gitignore")
+        elif f == "implementation/repository/gitattributes":
+            add(f, ".gitattributes")
         elif f.startswith("implementation/repository/"):
             add(f, f[len("implementation/repository/"):])
     add("locales/strings.json", "resources/strings.json")
@@ -360,7 +362,7 @@ def build_manifest(files):
     artefacts = []
     for s, d in pairs:
         item = {"source": s, "destination": d, "template": s in templated, "executable": False}
-        if s.startswith("implementation/repository/") and s != "implementation/repository/gitignore":
+        if s.startswith("implementation/repository/") and s not in ("implementation/repository/gitignore", "implementation/repository/gitattributes"):
             item["component"] = repository_condition(s)
         elif s in conditions:
             item["component"] = conditions[s]

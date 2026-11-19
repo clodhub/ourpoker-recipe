@@ -122,5 +122,6 @@ try {
   const exited = new Promise((done) => { if (chrome.exitCode !== null || chrome.signalCode !== null) done(); else chrome.once("exit", done); });
   chrome.kill();
   await exited;
-  await rm(profile, { recursive: true, force: true });
+  // Chrome's helper processes can still write to the profile for a moment after the browser exits.
+  await rm(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 500 });
 }

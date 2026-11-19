@@ -91,7 +91,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/apple-host",
-      "version": "0.8.0",
+      "version": "0.9.0",
       "ports": [
         {
           "id": "theme",
@@ -420,7 +420,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/video-calls",
-      "version": "0.8.0",
+      "version": "0.9.0",
       "ports": [
         {
           "id": "video-calls-configuration",
@@ -672,7 +672,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/theme",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "theme",
@@ -714,7 +714,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/controls",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "theme",
@@ -743,7 +743,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/table-layout",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "theme",
@@ -782,7 +782,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/card-graphics",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "theme",
@@ -836,7 +836,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/chip-graphics",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "theme",
@@ -882,7 +882,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/sound-cues",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "preferences",
@@ -928,7 +928,7 @@
       "kind": "component",
       "status": "example",
       "package": "ourapps-ae/guided-tour",
-      "version": "0.7.0",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "controls",
@@ -1004,7 +1004,7 @@
       "name": "OurPoker",
       "kind": "application",
       "status": "example",
-      "revision": "0.7.0",
+      "revision": "0.8.0",
       "ports": [
         {
           "id": "wrapped-game-adapter",

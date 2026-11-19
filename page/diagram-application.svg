@@ -52,7 +52,7 @@
 <text xml:space="preserve" text-anchor="start" x="1491" y="-2041.09" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="12.00" fill="#edf2fa">OurPoker</text>
 <text xml:space="preserve" text-anchor="start" x="1422.38" y="-2030.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Application&#45;owned code | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="1497.75" y="-2020.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">OurPoker</text>
-<text xml:space="preserve" text-anchor="start" x="1468.5" y="-2010.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example revision 0.7.0</text>
+<text xml:space="preserve" text-anchor="start" x="1468.5" y="-2010.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example revision 0.8.0</text>
 <text xml:space="preserve" text-anchor="start" x="1368.25" y="-1982.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="1610" y="-1982.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="1362.25,-1912.74 1362.25,-1972.74 1525.75,-1972.74 1525.75,-1912.74 1362.25,-1912.74"/>
@@ -232,7 +232,7 @@
 <text xml:space="preserve" text-anchor="start" x="700.25" y="-2208.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="746.38" y="-2198.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Apple host</text>
 <text xml:space="preserve" text-anchor="start" x="721.62" y="-2188.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/apple&#45;host</text>
-<text xml:space="preserve" text-anchor="start" x="720.88" y="-2178.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
+<text xml:space="preserve" text-anchor="start" x="720.88" y="-2178.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.9.0</text>
 <text xml:space="preserve" text-anchor="start" x="637.5" y="-2150.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="843.25" y="-2150.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="631.5,-2080.74 631.5,-2140.74 771.75,-2140.74 771.75,-2080.74 631.5,-2080.74"/>
@@ -487,7 +487,7 @@
 <text xml:space="preserve" text-anchor="start" x="1037.25" y="-1569.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="1082.62" y="-1559.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Video calls</text>
 <text xml:space="preserve" text-anchor="start" x="1057.88" y="-1549.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/video&#45;calls</text>
-<text xml:space="preserve" text-anchor="start" x="1057.88" y="-1539.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
+<text xml:space="preserve" text-anchor="start" x="1057.88" y="-1539.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.9.0</text>
 <text xml:space="preserve" text-anchor="start" x="961.38" y="-1511.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="1193.38" y="-1511.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="955.38,-1431.24 955.38,-1501.24 1105.38,-1501.24 1105.38,-1431.24 955.38,-1431.24"/>
@@ -549,7 +549,7 @@
 <text xml:space="preserve" text-anchor="start" x="1037.25" y="-844.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="1080.75" y="-834.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Sound cues</text>
 <text xml:space="preserve" text-anchor="start" x="1056" y="-824.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/sound&#45;cues</text>
-<text xml:space="preserve" text-anchor="start" x="1057.88" y="-814.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.7.0</text>
+<text xml:space="preserve" text-anchor="start" x="1057.88" y="-814.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
 <text xml:space="preserve" text-anchor="start" x="960.62" y="-786.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="1194.12" y="-786.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="954.62,-716.24 954.62,-776.24 1094.12,-776.24 1094.12,-716.24 954.62,-716.24"/>
@@ -583,7 +583,7 @@
 <text xml:space="preserve" text-anchor="start" x="1037.25" y="-438.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="1081.5" y="-428.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Guided tour</text>
 <text xml:space="preserve" text-anchor="start" x="1057.12" y="-418.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/guided&#45;tour</text>
-<text xml:space="preserve" text-anchor="start" x="1057.88" y="-408.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.7.0</text>
+<text xml:space="preserve" text-anchor="start" x="1057.88" y="-408.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
 <text xml:space="preserve" text-anchor="start" x="967.75" y="-380.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="1187" y="-380.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="961.75,-310.24 961.75,-370.24 1114,-370.24 1114,-310.24 961.75,-310.24"/>
@@ -724,7 +724,7 @@
 <text xml:space="preserve" text-anchor="start" x="31.75" y="-1212.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="86.12" y="-1202.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Theme</text>
 <text xml:space="preserve" text-anchor="start" x="62.12" y="-1192.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/theme</text>
-<text xml:space="preserve" text-anchor="start" x="52.38" y="-1182.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.7.0</text>
+<text xml:space="preserve" text-anchor="start" x="52.38" y="-1182.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
 <text xml:space="preserve" text-anchor="start" x="8" y="-1154.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="135.75" y="-1154.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="2,-1094.74 2,-1144.74 59,-1144.74 59,-1094.74 2,-1094.74"/>
@@ -768,7 +768,7 @@
 <text xml:space="preserve" text-anchor="start" x="374.88" y="-693.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="425.88" y="-683.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Controls</text>
 <text xml:space="preserve" text-anchor="start" x="401.5" y="-673.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/controls</text>
-<text xml:space="preserve" text-anchor="start" x="395.5" y="-663.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.7.0</text>
+<text xml:space="preserve" text-anchor="start" x="395.5" y="-663.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
 <text xml:space="preserve" text-anchor="start" x="305.75" y="-635.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="524.25" y="-635.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="299.75,-575.24 299.75,-625.24 440,-625.24 440,-575.24 299.75,-575.24"/>
@@ -799,7 +799,7 @@
 <text xml:space="preserve" text-anchor="start" x="1037.25" y="-1093.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="1080.38" y="-1083.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Table layout</text>
 <text xml:space="preserve" text-anchor="start" x="1056" y="-1073.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/table&#45;layout</text>
-<text xml:space="preserve" text-anchor="start" x="1057.88" y="-1063.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.7.0</text>
+<text xml:space="preserve" text-anchor="start" x="1057.88" y="-1063.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
 <text xml:space="preserve" text-anchor="start" x="968.88" y="-1035.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="1185.88" y="-1035.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="962.88,-965.74 962.88,-1025.74 1110.62,-1025.74 1110.62,-965.74 962.88,-965.74"/>
@@ -837,7 +837,7 @@
 <text xml:space="preserve" text-anchor="start" x="700.25" y="-1141.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="739.25" y="-1131.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Card graphics</text>
 <text xml:space="preserve" text-anchor="start" x="714.88" y="-1121.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/card&#45;graphics</text>
-<text xml:space="preserve" text-anchor="start" x="720.88" y="-1111.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.7.0</text>
+<text xml:space="preserve" text-anchor="start" x="720.88" y="-1111.99" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
 <text xml:space="preserve" text-anchor="start" x="631.5" y="-1083.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="849.25" y="-1083.74" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="625.5,-1013.74 625.5,-1073.74 765.75,-1073.74 765.75,-1013.74 625.5,-1013.74"/>
@@ -872,7 +872,7 @@
 <text xml:space="preserve" text-anchor="start" x="374.88" y="-1291.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Component | Example definition</text>
 <text xml:space="preserve" text-anchor="start" x="414.25" y="-1281.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Chip graphics</text>
 <text xml:space="preserve" text-anchor="start" x="389.88" y="-1271.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">ourapps&#45;ae/chip&#45;graphics</text>
-<text xml:space="preserve" text-anchor="start" x="395.5" y="-1261.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.7.0</text>
+<text xml:space="preserve" text-anchor="start" x="395.5" y="-1261.49" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#edf2fa">Example version 0.8.0</text>
 <text xml:space="preserve" text-anchor="start" x="306.5" y="-1233.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">INPUTS</text>
 <text xml:space="preserve" text-anchor="start" x="523.5" y="-1233.24" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#edf2fa">OUTPUTS</text>
 <polygon fill="#222b3a" stroke="none" points="300.5,-1163.24 300.5,-1223.24 440.75,-1223.24 440.75,-1163.24 300.5,-1163.24"/>

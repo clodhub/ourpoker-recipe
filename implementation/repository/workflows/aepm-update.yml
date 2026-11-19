@@ -1,7 +1,10 @@
 # Keeps the application on the newest published version of its recipe. Weekly (or when started by hand) it designs that
-# version with the answers in .aepm/definition.json, has aepm stage the update and run the packages' checks, and opens a
-# pull request carrying the new definition. Merging the pull request applies it: aepm proposes it again, the owner key in
-# the AEPM_OWNER_KEY secret approves it, aepm applies it and the result is committed to main.
+# version with the answers in .aepm/definition.json (and, when started by hand, the given answer changes), has aepm stage
+# the update and run the packages' checks, and opens a pull request carrying the new definition. Merging the pull request
+# applies it: aepm proposes it again, the owner key in the AEPM_OWNER_KEY secret approves it, aepm applies it and the
+# result is committed to main. The optional AEPM_PUSH_TOKEN secret (a fine-grained token with Contents, Pull requests and
+# Workflows write on this repository) pushes and opens the pull request; it is needed when the update changes files in
+# .github/workflows or the organisation does not let GitHub Actions create pull requests.
 name: aepm-update
 
 on:
@@ -13,6 +16,10 @@ on:
         description: Recipe version to propose (empty for the newest published)
         type: string
         required: false
+      answers:
+        description: Answer changes as a JSON object, for example {"video":false} (empty for none)
+        type: string
+        required: false
   push:
     branches: [main]
     paths: [".aepm/update/definition.json"]
@@ -20,6 +27,9 @@ on:
 concurrency:
   group: aepm-update
   cancel-in-progress: false
+
+env:
+  AEPM_FROM: "https://ourapps.app"
 
 jobs:
   propose:
@@ -31,6 +41,8 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.AEPM_PUSH_TOKEN || github.token }}
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
@@ -41,25 +53,28 @@ jobs:
       - id: update
         env:
           VERSION: ${{ inputs.version }}
-        run: python3 components/ourapps-release/server/scripts/aepm_update.py propose --aepm "$RUNNER_TEMP/aepm" --work "$RUNNER_TEMP/aepm-work" ${VERSION:+--version "$VERSION"}
+          ANSWERS: ${{ inputs.answers }}
+        run: >-
+          python3 components/ourapps-release/server/scripts/aepm_update.py propose --aepm "$RUNNER_TEMP/aepm" --work "$RUNNER_TEMP/aepm-work"
+          ${VERSION:+--version "$VERSION"} ${ANSWERS:+--answers "$ANSWERS"}
       - name: Open the pull request
         if: steps.update.outputs.version != ''
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.AEPM_PUSH_TOKEN || github.token }}
           VERSION: ${{ steps.update.outputs.version }}
+          BRANCH: ${{ steps.update.outputs.branch }}
         run: |
-          branch="aepm-update/$VERSION"
-          if git ls-remote --exit-code --heads origin "$branch" > /dev/null; then
-            echo "$branch exists already"
+          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
+            echo "$BRANCH exists already"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -c "$branch"
+          git switch -c "$BRANCH"
           git add .aepm/update/definition.json .aepm/update/summary.md
           git commit -m "Propose the update to recipe version $VERSION"
-          git push origin "$branch"
-          gh pr create --base main --head "$branch" --title "Update to recipe version $VERSION" --body-file .aepm/update/summary.md
+          git push origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH" --title "Update to recipe version $VERSION" --body-file .aepm/update/summary.md
 
   apply:
     if: github.event_name == 'push'
@@ -69,6 +84,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.AEPM_PUSH_TOKEN || github.token }}
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
@@ -89,12 +106,20 @@ jobs:
       - id: update
         run: python3 components/ourapps-release/server/scripts/aepm_update.py apply --aepm "$RUNNER_TEMP/aepm" --work "$RUNNER_TEMP/aepm-work" --owner-key "$RUNNER_TEMP/owner.pem"
       - name: Commit the updated application
+        if: steps.update.outputs.version != ''
         env:
           VERSION: ${{ steps.update.outputs.version }}
+          PUSH_TOKEN_SET: ${{ secrets.AEPM_PUSH_TOKEN != '' }}
         run: |
-          rm -f "$RUNNER_TEMP/owner.pem"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
+          if git diff --cached --name-only | grep -q '^\.github/workflows/' && [[ "$PUSH_TOKEN_SET" != true ]]; then
+            echo "::error::The update changes .github/workflows; set the AEPM_PUSH_TOKEN secret (Contents and Workflows write) so the commit can be pushed."
+            git diff --cached --name-only | grep '^\.github/workflows/'
+            exit 1
+          fi
           git commit -m "Update to recipe version $VERSION"
           git push origin HEAD:main
+      - if: always()
+        run: rm -f "$RUNNER_TEMP/owner.pem"
