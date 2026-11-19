@@ -10,8 +10,9 @@ passed. Then, per answers: evaluates the design with aepm's evaluator (aepm.reci
   server  npm ci; tsc --noEmit; vitest run (the application's tests from tests/e2e/server); npm start (Node, own hardware)
   web     npm ci; tsc --noEmit; npm run build (pointed at the running server); vite preview
   desktop node scripts/build.cjs (Windows designs: the web client in desktop mode; Electron packaging needs Windows)
-  apple   node generate-project.ts; xcodegen generate; xcodebuild for the iOS and tvOS simulators and Mac Catalyst (-derivedDataPath build/DerivedData); only the answered languages
-  android node generate-project.ts; only the answered languages' strings; ./gradlew :app:assembleDebug where ANDROID_HOME is set
+  apple   node generate-project.ts; xcodegen generate; xcodebuild for the iOS and tvOS simulators and Mac Catalyst (-derivedDataPath build/DerivedData,
+          the Swift packages cloned once per run into WORK/swift-packages); only the answered languages
+  android node generate-project.ts; only the answered languages' strings; ./gradlew --no-daemon :app:assembleDebug where ANDROID_HOME is set
   browser headless Chrome over the DevTools protocol: the page loads with web-host's head, the room list comes from the
           server, a player names themself and sits down, the server lists them, a computer player (or a second person) joins,
            the game starts, the Fold control completes a hand with balanced chips and payouts, and the table fits a 1280x800 window;
@@ -19,7 +20,7 @@ passed. Then, per answers: evaluates the design with aepm's evaluator (aepm.reci
 
 With options, for designs that have the target:
   --android         the build points at a server of its own on this machine (-PserverUrl=http://10.0.2.2:PORT);
-                    ./gradlew :app:testDebugUnitTest; the AVD --avd (default ourpoker) boots headless as emulator-5584, the APK
+                    ./gradlew --no-daemon :app:testDebugUnitTest; the AVD --avd (default ourpoker) boots headless on a free console port, the APK
                      installs the app with permissions granted and completes a hand through its Fold control:
                      name, seat, a computer player, start, settlement with balanced chips/payouts; the server lists the player; no crash;
                     android-table.png is kept. Needs ANDROID_HOME and the AVD (INSTRUCTIONS.md part 4, Android).
@@ -43,13 +44,24 @@ With options, for designs that have the target:
 Usage (from the recipe folder; python 3.12, node 26.5.0, Chrome):
   PYTHONPATH=<aepm checkout> python3.12 -B authoring/try_install.py [ANSWERS ...] [--components DIR] [--work DIR] [--chrome PATH]
                                          [--android [--avd NAME]] [--windows HOST] [--cloudflare NAME] [--github REPO [--github-tag TAG]]
-                                         [--substitute SLOT=NAME@VERSION ...]
+                                         [--substitute SLOT=NAME@VERSION ...] [--keep-builds]
 ANSWERS is an answer-set id of recipe.json (`default` for its default answers) or a path to an answers JSON file;
 without ANSWERS: default, local-web, fill-empty-own-hardware and lounge-web-ios. The work folder (default: a new temporary folder) keeps
-the store, identities, installed applications and logs; report.json there holds every result. Exit status 0 when every step passed.
+the store, identities, installed application sources, screenshots and logs; report.json there holds every result, with each design's
+bytes before and after its build outputs are removed. Build outputs (every node_modules, ios/build, the Android build folders,
+desktop/artifacts with the packaged installer, browser profiles, the unpacked installer, the served web copy, and the run's Swift
+packages) are removed once a design's checks end, unless --keep-builds. They are kept while any process holds a file of the run,
+a process group the run started could not be stopped, or the processes could not all be inspected. A file the report names
+inside an output is first copied to the design's evidence/ folder (sha256 checked) and the report names the copy; an output
+holding a folder, a link or a signed document's path the report names, or a file that cannot be copied unchanged, is kept whole.
+Each command run() runs and each long-running process gets a session of its own; what it leaves running in that session is
+stopped, and nothing else is. Before the store and each design, free space for it is reserved with aepm (aepm.space), and
+Xcode, Gradle and emulator steps hold aepm's machine-wide locks (aepm.locks). Exit status 0 when every step passed.
 """
 import argparse
 import base64
+import contextlib
+import hashlib
 import html
 import json
 import os
@@ -62,6 +74,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import urllib.parse
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -73,6 +86,8 @@ from aepm import recipe as E  # noqa: E402
 import recipe_world  # noqa: E402
 from aepm.trust import publish_release, publish_review  # noqa: E402
 from aepm.io import load, write  # noqa: E402
+from aepm import ledger, locks, space  # noqa: E402
+from aepm.model import AepmError  # noqa: E402
 
 DEFAULT_ANSWERS = ["default", "local-web", "fill-empty-own-hardware", "lounge-web-ios"]
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -88,15 +103,52 @@ def log_path(work, name):
     return path
 
 
-def run(argv, work, name, cwd=None, env=None, timeout=900, check=True):
-    """Run a command, keep its output in logs/<name>.log, and return the output."""
+LOCK_WAITS = {}  # step name -> seconds waited for its machine-wide lock
+HELD = contextlib.ExitStack()  # locks held until the run ends
+
+
+def run(argv, work, name, cwd=None, env=None, timeout=900, check=True, lock=None):
+    """Run a command, keep its output in logs/<name>.log, and return the output. With lock (xcode, gradle), the command runs
+    under that machine-wide aepm lock, so heavy native builds of every agent on this machine run one at a time."""
+    if lock:
+        with locks.heavy(lock, purpose=f"try_install {name}") as waited:
+            LOCK_WAITS[name] = round(waited, 1)
+            return run(argv, work, name, cwd, env, timeout, check)
     started = time.time()
-    result = subprocess.run(argv, cwd=cwd, env=env, capture_output=True, text=True, timeout=timeout)
+    # a session of its own, so whatever the command leaves running (a single-use Gradle daemon, say) is provably the run's
+    process = subprocess.Popen(argv, cwd=cwd, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, start_new_session=True)
+    record = launched(process)
+    try:
+        stdout, stderr = process.communicate(timeout=timeout)
+    except BaseException:  # a timeout, or Ctrl-C, which no longer reaches a command in a session of its own
+        reason = stop_group(record)
+        if reason:
+            GROUPS_LEFT.append({"pgid": record["pid"], "command": record["command"], "reason": reason})
+        finish_unstoppable(process)
+        raise
+    reason = stop_group(record)
+    if reason:
+        GROUPS_LEFT.append({"pgid": record["pid"], "command": record["command"], "reason": reason})
+    result = subprocess.CompletedProcess(argv, process.returncode, stdout, stderr)
     output = result.stdout + result.stderr
     log_path(work, name).write_text(f"$ {' '.join(map(str, argv))}\n(cwd {cwd}, exit {result.returncode}, {time.time() - started:.1f}s)\n\n{output}")
     if check and result.returncode:
         raise Step(f"{name}: exit {result.returncode}; see logs/{name}.log\n{output[-3000:]}")
     return output
+
+
+def finish_unstoppable(process):
+    """Collect a timed-out command whose group could not all be stopped: its own process is killed (the Popen handle is
+    proof of ownership); its pipes are closed when a descendant still holds them, so the run never waits forever."""
+    if process.poll() is None:
+        process.kill()
+    try:
+        process.communicate(timeout=10)
+    except subprocess.TimeoutExpired:
+        for stream in (process.stdout, process.stderr):
+            if stream:
+                stream.close()
+        process.wait(10)
 
 
 def aepm(args, work, name, check=True, timeout=1800):
@@ -118,11 +170,323 @@ def free_port():
         return s.getsockname()[1]
 
 
+GIB = 1024 ** 3
+# Bytes one design writes into the work folder, by what it builds. DESIGN_BASE, DESIGN_APPLE and DESIGN_ANDROID are measured on
+# 19 November 2026 in cloud-2-proof (one design, all six targets, no --android, --windows, --cloudflare or --github): ios/build
+# 6.67 GiB for the three Apple builds, every node_modules 0.35 GiB, the Android build, web, desktop and browser profile 0.38 GiB
+# together; each is rounded up. DESIGN_WINDOWS and DESIGN_SECOND_INSTALL are estimates, not measured.
+DESIGN_BASE = 1 * GIB         # server and web node_modules and builds, browser profile, logs and screenshots
+DESIGN_APPLE = 7 * GIB        # the iOS, Mac Catalyst and Apple TV builds and the Swift packages they clone
+DESIGN_ANDROID = 1 * GIB      # the Android build folders and Gradle project caches
+DESIGN_WINDOWS = 1 * GIB      # desktop node_modules and the unpacked and packaged installer (--windows)
+DESIGN_SECOND_INSTALL = 2 * GIB  # the second installed application of --cloudflare or --github, with its node_modules
+
+
+def design_bytes(design, options):
+    """Bytes to admit before one design's install, build and checks (see DESIGN_*)."""
+    targets = set(design.get("answers", {}).get("targets") or [])
+    total = DESIGN_BASE
+    if targets & {"ios", "macos", "tvos"}:
+        total += DESIGN_APPLE
+    if "android" in targets:
+        total += DESIGN_ANDROID
+    if "windows" in targets and options.windows:
+        total += DESIGN_WINDOWS
+    if options.cloudflare or options.github:
+        total += DESIGN_SECOND_INSTALL
+    return total
+
+
+def packaged_bytes(sources):
+    """The bytes of every packaged file of these package folders, from their component.json file lists."""
+    total = 0
+    for source in sources:
+        manifest = json.loads((source / "component.json").read_text())
+        total += sum((source / item["path"]).stat().st_size for item in manifest["files"])
+    return total
+
+
+APP_BUILD_OUTPUTS = ["ios/build", "android/build", "android/app/build", "android/.gradle", "android/.kotlin", "desktop/artifacts"]
+DESIGN_BUILD_OUTPUTS = ["chrome-profile", "exe", "web", "windows-unpacked.tgz"]
+
+
+def disk_bytes(path):
+    """Bytes allocated on disk below path, without following links."""
+    path = Path(path)
+    if path.is_symlink() or not path.exists():
+        return 0
+    if path.is_file():
+        return path.lstat().st_blocks * 512
+    total = 0
+    for directory, folders, files in os.walk(path, followlinks=False):
+        for entry in folders + files:
+            total += os.lstat(os.path.join(directory, entry)).st_blocks * 512
+    return total
+
+
+def build_outputs(folder):
+    """The build outputs of one design folder: every node_modules, the native build folders of each installed application in it
+    and the browser profiles, unpacked installers and served copies beside them. Links are not followed."""
+    found = []
+    for directory, folders, _ in os.walk(folder, followlinks=False):
+        if "node_modules" in folders:
+            found.append(Path(directory) / "node_modules")
+            folders.remove("node_modules")
+        if (Path(directory) / ".aepm").is_dir():
+            found += [Path(directory) / relative for relative in APP_BUILD_OUTPUTS]
+    found += [folder / relative for relative in DESIGN_BUILD_OUTPUTS]
+    return [path for path in found if path.exists() and not path.is_symlink()]
+
+
+SIGNED_KEYS = {"signatures", "payloadType", "payload"}  # a DSSE envelope or a document carrying its own signatures
+PATH_END = r"\s'\";,):"  # characters that end a path written in a result
+
+
+def plain_prefixes(work):
+    """The spellings of work as a path: macOS writes /private/var/... and /var/... for the same folder."""
+    work = str(work)
+    return [work] + ([work[len("/private"):]] if work.startswith("/private/var/") else [])
+
+
+def prefixes(work):
+    """Every spelling of work a result can use: the plain ones, and percent-encoded as file addresses write it (Node, Java and
+    Swift encode spaces but not ,():; quote() encodes those too)."""
+    plain, found = plain_prefixes(work), []
+    for item in plain:
+        for quoted in (urllib.parse.quote(item, safe="/:,()!$&'*+;=@~"), urllib.parse.quote(item)):
+            if quoted not in plain + found:
+                found.append(quoted)
+    return plain + found
+
+
+def named_paths(value, work):
+    """Every path inside work that a string of value names, as written (a sentence's closing full stop is not part of it)."""
+    if isinstance(value, dict):
+        return set().union(set(), *(named_paths(item, work) for item in value.values()))
+    if isinstance(value, list):
+        return set().union(set(), *(named_paths(item, work) for item in value))
+    if isinstance(value, str):
+        pattern = "(?:" + "|".join(re.escape(prefix) for prefix in prefixes(work)) + ")/[^" + PATH_END + "]+"
+        return {path.rstrip(".") for path in re.findall(pattern, value)}
+    return set()
+
+
+def signed_paths(value, work):
+    """Paths inside work named within signed documents of value: those documents are never rewritten."""
+    if isinstance(value, dict):
+        if SIGNED_KEYS & set(value):
+            return named_paths(value, work)
+        return set().union(set(), *(signed_paths(item, work) for item in value.values()))
+    if isinstance(value, list):
+        return set().union(set(), *(signed_paths(item, work) for item in value))
+    return set()
+
+
+def missing_paths(value, work):
+    """Paths inside work that a result names and that do not exist."""
+    return sorted(path for path in named_paths(value, work) if not os.path.lexists(path))
+
+
+def renamed(value, moves):
+    """value with every path in moves (as written -> new) replaced in its strings; signed documents are left as they are."""
+    if isinstance(value, dict):
+        if SIGNED_KEYS & set(value):
+            return value
+        return {key: renamed(item, moves) for key, item in value.items()}
+    if isinstance(value, list):
+        return [renamed(item, moves) for item in value]
+    if isinstance(value, str):
+        for old, new in moves.items():
+            # the whole path only: /a/b is not replaced inside /a/bc
+            value = re.sub(re.escape(old) + "(?=$|[" + PATH_END + "]|\\.+(?:$|\\s))", lambda _: new, value)
+    return value
+
+
+def file_digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def location(path):
+    """Where a path is, without following a link at its last component."""
+    path = Path(path)
+    return path.parent.resolve() / path.name
+
+
+def ambiguous(name):
+    """A name read up to a character that ends a path (PATH_END), or with closing full stops dropped, may be the start of a
+    longer name: true when its folder holds another entry that is the name's last component followed by full stops, by such
+    a character, or by both (or the folder cannot be listed)."""
+    path = Path(name)
+    longer = re.compile(re.escape(path.name) + r"\.*(?:[" + PATH_END + r"].*)?", re.DOTALL)
+    try:
+        return any(entry != path.name and longer.fullmatch(entry) for entry in os.listdir(path.parent))
+    except OSError:
+        return True
+
+
+def relocate(name, copy):
+    """Copy a regular file to copy and check both have the original's sha256; returns False, leaving the original and no
+    partial copy, when the copy cannot be made, would replace a different file, or does not match."""
+    original = file_digest(name)
+    if os.path.lexists(copy):
+        return not copy.is_symlink() and copy.is_file() and file_digest(copy) == original
+    try:
+        copy.parent.mkdir(parents=True, exist_ok=True)
+        with open(name, "rb") as source, open(copy, "xb") as target:
+            shutil.copyfileobj(source, target)
+        if file_digest(copy) == original == file_digest(name):
+            return True
+    except OSError:
+        pass
+    copy.unlink(missing_ok=True)
+    return False
+
+
+def remove_build_outputs(work, folder, report):
+    """Remove the build outputs of a design folder this run made, without losing anything the report names. Before anything
+    is removed, each regular file the report names inside an output is copied to the design's evidence/ folder at the same
+    relative path, both checked against the original's sha256, and the report is changed to name the copy. An output is kept
+    whole when it holds a named folder or link, a path a signed document in the report names, or a file whose copy fails,
+    would replace a different file or does not match, or a named path inside it that does not exist (a path read only up to a
+    space would be one). Named paths that do not exist are listed.
+    Returns the report with those names changed, and the storage record: bytes before and after, what was removed, what was
+    kept and why, what was copied, and named paths already missing."""
+    folder = folder.resolve()
+    if not folder.is_relative_to((work / "designs").resolve()):
+        raise Step(f"{folder} is outside this run's designs folder")
+    before = disk_bytes(folder)
+    outputs = build_outputs(folder)
+    encoded = lambda name: not any(name.startswith(prefix + "/") for prefix in plain_prefixes(work))  # noqa: E731
+    real = lambda name: urllib.parse.unquote(name) if encoded(name) else name  # noqa: E731
+    inside = lambda name: location(real(name)).is_relative_to(folder)  # noqa: E731
+    # a percent-encoded name is never copied or rewritten: its output is kept
+    names = sorted(name for name in named_paths(report, work) if inside(name) and not encoded(name) and os.path.lexists(name))
+    absent = sorted(name for name in named_paths(report, work) if inside(name) and (encoded(name) or not os.path.lexists(name)))
+    frozen = signed_paths(report, work)
+    moves, kept = {}, {}
+    for output in outputs:
+        place = location(output)
+        if any(location(real(name)).is_relative_to(place) for name in absent):
+            # the name may be a longer path read only up to a space: keep what it could refer to
+            kept[output] = "the report names a path inside it that does not exist"
+        for name in names:
+            if not location(name).is_relative_to(place):
+                continue
+            if name in frozen:
+                kept[output] = "a signed document names a path inside it"
+            elif ambiguous(name):
+                kept[output] = f"{name} may be the start of a longer name"
+            elif Path(name).is_symlink() or not Path(name).is_file():
+                kept[output] = "the report names a folder or link inside it"
+            elif output not in kept:
+                copy = folder / "evidence" / location(name).relative_to(folder)
+                if relocate(name, copy):
+                    moves[name] = str(copy)
+                else:
+                    kept[output] = f"{name} could not be copied to {copy} unchanged"
+    # a kept output keeps its files where the report names them
+    moves = {name: copy for name, copy in moves.items() if not any(location(name).is_relative_to(location(output)) for output in kept)}
+    report = renamed(report, moves)
+    removed = []
+    for output in outputs:
+        if output in kept:
+            continue
+        if output.is_dir() and not output.is_symlink():
+            shutil.rmtree(output)
+        else:
+            output.unlink()
+        removed.append(output.relative_to(folder).as_posix())
+    lost = [name for name in named_paths(report, work) if inside(name) and not os.path.lexists(name) and name not in absent]
+    if lost:
+        raise Step(f"removal lost paths the report names: {sorted(lost)}")
+    return report, {"bytesBefore": before, "bytesAfter": disk_bytes(folder), "removed": removed,
+                    "kept": {output.relative_to(folder).as_posix(): reason for output, reason in sorted(kept.items())},
+                    "evidenceCopies": {str(location(old).relative_to(folder)): str(Path(new).relative_to(folder)) for old, new in moves.items()},
+                    "alreadyMissing": [str(location(real(name)).relative_to(folder)) for name in absent]}
+
+
+class InspectionFailed(Exception):
+    """The processes holding a folder could not all be inspected."""
+
+
+def holders(folder):
+    """Processes of this user, other than this one, whose working folder or an open file is inside folder: pid -> command line.
+    Holding a file shows a process uses the folder, not that this run started it, so a holder is reported and keeps the folder;
+    it is never stopped. Raises InspectionFailed when the list may be incomplete."""
+    folder, pids = str(Path(folder).resolve()), set()
+    inside = lambda name: name == folder or name.startswith(folder + "/")  # noqa: E731
+    if sys.platform == "linux":
+        for entry in Path("/proc").iterdir():
+            if not entry.name.isdigit() or int(entry.name) == os.getpid():
+                continue
+            try:
+                if entry.stat().st_uid != os.getuid():
+                    continue
+                names = [os.readlink(entry / "cwd")] + [os.readlink(fd) for fd in (entry / "fd").iterdir()]
+            except FileNotFoundError:
+                continue  # exited while being read
+            except OSError as error:
+                raise InspectionFailed(f"process {entry.name}: {error}") from None
+            if any(inside(name) for name in names):
+                pids.add(int(entry.name))
+    else:
+        try:
+            listed = subprocess.run(["lsof", "-nP", "-w", "-u", str(os.getuid()), "-Fpn"], capture_output=True, text=True, timeout=120)
+        except (OSError, subprocess.TimeoutExpired) as error:
+            raise InspectionFailed(f"lsof: {error}") from None
+        if listed.returncode != 0 or not listed.stdout.startswith("p"):
+            raise InspectionFailed(f"lsof exited {listed.returncode}: {listed.stderr.strip()[:300]}")
+        pid = None
+        for line in listed.stdout.splitlines():
+            if line.startswith("p"):
+                pid = int(line[1:])
+            elif line.startswith("n") and pid not in (None, os.getpid()) and inside(line[1:]):
+                pids.add(pid)
+    if not pids:
+        return {}
+    listed = subprocess.run(["ps", "-ww", "-o", "pid=,command=", "-p", ",".join(map(str, sorted(pids)))], capture_output=True, text=True, timeout=30).stdout
+    found = {pid: "" for pid in pids}
+    found.update({int(pid): command for pid, _, command in (line.strip().partition(" ") for line in listed.splitlines()) if pid.isdigit()})
+    return found
+
+
+def blockers(work):
+    """What keeps this run's build outputs: processes holding its files, process groups it started that did not stop, or a
+    failed inspection. Empty when nothing does."""
+    try:
+        found = {str(pid): command[:300] for pid, command in holders(work).items()}
+    except InspectionFailed as error:
+        found = {"inspection": str(error)}
+    found.update({f"group {item['pgid']}": f"{item['reason']}: {item['command']}" for item in GROUPS_LEFT})
+    return found
+
+
+def port_free(port):
+    with socket.socket() as s:
+        try:
+            s.bind(("127.0.0.1", port))
+        except OSError:
+            return False
+    return True
+
+
+def emulator_port(adb, work):
+    """An even console port in the emulator's range (5554 to 5682) whose console and adb ports are free and that no device uses."""
+    listed = run([adb, "devices"], work, "android-devices", check=False)
+    for port in range(5554, 5684, 2):
+        if f"emulator-{port}" not in listed and port_free(port) and port_free(port + 1):
+            return port
+    raise Step("android: no free emulator console port between 5554 and 5682")
+
+
 def answers_for(world, item):
     sets = {"default": world.recipe["tests"]["defaultAnswers"], **{s["id"]: s["answers"] for s in world.recipe["tests"]["answerSets"]}}
     if item in sets:
         return item, sets[item]
     path = Path(item)
+    if not re.fullmatch(r"[A-Za-z0-9._-]+", path.stem):
+        # the design folder takes this name, and the report's paths are read up to the first space or punctuation
+        raise Step(f"{item}: an answers file name may hold only letters, digits, '.', '_' and '-'")
     return path.stem, json.loads(path.read_text())
 
 
@@ -183,6 +547,91 @@ def prepare_store(work, components):
 
 # ---- one design ----
 
+GROUPS_LEFT = []  # process groups this run started and could not stop; while any is listed nothing is removed
+
+
+def launched(process):
+    """The launch record of a process this run started in a session of its own: pid and process start time."""
+    from aepm.state import process_start
+    return {"pid": process.pid, "start": process_start(process.pid), "command": " ".join(map(str, process.args))[:300]}
+
+
+def group_members(pgid):
+    """Pids in process group pgid. Raises InspectionFailed when the process list cannot be read."""
+    try:
+        listed = subprocess.run(["ps", "-A", "-o", "pid=,pgid=,stat="], capture_output=True, text=True, timeout=30)
+    except (OSError, subprocess.TimeoutExpired) as error:
+        raise InspectionFailed(f"ps: {error}") from None
+    if listed.returncode != 0:
+        raise InspectionFailed(f"ps exited {listed.returncode}")
+    # an exited process waiting to be reaped is not running
+    return [int(fields[0]) for fields in (line.split() for line in listed.stdout.splitlines())
+            if len(fields) >= 3 and fields[1] == str(pgid) and not fields[2].startswith("Z")]
+
+
+def verified_members(record):
+    """The members of the group a launch record names, when every one is provably this run's: each is in the session the
+    launch created (only its descendants can join that session), and a leader still running has the recorded start time (not
+    a reused pid). Raises InspectionFailed otherwise."""
+    from aepm.state import process_start
+    members = group_members(record["pid"])
+    for pid in members:
+        try:
+            session = os.getsid(pid)
+        except ProcessLookupError:
+            continue
+        except OSError as error:
+            raise InspectionFailed(f"session of {pid}: {error}") from None
+        if session != record["pid"]:
+            raise InspectionFailed(f"process {pid} in group {record['pid']} belongs to session {session}")
+    if record["pid"] in members and process_start(record["pid"]) not in (None, record["start"]):
+        raise InspectionFailed(f"pid {record['pid']} was reused")
+    return members
+
+
+def reap(pid):
+    """Reap an exited child of this process, so its group can disappear."""
+    try:
+        os.waitpid(pid, os.WNOHANG)
+    except ChildProcessError:
+        pass
+
+
+def stop_group(record, seconds=10):
+    """TERM, then KILL, a launched process's whole group (an exited leader can leave children), only once every member is
+    verified as the run's. Returns None when the group is gone, otherwise why it was left running."""
+    for number in (signal.SIGTERM, signal.SIGKILL):
+        try:
+            members = verified_members(record)
+        except InspectionFailed as error:
+            return f"not stopped: {error}"
+        if not members:
+            return None
+        try:
+            os.killpg(record["pid"], number)
+        except ProcessLookupError:
+            return None
+        except PermissionError:
+            # macOS refuses to signal a group whose only member is an exited leader not yet reaped
+            reap(record["pid"])
+            try:
+                if not group_members(record["pid"]):
+                    return None
+            except InspectionFailed as error:
+                return f"not stopped: {error}"
+            return "not stopped: signalling the group was not permitted"
+        deadline = time.time() + seconds
+        while time.time() < deadline:
+            reap(record["pid"])
+            try:
+                if not group_members(record["pid"]):
+                    return None
+            except InspectionFailed as error:
+                return f"not stopped: {error}"
+            time.sleep(0.2)
+    return "still running after KILL"
+
+
 class Processes:
     def __init__(self):
         self.items = []
@@ -190,18 +639,21 @@ class Processes:
     def start(self, argv, cwd, env, log):
         handle = open(log, "w")
         process = subprocess.Popen(argv, cwd=cwd, env=env, stdout=handle, stderr=subprocess.STDOUT, start_new_session=True)
-        self.items.append((process, handle))
+        self.items.append((process, handle, launched(process)))
         return process
 
     def stop(self):
-        for process, handle in self.items:
-            if process.poll() is None:
-                os.killpg(process.pid, signal.SIGTERM)
-                try:
-                    process.wait(10)
-                except subprocess.TimeoutExpired:
-                    os.killpg(process.pid, signal.SIGKILL)
-            handle.close()
+        """Stop each started process's group (stop_group); a group left running is listed in GROUPS_LEFT."""
+        for process, handle, record in self.items:
+            try:
+                reason = stop_group(record)
+            except Exception as error:  # noqa: BLE001  every started process is still stopped or listed
+                reason = f"not stopped: {error}"
+            finally:
+                process.poll()
+                handle.close()
+            if reason:
+                GROUPS_LEFT.append({"pgid": record["pid"], "command": record["command"], "reason": reason})
         self.items = []
 
 
@@ -319,7 +771,9 @@ def native(work, name, app, results, start_server, options):
                     continue
                 derived = ios / "build/DerivedData"  # as INSTRUCTIONS.md part 4 builds: inside the application, ignored by its .gitignore
                 run(["xcodebuild", "-project", "OurPoker.xcodeproj", "-scheme", scheme, "-destination", destination,
-                     "-derivedDataPath", str(derived), "-onlyUsePackageVersionsFromResolvedFile", "CODE_SIGNING_ALLOWED=NO", "build"], work, f"{name}-xcodebuild-{platform}", cwd=ios, timeout=3600)
+                     "-derivedDataPath", str(derived), "-clonedSourcePackagesDirPath", str(work / "swift-packages"),
+                     "-packageCachePath", str(work / "swift-package-cache"), "-disablePackageRepositoryCache",
+                     "-onlyUsePackageVersionsFromResolvedFile", "CODE_SIGNING_ALLOWED=NO", "build"], work, f"{name}-xcodebuild-{platform}", cwd=ios, timeout=3600, lock="xcode")
                 bundle = next(derived.glob(f"Build/Products/{products}/{scheme}.app"))
                 found = sorted(p.stem for p in [*bundle.glob("*.lproj"), *bundle.glob("Contents/Resources/*.lproj")] if p.stem != "Base")
                 if found != sorted(languages):
@@ -336,10 +790,10 @@ def native(work, name, app, results, start_server, options):
         if os.environ.get("ANDROID_HOME"):
             port = start_server("-android") if options.android else None
             extra = [f"-PserverUrl=http://10.0.2.2:{port}"] if options.android else []
-            run(["./gradlew", ":app:assembleDebug", *extra], work, f"{name}-android-build", cwd=android, timeout=3600)
+            run(["./gradlew", "--no-daemon", ":app:assembleDebug", *extra], work, f"{name}-android-build", cwd=android, timeout=3600, lock="gradle")
             results["android"] = f"built ({' '.join(folders)})"
             if options.android:
-                output = run(["./gradlew", ":app:testDebugUnitTest"], work, f"{name}-android-unit-tests", cwd=android, timeout=1800)
+                output = run(["./gradlew", "--no-daemon", ":app:testDebugUnitTest"], work, f"{name}-android-unit-tests", cwd=android, timeout=1800, lock="gradle")
                 results["androidUnitTests"] = "passed" if "BUILD SUCCESSFUL" in output else output[-500:]
                 package = re.search(r'applicationId = "([^"]+)"', (android / "app/build.gradle.kts").read_text()).group(1)
                 results["androidRun"] = android_run(work, name, android / "app/build/outputs/apk/debug/app-debug.apk", package, port, options.avd)
@@ -352,14 +806,32 @@ def native(work, name, app, results, start_server, options):
 # ---- the Android emulator (--android) ----
 
 def android_run(work, name, apk, package, port, avd, reverse=None, shot="android-table.png"):
+    """emulator_run under the machine-wide android-emulator lock, held from the port choice until the emulator has exited, so no
+    other agent's emulator takes the same console and adb ports or the same virtual device meanwhile."""
+    held = contextlib.ExitStack()
+    LOCK_WAITS[f"{name}-android-emulator"] = round(held.enter_context(locks.heavy("android-emulator", purpose=f"try_install {name} on AVD {avd}")), 1)
+    left = len(GROUPS_LEFT)
+    try:
+        return emulator_run(work, name, apk, package, port, avd, reverse, shot)
+    finally:
+        if len(GROUPS_LEFT) > left:
+            # an emulator group that could not be stopped keeps its ports and device: the lock stays held until this run ends
+            HELD.enter_context(held.pop_all())
+        else:
+            held.close()
+
+
+def emulator_run(work, name, apk, package, port, avd, reverse=None, shot="android-table.png"):
     """Install apk and complete a hand through the emulator's Fold control. With reverse
     (a device port), the device's localhost:<reverse> reaches that server (for a build that calls localhost)."""
     sdk = Path(os.environ["ANDROID_HOME"])
-    adb, serial = str(sdk / "platform-tools/adb"), "emulator-5584"
+    adb = str(sdk / "platform-tools/adb")
+    console = emulator_port(adb, work)
+    serial = f"emulator-{console}"
     shots = work / "designs" / name
     processes = Processes()
     log = log_path(work, f"{name}-android-emulator")
-    emulator = processes.start([str(sdk / "emulator/emulator"), "-avd", avd, "-port", "5584", "-no-window", "-no-audio", "-no-snapshot",
+    emulator = processes.start([str(sdk / "emulator/emulator"), "-avd", avd, "-port", str(console), "-no-window", "-no-audio", "-no-snapshot",
                                 "-no-boot-anim", "-crash-report-mode", "never"], work, os.environ.copy(), log)
     device = lambda *args, **kw: run([adb, "-s", serial, *args], work, f"{name}-android-adb", **kw)  # noqa: E731
 
@@ -972,7 +1444,7 @@ def kotlin_stand_ins(work):
     """The Kotlin stand-ins type-checked on the JVM (authoring/kotlin-stand-ins), when Gradle is installed."""
     if not shutil.which("gradle"):
         return "not run (no Gradle)"
-    run(["gradle", "-q", "-p", str(HERE / "kotlin-stand-ins"), "compileKotlin"], work, "kotlin-stand-ins", timeout=1800)
+    run(["gradle", "-q", "--no-daemon", "-p", str(HERE / "kotlin-stand-ins"), "compileKotlin"], work, "kotlin-stand-ins", timeout=1800, lock="gradle")
     return "passed"
 
 
@@ -1120,16 +1592,36 @@ def main(argv):
     parser.add_argument("--github-tag", default="v0.1.0", help="the version tag --github pushes (default v0.1.0)")
     parser.add_argument("--substitute", action="append", default=[], metavar="SLOT=NAME@VERSION",
                         help="put that component in the slot (aepm design --substitute); its folder must be in --components")
+    parser.add_argument("--keep-builds", action="store_true",
+                        help="keep node_modules, native build folders, browser profiles, unpacked installers and the run's Swift packages")
     args = parser.parse_args(argv)
     work = (args.work or Path(tempfile.mkdtemp(prefix="ourpoker-install-", dir=os.path.realpath(tempfile.gettempdir())))).resolve()
     work.mkdir(parents=True, exist_ok=True)
     print(f"work folder {work}", flush=True)
     world = recipe_world.world(args.components)
+    for item in args.answers:
+        try:
+            answers_for(world, item)
+        except (Step, OSError, ValueError) as error:
+            print(f"answers: {error}")
+            return 2
     report = {"work": str(work), "designs": {}}
+    # the work folder is this run's proof: registered as kept, so `aepm clean` never lists it
+    entry = ledger.register(work, "proof", purpose="ourpoker try_install", keep=True)
+    sources = sorted(p for p in args.components.resolve().iterdir() if (p / "component.json").is_file()) + [ROOT]
     try:
-        store, policy, refs, reviews, blocked = prepare_store(work, args.components.resolve())
+        # the store holds each archive once and a review copy of it; each check's own copy is admitted by aepm
+        with space.reserve(work, 2 * packaged_bytes(sources), purpose="try_install store") as admitted:
+            report["admission"] = {"store": admitted}
+            store, policy, refs, reviews, blocked = prepare_store(work, args.components.resolve())
+    except AepmError as error:
+        print(f"store: {json.dumps(error.document())}")
+        (work / "report.json").write_text(json.dumps({**report, "error": error.document()}, indent=2) + "\n")
+        ledger.finish(entry)
+        return 1
     except Step as error:
         print(f"store: {error}")
+        ledger.finish(entry)
         return 1
     report["packages"] = len(refs)
     report["reviews"] = reviews
@@ -1143,11 +1635,22 @@ def main(argv):
     if retried:
         print(f"reviewed twice: {retried}", flush=True)
     ok = True
+    designs = work / "designs"
+    earlier = {path.name for path in designs.iterdir()} if designs.is_dir() else set()
+    run_packages = [path for path in (work / "swift-packages", work / "swift-package-cache") if not path.exists()]
+    stopped = None
     for item in args.answers:
         name, answers = answers_for(world, item)
         results = report["designs"].setdefault(name, {})
+        if stopped:
+            results["error"] = f"not run: {stopped}"
+            ok = False
+            continue
+        admission = contextlib.ExitStack()
         try:
             evaluated = E.evaluate(world, answers)
+            if evaluated["ok"]:
+                results["admission"] = admission.enter_context(space.reserve(work, design_bytes(evaluated["design"], args), purpose=f"try_install design {name}"))
             needed = {c["name"] for c in evaluated["design"]["components"]} | {world.recipe["name"]} if evaluated["ok"] else set()
             if needed & set(blocked):
                 raise Step(f"not installed: no guardian review for {sorted(needed & set(blocked))}")
@@ -1165,13 +1668,52 @@ def main(argv):
                 results["workingTreeAfterDeploy"] = working_tree(work, f"{name}-cloudflare", work / "designs" / f"{name}-cloudflare" / "app")
             if args.github:
                 results["github"] = github_run(work, store, policy, world, name, answers, args.github, args, app)
+        except AepmError as error:
+            ok = False
+            results["error"] = error.document()
+            if error.code == "insufficient-space":
+                stopped = "an earlier design was refused for lack of space"
         except (Step, subprocess.TimeoutExpired) as error:
             ok = False
             results["error"] = str(error)
         except Exception as error:  # noqa: BLE001  a failed design is reported and the next one runs
             ok = False
             results["error"] = str(error)
+        left = blockers(work)
+        if left:
+            results["processesLeft"] = left
+        storage = {}
+        for folder in sorted(designs.iterdir()) if designs.is_dir() else []:
+            if folder.name in earlier or not folder.is_dir():
+                continue
+            earlier.add(folder.name)
+            if args.keep_builds or left:
+                # a process this run started is still running, so its folders may be in use: nothing is removed
+                storage[folder.name] = {"bytes": disk_bytes(folder), "kept": "--keep-builds" if args.keep_builds else "processes left"}
+            else:
+                try:
+                    changed, storage[folder.name] = remove_build_outputs(work, folder, report)
+                    report.clear()
+                    report.update(changed)
+                    results = report["designs"][name]
+                except (Step, OSError) as error:
+                    # refused or partly done: evidence was copied before anything was removed, so what remains is kept as it is
+                    ok = False
+                    storage[folder.name] = {"bytes": disk_bytes(folder), "kept": f"{type(error).__name__}: {error}"}
+        results["storage"] = storage
+        admission.close()
         print(f"{name}: " + json.dumps({k: v for k, v in results.items() if k != "tree"}), flush=True)
+    swift = {path.name: disk_bytes(path) for path in run_packages if path.exists()}
+    named = [name for name in named_paths(report, work) if any(location(name).is_relative_to(location(path)) for path in run_packages)]
+    keep = args.keep_builds or bool(blockers(work)) or bool(named)
+    if not keep:
+        for path in run_packages:
+            if path.exists():
+                shutil.rmtree(path)
+    report["swiftPackages"] = {"bytes": swift, "kept": keep}
+    report["lockWaits"] = LOCK_WAITS
+    (work / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+    report["ledger"] = ledger.finish(entry)
     (work / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(f"report {work / 'report.json'}")
     return 0 if ok else 1
