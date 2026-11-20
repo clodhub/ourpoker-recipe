@@ -16,22 +16,40 @@ Two to nine players at a table, 5,000 chips each, blind levels of 10 minutes tha
 
 ## The questions
 
-An agent answers them from your description and asks you only what it cannot infer; the server location is always asked. Fourteen are the main questions; fourteen follow-ups, most asked only when they apply (a web address, a bundle identifier, the server address after the first deploy, whether builds are published, the GitHub repository for the code, whether GitHub Actions build releases, the video service address, the store invitation, and the references to your hosting account and, only when publishing, your video, store, Android and web deployment secrets). Building and running it on your own machine needs no secret at all.
+There are 28 questions. An agent answers them from your description and puts the rest to you in one round: four questions with no answer yet (devices, how many people play, the video service address and where the server runs), plus the ones only an earlier answer brings in, asked in the same round as "if so" questions. It asks nothing else. Building and running it on your own machine needs no secret at all.
 
-1. Which devices? (any of web, ios, android, macos, windows, tvos)
-2. How many people play at the same time? (small: up to 10; medium: 11 to 100; large: 101 to 1,000)
-3. Which languages? (en, fr, de, es)
-4. Which look? (night: dark green felt and striped card backs; lounge: warm brown and plain card backs; for the whole application)
-5. How many players per table? (2 to 9; there are always two tables, so at most 18 play at once and anyone else watches)
-6. Starting chips? (5,000)
-7. How long is each blind level? (600 seconds)
-8. How many rebuys? (1, until level 3)
-9. Decision time? (30 seconds, then check or fold)
-10. Computer players? (none; on request; or fill empty seats, so one person can start alone; on request)
-11. Video and audio between players? (yes)
-12. Lessons for new players? (yes)
-13. Where does the server run? (Cloudflare or your own hardware)
-14. Offer updates through ourapps.app? (no)
+Always asked when they apply (7): where the server runs, and the names under which your secrets are kept.
+
+- Where does the server run? (Cloudflare or your own hardware)
+- Your Cloudflare account (when the server runs on Cloudflare)
+- The video service key and secret (when there is video and builds are published)
+- Your app store credentials (when publishing with updates or for iPhone and iPad)
+- Your Android signing key (when publishing for Android)
+- Your web deployment key (when publishing for the web)
+
+Asked unless your description settles them (4):
+
+- Which devices? (any of web, ios, android, macos, windows, tvos)
+- How many people play at the same time? (small: up to 10; medium: 11 to 100; large: 101 to 1,000)
+- The video service address (when there is video; may be left empty and set later)
+- The ourapps.app store invitation link (when updates are offered; may be left empty and set later)
+
+Answered with the default unless your description says otherwise (17):
+
+- Which languages? (en, fr, de, es)
+- Which look? (night: dark green felt and striped card backs; lounge: warm brown and plain card backs; for the whole application)
+- How many players per table? (2 to 9; there are always two tables, so at most 18 play at once and anyone else watches)
+- Starting chips? (5,000)
+- How long is each blind level? (600 seconds)
+- How many rebuys? (1, until level 3)
+- Decision time? (30 seconds, then check or fold)
+- Computer players? (none; on request; or fill empty seats, so one person can start alone; on request)
+- Video and audio between players? (yes)
+- Lessons for new players? (yes)
+- Offer updates through ourapps.app? (no)
+- Will builds be signed and published? (no)
+- The web address, the bundle identifier and the server address
+- The GitHub repository for the code, and whether GitHub Actions build releases
 
 ## What the answers choose
 
@@ -58,13 +76,22 @@ Each component sits in a slot named after it: the slot's class is what the recip
 
 ## Building it
 
-With aepm and the published catalogue: `aepm fetch ourpoker@0.8.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
+With aepm and the published catalogue: `aepm fetch ourpoker@0.9.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
 
 ```
-python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.8.0 > INSTRUCTIONS.md
+python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.9.0 > INSTRUCTIONS.md
 ```
 
-It takes you through `aepm questions`, `aepm design`, `aepm resolve` and `aepm install`, then the build and run commands for each device.
+The steps, all set out in INSTRUCTIONS.md:
+
+1. `aepm fetch` (above), then get INSTRUCTIONS.md with the command above.
+2. `aepm questions`, and the questions in one round.
+3. `aepm design` with your answers.
+4. `aepm doctor` checks this machine's build tools for the devices you chose (`--install` installs the missing ones it can).
+5. `aepm resolve`, then the owner's policy, then `aepm install`.
+6. `aepm verify --trusted` runs every package's checks on the installed application.
+7. Build and run on each device; a local server and the web client need no account.
+8. When the server runs on Cloudflare: the two-step deploy. Deploy the server (`npm run deploy`, which handles a first deploy to a new worker name), build the web client against it and publish it as its own worker; then add both addresses to your answers, update the application in place, verify it again and deploy both again.
 
 ### Repository and releases
 
@@ -83,7 +110,7 @@ The default answers, `book-club`, `poker-league`, `company-event`, `company-even
 
 ## Status
 
-Version 0.8.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
+Version 0.9.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
 
 - Server on Node; the web client in a browser: a player sits, a computer player joins and a hand is played to its settlement with every chip counted.
 - iPhone and iPad, Mac (Mac Catalyst) and Apple TV apps built for their simulators and Mac; the Android app built, unit-tested and played on the emulator to a settled hand; the desktop web build for Windows.

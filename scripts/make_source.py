@@ -175,6 +175,7 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 | File | Lines | Origin | Notes |
 |---|---|---|---|
 | `implementation/server/package.json`, `package-lock.json` | {lines("implementation/server/package.json")}, {lines("implementation/server/package-lock.json")} | server/package.json 1-23, server/package-lock.json | Exact versions of the source lock; tsx and the simulation and fixture scripts left behind; scripts run server-host's `start.ts` and `wrangler.jsonc`. |
+| `implementation/server/scripts/deploy.mjs` | {lines("implementation/server/scripts/deploy.mjs")} | new | `npm run deploy`: wrangler deploy, run again when Cloudflare does not yet see a new worker (code 10007). |
 | `implementation/server/tsconfig.json` | {lines("implementation/server/tsconfig.json")} | server/tsconfig.json 1-15 | Checks `src` and `test` with the Node, Workers and Workers test types. |
 | `implementation/server/vitest.config.ts` | {lines("implementation/server/vitest.config.ts")} | server/vitest.config.ts 1-19 | The room tests use server-host's `wrangler.jsonc`. |
 | `implementation/web/package.json`, `package-lock.json` | {lines("implementation/web/package.json")}, {lines("implementation/web/package-lock.json")} | web/package.json 1-20, web/package-lock.json | Exact versions; with `livekit-client` (installed with video-calls). |

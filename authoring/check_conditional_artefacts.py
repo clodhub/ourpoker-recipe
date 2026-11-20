@@ -20,6 +20,7 @@ Exit status 0 when marks, excluded and unresolved are empty for every answer set
 change the status (tests/conditional_artefacts_test.py states the expected list). Nothing here resolves, installs or runs
 components. Usage: PYTHONPATH=<aepm checkout> python3.12 -B authoring/check_conditional_artefacts.py [-v]
 """
+import os
 import sys
 from pathlib import Path
 
@@ -27,7 +28,7 @@ sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, str(ROOT.parent.parent / "aepm"))
+sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(ROOT.parent.parent / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
 
 import component_imports  # noqa: E402
 from aepm import recipe as E  # noqa: E402

@@ -97,7 +97,7 @@ test("recipe.json passes the ourapps catalogue validator, with the components' s
   const result = validateRecipe(recipe, validatorContext());
   assert.ok(result.ok, result.ok ? "" : result.errors.join("\n"));
   assert.equal(recipe.name, "ourapps-ae/ourpoker");
-  assert.equal(recipe.version, "0.8.0");
+  assert.equal(recipe.version, "0.9.0");
   assert.equal(recipe.components.length, 39);
   assert.equal(recipe.questions.length, 28);
 });
@@ -112,6 +112,15 @@ test("page, instructions and diagram files exist; the diagrams are safe SVG", ()
     else assert.ok(isSafeSvg(svg), `page/${name} is not accepted by isSafeSvg`);
   }
   assert.ok(existsSync(join(root, "page", "diagram.png")), "page/diagram.png is missing");
+});
+
+test("no line of INSTRUCTIONS.md is longer than 400 characters, and none splits inline code", () => {
+  let fence = false;
+  readFileSync(join(root, "INSTRUCTIONS.md"), "utf8").split("\n").forEach((line, index) => {
+    if (line.trimStart().startsWith("```")) { fence = !fence; return; }
+    assert.ok(line.length <= 400, `line ${index + 1} has ${line.length} characters`);
+    if (!fence) assert.equal((line.match(/`/g) ?? []).length % 2, 0, `line ${index + 1} splits inline code`);
+  });
 });
 
 test("every slot's preferred component exists in components/ at the version named", () => {

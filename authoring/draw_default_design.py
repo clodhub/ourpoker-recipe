@@ -17,7 +17,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent.parent
 COMPONENTS = Path(os.environ.get("OURPOKER_COMPONENTS") or HERE.parent.parent / "components")  # the component checkouts
-sys.path.insert(0, str(HERE.parent.parent / "aepm"))
+sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(HERE.parent.parent / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
 from aepm.diagram import generate as diagram  # noqa: E402
 
 sys.path.insert(0, str(HERE / "authoring"))

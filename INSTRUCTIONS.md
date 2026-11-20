@@ -1,49 +1,57 @@
 # OurPoker recipe: instructions
 
-Package `ourapps-ae/ourpoker` 0.8.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
+Package `ourapps-ae/ourpoker` 0.9.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
 
 ## 1. For the agent
 
 ### Answering
 
-Answer from the person's description whatever it settles. Ask the person only what the description leaves open and the table below marks "ask". Never invent a secret, an account name, an address or a hosting account. An answer must be an allowed option or inside the range given in `recipe.json`; the defaults are the recipe's house rules. A question with `askWhen` is asked only when its condition holds; otherwise it takes its default and any answer given for it is ignored. Conditions (`askWhen`, `includedWhen`) are CEL (Common Expression Language) expressions over the answers: each question id is a variable holding its answer, a set is a list of text, so `'web' in targets` is true when the web is a target. The "asked when" column gives each condition as written in `recipe.json`.
+Each question in `recipe.json` has `ask`: `required` (no default: always put to the person when its condition holds), `unless-settled` (a default, but the person's request should settle it, so it is asked when the request does not) or `default` (the default is taken unless the request says otherwise).
+`aepm questions ourpoker@<version> --store STORE --answers PARTIAL` (PARTIAL: what the request settles) returns `toAsk`, the questions to put to the person, and `followUps`, the questions an answer can bring in, with that condition in words.
 
-Ask in this order. A question only matters if the earlier ones left it open.
+Tell the person how many questions there are: the length of `toAsk`. Ask them all in one round, including `scale` and every other question `toAsk` lists. Include in the same round, as conditional questions, the follow-ups whose condition one of those answers could meet; for example "and if Cloudflare, under which name is your Cloudflare account kept in your secret store?" for `hostingAccount`.
+Ask nothing else: every other question takes its default or what the request settles. With no answers settled, `toAsk` is `targets`, `scale`, `server` and `videoServiceUrl`, and the follow-up is `hostingAccount` when `server` is `cloudflare`; a request such as "a poker game for me and my family" settles `targets` and `scale` too.
 
-| # | id | type, allowed answers | asked when | default | infer from the request | ask the person when |
-|---|---|---|---|---|---|---|
-| 1 | `targets` | set of `web ios android macos windows tvos` | always | all six | "phones" is ios and android; "television" is tvos; "computers" is macos and windows; "browser" is web | no device is named |
-| 2 | `webAddress` | text, an https address, or `http://localhost` with a port | `'web' in targets` | `http://localhost:5173` | the developer's own address | the web version is to be served somewhere other than this machine (the server refuses a plain http origin other than localhost) |
-| 3 | `bundleId` | text, for example `com.yourname.poker` | always | empty: the application derives `app.ourapps.ourpoker` | a name the developer gives | never |
-| 4 | `scale` | `small` `medium` `large` | always | small | the most people playing at the same time, not the seats at one table: up to 10 is small (9 friends); 11 to 100 is medium (a dozen or 15 friends, a club); 101 to 1,000 is large (a company event) | the group size is not stated; over 18 people, say that only 18 play at once (two tables of up to 9) and the rest watch |
-| 5 | `languages` | set of `en fr de es` | always | all four | the languages named | never |
-| 6 | `look` | `night` `lounge` | always | night | dark or warm style words: the look of the whole application on every device (both rooms, every screen, the felt and the card backs) | never |
-| 7 | `players` | integer 2 to 9 | always | 9 | seats at one table; the game always has two tables (rooms Casino and Home), so at most twice this number play at once (18 with 9) and everyone else watches: the scale answer sizes the servers, not the tables; about a dozen is 9 (or 6 for two even tables) | never |
-| 8 | `startingChips` | integer 100 to 1000000 | always | 5000 | the number named | never |
-| 9 | `levelSeconds` | integer 60 to 3600 | always | 600 | minutes converted to seconds | never |
-| 10 | `rebuys` | integer 0 to 5 | always | 1 (until level 3) | "no rebuys" is 0 | never |
-| 11 | `decisionSeconds` | integer 5 to 300 | always | 30 (then check or fold) | a pace named | never |
-| 12 | `computerPlayers` | `none` `on-request` `fill-empty` | always | on-request | "people only" is none; "full tables" or playing alone against the computer is fill-empty (one person presses Start and computers take every empty seat) | never |
-| 13 | `video` | yes or no | always | yes | "no video", or everyone in one room, is no | never |
-| 14 | `videoServiceUrl` | text, an address (empty to set it later) | `video` | empty | the developer's LiveKit address | video is on |
-| 15 | `videoKey` | secret reference name | `video && publish` | none | never a value | video is on and builds are published (locally the server reads `LIVEKIT_*` from its environment) |
-| 16 | `videoSecret` | secret reference name | `video && publish` | none | never a value | video is on and builds are published |
-| 17 | `lessons` | yes or no | always | yes | "everyone already knows the game" is no | never |
-| 18 | `server` | `cloudflare` `own-hardware` | always | none | nothing: ask | always, unless the person already named the provider |
-| 19 | `hostingAccount` | reference name (lowercase letters, digits, hyphens) | `server == 'cloudflare'` | none | never a value | the server runs on Cloudflare. Deploying from this computer uses the wrangler login and never reads the name; the name only chooses the repository secrets (`<NAME>_API_TOKEN`, `<NAME>_ACCOUNT_ID`) the release workflow deploys the server with |
-| 20 | `serverAddress` | text, an http or https address | always | `http://localhost:8788` | the deployed server's address, once known | after the first deploy (see "Two-step deploy") |
-| 21 | `updates` | yes or no | always | no | updates or keeping apps current is yes | never |
-| 22 | `publish` | yes or no | always | no | yes only when the request is to publish builds (web hosting, app stores, updates); GitHub builds and releases without store publishing is `releases` yes, `publish` no | the request asks for publishing |
-| 23 | `repository` | text, `owner/name` (letters, digits, hyphens, underscores) | always | empty | a repository the developer names; otherwise propose `<login>/ourpoker`, the login from `gh api user -q .login` | to confirm the proposed repository (made private when it does not exist) |
-| 24 | `releases` | yes or no | always | no (publishing sets up GitHub Actions whatever this answer) | yes when builds are published or GitHub should build, check and release each version: GitHub builds and releases without store publishing is `releases` yes, `publish` no | never |
-| 25 | `storeInvitation` | text, an address (empty to set it later) | `updates` | empty | the developer's ourapps.app invitation | updates are on |
-| 26 | `storeCredentials` | reference name (lowercase letters, digits, hyphens) | `publish && (updates \|\| 'ios' in targets)` | none | never a value | builds are published and updates are on or an iPhone and iPad build is wanted (without it the release has no store call and no iOS job) |
-| 27 | `androidSigning` | reference name (lowercase letters, digits, hyphens) | `publish && 'android' in targets` | none | never a value | builds are published and Android is a target |
-| 28 | `webDeploy` | reference name (lowercase letters, digits, hyphens) | `publish && 'web' in targets` | none | never a value | builds are published and the web is a target |
+Answer from the person's description whatever it settles. Never invent a secret, an account name, an address or a hosting account. An answer must be an allowed option or inside the range given in `recipe.json`; the defaults are the recipe's house rules. A question with `askWhen` is asked only when its condition holds; otherwise it takes its default and any answer given for it is ignored.
+Conditions (`askWhen`, `includedWhen`) are CEL (Common Expression Language) expressions over the answers: each question id is a variable holding its answer, a set is a list of text, so `'web' in targets` is true when the web is a target. The "asked when" column gives each condition as written in `recipe.json`.
+
+The table lists the questions in `recipe.json` order, each with its `ask`.
+
+| # | id | `ask` | type, allowed answers | asked when | default | infer from the request | ask the person when |
+|---|---|---|---|---|---|---|---|
+| 1 | `targets` | `unless-settled` | set of `web ios android macos windows tvos` | always | all six | "phones" is ios and android; "television" is tvos; "computers" is macos and windows; "browser" is web | no device is named |
+| 2 | `webAddress` | `default` | text, an https address, or `http://localhost` with a port | `'web' in targets` | `http://localhost:5173` | the developer's own address | the web version is to be served somewhere other than this machine (the server refuses a plain http origin other than localhost) |
+| 3 | `bundleId` | `default` | text, for example `com.yourname.poker` | always | empty: the application derives `app.ourapps.ourpoker` | a name the developer gives | never |
+| 4 | `scale` | `unless-settled` | `small` `medium` `large` | always | small | the most people playing at the same time, not the seats at one table: up to 10 is small (9 friends); 11 to 100 is medium (a dozen or 15 friends, a club); 101 to 1,000 is large (a company event) | the group size is not stated; over 18 people, say that only 18 play at once (two tables of up to 9) and the rest watch |
+| 5 | `languages` | `default` | set of `en fr de es` | always | all four | the languages named | never |
+| 6 | `look` | `default` | `night` `lounge` | always | night | dark or warm style words: the look of the whole application on every device (both rooms, every screen, the felt and the card backs) | never |
+| 7 | `players` | `default` | integer 2 to 9 | always | 9 | seats at one table; the game always has two tables (rooms Casino and Home), so at most twice this number play at once (18 with 9) and everyone else watches: the scale answer sizes the servers, not the tables; about a dozen is 9 (or 6 for two even tables) | never |
+| 8 | `startingChips` | `default` | integer 100 to 1000000 | always | 5000 | the number named | never |
+| 9 | `levelSeconds` | `default` | integer 60 to 3600 | always | 600 | minutes converted to seconds | never |
+| 10 | `rebuys` | `default` | integer 0 to 5 | always | 1 (until level 3) | "no rebuys" is 0 | never |
+| 11 | `decisionSeconds` | `default` | integer 5 to 300 | always | 30 (then check or fold) | a pace named | never |
+| 12 | `computerPlayers` | `default` | `none` `on-request` `fill-empty` | always | on-request | "people only" is none; "full tables" or playing alone against the computer is fill-empty (one person presses Start and computers take every empty seat) | never |
+| 13 | `video` | `default` | yes or no | always | yes | "no video", or everyone in one room, is no | never |
+| 14 | `videoServiceUrl` | `unless-settled` | text, an address (empty to set it later) | `video` | empty | the developer's LiveKit address | video is on |
+| 15 | `videoKey` | `required` | secret reference name | `video && publish` | none | never a value | video is on and builds are published (locally the server reads `LIVEKIT_*` from its environment) |
+| 16 | `videoSecret` | `required` | secret reference name | `video && publish` | none | never a value | video is on and builds are published |
+| 17 | `lessons` | `default` | yes or no | always | yes | "everyone already knows the game" is no | never |
+| 18 | `server` | `required` | `cloudflare` `own-hardware` | always | none | nothing: ask | always, unless the person already named the provider |
+| 19 | `hostingAccount` | `required` | reference name (lowercase letters, digits, hyphens) | `server == 'cloudflare'` | none | never a value | the server runs on Cloudflare. Deploying from this computer uses the wrangler login and never reads the name; the name only chooses the repository secrets (`<NAME>_API_TOKEN`, `<NAME>_ACCOUNT_ID`) the release workflow deploys the server with |
+| 20 | `serverAddress` | `default` | text, an http or https address | always | `http://localhost:8788` | the deployed server's address, once known | after the first deploy (see "Two-step deploy") |
+| 21 | `updates` | `default` | yes or no | always | no | updates or keeping apps current is yes | never |
+| 22 | `publish` | `default` | yes or no | always | no | yes only when the request is to publish builds (web hosting, app stores, updates); GitHub builds and releases without store publishing is `releases` yes, `publish` no | the request asks for publishing |
+| 23 | `repository` | `default` | text, `owner/name` (letters, digits, hyphens, underscores) | always | empty | a repository the developer names; otherwise propose `<login>/ourpoker`, the login from `gh api user -q .login` | to confirm the proposed repository (made private when it does not exist) |
+| 24 | `releases` | `default` | yes or no | always | no (publishing sets up GitHub Actions whatever this answer) | yes when builds are published or GitHub should build, check and release each version: GitHub builds and releases without store publishing is `releases` yes, `publish` no | never |
+| 25 | `storeInvitation` | `unless-settled` | text, an address (empty to set it later) | `updates` | empty | the developer's ourapps.app invitation | updates are on |
+| 26 | `storeCredentials` | `required` | reference name (lowercase letters, digits, hyphens) | `publish && (updates \|\| 'ios' in targets)` | none | never a value | builds are published and updates are on or an iPhone and iPad build is wanted (without it the release has no store call and no iOS job) |
+| 27 | `androidSigning` | `required` | reference name (lowercase letters, digits, hyphens) | `publish && 'android' in targets` | none | never a value | builds are published and Android is a target |
+| 28 | `webDeploy` | `required` | reference name (lowercase letters, digits, hyphens) | `publish && 'web' in targets` | none | never a value | builds are published and the web is a target |
 
 ### What each answer changes
 
-An empty text answer writes nothing: the setting keeps its recipe value or default. A secret reference answer is a name, never a value; the design records `{"secretRef": name}` for a secret setting and the plain name for `server-host.accountReference` and for the four reference settings of `ourapps-release`, because aepm renders those into `components/ourapps-release/server/release.json` (a template cannot render a secret setting) and the release workflow takes the repository secret names from there.
+An empty text answer writes nothing: the setting keeps its recipe value or default. `videoServiceUrl` and `storeInvitation` may be answered with an empty text and set later. A secret reference answer is the plain reference name as text, for example `"hostingAccount": "ourpoker-cloudflare-account"`, never an object such as `{"ref": ...}` and never a value;
+the design records `{"secretRef": name}` for a secret setting and the plain name for `server-host.accountReference` and for the four reference settings of `ourapps-release`, because aepm renders those into `components/ourapps-release/server/release.json` (a template cannot render a secret setting) and the release workflow takes the repository secret names from there.
 
 | Answer | Components included | Settings set |
 |---|---|---|
@@ -69,15 +77,28 @@ An empty text answer writes nothing: the setting keeps its recipe value or defau
 | `releases` yes | `ourapps-release` (also with `publish` yes): GitHub Actions and releases (part 4, "Repository and releases") | none |
 | `storeCredentials`, `androidSigning`, `webDeploy` | none | `ourapps-release.storeCredentials`, `.androidSigning`, `.webDeploy` (reference names; `none` when not asked) |
 
-Each entry of `recipe.json` `components` is a slot: `id`, `class` (the interfaces the recipe takes from and feeds into it, and a JSON Schema of the settings it writes on it), `preferred` (the component the recipe was built and tested with) and `includedWhen`. Any component that fits the class may fill the slot (part 3, step 4). The application reaches each component only through the entry modules its interface documents declare (`components/<slot>/web/index.ts`, `server/index.ts`, `desktop/index.cjs`; the Swift and Kotlin public names), and aepm installs a slot's component at `components/<slot id>/`. A slot is in the design only through its `includedWhen`; no question effect includes anything. `web-host` is in when `'web' in targets || 'windows' in targets`; `apple-host` when `'ios' in targets || 'macos' in targets || 'tvos' in targets`. `computer-players` and `poker-strategy` are in when `computerPlayers != 'none'` (turn-engine's `computer-players` requirement is optional). `ourapps-release` is in when `publish || releases`. The application's files that use an optional component carry `component: "<slot id>"` in `component.json` and are installed only when that slot is filled. Each optional module the rest of the application uses has a stand-in at the same destination marked `withoutComponent: "<slot id>"`, installed when the design leaves the component out, so every design installs one of the two and every client compiles: server `video.ts`, `update-links.ts`, `computers.ts`; web `video.ts`, `shell.ts`, `guide.ts`, `guide-style.ts`, `update.ts` and the web package files (which declare `livekit-client`); Apple `Video.swift`, `SeatScreen.swift`, `Lessons.swift`, `Updates.swift`; Android `Video.kt`, `ui/SeatScreen.kt`, `ui/Lessons.kt`, `Updates.kt`. The repository files at the application root (`.github/workflows/*.yml`, `scripts/*`, `release/app.json`) are the recipe's own, because aepm installs a component's files only under `components/<slot id>/`; each carries `component: "ourapps-release"`, or a list such as `["ourapps-release", "web-host"]` for `ci-web.yml`, installed only when every slot in it is filled. `.gitignore` is installed in every design.
+Each entry of `recipe.json` `components` is a slot: `id`, `class` (the interfaces the recipe takes from and feeds into it, and a JSON Schema of the settings it writes on it), `preferred` (the component the recipe was built and tested with) and `includedWhen`. Any component that fits the class may fill the slot (part 3, step 4).
+The application reaches each component only through the entry modules its interface documents declare (`components/<slot>/web/index.ts`, `server/index.ts`, `desktop/index.cjs`; the Swift and Kotlin public names), and aepm installs a slot's component at `components/<slot id>/`. A slot is in the design only through its `includedWhen`; no question effect includes anything.
+`web-host` is in when `'web' in targets || 'windows' in targets`; `apple-host` when `'ios' in targets || 'macos' in targets || 'tvos' in targets`. `computer-players` and `poker-strategy` are in when `computerPlayers != 'none'` (turn-engine's `computer-players` requirement is optional). `ourapps-release` is in when `publish || releases`.
+The application's files that use an optional component carry `component: "<slot id>"` in `component.json` and are installed only when that slot is filled. Each optional module the rest of the application uses has a stand-in at the same destination marked `withoutComponent: "<slot id>"`, installed when the design leaves the component out,
+so every design installs one of the two and every client compiles: server `video.ts`, `update-links.ts`, `computers.ts`; web `video.ts`, `shell.ts`, `guide.ts`, `guide-style.ts`, `update.ts` and the web package files (which declare `livekit-client`); Apple `Video.swift`, `SeatScreen.swift`, `Lessons.swift`, `Updates.swift`; Android `Video.kt`, `ui/SeatScreen.kt`, `ui/Lessons.kt`, `Updates.kt`.
+The repository files at the application root (`.github/workflows/*.yml`, `scripts/*`, `release/app.json`) are the recipe's own, because aepm installs a component's files only under `components/<slot id>/`; each carries `component: "ourapps-release"`, or a list such as `["ourapps-release", "web-host"]` for `ci-web.yml`, installed only when every slot in it is filled.
+`.gitignore` is installed in every design.
 
-`application.<setting>` names a setting of the recipe's own component (`component.json`). The six that change the house rules (`maximumPlayers`, `startingStack`, `levelSeconds`, `rebuysPerPlayer`, `decisionSeconds`, `computerPlayers`) are written over `rules/texas-holdem-house-rules.json` by the server when it starts, and each component is built from the result; the rules file is the one source of those numbers, and `recipe.json` does not restate any number the rules file states (`rules-settings.rulesFile` is `texas-holdem-house-rules`). `guest-identity` keeps its own defaults, which the application uses too.
+`application.<setting>` names a setting of the recipe's own component (`component.json`).
+The six that change the house rules (`maximumPlayers`, `startingStack`, `levelSeconds`, `rebuysPerPlayer`, `decisionSeconds`, `computerPlayers`) are written over `rules/texas-holdem-house-rules.json` by the server when it starts, and each component is built from the result; the rules file is the one source of those numbers,
+and `recipe.json` does not restate any number the rules file states (`rules-settings.rulesFile` is `texas-holdem-house-rules`).
+`guest-identity` keeps its own defaults, which the application uses too.
 
-Forms of a `sets` value in `recipe.json` (aepm's recipe evaluation rules): a literal; `"$answer"` (the answer; a set joined with spaces); `{"map": {...}}` (a choice answer to a value, covering every option); `{"fromScale": "<load key>"}`; `{"template": "prefix-{{answer}}"}`; `{"ref": "<secretRef question>"}`. This recipe uses `$answer`, `map`, `template` and `ref`. There is no `includes`, `$job`, `null` or `mapEach`.
+Forms of a `sets` value in `recipe.json` (aepm's recipe evaluation rules): a literal; `"$answer"` (the answer; a set joined with spaces); `{"map": {...}}` (a choice answer to a value, covering every option); `{"fromScale": "<load key>"}`; `{"template": "prefix-{{answer}}"}`; `{"ref": "<secretRef question>"}`. This recipe uses `$answer`, `map`, `template` and `ref`.
+There is no `includes`, `$job`, `null` or `mapEach`.
 
 ### Scale and profiles
 
-The `scale` answer picks a band; the band's load (`concurrentPeople`, `requestsPerDay`, `storedMegabytes`) is compared with the load each candidate profile declares in its component's `suitability.json`. Per job, the `server` answer first restricts the `server` and `realtime` candidates to the ones it names (`cloudflare` names `cloudflare-free` and `cloudflare-paid`, and realtime-rooms' Cloudflare profiles; `own-hardware` names the `own-hardware` profiles); then the lowest-cost candidate whose declared maxima cover the band is chosen (a missing maximum means no practical limit; none 0, free 1, paid 2, metered 3; ties go to the first). `server-host.provider` is written from the chosen profile. If none covers the band, report the uncovered job to the developer; do not pick a candidate that does not fit. A job whose component is left out (`video` when video is no) selects nothing.
+The `scale` answer picks a band; the band's load (`concurrentPeople`, `requestsPerDay`, `storedMegabytes`) is compared with the load each candidate profile declares in its component's `suitability.json`.
+Per job, the `server` answer first restricts the `server` and `realtime` candidates to the ones it names (`cloudflare` names `cloudflare-free` and `cloudflare-paid`, and realtime-rooms' Cloudflare profiles;
+`own-hardware` names the `own-hardware` profiles); then the lowest-cost candidate whose declared maxima cover the band is chosen (a missing maximum means no practical limit; none 0, free 1, paid 2, metered 3; ties go to the first). `server-host.provider` is written from the chosen profile.
+If none covers the band, report the uncovered job to the developer; do not pick a candidate that does not fit. A job whose component is left out (`video` when video is no) selects nothing.
 
 | Band | People at once | Requests a day | Stored MB | `server` job (Cloudflare answered) | `realtime` job | `video` job |
 |---|---|---|---|---|---|---|
@@ -91,7 +112,8 @@ Changing `scale` later swaps components that keep data with a migration (each su
 
 ### Settings fixed by the recipe
 
-Names and identifiers fixed in `recipe.json`: application id `ourpoker`, bundle and package identifier `app.ourapps.ourpoker` unless `bundleId` is answered. No address is fixed: the web address, server address, video service address and store invitation come from questions. The server address is known only after the first deploy, so `serverAddress` keeps `http://localhost:8788` until then ("Two-step deploy" below). Never guess a domain.
+Names and identifiers fixed in `recipe.json`: application id `ourpoker`, bundle and package identifier `app.ourapps.ourpoker` unless `bundleId` is answered. No address is fixed: the web address, server address, video service address and store invitation come from questions.
+The server address is known only after the first deploy, so `serverAddress` keeps `http://localhost:8788` until then ("Two-step deploy" below). Never guess a domain.
 
 ## 2. For the developer
 
@@ -128,7 +150,7 @@ AEPM="$PWD/aepm"
 aepm() { PYTHONPATH="$AEPM" python3 -B -m aepm "$@"; }
 ```
 
-STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.8.0).
+STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.9.0).
 
 1. Fetch the recipe and every component it names, with their release and guardian attestations, then read these instructions from the recipe's archive:
    ```
@@ -139,6 +161,7 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    ```
    aepm questions ourpoker@<version> --store STORE
    ```
+   With `--answers PARTIAL`, the answers the request settles, it also returns `toAsk` and `followUps`. Tell the person how many questions `toAsk` holds, ask them in one round together with the follow-ups as conditional questions, and ask nothing else (part 1).
 3. Answer them as part 1 says and write `answers.json`, an object from question id to answer, for example:
    ```
    {"targets": ["web"], "server": "own-hardware", "languages": ["en"], "video": false}
@@ -154,7 +177,8 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    ```
    aepm doctor ourpoker@<version> --store STORE --answers answers.json
    ```
-   It prints each tool with the version range the packages need (`node` for the server, web and Windows; `xcodebuild` and `xcodegen` for Apple targets; `java` and `sdkmanager` for Android), what it found and `ok`, `missing` or `wrong-version`, and exits 1 unless all are `ok`. With `--install` it runs the listed installer (Homebrew on macOS, winget on Windows, apt-get on Linux) for each missing tool; a wrong version and the steps in `manual` (Xcode, the Android SDK packages) are left to you. Apple targets build only on macOS.
+   It prints each tool with the version range the packages need (`node` for the server, web and Windows; `xcodebuild` and `xcodegen` for Apple targets; `java` and `sdkmanager` for Android), what it found and `ok`, `missing` or `wrong-version`, and exits 1 unless all are `ok`.
+   With `--install` it runs the listed installer (Homebrew on macOS, winget on Windows, apt-get on Linux) for each missing tool; a wrong version and the steps in `manual` (Xcode, the Android SDK packages) are left to you. Apple targets build only on macOS.
 
    To put another component in a slot, list the catalogue components that fit it, fetch the one chosen into STORE, and name it in `--substitute` (repeat for several slots):
    ```
@@ -179,12 +203,18 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    json.dump(policy, open("policy.json", "w"), indent=2)
    POLICY
    ```
-   `identities/` then holds three disposable private keys; keep `owner.pem` (it approves updates), delete the other two, and keep the folder outside STORE and APP. For an owner key you keep, make it with OpenSSL instead and put its public key in the policy's `owner` list: `openssl genpkey -algorithm ed25519 -out owner.pem` and `openssl pkey -in owner.pem -pubout` (the `publicKey` value is that PEM text). POLICY is the resulting `policy.json`.
+   `identities/` then holds three disposable private keys; keep `owner.pem` (it approves updates), delete the other two, and keep the folder outside STORE and APP. For an owner key you keep, make it with OpenSSL instead and put its public key in the policy's `owner` list:
+   `openssl genpkey -algorithm ed25519 -out owner.pem` and `openssl pkey -in owner.pem -pubout` (the `publicKey` value is that PEM text). POLICY is the resulting `policy.json`.
 7. Install:
    ```
    aepm install definition.json --lock lock.json --store STORE --policy POLICY --target APP
    ```
-   aepm checks every package's release and guardian signatures against POLICY, places the files, renders each setting into the files that name it, and records the design in `APP/.aepm/`. It runs no package code. Then put the application in its repository and build and run it (part 4).
+   aepm checks every package's release and guardian signatures against POLICY, places the files, renders each setting into the files that name it, and records the design in `APP/.aepm/`. It runs no package code.
+8. Check the installed application:
+   ```
+   aepm verify APP --policy POLICY --trusted
+   ```
+   `--trusted` is required: it runs each package's declared checks, which is package code. Then put the application in its repository and build and run it (part 4).
 
 On Windows, in PowerShell (Windows PowerShell 5.1 or PowerShell 7) with Python 3.12 as `python`, define the command and give each multi-line Python step on standard input:
 
@@ -213,9 +243,11 @@ policy = {"format": 1, "keys": {"release": level_n["keys"]["release"], "guardian
 json.dump(policy, open("policy.json", "w"), indent=2)
 '@ | python -
 aepm install definition.json --lock lock.json --store STORE --policy POLICY --target APP
+aepm verify APP --policy POLICY --trusted
 ```
 
-STORE, POLICY and APP are absolute Windows paths (for example `$HOME\ourpoker-store`; APP needs a short parent folder, part 4, Windows). Write `answers.json` without a byte order mark: with an editor, or `Set-Content answers.json '{"targets": ["web", "windows"], "server": "own-hardware"}' -Encoding ascii`. `doctor --install` installs a missing Node with winget; a Node below 26.5 is `wrong-version`: `winget upgrade --exact --id OpenJS.NodeJS`, then open a new PowerShell.
+STORE, POLICY and APP are absolute Windows paths (for example `$HOME\ourpoker-store`; APP needs a short parent folder, part 4, Windows). Write `answers.json` without a byte order mark: with an editor, or `Set-Content answers.json '{"targets": ["web", "windows"], "server": "own-hardware"}' -Encoding ascii`.
+`doctor --install` installs a missing Node with winget; a Node below 26.5 is `wrong-version`: `winget upgrade --exact --id OpenJS.NodeJS`, then open a new PowerShell.
 
 ## 4. Build and run
 
@@ -240,7 +272,9 @@ scripts/      build-windows.sh, inspect-windows.ps1 (windows); build-ipa.sh, bui
 release/      app.json, what my-app.json says about the application                       (publish or releases)
 ```
 
-Every value that depends on an answer is already in the installed files (aepm renders the templates), and the generated string files are shipped, so nothing has to be generated before the commands below; the Apple and Android `generate-project.ts` steps write the native projects from them. Tools (what `aepm doctor` checks, part 3): Node 26.5 or a later 26 with npm 11 for the server, web and Windows. Apple: macOS with Xcode 27 and XcodeGen 2.46 or later; the Apple targets build only on a Mac, not on Windows or Linux. Android: a JDK 17 to 26 and the Android command-line tools 22.0 (23.0 replaces `sdkmanager` with a new tool) with platform 36 and build-tools 36.0.0; the project carries its Gradle wrapper. Windows: Node on a Mac or on Windows to build the installer (not on a Windows machine with Smart App Control on, part 4, Windows); Windows 10 or 11 (x64) to run it.
+Every value that depends on an answer is already in the installed files (aepm renders the templates), and the generated string files are shipped, so nothing has to be generated before the commands below; the Apple and Android `generate-project.ts` steps write the native projects from them. Tools (what `aepm doctor` checks, part 3):
+Node 26.5 or a later 26 with npm 11 for the server, web and Windows. Apple: macOS with Xcode 27 and XcodeGen 2.46 or later; the Apple targets build only on a Mac, not on Windows or Linux. Android: a JDK 17 to 26 and the Android command-line tools 22.0 (23.0 replaces `sdkmanager` with a new tool) with platform 36 and build-tools 36.0.0; the project carries its Gradle wrapper. Windows:
+Node on a Mac or on Windows to build the installer (not on a Windows machine with Smart App Control on, part 4, Windows); Windows 10 or 11 (x64) to run it.
 
 ### Repository and releases
 
@@ -254,19 +288,33 @@ gh repo create <owner>/<name> --private --source . --push
 
 When the repository already exists, push to it instead: `git remote add origin https://github.com/<owner>/<name>.git && git push -u origin main`.
 
-`.gitignore` leaves out dependencies, build outputs, signing keys and aepm's package copies and archives (`.aepm/packages/`, `.aepm/archives/`, 37 MB for the default design). aepm's records in `.aepm/` (definition, lock, assembly, receipts, evidence) are committed: they show which packages built the application. The machine that installed the application keeps the full `.aepm/` that `aepm verify` and updates need; aepm's update work folder (`.<name>.aepm-transaction/`) sits beside the application folder, outside the repository.
+`.gitignore` leaves out dependencies, build outputs, signing keys and aepm's package copies and archives (`.aepm/packages/`, `.aepm/archives/`, 37 MB for the default design). aepm's records in `.aepm/` (definition, lock, assembly, receipts, evidence) are committed: they show which packages built the application.
+The machine that installed the application keeps the full `.aepm/` that `aepm verify` and updates need; aepm's update work folder (`.<name>.aepm-transaction/`) sits beside the application folder, outside the repository.
 
-With `publish` or `releases` yes the application has GitHub Actions. A push to main runs, for the parts that changed: `ci-server` (type check and tests); `ci-web` (type check and build, then the server started on the runner and `web/test/browser.mjs` playing a hand in headless Chrome against it); `ci-android` (unit tests and the debug build against the runner's server, then the app started in an Android 36 emulator until it shows the room list, through `components/ourapps-release/server/scripts/android_screen.py`); and `platform-packages` (the unsigned Windows installer built, installed silently, started and uninstalled on Windows). Each can also be started by hand (`gh workflow run ci-web.yml`). `apple-builds` builds the iPhone and iPad, Mac (Mac Catalyst) and Apple TV clients unsigned on GitHub's Xcode 27 runner (`xcode-27`), for the design's Apple targets, on a version tag or by hand.
+With `publish` or `releases` yes the application has GitHub Actions. A push to main runs, for the parts that changed: `ci-server` (type check and tests); `ci-web` (type check and build, then the server started on the runner and `web/test/browser.mjs` playing a hand in headless Chrome against it);
+`ci-android` (unit tests and the debug build against the runner's server, then the app started in an Android 36 emulator until it shows the room list, through `components/ourapps-release/server/scripts/android_screen.py`); and `platform-packages` (the unsigned Windows installer built, installed silently, started and uninstalled on Windows).
+Each can also be started by hand (`gh workflow run ci-web.yml`). `apple-builds` builds the iPhone and iPad, Mac (Mac Catalyst) and Apple TV clients unsigned on GitHub's Xcode 27 runner (`xcode-27`), for the design's Apple targets, on a version tag or by hand.
 
-`aepm-update` keeps the application on the newest published recipe version. Weekly (Monday 05:17 UTC) or by hand (`gh workflow run aepm-update.yml`, optionally `-f version=<version>` and `-f answers='{"languages":["en","fr"]}'`, answer changes to propose at the same or another version) it designs that version with the answers and substitutions recorded in `.aepm/definition.json` and the given changes, has `aepm propose-update --trusted --allow-network` stage it and run the packages' checks, and opens a pull request carrying `.aepm/update/definition.json` and a summary of the changed answers and package versions. With neither a newer version nor an answer change it does nothing and says so. Merging that pull request runs it again on main: proposed again, approved with the owner's private key, applied, and committed to main. The script is `components/ourapps-release/server/scripts/aepm_update.py`; it trusts Level N's keys from https://ourapps.app/policy/levelnpolicy.json, runs the checks of exactly the packages it fetched, and first installs the current design again to put back the package copies the repository leaves out.
+Every release of a package belongs to one channel: `security` (a patch release on the same line that only fixes the advisories it lists), `features` (a new minor or major version) or `preview` (a `-preview.N` pre-release). The update policy in `.aepm/definition.json` says what happens to each:
+`auto` (applied without a person once every check passes), `manual` (proposed for a person to approve) or `hold` (not proposed). The defaults are security `auto`, features `manual`, preview `hold`. Set it when designing, `aepm design ourpoker@<version> --store STORE --answers answers.json --update-policy security=auto,features=manual,preview=hold --out definition.json`;
+`aepm propose-update` keeps it, and `aepm outdated APP --store STORE` lists what each channel offers, with the advisories each security release fixes.
+
+`aepm-update` follows that policy. Weekly (Monday 05:17 UTC) or by hand (`gh workflow run aepm-update.yml`) it handles the channels in order, security first, then features, then preview.
+For each channel that is not `hold` and offers an update, aepm works out the next design (the newest security release on each installed package's line; the newest features or preview recipe version with the recorded answers and substitutions) and `aepm propose-update --trusted --allow-network` stages it and runs the packages' checks.
+`auto`: approved with the owner's private key, applied and committed to main in the same run. `manual`: a pull request carrying `.aepm/update/definition.json` and a summary of the package versions that change; merging it proposes the update again, approves it with the owner key, applies it and commits it to main. A `manual` proposal ends the run, so a later channel waits for the next run.
+Started by hand with `-f version=<version>` or `-f answers='{"languages":["en","fr"]}'` (answer changes, at the same or another version), it proposes that design as a pull request whatever the policy; with neither a newer version nor an answer change it does nothing and says so.
+The script is `components/ourapps-release/server/scripts/aepm_update.py`; it trusts Level N's keys from https://ourapps.app/policy/levelnpolicy.json, runs the checks of exactly the packages it fetched, and first installs the current design again to put back the package copies the repository leaves out.
 
 Repository secrets and settings it needs:
 
-- `AEPM_OWNER_KEY`: the private key whose public key is the policy's owner key (`gh secret set AEPM_OWNER_KEY --repo <owner>/<name> < identities/owner.pem`).
+- `AEPM_OWNER_KEY`: the private key whose public key is the policy's owner key (`gh secret set AEPM_OWNER_KEY --repo <owner>/<name> < identities/owner.pem`). A channel set to `auto` needs it in every run; without it the run stops and says so.
 - Opening the pull request with the workflow's own token needs "Allow GitHub Actions to create and approve pull requests" (repository Settings, Actions, General; an organisation can forbid it for all its repositories).
-- `AEPM_PUSH_TOKEN` (optional): a fine-grained personal access token for this repository with Contents, Pull requests and Workflows read and write. When it is set, the workflow pushes and opens the pull request with it. GitHub refuses a push made with the workflow's own token that changes `.github/workflows/`, and an update that adds, changes or removes a workflow does, so without this token the apply job stops with a message naming the workflow files. A push made with it also starts `ci-server`, `ci-web` and `ci-android` on the updated application; a push with the workflow's own token starts no workflow, so start them by hand then.
+-  `AEPM_PUSH_TOKEN` (optional): a fine-grained personal access token for this repository with Contents, Pull requests and Workflows read and write. When it is set, the workflow pushes and opens the pull request with it.
+  GitHub refuses a push made with the workflow's own token that changes `.github/workflows/`, and an update that adds, changes or removes a workflow does, so without this token the apply job stops with a message naming the workflow files.
+  A push made with it also starts `ci-server`, `ci-web` and `ci-android` on the updated application; a push with the workflow's own token starts no workflow, so start them by hand then.
 
-A version tag runs `release`: it builds the web client, the Android APK and the Windows installer the design has and publishes a GitHub Release (not a draft or pre-release) carrying `ourpoker.apk`, `web.zip`, the installer `ourpoker-<version>-windows-x64-unsigned.exe`, `icon.png`, `CHANGELOG.md` and, uploaded last, `my-app.json` for ourapps.app. The installer is attached but not offered in `my-app.json`: the ourapps contract lists a desktop package only after that package has passed download, install and start checks. `apple-platform-testflight` runs only when the store starts it for a Mac or Apple TV build.
+A version tag runs `release`: it builds the web client, the Android APK and the Windows installer the design has and publishes a GitHub Release (not a draft or pre-release) carrying `ourpoker.apk`, `web.zip`, the installer `ourpoker-<version>-windows-x64-unsigned.exe`, `icon.png`, `CHANGELOG.md` and, uploaded last, `my-app.json` for ourapps.app.
+The installer is attached but not offered in `my-app.json`: the ourapps contract lists a desktop package only after that package has passed download, install and start checks. `apple-platform-testflight` runs only when the store starts it for a Mac or Apple TV build.
 
 The workflows read the secret names from `components/ourapps-release/server/release.json`, which aepm rendered from the reference answers: the reference in capitals, with hyphens as underscores, then a suffix. A secret that is not set is skipped, and that part stays unsigned or is not deployed:
 
@@ -279,7 +327,8 @@ The workflows read the secret names from `components/ourapps-release/server/rele
 
 The developer sets each secret; the agent never sees a value. `gh secret set OURPOKER_ANDROID_SIGNING_KEY_PASSWORD --repo <owner>/<name>` asks for the value; for the keystore, `base64 -i release.jks | gh secret set OURPOKER_ANDROID_SIGNING_KEYSTORE_BASE64 --repo <owner>/<name>`.
 
-To offer the application on ourapps.app (optional), register it once: with the second prompt at https://ourapps.app/dev/agents, or `POST https://ourapps.app/api/dev/apps` with a developer key and `{"name": "OurPoker", "repo": "<owner>/<name>", "bundleId": "app.ourapps.ourpoker"}` (agents.md, Apps). Store the app id and the build token it returns as the two `storeCredentials` secrets, passing the values on standard input (`printf '%s' "$BUILD_TOKEN" | gh secret set OURPOKER_STORE_CREDENTIALS_BUILD_TOKEN --repo <owner>/<name>`). ourapps.app reads `my-app.json` from the repository's latest release, the address `ourapps-release.manifestUrl` holds.
+To offer the application on ourapps.app (optional), register it once: with the second prompt at https://ourapps.app/dev/agents, or `POST https://ourapps.app/api/dev/apps` with a developer key and `{"name": "OurPoker", "repo": "<owner>/<name>", "bundleId": "app.ourapps.ourpoker"}` (agents.md, Apps).
+Store the app id and the build token it returns as the two `storeCredentials` secrets, passing the values on standard input (`printf '%s' "$BUILD_TOKEN" | gh secret set OURPOKER_STORE_CREDENTIALS_BUILD_TOKEN --repo <owner>/<name>`). ourapps.app reads `my-app.json` from the repository's latest release, the address `ourapps-release.manifestUrl` holds.
 
 Release a version:
 
@@ -309,7 +358,9 @@ npm run typecheck
 npm run dev              # prints its address: http://localhost:5173, or the next free port (5174, ...) when 5173 is taken
 ```
 
-Open the address Vite prints; `npm run build` then `npx vite preview` serves the built client the same way. The server accepts the web client from any localhost or 127.0.0.1 port, so a port other than 5173 needs no change. In PowerShell the commands are the same; set an environment value before the command that reads it: `$env:PORT = '8790'; npm start`, `$env:VITE_SERVER = '<address>'; npm run build` (`Remove-Item Env:VITE_SERVER` clears it). The web client calls the design's `serverAddress` (default `http://localhost:8788`); `VITE_SERVER=<address> npm run build` builds it against another server. With video in the design the server reads `LIVEKIT_URL`, `LIVEKIT_API_KEY` and `LIVEKIT_API_SECRET` from its environment (a LiveKit account); without them every other part works and video stays off.
+The browser check is: open the address `npm run dev` prints and play a hand. (`npm run build` then `npx vite preview` serves the built client the same way, for checking a build.) The server accepts the web client from any localhost or 127.0.0.1 port, so a port other than 5173 needs no change. In PowerShell the commands are the same; set an environment value before the command that reads it:
+`$env:PORT = '8790'; npm start`, `$env:VITE_SERVER = '<address>'; npm run build` (`Remove-Item Env:VITE_SERVER` clears it). The web client calls the design's `serverAddress` (default `http://localhost:8788`); `VITE_SERVER=<address> npm run build` builds it against another server.
+`npm run build` warns that a chunk is larger than 500 kB: the client is one bundle of about 690 kB (about 195 kB compressed), and the warning changes nothing. With video in the design the server reads `LIVEKIT_URL`, `LIVEKIT_API_KEY` and `LIVEKIT_API_SECRET` from its environment (a LiveKit account); without them every other part works and video stays off.
 
 ### Own hardware
 
@@ -324,20 +375,27 @@ npx wrangler login       # once, in a browser (or export CLOUDFLARE_ACCOUNT_ID a
 npm run deploy           # wrangler deploy --config ../components/server-host/server/wrangler.jsonc
 ```
 
-Wrangler prints the worker's address. The worker's name is the `name` in `components/server-host/server/wrangler.jsonc`, `<roomPrefix>server` (`ourpoker-server` for the default answers), so the address is `https://ourpoker-server.<your subdomain>.workers.dev`; with `npm run deploy -- --name <name>` the worker is `<name>` and the address `https://<name>.<your subdomain>.workers.dev`. `curl <address>/health` answers `{"ok":true,"app":"ourpoker"}`. `npm run dev` runs the same worker in the local Workers runtime with no account. Video needs the LiveKit values as Worker secrets: `npx wrangler secret put LIVEKIT_API_KEY --config ../components/server-host/server/wrangler.jsonc` and the same for `LIVEKIT_URL` and `LIVEKIT_API_SECRET`.
+`npm run deploy` runs `scripts/deploy.mjs`, which runs the pinned Wrangler (4.165.0). On the first deploy to a new worker name Cloudflare can answer "This Worker does not exist" (code 10007) just after the upload; the script then deploys again after 10, 20, 40 and 80 seconds, and the deploy completes with no step of yours.
+`wrangler whoami` may warn that the login lacks the `k2.read` and `k2.write` permissions; the deploy does not use them.
+
+Wrangler prints the worker's address. The worker's name is the `name` in `components/server-host/server/wrangler.jsonc`, `<roomPrefix>server` (`ourpoker-server` for the default answers), so the address is `https://ourpoker-server.<your subdomain>.workers.dev`; with `npm run deploy -- --name <name>` the worker is `<name>` and the address `https://<name>.<your subdomain>.workers.dev`.
+`curl <address>/health` answers `{"ok":true,"app":"ourpoker"}`. `npm run dev` runs the same worker in the local Workers runtime with no account. Video needs the LiveKit values as Worker secrets: `npx wrangler secret put LIVEKIT_API_KEY --config ../components/server-host/server/wrangler.jsonc` and the same for `LIVEKIT_URL` and `LIVEKIT_API_SECRET`.
 
 ### Two-step deploy
 
 The clients carry the server's address, and the server accepts a web client only from `webAddress`; both addresses are known only after a first deploy. With Cloudflare, from the first install (APP):
 
-1. Deploy the server (Cloudflare above, or own hardware) and note its https address. Build the web client against it and publish it as its own worker, from `APP/web` with the server's Wrangler (`<name>` is the web worker's name, for example `ourpoker-web`):
+Deploy now, with these names, unless the person asked otherwise: the server worker is `<roomPrefix>server` (`ourpoker-server`) and the web worker is `<roomPrefix>web` (`ourpoker-web`).
+
+1. Deploy the server (Cloudflare above, or own hardware) and note its https address. Build the web client against it with `VITE_SERVER` and publish it as its own worker named `<name>`, from `APP/web`:
    ```
    npm ci
    VITE_SERVER=<server address> npm run build
    node -e 'const fs = require("fs"), d = fs.readFileSync("../components/server-host/server/wrangler.jsonc", "utf8").match(/"(\w+_date)": "([^"]+)"/); fs.writeFileSync("wrangler.jsonc", JSON.stringify({ name: process.argv[1], [d[1]]: d[2], assets: { directory: "./dist" } }))' <name>
-   ../server/node_modules/.bin/wrangler deploy
+   node ../server/scripts/deploy.mjs
    ```
-   The first line after the build writes `web/wrangler.jsonc`: the worker name, the server's date setting and the `dist` folder as static files. It serves at `https://<name>.<your subdomain>.workers.dev`, the subdomain the server's deploy printed. That is the web address.
+   The first line after the build writes `web/wrangler.jsonc`: the worker name, the server's date setting and the `dist` folder as static files. It stays in the application: no package installs that path, so the update in step 2 keeps it, and step 3 publishes with it again. It serves at `https://<name>.<your subdomain>.workers.dev`, the subdomain the server's deploy printed.
+   That is the web address.
 2. Add both addresses to `answers.json` (`"serverAddress": "<server address>", "webAddress": "<web address>"`) and update the installed application in place. Stop its server first. aepm refuses a tree that holds links, and dependency folders hold them (`node_modules/.bin`), so remove the dependency and build folders, then design, lock, trust, propose, approve and apply:
    ```
    rm -rf APP/server/node_modules APP/web/node_modules APP/desktop/node_modules APP/web/dist APP/desktop/build APP/desktop/artifacts APP/ios/build APP/android/build APP/android/app/build APP/android/.gradle
@@ -349,7 +407,9 @@ The clients carry the server's address, and the server accepts a web client only
    aepm approve proposal.json --key identities/owner.pem --policy POLICY --out approval.json
    aepm apply APP proposal.json --approval approval.json --policy POLICY
    ```
-   `propose-update` installs the next design into a stage in `.<APP name>.aepm-transaction/` beside APP and runs every package's declared checks there: `--trusted` runs package code, so the policy lists the digest of each package in `next-lock.json` in `trustedExecution` (the `python3` line adds them), and `--allow-network` lets the checks' `npm ci` download. Without `--trusted` it refuses with `trusted-execution-required`. `approve` signs the proposal with the owner key, which must be the policy's `owner` key; `apply` checks that neither APP nor the stage has changed since the proposal and swaps them. `aepm recover APP` completes or reverses an interrupted `apply`. Then run `npm ci` again in `server/` and `web/` (and `desktop/`). The answers and selections the update used are in `APP/.aepm/definition.json`.
+   `propose-update` installs the next design into a stage in `.<APP name>.aepm-transaction/` beside APP and runs every package's declared checks there: `--trusted` runs package code, so the policy lists the digest of each package in `next-lock.json` in `trustedExecution` (the `python3` line adds them), and `--allow-network` lets the checks' `npm ci` download.
+   Without `--trusted` it refuses with `trusted-execution-required`. `approve` signs the proposal with the owner key, which must be the policy's `owner` key; `apply` checks that neither APP nor the stage has changed since the proposal and swaps them. `aepm recover APP` completes or reverses an interrupted `apply`. Then, before deploying, check the updated application:
+   `aepm verify APP --policy POLICY --trusted`, then `npm ci`, `npm run typecheck` and `npm test` in `server/`, and `npm ci` and `npm run typecheck` in `web/` (and `npm ci` in `desktop/`). The answers and selections the update used are in `APP/.aepm/definition.json`.
 
    Installing the design again into a new folder also works: `aepm install next.json --lock next-lock.json --store STORE --policy POLICY --target NEXT`; then move anything you added to APP (`CHANGELOG.md`, `.git/`) across and use NEXT from here on.
 3. Deploy the server again (`npm ci`, `npm run deploy` in `server/`): it now accepts the web client from `webAddress` (and from localhost). Rebuild and publish the web client from `web/` as in step 1 without `VITE_SERVER` (it now calls `serverAddress`), then build the other clients below; they call `serverAddress`.
@@ -395,12 +455,12 @@ sdkmanager --sdk_root=$ANDROID_HOME "emulator" "system-images;android-36;google_
 avdmanager create avd -n ourpoker -k "system-images;android-36;google_apis;arm64-v8a" -d pixel_7
 ```
 
-Build, test and run:
+Build, test and run, in a shell where `ANDROID_HOME` and `JAVA_HOME` are set as above:
 
 ```
 cd <application>/android
 node generate-project.ts         # the Gradle files and wrapper, the manifest and the design's languages' strings
-./gradlew :app:assembleDebug     # app/build/outputs/apk/debug/app-debug.apk
+./gradlew :app:assembleDebug     # app/build/outputs/apk/debug/app-debug.apk; against a server on this Mac, from the emulator: -PserverUrl=http://10.0.2.2:8788
 ./gradlew :app:testDebugUnitTest
 $ANDROID_HOME/emulator/emulator -avd ourpoker &
 $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [ -z "$(getprop sys.boot_completed)" ]; do sleep 1; done'
@@ -408,7 +468,8 @@ $ANDROID_HOME/platform-tools/adb install -r app/build/outputs/apk/debug/app-debu
 $ANDROID_HOME/platform-tools/adb shell am start -n <packageId>/.MainActivity
 ```
 
-The app calls the design's `serverAddress`; `./gradlew :app:assembleDebug -PserverUrl=<address>` builds it against another server. In the emulator `localhost` is the emulator itself: for the server running on the Mac, build with `-PserverUrl=http://10.0.2.2:8788`. `-PversionName=<version>` sets the version the app shows (local builds show `0.0.0-dev`). Release builds (`./gradlew :app:assembleRelease`) read the keystore from `OURPOKER_KEYSTORE`, `OURPOKER_KEYSTORE_PASSWORD`, `OURPOKER_KEY_ALIAS` and `OURPOKER_KEY_PASSWORD` (from the secret named by `androidSigning`).
+The app calls the design's `serverAddress`; `./gradlew :app:assembleDebug -PserverUrl=<address>` builds it against another server. In the emulator `localhost` is the emulator itself: for the server running on the Mac, build with `-PserverUrl=http://10.0.2.2:8788`. `-PversionName=<version>` sets the version the app shows (local builds show `0.0.0-dev`).
+Release builds (`./gradlew :app:assembleRelease`) read the keystore from `OURPOKER_KEYSTORE`, `OURPOKER_KEYSTORE_PASSWORD`, `OURPOKER_KEY_ALIAS` and `OURPOKER_KEY_PASSWORD` (from the secret named by `androidSigning`).
 
 On Windows, in PowerShell: a JDK (`winget install --exact --id EclipseAdoptium.Temurin.21.JDK`, or the Temurin zip unpacked with `JAVA_HOME` set to it), and the command-line tools 22.0 unpacked as `<sdk>\cmdline-tools\latest` (the manual step `aepm doctor` prints). Then, with `$env:JAVA_HOME`, `$env:ANDROID_HOME = '<sdk>'` and `<sdk>\cmdline-tools\latest\bin` on `PATH`:
 
@@ -435,9 +496,13 @@ npm start                # runs the desktop application on this machine
 APP_VERSION=<version> npm run package:win   # artifacts/<applicationId>-<version>-windows-x64-unsigned.exe, an unsigned x64 installer
 ```
 
-On Windows, in PowerShell after `Set-ExecutionPolicy -Scope Process RemoteSigned -Force` (part 3), the same commands with `$env:APP_VERSION = '<version>'; npm run package:win`. Packaging runs the unsigned installer it has just made to write its uninstaller. Where Smart App Control is on (Windows Security, App and browser control), it refuses that file, and `npm run package:win` stops with `spawn UNKNOWN` and exit status 1. The installer is then built by the `platform-packages` and `release` workflows on GitHub's Windows runner, or on a Mac; building it on that machine needs Smart App Control off or a code-signing certificate for the installer. On a Windows 10 or 11 machine, `<installer>.exe /S /D=<folder>` installs without questions (or run it and follow the installer); `<folder>\<applicationName>.exe` starts the application and `"<folder>\Uninstall <applicationName>.exe" /S` removes it. The installer is unsigned: a copy marked as downloaded from the internet meets SmartScreen's warning, and Smart App Control, where it is on, refuses it. The application calls the design's `serverAddress`; for the Mac's own server, forward it to the Windows machine, for example `ssh -R 127.0.0.1:8788:localhost:8788 <windows machine>`. Building and packaging need no account.
+On Windows, in PowerShell after `Set-ExecutionPolicy -Scope Process RemoteSigned -Force` (part 3), the same commands with `$env:APP_VERSION = '<version>'; npm run package:win`. Packaging runs the unsigned installer it has just made to write its uninstaller.
+Where Smart App Control is on (Windows Security, App and browser control), it refuses that file, and `npm run package:win` stops with `spawn UNKNOWN` and exit status 1. The installer is then built by the `platform-packages` and `release` workflows on GitHub's Windows runner, or on a Mac; building it on that machine needs Smart App Control off or a code-signing certificate for the installer.
+On a Windows 10 or 11 machine, `<installer>.exe /S /D=<folder>` installs without questions (or run it and follow the installer); `<folder>\<applicationName>.exe` starts the application and `"<folder>\Uninstall <applicationName>.exe" /S` removes it.
+The installer is unsigned: a copy marked as downloaded from the internet meets SmartScreen's warning, and Smart App Control, where it is on, refuses it. The application calls the design's `serverAddress`; for the Mac's own server, forward it to the Windows machine, for example `ssh -R 127.0.0.1:8788:localhost:8788 <windows machine>`. Building and packaging need no account.
 
-On Windows a path holds at most 260 characters unless long paths are on. aepm assembles the application beside APP and its package copies reach about 210 characters below APP, so give APP a short parent folder, such as `apps\ourpoker` at the root of a drive, or turn long paths on as administrator: `Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled -Value 1`. With a long parent folder `aepm install` stops with `invalid-input` at `assemble`.
+On Windows a path holds at most 260 characters unless long paths are on. aepm assembles the application beside APP and its package copies reach about 210 characters below APP, so give APP a short parent folder, such as `apps\ourpoker` at the root of a drive, or turn long paths on as administrator:
+`Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled -Value 1`. With a long parent folder `aepm install` stops with `invalid-input` at `assemble`.
 
 ### Versions
 
@@ -470,11 +535,22 @@ PY authoring/make_recipe.py
 PY authoring/draw_default_design.py
 ```
 
-- `tests/recipe.test.ts` checks consistency only: the recipe passes the ourapps catalogue validator with the components' settings and profiles; every component exists at the named version in `components/`; every setting a question or the configuration sets exists with a matching type and grammar; no secret is in `configuration`; inclusion is by `includedWhen` only; every connection uses ports and types that exist and only optional requirements stay open; every job candidate profile exists; every answer in the answer sets is allowed; the recipe restates no number of the house rules file and sets the application's copy of each answer; the totals in `INTEGRATION-GAPS.md` match its table; the recipe's documents carry no history wording.
-- `tests/evaluate_recipe_test.py` runs aepm's evaluator (`aepm.recipe`, the same code as `aepm design`) on each answer set, on every combination of the answers that change inclusion, asking and selection, and on each error code, and validates each design with aepm's definition validator. It evaluates every condition of `recipe.json` and a set of sample expressions for every answer set and every combination with aepm's CEL subset and compares each result with `@bufbuild/cel` (`authoring/cel_evaluate.mjs`, installed under `authoring/`, which is not packaged). `tests/recipe.test.ts` reads the ourapps validator from `OURAPPS`.
+-
+  `tests/recipe.test.ts` checks consistency only: the recipe passes the ourapps catalogue validator with the components' settings and profiles; every component exists at the named version in `components/`; every setting a question or the configuration sets exists with a matching type and grammar; no secret is in `configuration`; inclusion is by `includedWhen` only;
+  every connection uses ports and types that exist and only optional requirements stay open; every job candidate profile exists; every answer in the answer sets is allowed; the recipe restates no number of the house rules file and sets the application's copy of each answer; the totals in `INTEGRATION-GAPS.md` match its table; the recipe's documents carry no history wording.
+-  `tests/evaluate_recipe_test.py` runs aepm's evaluator (`aepm.recipe`, the same code as `aepm design`) on each answer set, on every combination of the answers that change inclusion, asking and selection, and on each error code, and validates each design with aepm's definition validator.
+  It evaluates every condition of `recipe.json` and a set of sample expressions for every answer set and every combination with aepm's CEL subset and compares each result with `@bufbuild/cel` (`authoring/cel_evaluate.mjs`, installed under `authoring/`, which is not packaged). `tests/recipe.test.ts` reads the ourapps validator from `OURAPPS`.
 - `tests/conditional_artefacts_test.py` and `authoring/check_conditional_artefacts.py` check, for every answer set, that the files aepm installs reach no component the design leaves out, that every stand-in replaces a marked module at its destination, and that every relative import of an installed file is installed.
 - `make_recipe.py` rewrites `recipe.json` from the components' manifests and the settings written in the script. `draw_default_design.py` evaluates the default answers and draws the result with aepm's generator.
-- `authoring/try_install.py [ANSWERS ...]` proves parts 3 and 4 for answer sets (default: `default`, `local-web`, `fill-empty-own-hardware`, `lounge-web-ios`): it packs the 39 components and this recipe into a temporary store, signs releases and reviews with disposable identities, installs each design with `aepm install`, type-checks the server and web code, runs the server tests, starts the server on Node, checks in headless Chrome at 1280x800 that the built web client loads, lists the rooms from the server, seats a player and deals a hand with a computer player (or a second person) with the table inside the window, keeping screenshots of home, lobby and table, builds the Apple schemes for the iOS and tvOS simulators and checks that the app carries only the answered languages, and generates the Android project and checks its string folders (it builds it with `./gradlew` where `ANDROID_HOME` names an Android SDK). It needs Chrome (`--chrome` or `CHROME`), Xcode and XcodeGen for Apple designs, and network access for npm. Options, for designs with the target: `--android` builds against the local server, runs the unit tests and plays a hand on the emulator `--avd` (default `ourpoker`); `--windows HOST` packages the installer, then over ssh installs it silently on HOST, plays a hand in the installed application and uninstalls it (where Smart App Control refuses the unsigned installer, it plays the unpacked application instead and the result says so); `--cloudflare NAME` runs the two-step deploy as workers NAME and NAME-web and the browser check against them (Wrangler logged in; the workers stay deployed); `--github REPO` follows "Repository and releases" for a design with the release pipeline: it pushes a fresh install with `CHANGELOG.md` to the private repository REPO, waits for every workflow a push starts (starting by hand any the push left untouched), pushes the tag (`--github-tag`, default `v0.1.0`), waits for the release run, and checks the release: published, `my-app.json` valid and pointing at the APK and `web.zip`, the APK of that version played on the emulator with `--android`, the Windows installer an unsigned NSIS installer of the unsigned x64 application of that version, and `web.zip` served and drawn in Chrome (gh signed in; the repository stays).
+-  `authoring/try_install.py [ANSWERS ...]` proves parts 3 and 4 for answer sets (default:
+  `default`, `local-web`, `fill-empty-own-hardware`, `lounge-web-ios`): it packs the 39 components and this recipe into a temporary store, signs releases and reviews with disposable identities, installs each design with `aepm install`, type-checks the server and web code, runs the server tests, starts the server on Node, checks in headless Chrome at 1280x800 that the built web client loads,
+  lists the rooms from the server, seats a player and deals a hand with a computer player (or a second person) with the table inside the window, keeping screenshots of home, lobby and table, builds the Apple schemes for the iOS and tvOS simulators and checks that the app carries only the answered languages,
+  and generates the Android project and checks its string folders (it builds it with `./gradlew` where `ANDROID_HOME` names an Android SDK).
+  It needs Chrome (`--chrome` or `CHROME`), Xcode and XcodeGen for Apple designs, and network access for npm. Options, for designs with the target: `--android` builds against the local server, runs the unit tests and plays a hand on the emulator `--avd` (default `ourpoker`);
+  `--windows HOST` packages the installer, then over ssh installs it silently on HOST, plays a hand in the installed application and uninstalls it (where Smart App Control refuses the unsigned installer, it plays the unpacked application instead and the result says so);
+  `--cloudflare NAME` runs the two-step deploy as workers NAME and NAME-web and the browser check against them (Wrangler logged in; the workers stay deployed);
+  `--github REPO` follows "Repository and releases" for a design with the release pipeline: it pushes a fresh install with `CHANGELOG.md` to the private repository REPO, waits for every workflow a push starts (starting by hand any the push left untouched), pushes the tag (`--github-tag`, default `v0.1.0`), waits for the release run, and checks the release: published,
+  `my-app.json` valid and pointing at the APK and `web.zip`, the APK of that version played on the emulator with `--android`, the Windows installer an unsigned NSIS installer of the unsigned x64 application of that version, and `web.zip` served and drawn in Chrome (gh signed in; the repository stays).
 - `INTEGRATION-GAPS.md` is the integration status: the open items between the components and the recipe, the decisions taken, and what is not built. 
 
 ### What the test answer sets cover

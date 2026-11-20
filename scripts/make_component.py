@@ -21,7 +21,7 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parent.parent
 WORKSPACE = ROOT.parent.parent
 COMPONENTS = Path(os.environ.get("OURPOKER_COMPONENTS") or WORKSPACE / "components")  # the component checkouts
-sys.path.insert(0, str(WORKSPACE / "aepm"))  # a sibling checkout, unless PYTHONPATH already names one
+sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(WORKSPACE / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
 from aepm import application, model  # noqa: E402
 AEPM = Path(application.__file__).resolve().parent.parent
 
@@ -371,7 +371,7 @@ def build_manifest(files):
         artefacts.append(item)
     packaged = sorted(set(files) | {"INSTRUCTIONS.md"})
     return {
-        "format": 1, "kind": "recipe",
+        "format": 3, "kind": "recipe",
         "identity": {"name": NAME, "version": VERSION, "sourceRevision": SOURCE_REVISION, "sourceTreeDigest": "0" * 64, "licence": "Apache-2.0"},
         "facilities": [{"id": "application", "description": "OurPoker application-specific component: screen flow, house rules, text, lessons, artwork, wiring and end-to-end tests"}],
         "documents": {"contract": "CONTRACT.md", "interfaces": sorted(f for f in files if f.startswith("interfaces/")) + ["suitability.json"],
@@ -385,7 +385,7 @@ def build_manifest(files):
         "infrastructure": {"accounts": [], "costStatus": "unmeasured",
                            "deployedReason": "Deploys nothing itself: the server, web, native and desktop builds are produced by the components the recipe selects."},
         "verification": [suite()],
-        "upgrade": {"policy": "patch", "migration": "files-only"},
+        "upgrade": {"migration": "files-only"},
         **read(ROOT / "authoring/foundations.json"),
     }
 

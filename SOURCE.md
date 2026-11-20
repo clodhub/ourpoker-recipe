@@ -57,7 +57,8 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 
 | File | Lines | Origin | Notes |
 |---|---|---|---|
-| `implementation/server/package.json`, `package-lock.json` | 26, 2853 | server/package.json 1-23, server/package-lock.json | Exact versions of the source lock; tsx and the simulation and fixture scripts left behind; scripts run server-host's `start.ts` and `wrangler.jsonc`. |
+| `implementation/server/package.json`, `package-lock.json` | 26, 3387 | server/package.json 1-23, server/package-lock.json | Exact versions of the source lock; tsx and the simulation and fixture scripts left behind; scripts run server-host's `start.ts` and `wrangler.jsonc`. |
+| `implementation/server/scripts/deploy.mjs` | 26 | new | `npm run deploy`: wrangler deploy, run again when Cloudflare does not yet see a new worker (code 10007). |
 | `implementation/server/tsconfig.json` | 25 | server/tsconfig.json 1-15 | Checks `src` and `test` with the Node, Workers and Workers test types. |
 | `implementation/server/vitest.config.ts` | 16 | server/vitest.config.ts 1-19 | The room tests use server-host's `wrangler.jsonc`. |
 | `implementation/web/package.json`, `package-lock.json` | 23, 1075 | web/package.json 1-20, web/package-lock.json | Exact versions; with `livekit-client` (installed with video-calls). |
@@ -149,8 +150,8 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 
 | File | Lines | Origin (the source's recipe/ folder) | Notes |
 |---|---|---|---|
-| `implementation/desktop/package.json` | 22 | desktop/package.json 1-21 | Name templated. |
-| `implementation/desktop/package-lock.json` | 3604 | desktop/package-lock.json | Exact versions of electron and electron-builder. |
+| `implementation/desktop/package.json` | 25 | desktop/package.json 1-21 | Name templated. |
+| `implementation/desktop/package-lock.json` | 3579 | desktop/package-lock.json | Exact versions of electron and electron-builder. |
 | `implementation/desktop/scripts/build.cjs` | 4 | desktop/scripts/build.cjs 1-4 |  |
 | `implementation/desktop/scripts/package.cjs` | 100 | desktop/scripts/package.cjs 1-93 | Unsigned Windows installer settings; stages configuration.cjs; writes the icon, name, publisher and version into the executable; a failed build exits 1. |
 | `implementation/desktop/src/configuration.cjs` | 13 | desktop/src/main.cjs 1-12, verify.cjs | The windows-desktop configuration document, shared by main and verify. |
@@ -168,7 +169,7 @@ Everything here was taken from the `recipe/` folder of the OurPoker source at Mc
 | `implementation/repository/workflows/ci-web.yml` | 70 | McInPoker .github/workflows/ci-web.yml 1-35 | Web type check and build; a hand played by test/browser.mjs in headless Chrome against the server started on the runner. |
 | `implementation/repository/workflows/ci-android.yml` | 81 | McInPoker .github/workflows/ci-android.yml 1-34 | generate-project.ts first; unit tests and debug build; the app started in an emulator until it shows the room list from the server started on the runner. |
 | `implementation/repository/workflows/apple-builds.yml` | 53 | new | Unsigned iPhone and iPad, Mac Catalyst and Apple TV builds on a macOS runner, on a version tag or by hand. |
-| `implementation/repository/workflows/aepm-update.yml` | 125 | new | Weekly update proposal as a pull request; on merge, owner approval from AEPM_OWNER_KEY, apply and commit. |
+| `implementation/repository/workflows/aepm-update.yml` | 158 | new | Weekly update proposal as a pull request; on merge, owner approval from AEPM_OWNER_KEY, apply and commit. |
 | `implementation/repository/workflows/platform-packages.yml` | 48 | McInPoker .github/workflows/platform-packages.yml 65-93 | Windows only, also on pushes; the installer installed, started and uninstalled. |
 | `implementation/repository/workflows/release.yml` | 455 | McInPoker .github/workflows/release.yml 1-307 | Jobs per target found in the installation; secret names from ourapps-release's release.json; unsigned builds when the secrets are absent; the Windows installer attached; web and server deploys. |
 | `implementation/repository/workflows/apple-testflight.yml` | 114 | McInPoker .github/workflows/apple-testflight.yml 1-82 | Runs only with the store credentials; reservation inline. |

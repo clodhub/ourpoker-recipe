@@ -3,7 +3,7 @@
 // makes through Video.kt, Updates.kt, ui/Lessons.kt and ui/SeatScreen.kt. Run: gradle -p authoring/kotlin-stand-ins compileKotlin
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-plugins { kotlin("jvm") version "2.3.20" }
+plugins { kotlin("jvm") version "2.4.21" }
 repositories { mavenCentral() }
 dependencies { implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2") }
 java { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }

@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-AEPM = ROOT.parent.parent / "aepm"  # a sibling checkout, unless PYTHONPATH already names one
+AEPM = Path(os.environ.get("AEPM_CHECKOUT", ROOT.parent.parent / "aepm"))  # AEPM_CHECKOUT, else the sibling checkout
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(ROOT / "authoring"))
 sys.path.insert(0, str(AEPM))

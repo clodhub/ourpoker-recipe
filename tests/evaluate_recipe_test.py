@@ -6,9 +6,11 @@ complete: nothing here assembles, installs or runs an application.
 
 Run from the repository root with aepm on PYTHONPATH: python3 -B tests/evaluate_recipe_test.py
 """
+import os
 import copy
 import itertools
 import json
+import re
 import subprocess
 import sys
 import unittest
@@ -17,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(ROOT / "authoring"))
-sys.path.insert(0, str(ROOT.parent.parent / "aepm"))
+sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(ROOT.parent.parent / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
 
 import draw_design  # noqa: E402
 from aepm import recipe as E  # noqa: E402
@@ -318,34 +320,150 @@ class AnswerSets(unittest.TestCase):
                          [rules["players"]["maximum"], rules["chips"]["starting_stack"], rules["blinds"]["level_duration_seconds"]])
 
 
-def all_answers():
-    """Every combination of the answers that decide inclusion, asking and selection (the rest cannot change the connections)."""
-    refs = {"videoKey": "ourpoker/video-key", "videoSecret": "ourpoker/video-secret", "hostingAccount": "ourpoker-cloudflare-account",
-            "storeCredentials": STORE, "androidSigning": ANDROID, "webDeploy": WEB_DEPLOY}
-    options = RECIPE["questions"][0]["options"]
-    for size in range(1, len(options) + 1):  # no devices at all is an invalid answer (test_invalid_answers)
-        for targets in itertools.combinations(options, size):
-            for video, lessons, updates, publish, computers, server, scale in itertools.product((True, False), (True, False), (True, False), (True, False), ("none", "on-request", "fill-empty"), ("cloudflare", "own-hardware"), ("small", "medium", "large")):
-                yield {**refs, "targets": list(targets), "video": video, "lessons": lessons, "updates": updates, "publish": publish, "computerPlayers": computers, "server": server, "scale": scale}
+REFERENCES = {"videoKey": "ourpoker/video-key", "videoSecret": "ourpoker/video-secret", "hostingAccount": "ourpoker-cloudflare-account",
+              "storeCredentials": STORE, "androidSigning": ANDROID, "webDeploy": WEB_DEPLOY}
+TARGETS = RECIPE["questions"][0]["options"]
+TARGET_SETS = [list(c) for size in range(1, len(TARGETS) + 1) for c in itertools.combinations(TARGETS, size)]  # none is invalid
+# Every question named by a component's includedWhen or a question's askWhen, with its values; targets takes every non-empty set.
+CONDITION_VALUES = {"targets": TARGET_SETS, "video": [True, False], "publish": [True, False], "releases": [True, False],
+                    "updates": [True, False], "computerPlayers": ["none", "on-request", "fill-empty"], "server": ["cloudflare", "own-hardware"],
+                    "lessons": [True, False]}
+# The questions that decide which components are included and which hosts are selected, apart from targets.
+DECIDING = ["video", "publish", "releases", "updates", "computerPlayers", "server"]
+
+
+def every_combination():
+    """Every combination of the condition questions and scale: the bindings CelParity compares (no evaluation)."""
+    for targets in TARGET_SETS:
+        for values in itertools.product(*(CONDITION_VALUES[key] for key in DECIDING + ["lessons"]), ("small", "medium", "large")):
+            yield {**REFERENCES, "targets": targets, **dict(zip(DECIDING + ["lessons"], values)), "scale": values[-1]}
+
+
+def target_classes():
+    """One target set per way targets can decide inclusion (web, windows, any Apple device, android): the first set in
+    TARGET_SETS order with that membership, 15 in all."""
+    chosen = {}
+    for targets in TARGET_SETS:
+        t = set(targets)
+        chosen.setdefault(("web" in t, "windows" in t, bool(t & {"ios", "macos", "tvos"}), "android" in t), targets)
+    return list(chosen.values())
+
+
+def pairwise_rows():
+    """Every pair of values of two condition questions: each target set three times, the other questions' values turning
+    with the row and the set, so each target set meets every value of every other question."""
+    others = [key for key in CONDITION_VALUES if key != "targets"]
+    for index, targets in enumerate(TARGET_SETS):
+        for turn in range(3):
+            row = {"targets": targets}
+            for position, key in enumerate(others):
+                values = CONDITION_VALUES[key]
+                row[key] = values[(turn + (index >> position)) % len(values)]
+            yield row
+
+
+def single_values():
+    """Every value of every other question at least once on the default answers: each choice, each language alone and all of
+    them, integer bounds, and each text and secret reference value the recipe's answer sets use."""
+    seen = {}
+    for answers in SETS.values():
+        for key, value in answers.items():
+            seen.setdefault(key, [])
+            if value not in seen[key]:
+                seen[key].append(value)
+    for question in RECIPE["questions"]:
+        key = question["id"]
+        if key in CONDITION_VALUES:
+            continue
+        if question["type"] == "choice":
+            values = question["options"]
+        elif question["type"] == "set":
+            values = [[option] for option in question["options"]] + [question["options"]]
+        elif question["type"] == "integer":
+            values = [question["min"], question["max"]]
+        else:
+            values = seen.get(key, [])
+        for value in values:
+            yield {**SETS["default"], key: value}
+
+
+def cases():
+    """The answer sets EveryAnswer evaluates, in a fixed order with no repeats: every combination of DECIDING with each of
+    target_classes(), pairwise_rows() and single_values(), on the default answers and the secret references, with every
+    condition question answered."""
+    defaults = {q["id"]: q["default"] for q in RECIPE["questions"] if q["id"] in CONDITION_VALUES and "default" in q}
+    base = {**defaults, **SETS["default"], **REFERENCES}
+    out, keys = [], set()
+    rows = [{"targets": t, **dict(zip(DECIDING, values)), "lessons": True}
+            for t in target_classes() for values in itertools.product(*(CONDITION_VALUES[k] for k in DECIDING))]
+    for row in rows + list(pairwise_rows()) + list(single_values()):
+        answers = {**base, **row}
+        key = json.dumps(answers, sort_keys=True)
+        if key not in keys:
+            keys.add(key)
+            out.append(answers)
+    return out
+
+
+CASES = cases()
+RESULTS = {}
+
+
+def evaluate_case(answers):
+    key = json.dumps(answers, sort_keys=True)
+    if key not in RESULTS:
+        RESULTS[key] = E.evaluate(WORLD, answers)
+    return RESULTS[key]
 
 
 class EveryAnswer(unittest.TestCase):
-    def test_every_non_optional_requirement_is_connectable_for_every_answer_set(self):
-        count = 0
-        bad = []
-        for answers in all_answers():
+    """Runs every one of the 1,622 CASES through aepm.recipe.evaluate (nothing is checked by condition evaluation alone, and no
+    cases are merged): the 1,440 combinations of video, publish, releases, updates, computerPlayers and server (96) with each
+    of the 15 ways targets decides inclusion, lessons on; 189 rows giving every pair of values of the 8 questions any
+    includedWhen or askWhen names, targets as every non-empty set; 32 rows giving every value of every other question. 39
+    rows repeat earlier ones and are dropped. The cases are generated in a fixed order, so a failure reproduces."""
+
+    def test_the_cases_cover_what_the_docstring_says(self):
+        def condition_names(text):
+            return {key for key in CONDITION_VALUES if re.search(r"\b" + key + r"\b", text)}
+        named = set().union(*(condition_names(c["includedWhen"]) for c in RECIPE["components"] if c.get("includedWhen")),
+                            *(condition_names(q["askWhen"]) for q in RECIPE["questions"] if q.get("askWhen")))
+        self.assertEqual(named, set(CONDITION_VALUES))
+        self.assertEqual(len(target_classes()), 15)
+        self.assertEqual(len(CASES), 1622)
+        decided = {tuple(json.dumps(case.get(k)) for k in ["targets"] + DECIDING) for case in CASES}
+        for targets in target_classes():
+            for values in itertools.product(*(CONDITION_VALUES[k] for k in DECIDING)):
+                self.assertIn(tuple(json.dumps(v) for v in [targets, *values]), decided)
+        for first, second in itertools.combinations(CONDITION_VALUES, 2):
+            met = {(json.dumps(case.get(first)), json.dumps(case.get(second))) for case in CASES}
+            for a, b in itertools.product(CONDITION_VALUES[first], CONDITION_VALUES[second]):
+                self.assertIn((json.dumps(a), json.dumps(b)), met, (first, second))
+        for question in RECIPE["questions"]:
+            values = {json.dumps(case.get(question["id"])) for case in CASES}
+            expected = {"choice": lambda q: q["options"], "integer": lambda q: [q["min"], q["max"]], "boolean": lambda q: [True, False],
+                        "set": lambda q: [[o] for o in q["options"]]}.get(question["type"], lambda q: [])(question)
+            for value in expected:
+                self.assertIn(json.dumps(value), values, question["id"])
+
+    def test_every_non_optional_requirement_is_connectable_for_every_case(self):
+        bad, evaluated_cases = [], 0
+        for answers in CASES:
             result = E.evaluate(WORLD, answers)
-            count += 1
+            RESULTS[json.dumps(answers, sort_keys=True)] = result
+            evaluated_cases += 1
             if not result["ok"]:
                 bad.append((answers["targets"], answers["video"], answers["computerPlayers"], result["errors"][:2]))
             elif required_but_unconnected(result["design"]):
                 bad.append((answers, required_but_unconnected(result["design"])))
-        self.assertEqual(count, 63 * 2 * 2 * 2 * 2 * 3 * 2 * 3)
         self.assertEqual(bad[:3], [])
+        self.assertEqual(evaluated_cases, len(CASES), "every case through aepm.recipe.evaluate")
 
-    def test_inclusion_follows_the_conditions_for_every_answer_set(self):
-        for answers in itertools.islice(all_answers(), 0, None, 37):
-            present = ids_of(evaluated(answers))
+    def test_inclusion_follows_the_conditions_for_every_case(self):
+        for answers in CASES:
+            result = evaluate_case(answers)
+            self.assertTrue(result["ok"], result.get("errors"))
+            present = ids_of(result["design"])
             t = set(answers["targets"])
             self.assertEqual("web-host" in present, bool(t & {"web", "windows"}))
             self.assertEqual("apple-host" in present, bool(t & {"ios", "macos", "tvos"}))
@@ -354,7 +472,7 @@ class EveryAnswer(unittest.TestCase):
             self.assertEqual("video-calls" in present, answers["video"])
             self.assertEqual("guided-tour" in present, answers["lessons"])
             self.assertEqual("store-update" in present, answers["updates"])
-            self.assertEqual("ourapps-release" in present, answers["publish"])
+            self.assertEqual("ourapps-release" in present, answers["publish"] or answers["releases"])
             self.assertEqual("computer-players" in present, answers["computerPlayers"] != "none")
             self.assertEqual("poker-strategy" in present, answers["computerPlayers"] != "none")
 
@@ -624,14 +742,14 @@ def bufbuild(lines):
 
 
 class CelParity(unittest.TestCase):
-    """Every condition of recipe.json and every sample, for every answer set in recipe.json and every combination EveryAnswer
-    generates: this evaluator and @bufbuild/cel give the same true or false."""
+    """Every condition of recipe.json and every sample, for every answer set in recipe.json and every combination
+    every_combination() generates: this evaluator and @bufbuild/cel give the same true or false."""
 
     def test_the_python_evaluator_and_bufbuild_cel_agree(self):
         conditions = conditions_of(RECIPE)
         self.assertEqual(len(conditions), 15, "distinct conditions of the recipe")
         expressions = conditions + SAMPLES
-        answer_sets = list(SETS.values()) + list(all_answers())
+        answer_sets = list(SETS.values()) + list(every_combination())
         lines = [{"kinds": KINDS, "bindings": E.bindings(WORLD, answers), "expressions": expressions} for answers in answer_sets]
         theirs = bufbuild(lines)
         self.assertEqual(len(theirs), len(lines))
@@ -644,11 +762,10 @@ class CelParity(unittest.TestCase):
                 if ours != result:
                     differ.append((expression, line["bindings"], ours, result))
         self.assertEqual(differ[:3], [])
-        self.assertEqual(compared, (len(SETS) + 63 * 2 * 2 * 2 * 2 * 3 * 2 * 3) * len(expressions))
-        self.assertEqual(compared, (len(SETS) + 63 * 2 * 2 * 2 * 2 * 3 * 2 * 3) * len(expressions))
+        self.assertEqual(compared, (len(SETS) + 63 * 2 * 2 * 2 * 2 * 3 * 2 * 2 * 3) * len(expressions))
 
     def test_each_condition_takes_both_values_over_the_combinations(self):
-        lines = [E.bindings(WORLD, answers) for answers in all_answers()]
+        lines = [E.bindings(WORLD, answers) for answers in every_combination()]
         for condition in conditions_of(RECIPE):
             with self.subTest(condition):
                 self.assertEqual({E.evaluate_condition(condition, b, KINDS) for b in lines}, {True, False})

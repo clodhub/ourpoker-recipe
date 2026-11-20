@@ -1,7 +1,7 @@
 {
-  "format": 1,
+  "format": 2,
   "name": "ourapps-ae/ourpoker",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "title": "OurPoker",
   "summary": "A complete Texas hold'em game for two to nine players: phones, tablets, computers, the web and a television as a shared table, optional video, computer players, lessons, rebuys and rising blinds.",
   "category": "games",
@@ -31,12 +31,12 @@
       "id": "web-host",
       "class": {
         "name": "ourapps-ae/web-host-class",
-        "version": "1.0.0",
-        "digest": "d17b96739f006f849bdaeb88ba95ed3ae2fa2f6bb3f2ba58ba2cdb205bb7dc42"
+        "version": "1.1.0",
+        "digest": "3435beee79383a08ef26a41509c1dc99eabbde55a4950363c5b8e4797773d6a8"
       },
       "preferred": {
         "name": "ourapps-ae/web-host",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "applicationId": "ourpoker",
@@ -51,12 +51,12 @@
       "id": "apple-host",
       "class": {
         "name": "ourapps-ae/apple-host-class",
-        "version": "1.0.0",
-        "digest": "e8aac7a33367a6cfe07d650ca06dc2977023df0d722c906eeb9c0a8c182acdbb"
+        "version": "1.1.0",
+        "digest": "32f8b30ff7b0f0b5d73b600d8556eb790c9acd2bd7da1050fec6da8524eeaaf3"
       },
       "preferred": {
         "name": "ourapps-ae/apple-host",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {
         "bundleIdentifier": "app.ourapps.ourpoker",
@@ -69,12 +69,12 @@
       "id": "android-host",
       "class": {
         "name": "ourapps-ae/android-host-class",
-        "version": "1.0.0",
-        "digest": "3c8c4830e4009fd40b3ba3251ed3864eaa40548fcffaeadc3c97e68448667504"
+        "version": "1.1.0",
+        "digest": "9292637ff0488bee0156210518fe20355d0d0854c4dbcbff214f030d9dbd55a3"
       },
       "preferred": {
         "name": "ourapps-ae/android-host",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "packageId": "app.ourapps.ourpoker",
@@ -86,12 +86,12 @@
       "id": "windows-desktop",
       "class": {
         "name": "ourapps-ae/windows-desktop-class",
-        "version": "1.0.0",
-        "digest": "6684b11bd5dcb53f4063feb3f8ac664dcfd2c0c0e7696edb460f44f57a01236e"
+        "version": "1.1.0",
+        "digest": "c50e156621058e599e810535a1b0098faa13a3d7d6f91d14e5bffec9127c4a87"
       },
       "preferred": {
         "name": "ourapps-ae/windows-desktop",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": "'windows' in targets"
@@ -100,12 +100,12 @@
       "id": "server-host",
       "class": {
         "name": "ourapps-ae/server-host-class",
-        "version": "1.0.0",
-        "digest": "a54a226c1c2e3affbe98ba818badbe07a33eedada46b0386eaddbb6804312375"
+        "version": "1.1.0",
+        "digest": "1c9f5cea090f096c7372503deabd37f597df41a82e72e8b5a27fe5615fae7573"
       },
       "preferred": {
         "name": "ourapps-ae/server-host",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {
         "roomPrefix": "ourpoker-"
@@ -116,12 +116,12 @@
       "id": "ourapps-release",
       "class": {
         "name": "ourapps-ae/ourapps-release-class",
-        "version": "1.0.0",
-        "digest": "c5bc452af536763f3c5d168981dfeedb886b1d06380fd286eaa6039c58d8e0f0"
+        "version": "1.1.0",
+        "digest": "9898cce2ad89a9c41945bdb0af401f577d14d0e2c65a50e351acf5f6afecdbe4"
       },
       "preferred": {
         "name": "ourapps-ae/ourapps-release",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "applicationId": "ourpoker",
@@ -134,12 +134,12 @@
       "id": "store-update",
       "class": {
         "name": "ourapps-ae/store-update-class",
-        "version": "1.0.0",
-        "digest": "e5f9b02c2295546d3db3ac862798c45483c706bab23d546a9840d9f34a7e6d38"
+        "version": "1.1.0",
+        "digest": "90baf810d5bd8402a424468a15af5a2748de2e32858af2bf408d001fadff0862"
       },
       "preferred": {
         "name": "ourapps-ae/store-update",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": "updates"
@@ -148,12 +148,12 @@
       "id": "realtime-rooms",
       "class": {
         "name": "ourapps-ae/realtime-rooms-class",
-        "version": "1.0.0",
-        "digest": "b15241db967ae945f27bebcb22ccd3f63b76c8b8c35117e582cfe842fac1cdec"
+        "version": "1.1.0",
+        "digest": "277dd86c6c85a122cca116434940794e7be6245d053c5403d7f4e2df3a71be03"
       },
       "preferred": {
         "name": "ourapps-ae/realtime-rooms",
-        "version": "0.10.0"
+        "version": "0.11.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -162,12 +162,12 @@
       "id": "room-directory",
       "class": {
         "name": "ourapps-ae/room-directory-class",
-        "version": "1.0.0",
-        "digest": "7a3b8e47490ccd48a71eaacdba95aece8689dfec88a846d0bec6198c7ec7e207"
+        "version": "1.1.0",
+        "digest": "e79fe18442fe0927c23ff6a2ae779af267c58a6fec662a4abe1f542a5547f138"
       },
       "preferred": {
         "name": "ourapps-ae/room-directory",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -176,12 +176,12 @@
       "id": "guest-identity",
       "class": {
         "name": "ourapps-ae/guest-identity-class",
-        "version": "1.0.0",
-        "digest": "5a471bba4b1ea08cc3cd4d06045ea552cc59e25da05c93e364bb2b9af4146915"
+        "version": "1.1.0",
+        "digest": "b5f950c1986ac25c6820a37e208da0c76fec0491fb68d97d6813106df6f809a9"
       },
       "preferred": {
         "name": "ourapps-ae/guest-identity",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -190,12 +190,12 @@
       "id": "presence",
       "class": {
         "name": "ourapps-ae/presence-class",
-        "version": "1.0.0",
-        "digest": "47a75d759f681992a821410a224ed224b3886da4a9b55d933c5495d75a33df58"
+        "version": "1.1.0",
+        "digest": "7c80f0630ea3b103859c0a8ee4265042b9d1b24c567a09943e8218929252e541"
       },
       "preferred": {
         "name": "ourapps-ae/presence",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "awayAfterSeconds": 30,
@@ -208,12 +208,12 @@
       "id": "invitations",
       "class": {
         "name": "ourapps-ae/invitations-class",
-        "version": "1.0.0",
-        "digest": "9a5cc2b2ef7783e3b43cdb1dd0a12d02ed1d45b378a548c06862a464d8f441e3"
+        "version": "1.1.0",
+        "digest": "24954ffc9b635c0f44d0081469428a7584b5ff42ec29151a5cc1cfbe9f815928"
       },
       "preferred": {
         "name": "ourapps-ae/invitations",
-        "version": "0.6.0"
+        "version": "0.7.0"
       },
       "configuration": {
         "codeLength": 6
@@ -224,12 +224,12 @@
       "id": "private-views",
       "class": {
         "name": "ourapps-ae/private-views-class",
-        "version": "1.0.0",
-        "digest": "92705a0c0a3d88ee3059a88002e17a39a548cdb003618782e3c1be2f7015ed94"
+        "version": "1.1.0",
+        "digest": "258d4b952b2be04e7e7856b913719058fdec23ffa9a030b2c6eabf4a0e5c0f1e"
       },
       "preferred": {
         "name": "ourapps-ae/private-views",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -238,12 +238,12 @@
       "id": "display-mode",
       "class": {
         "name": "ourapps-ae/display-mode-class",
-        "version": "1.0.0",
-        "digest": "482f30edef7d426ebdcbf29a1006375957a183869375ee247a026a1b881a1d4d"
+        "version": "1.1.0",
+        "digest": "a845d8fc278f3afbd7370848b70b8dc8d7bf60bc00e210b58694aeea30e8b3ad"
       },
       "preferred": {
         "name": "ourapps-ae/display-mode",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -252,12 +252,12 @@
       "id": "video-calls",
       "class": {
         "name": "ourapps-ae/video-calls-class",
-        "version": "1.0.0",
-        "digest": "77e1127e36dae227d6ffed5c937c097c38c26161e087661888470d60f6f760c0"
+        "version": "1.1.0",
+        "digest": "c62e8cb966fabfa7453dc277f51da0c8d99b1ad9f39c082414a0aa6f24faf576"
       },
       "preferred": {
         "name": "ourapps-ae/video-calls",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": "video"
@@ -266,12 +266,12 @@
       "id": "preferences",
       "class": {
         "name": "ourapps-ae/preferences-class",
-        "version": "1.0.0",
-        "digest": "cc04ad3a8029aec51f37c49c58f2db9830c828f32095f8f16a99523a21cb5512"
+        "version": "1.1.0",
+        "digest": "8c1e97e5265742aa36a660b6905d3272e91494de06c0c85bd48d5a28adb0c75c"
       },
       "preferred": {
         "name": "ourapps-ae/preferences",
-        "version": "0.6.0"
+        "version": "0.7.0"
       },
       "configuration": {
         "defaultSound": true,
@@ -284,12 +284,12 @@
       "id": "turn-engine",
       "class": {
         "name": "ourapps-ae/turn-engine-class",
-        "version": "1.0.0",
-        "digest": "0a834542c0862387f86979fdfac18ce3f9dddc1443a57b775fff8f1d10433102"
+        "version": "1.1.0",
+        "digest": "0df0fa7eb20a8d4b228250488b0387d147fb8c5fdd919370acd804645744fd06"
       },
       "preferred": {
         "name": "ourapps-ae/turn-engine",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {
         "settleMs": 4000,
@@ -303,12 +303,12 @@
       "id": "game-clock",
       "class": {
         "name": "ourapps-ae/game-clock-class",
-        "version": "1.0.0",
-        "digest": "79a45a921bd4a79695249dccdc6a45cc670ff4a16e73fb87ba1738e1caff9b2f"
+        "version": "1.1.0",
+        "digest": "315870e4dbb01c2eb065410c05b4b87b8de6871c816e1560fb9642217017be7e"
       },
       "preferred": {
         "name": "ourapps-ae/game-clock",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -317,12 +317,12 @@
       "id": "seating",
       "class": {
         "name": "ourapps-ae/seating-class",
-        "version": "1.0.0",
-        "digest": "0ebf98e6af664c50fdc2bb322017ed9422bd4be800f8019173311834d06b859a"
+        "version": "1.1.0",
+        "digest": "61df5d165b4f17d637bdd45beacf39f25b6d2a64f043ddecdc66d0ea8776e7bb"
       },
       "preferred": {
         "name": "ourapps-ae/seating",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "hostRemovesPeople": false
@@ -333,12 +333,12 @@
       "id": "fair-shuffle",
       "class": {
         "name": "ourapps-ae/fair-shuffle-class",
-        "version": "1.0.0",
-        "digest": "c1d4c6e507d8bfdadc06f8e87ed065b4a42b3916c2bb3c5e15362b4c84c473b2"
+        "version": "1.1.0",
+        "digest": "4474dcb3af7bf34088c30b2e5f75ca0304998eb6f92f4f912680d9a7e9826f27"
       },
       "preferred": {
         "name": "ourapps-ae/fair-shuffle",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "source": "secure"
@@ -349,12 +349,12 @@
       "id": "card-deck",
       "class": {
         "name": "ourapps-ae/card-deck-class",
-        "version": "1.0.0",
-        "digest": "d495500efe68e358cb548fa2a73d926b78f663ad1ec669c96e835bedfd0d922f"
+        "version": "1.1.0",
+        "digest": "57a139a8faca808463beefdc0b29e1202279861e7c46c10cf529e47bf9a283ce"
       },
       "preferred": {
         "name": "ourapps-ae/card-deck",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "decks": 1,
@@ -366,12 +366,12 @@
       "id": "computer-players",
       "class": {
         "name": "ourapps-ae/computer-players-class",
-        "version": "1.0.0",
-        "digest": "ec44ada1a37234b3419fbe781902de9312fc77edd63a76593db1949a2a7bfaab"
+        "version": "1.1.0",
+        "digest": "81789b353a08614c650b23dfe1459da236738454b7e9412de362fe780fed13ff"
       },
       "preferred": {
         "name": "ourapps-ae/computer-players",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {
         "names": "Robin Sam Alex Jordan Casey Morgan Taylor Riley",
@@ -386,12 +386,12 @@
       "id": "chip-ledger",
       "class": {
         "name": "ourapps-ae/chip-ledger-class",
-        "version": "1.0.0",
-        "digest": "8d80db98857ee07f1275a4e0b75af4fe3c225af77273662c5e28136dbfbd7efb"
+        "version": "1.1.0",
+        "digest": "e0da22461a591d7378a477efebc531367c9128eaa4e97d90b1cb1549cf5f391d"
       },
       "preferred": {
         "name": "ourapps-ae/chip-ledger",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -400,12 +400,12 @@
       "id": "level-schedule",
       "class": {
         "name": "ourapps-ae/level-schedule-class",
-        "version": "1.0.0",
-        "digest": "f86a8e16d00bdf3647b08ece950928a338a765eb6e7cf4e95dd6080ebeb8a9b3"
+        "version": "1.1.0",
+        "digest": "7abf5c786c688995e97df53544d9751c5ef22d6b410e7ad47ae7a622273a687b"
       },
       "preferred": {
         "name": "ourapps-ae/level-schedule",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -414,12 +414,12 @@
       "id": "tournament",
       "class": {
         "name": "ourapps-ae/tournament-class",
-        "version": "1.0.0",
-        "digest": "4c486dd48a8147b8b18a97f35c57aba2d87bdb7c36651af505edca7f32d1a177"
+        "version": "1.1.0",
+        "digest": "b77ed2f7d27e69bdd7f7b3092e57731ad7a52b4e1d7c6dfa2588b8b1fe713266"
       },
       "preferred": {
         "name": "ourapps-ae/tournament",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "tiebreak": "stackAtDeal"
@@ -430,12 +430,12 @@
       "id": "round-history",
       "class": {
         "name": "ourapps-ae/round-history-class",
-        "version": "1.0.0",
-        "digest": "8847e200397343bbc62268d2c7a2d43694f56264441eb471c3fca6fa507b9182"
+        "version": "1.1.0",
+        "digest": "2816edbe02811a5d411d54f1f7dabc99aeed613d1b7bae28a55f1ce109127d2b"
       },
       "preferred": {
         "name": "ourapps-ae/round-history",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "maxRounds": 50
@@ -446,12 +446,12 @@
       "id": "rules-settings",
       "class": {
         "name": "ourapps-ae/rules-settings-class",
-        "version": "1.0.0",
-        "digest": "35fda69e93ba27f13db27d48f46c6d5e3963b1f2d816ec5a40c064d1dbcb47fd"
+        "version": "1.1.0",
+        "digest": "c7db43c06c8ed39738e167c75d673c43af3a44cddb4a0ae0d14f8ecb66e35987"
       },
       "preferred": {
         "name": "ourapps-ae/rules-settings",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "rulesFile": "texas-holdem-house-rules",
@@ -463,12 +463,12 @@
       "id": "poker-hand-ranking",
       "class": {
         "name": "ourapps-ae/poker-hand-ranking-class",
-        "version": "1.0.0",
-        "digest": "d308e9318a0ccd7d2c38569c0b40549e88545da36c137411153d1b9c7249424a"
+        "version": "1.1.0",
+        "digest": "9f98049eb095c5c9ebc6d205290a52f631e4d572cd008d93ce4e9586b878ebfe"
       },
       "preferred": {
         "name": "ourapps-ae/poker-hand-ranking",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -477,12 +477,12 @@
       "id": "poker-odds",
       "class": {
         "name": "ourapps-ae/poker-odds-class",
-        "version": "1.0.0",
-        "digest": "22b7237f5d3976a16e4bc4bad71ccc4deb5df2e37091614d156d333bb56388e5"
+        "version": "1.1.0",
+        "digest": "c0de3f22c6ba01ddfd6350554867e8163d438a76803d768f9089a8161a1466e4"
       },
       "preferred": {
         "name": "ourapps-ae/poker-odds",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "sampleBoards": 2000,
@@ -494,12 +494,12 @@
       "id": "holdem-rules",
       "class": {
         "name": "ourapps-ae/holdem-rules-class",
-        "version": "1.0.0",
-        "digest": "7a375c0788c911aa41a68147c1425a3e5ee0b719f0763e7e0a1b53cb1d741d49"
+        "version": "1.1.0",
+        "digest": "f232a215f6a21ad08cc2890052a641695f770ae855fcb40b964ca23d17503f74"
       },
       "preferred": {
         "name": "ourapps-ae/holdem-rules",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "revealAtRunout": true
@@ -510,12 +510,12 @@
       "id": "poker-strategy",
       "class": {
         "name": "ourapps-ae/poker-strategy-class",
-        "version": "1.0.0",
-        "digest": "97d400e0ac4ed319fa8044d935e425fbe54bfed47936311677337b7aeb170572"
+        "version": "1.1.0",
+        "digest": "e70a738ab948b3ea5b724c85e8cde27356c7f015d257c30b77e02194b0317e80"
       },
       "preferred": {
         "name": "ourapps-ae/poker-strategy",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "difficulty": 2,
@@ -527,12 +527,12 @@
       "id": "theme",
       "class": {
         "name": "ourapps-ae/theme-class",
-        "version": "1.0.0",
-        "digest": "e94b891e0579769d2c3498cfb963c9084db328dd346ff686315f132b70902956"
+        "version": "1.1.0",
+        "digest": "6f3e3e9cb48181e97792618b6126aa559462372f29e342a9a93f3b3fab928afe"
       },
       "preferred": {
         "name": "ourapps-ae/theme",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -541,12 +541,12 @@
       "id": "controls",
       "class": {
         "name": "ourapps-ae/controls-class",
-        "version": "1.0.0",
-        "digest": "1e12df7ee495994a566e89ea89bd98d984dde09d834705b4325c2137185e374b"
+        "version": "1.1.0",
+        "digest": "11b7e2fc396fa37c53d98f9d14252fad82e33c93d9610cb09212fea7b2811987"
       },
       "preferred": {
         "name": "ourapps-ae/controls",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -555,12 +555,12 @@
       "id": "table-layout",
       "class": {
         "name": "ourapps-ae/table-layout-class",
-        "version": "1.0.0",
-        "digest": "f254762503718ff7120668e14f2d2d51a5b0e58dd04e6a0e81f0b92844e6d54c"
+        "version": "1.1.0",
+        "digest": "389d934599befffde27a65d46729b932f5d14ebc38220f0b2dc113fe2592f1a7"
       },
       "preferred": {
         "name": "ourapps-ae/table-layout",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -569,12 +569,12 @@
       "id": "card-graphics",
       "class": {
         "name": "ourapps-ae/card-graphics-class",
-        "version": "1.0.0",
-        "digest": "593ac75b25fc0c763df99a6a7be498240f4a0cb3dd6a35641c49c77331f42564"
+        "version": "1.1.0",
+        "digest": "3baca95460fab41c86d8f2bdf9017073dcba5f0e46923a716572b75d7cdaf295"
       },
       "preferred": {
         "name": "ourapps-ae/card-graphics",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "cornerStyle": "rounded",
@@ -586,12 +586,12 @@
       "id": "chip-graphics",
       "class": {
         "name": "ourapps-ae/chip-graphics-class",
-        "version": "1.0.0",
-        "digest": "4dae7b2d9ce48332200a14ac96f5916e45a70d7a049873265678c1f485a8a3b5"
+        "version": "1.1.0",
+        "digest": "cd818db855c062ec00f3ac7cb3c9cacd320ba8d70ce34d79533da09de8bd8aa9"
       },
       "preferred": {
         "name": "ourapps-ae/chip-graphics",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "denominations": "casino 5000 1000 500 100 25 5 1",
@@ -603,12 +603,12 @@
       "id": "sound-cues",
       "class": {
         "name": "ourapps-ae/sound-cues-class",
-        "version": "1.0.0",
-        "digest": "4d407858e93334b2bdb7e1531e1971d30e59ef0302e317133d101d84e4122269"
+        "version": "1.1.0",
+        "digest": "f3d5d5da3fefa237f8b64842cf95eb457f283b356a217de4f2f9e98486757040"
       },
       "preferred": {
         "name": "ourapps-ae/sound-cues",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {
         "soundManifest": "sounds",
@@ -620,12 +620,12 @@
       "id": "guided-tour",
       "class": {
         "name": "ourapps-ae/guided-tour-class",
-        "version": "1.0.0",
-        "digest": "49f31fee29711d15ea6d0064f4e9344880a266c0e5fba1811a367a554283010c"
+        "version": "1.1.0",
+        "digest": "23cab90db6b2e25dad68482cf90b5931cf965d901488a75c83aae0b315191405"
       },
       "preferred": {
         "name": "ourapps-ae/guided-tour",
-        "version": "0.8.0"
+        "version": "0.9.0"
       },
       "configuration": {},
       "includedWhen": "lessons"
@@ -634,12 +634,12 @@
       "id": "translations",
       "class": {
         "name": "ourapps-ae/translations-class",
-        "version": "1.0.0",
-        "digest": "f7ccf3298cb45368a7f7986963c7ed43c51682097dc3416c0e150efbfab77c68"
+        "version": "1.1.0",
+        "digest": "f92cf9360903e7c5802004297c6d80581f966c1cd9df80243273e708daec43d8"
       },
       "preferred": {
         "name": "ourapps-ae/translations",
-        "version": "0.9.0"
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -738,7 +738,8 @@
   "questions": [
     {
       "id": "targets",
-      "ask": "Which devices should the game run on?",
+      "ask": "unless-settled",
+      "question": "Which devices should the game run on?",
       "askAgent": "Infer from the request (phone, tablet, television, computer, browser); ask only if no device is named.",
       "type": "set",
       "options": [
@@ -768,7 +769,8 @@
     },
     {
       "id": "webAddress",
-      "ask": "At which web address will the web version be served?",
+      "ask": "default",
+      "question": "At which web address will the web version be served?",
       "askAgent": "Ask only when the web is a target; keep http://localhost:5173 for local use, otherwise the developer's own https address (the server refuses a plain http origin other than localhost).",
       "askWhen": "'web' in targets",
       "type": "text",
@@ -786,7 +788,8 @@
     },
     {
       "id": "bundleId",
-      "ask": "Which bundle identifier should the phone, tablet, television and Mac apps carry (for example com.yourname.poker)? Leave empty to use the one the application derives.",
+      "ask": "default",
+      "question": "Which bundle identifier should the phone, tablet, television and Mac apps carry (for example com.yourname.poker)? Leave empty to use the one the application derives.",
       "askAgent": "Leave empty unless the developer names one; the application derives app.ourapps.<applicationId>.",
       "type": "text",
       "default": "",
@@ -803,7 +806,8 @@
     },
     {
       "id": "scale",
-      "ask": "How many people will play at the same time, at most?",
+      "ask": "unless-settled",
+      "question": "How many people will play at the same time, at most?",
       "askAgent": "People at the same time, not seats: up to 10 small, 11 to 100 medium, over 100 large. It sizes the server and video plans only: the game always has two tables of up to 9 seats, so at most 18 play at once and the rest watch. Tell the person when the group is over 18.",
       "type": "choice",
       "options": [
@@ -816,7 +820,8 @@
     },
     {
       "id": "languages",
-      "ask": "Which languages should the game speak?",
+      "ask": "default",
+      "question": "Which languages should the game speak?",
       "askAgent": "Use the languages the request names; otherwise keep all four.",
       "type": "set",
       "options": [
@@ -842,7 +847,8 @@
     },
     {
       "id": "look",
-      "ask": "Which look should the game have: night (dark green felt, gold, striped card backs) or lounge (warm brown, plain card backs)?",
+      "ask": "default",
+      "question": "Which look should the game have: night (dark green felt, gold, striped card backs) or lounge (warm brown, plain card backs)?",
       "askAgent": "The look of the whole application on every device: both rooms, every screen, the felt and the card backs. Pick night (dark) or lounge (warm) from any style the request gives; otherwise keep night.",
       "type": "choice",
       "options": [
@@ -873,7 +879,8 @@
     },
     {
       "id": "players",
-      "ask": "What is the largest number of players at one table (2 to 9)?",
+      "ask": "default",
+      "question": "What is the largest number of players at one table (2 to 9)?",
       "askAgent": "Seats at one table. There are always two tables (Casino and Home), each up to this number, so at most twice it play at once (18 with 9) and everyone else watches. About a dozen: 9, or 6 for two even tables. Over 18 people: tell the person some will watch.",
       "type": "integer",
       "min": 2,
@@ -893,7 +900,8 @@
     },
     {
       "id": "startingChips",
-      "ask": "How many chips does each player start with?",
+      "ask": "default",
+      "question": "How many chips does each player start with?",
       "askAgent": "Use the number in the request; keep 5000 if unstated.",
       "type": "integer",
       "min": 100,
@@ -911,7 +919,8 @@
     },
     {
       "id": "levelSeconds",
-      "ask": "How many seconds does each blind level last?",
+      "ask": "default",
+      "question": "How many seconds does each blind level last?",
       "askAgent": "Convert minutes to seconds; keep 600 (10 minutes) if unstated.",
       "type": "integer",
       "min": 60,
@@ -928,7 +937,8 @@
     },
     {
       "id": "rebuys",
-      "ask": "How many rebuys may each player take (0 for none)?",
+      "ask": "default",
+      "question": "How many rebuys may each player take (0 for none)?",
       "askAgent": "Use 0 if the request says no rebuys; keep 1 (until level 3) if unstated.",
       "type": "integer",
       "min": 0,
@@ -945,7 +955,8 @@
     },
     {
       "id": "decisionSeconds",
-      "ask": "How many seconds does a player have to act before the game checks or folds for them?",
+      "ask": "default",
+      "question": "How many seconds does a player have to act before the game checks or folds for them?",
       "askAgent": "Keep 30 unless the request names a pace.",
       "type": "integer",
       "min": 5,
@@ -963,7 +974,8 @@
     },
     {
       "id": "computerPlayers",
-      "ask": "Computer players? none: never; on-request: a person adds them, and one plays for anyone away; fill-empty: as on-request, and when one person (or more) presses Start, computers take every empty seat.",
+      "ask": "default",
+      "question": "Computer players? none: never; on-request: a person adds them, and one plays for anyone away; fill-empty: as on-request, and when one person (or more) presses Start, computers take every empty seat.",
       "askAgent": "on-request unless the request says people only (none) or asks for full tables or playing alone against the computer (fill-empty: one person can press Start alone and the table fills).",
       "type": "choice",
       "options": [
@@ -983,7 +995,8 @@
     },
     {
       "id": "video",
-      "ask": "Should players see and hear each other by video?",
+      "ask": "default",
+      "question": "Should players see and hear each other by video?",
       "askAgent": "No if the request says no video or the people share a room; when yes the developer supplies the video service address and the key and secret by reference.",
       "type": "boolean",
       "default": true,
@@ -991,7 +1004,8 @@
     },
     {
       "id": "videoServiceUrl",
-      "ask": "What is the web address of your LiveKit video service (leave empty to set it later)?",
+      "ask": "unless-settled",
+      "question": "What is the web address of your LiveKit video service (leave empty to set it later)?",
       "askAgent": "Ask only when video is on; the developer's own LiveKit address, never invented.",
       "askWhen": "video",
       "type": "text",
@@ -1006,7 +1020,8 @@
     },
     {
       "id": "videoKey",
-      "ask": "Under which name is the video service API key kept in your secret store?",
+      "ask": "required",
+      "question": "Under which name is the video service API key kept in your secret store?",
       "askAgent": "Ask only when video is on and builds are published; a reference name, never the key. Locally the server reads LIVEKIT_URL, LIVEKIT_API_KEY and LIVEKIT_API_SECRET from its environment instead.",
       "askWhen": "video && publish",
       "type": "secretRef",
@@ -1022,7 +1037,8 @@
     },
     {
       "id": "videoSecret",
-      "ask": "Under which name is the video service API secret kept in your secret store?",
+      "ask": "required",
+      "question": "Under which name is the video service API secret kept in your secret store?",
       "askAgent": "Ask only when video is on and builds are published; a reference name, never the secret. Locally the server reads LIVEKIT_URL, LIVEKIT_API_KEY and LIVEKIT_API_SECRET from its environment instead.",
       "askWhen": "video && publish",
       "type": "secretRef",
@@ -1038,7 +1054,8 @@
     },
     {
       "id": "lessons",
-      "ask": "Should the game teach new players with step-by-step lessons?",
+      "ask": "default",
+      "question": "Should the game teach new players with step-by-step lessons?",
       "askAgent": "Yes unless the request says players already know the game.",
       "type": "boolean",
       "default": true,
@@ -1046,7 +1063,8 @@
     },
     {
       "id": "server",
-      "ask": "Where should the server run: on a hosting provider (Cloudflare) or on your own hardware?",
+      "ask": "required",
+      "question": "Where should the server run: on a hosting provider (Cloudflare) or on your own hardware?",
       "askAgent": "Ask the developer; never guess a hosting account. cloudflare needs the developer's Cloudflare account; own-hardware needs a machine. The cost and size of the choice are picked from the scale answer.",
       "type": "choice",
       "options": [
@@ -1057,7 +1075,8 @@
     },
     {
       "id": "hostingAccount",
-      "ask": "Under which name is your Cloudflare account kept in your secret store?",
+      "ask": "required",
+      "question": "Under which name is your Cloudflare account kept in your secret store?",
       "askAgent": "Ask only when the server runs on Cloudflare; a reference name (lowercase letters, digits, hyphens), never a key. Deploying from a computer uses the wrangler login; the name only chooses the GitHub secrets the release workflow deploys the server with.",
       "askWhen": "server == 'cloudflare'",
       "type": "secretRef",
@@ -1076,7 +1095,8 @@
     },
     {
       "id": "serverAddress",
-      "ask": "At which address does the server answer? Keep http://localhost:8788 until the server is deployed; after the first deploy, give the address it reports.",
+      "ask": "default",
+      "question": "At which address does the server answer? Keep http://localhost:8788 until the server is deployed; after the first deploy, give the address it reports.",
       "askAgent": "Keep http://localhost:8788 for local use and for the first install; after the server is deployed, answer with its https address (Cloudflare reports it, own hardware is the developer's own) and rebuild the clients. Never guess a domain.",
       "type": "text",
       "default": "http://localhost:8788",
@@ -1090,7 +1110,8 @@
     },
     {
       "id": "updates",
-      "ask": "Should installed apps offer new versions through ourapps.app?",
+      "ask": "default",
+      "question": "Should installed apps offer new versions through ourapps.app?",
       "askAgent": "No unless the request mentions updates or keeping the app current.",
       "type": "boolean",
       "default": false,
@@ -1104,7 +1125,8 @@
     },
     {
       "id": "publish",
-      "ask": "Will builds be signed and published (web hosting, Android and Apple stores, updates through ourapps.app)?",
+      "ask": "default",
+      "question": "Will builds be signed and published (web hosting, Android and Apple stores, updates through ourapps.app)?",
       "askAgent": "No for building and running it locally or on the developer's own machine; yes only when the request is to publish. Every signing and deployment reference is asked only when this is yes. GitHub builds and releases without store publishing is releases yes, publish no.",
       "type": "boolean",
       "default": false,
@@ -1112,7 +1134,8 @@
     },
     {
       "id": "repository",
-      "ask": "In which GitHub repository should the application's code go (owner/name)? Leave empty for your own account and the name ourpoker.",
+      "ask": "default",
+      "question": "In which GitHub repository should the application's code go (owner/name)? Leave empty for your own account and the name ourpoker.",
       "askAgent": "The repository the developer names, else <login>/ourpoker (the login from `gh api user -q .login`); created private when it does not exist (INSTRUCTIONS.md part 4, Repository and releases). owner/name: letters, digits, hyphens, underscores.",
       "type": "text",
       "default": "",
@@ -1131,7 +1154,8 @@
     },
     {
       "id": "releases",
-      "ask": "Should GitHub Actions check every change and publish a release for each version tag? (Publishing builds always sets this up.)",
+      "ask": "default",
+      "question": "Should GitHub Actions check every change and publish a release for each version tag? (Publishing builds always sets this up.)",
       "askAgent": "Yes when GitHub should build, check and release each version: GitHub builds and releases without store publishing is releases yes, publish no (publish yes sets it up whatever this answer is). It uses the repository's Actions minutes.",
       "type": "boolean",
       "default": false,
@@ -1139,7 +1163,8 @@
     },
     {
       "id": "storeInvitation",
-      "ask": "What is your ourapps.app store invitation link (leave empty to set it later)?",
+      "ask": "unless-settled",
+      "question": "What is your ourapps.app store invitation link (leave empty to set it later)?",
       "askAgent": "Ask only when updates are on; the developer's own link, never invented.",
       "askWhen": "updates",
       "type": "text",
@@ -1155,7 +1180,8 @@
     },
     {
       "id": "storeCredentials",
-      "ask": "Under which name are your app store credentials kept in your secret store?",
+      "ask": "required",
+      "question": "Under which name are your app store credentials kept in your secret store?",
       "askAgent": "Ask only when builds are published and updates are on or iPhone and iPad is a target (the release pipeline has no store call and no iOS job without it); a reference name, never the credentials.",
       "askWhen": "publish && (updates || 'ios' in targets)",
       "type": "secretRef",
@@ -1171,7 +1197,8 @@
     },
     {
       "id": "androidSigning",
-      "ask": "Under which name is your Android signing key kept in your secret store?",
+      "ask": "required",
+      "question": "Under which name is your Android signing key kept in your secret store?",
       "askAgent": "Ask only when builds are published and Android is a target; a reference name, never the key.",
       "askWhen": "publish && 'android' in targets",
       "type": "secretRef",
@@ -1187,7 +1214,8 @@
     },
     {
       "id": "webDeploy",
-      "ask": "Under which name is your web deployment key kept in your secret store?",
+      "ask": "required",
+      "question": "Under which name is your web deployment key kept in your secret store?",
       "askAgent": "Ask only when builds are published and the web is a target; a reference name, never the key.",
       "askWhen": "publish && 'web' in targets",
       "type": "secretRef",
