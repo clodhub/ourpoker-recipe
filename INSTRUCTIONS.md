@@ -1,6 +1,6 @@
 # OurPoker recipe: instructions
 
-Package `ourapps-ae/ourpoker` 0.9.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
+Package `ourapps-ae/ourpoker` 0.10.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
 
 ## 1. For the agent
 
@@ -150,7 +150,7 @@ AEPM="$PWD/aepm"
 aepm() { PYTHONPATH="$AEPM" python3 -B -m aepm "$@"; }
 ```
 
-STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.9.0).
+STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.10.0).
 
 1. Fetch the recipe and every component it names, with their release and guardian attestations, then read these instructions from the recipe's archive:
    ```
@@ -183,8 +183,8 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    To put another component in a slot, list the catalogue components that fit it, fetch the one chosen into STORE, and name it in `--substitute` (repeat for several slots):
    ```
    aepm alternatives ourpoker@<version> theme --store STORE --from https://ourapps.app
-   aepm fetch ourapps-ae/theme-high-contrast@0.4.0 --store STORE --from https://ourapps.app
-   aepm design ourpoker@<version> --store STORE --answers answers.json --substitute theme=ourapps-ae/theme-high-contrast@0.4.0 --out definition.json
+   aepm fetch ourapps-ae/theme-high-contrast@0.5.0 --store STORE --from https://ourapps.app
+   aepm design ourpoker@<version> --store STORE --answers answers.json --substitute theme=ourapps-ae/theme-high-contrast@0.5.0 --out definition.json
    ```
    `alternatives` prints `[{name, version, fits, reasons}]`. `design` refuses a component that does not fit (`unfit` with the reason) and records the choice in the design's `selections` as `{component, version, reason: "substituted"}`. A substitute in a job's slot (`server-host`, `realtime-rooms`, `video-calls`) replaces the job's selection.
 5. Lock the exact packages:
@@ -199,12 +199,12 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    import json
    level_n = json.load(open("levelnpolicy.json"))
    mine = json.load(open("identities/policy.json"))
-   policy = {"format": 1, "keys": {"release": level_n["keys"]["release"], "guardian": level_n["keys"]["guardian"], "owner": mine["keys"]["owner"]}, "trustedExecution": []}
+   policy = {"format": 1, "keys": {"release": level_n["keys"]["release"], "guardian": level_n["keys"]["guardian"], "owner": mine["keys"]["owner"]}, "trustedExecution": sorted(x["digest"] for x in json.load(open("lock.json"))["packages"])}
    json.dump(policy, open("policy.json", "w"), indent=2)
    POLICY
    ```
    `identities/` then holds three disposable private keys; keep `owner.pem` (it approves updates), delete the other two, and keep the folder outside STORE and APP. For an owner key you keep, make it with OpenSSL instead and put its public key in the policy's `owner` list:
-   `openssl genpkey -algorithm ed25519 -out owner.pem` and `openssl pkey -in owner.pem -pubout` (the `publicKey` value is that PEM text). POLICY is the resulting `policy.json`.
+   `openssl genpkey -algorithm ed25519 -out owner.pem` and `openssl pkey -in owner.pem -pubout` (the `publicKey` value is that PEM text). POLICY is the resulting `policy.json`. Its `trustedExecution` lists the digest of every package in `lock.json`: those are the packages whose checks `aepm verify --trusted` may run.
 7. Install:
    ```
    aepm install definition.json --lock lock.json --store STORE --policy POLICY --target APP
@@ -212,9 +212,9 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    aepm checks every package's release and guardian signatures against POLICY, places the files, renders each setting into the files that name it, and records the design in `APP/.aepm/`. It runs no package code.
 8. Check the installed application:
    ```
-   aepm verify APP --policy POLICY --trusted
+   aepm verify APP --policy POLICY --trusted --allow-network
    ```
-   `--trusted` is required: it runs each package's declared checks, which is package code. Then put the application in its repository and build and run it (part 4).
+   `--trusted` runs each package's declared checks (package code, allowed only for the packages in the policy's `trustedExecution`); `--allow-network` lets those checks download their dependencies (`npm ci`). Then put the application in its repository and build and run it (part 4).
 
 On Windows, in PowerShell (Windows PowerShell 5.1 or PowerShell 7) with Python 3.12 as `python`, define the command and give each multi-line Python step on standard input:
 
@@ -239,11 +239,11 @@ curl.exe -fsSL https://ourapps.app/policy/levelnpolicy.json -o levelnpolicy.json
 import json
 level_n = json.load(open("levelnpolicy.json"))
 mine = json.load(open("identities/policy.json"))
-policy = {"format": 1, "keys": {"release": level_n["keys"]["release"], "guardian": level_n["keys"]["guardian"], "owner": mine["keys"]["owner"]}, "trustedExecution": []}
+policy = {"format": 1, "keys": {"release": level_n["keys"]["release"], "guardian": level_n["keys"]["guardian"], "owner": mine["keys"]["owner"]}, "trustedExecution": sorted(x["digest"] for x in json.load(open("lock.json"))["packages"])}
 json.dump(policy, open("policy.json", "w"), indent=2)
 '@ | python -
 aepm install definition.json --lock lock.json --store STORE --policy POLICY --target APP
-aepm verify APP --policy POLICY --trusted
+aepm verify APP --policy POLICY --trusted --allow-network
 ```
 
 STORE, POLICY and APP are absolute Windows paths (for example `$HOME\ourpoker-store`; APP needs a short parent folder, part 4, Windows). Write `answers.json` without a byte order mark: with an editor, or `Set-Content answers.json '{"targets": ["web", "windows"], "server": "own-hardware"}' -Encoding ascii`.
@@ -409,7 +409,7 @@ Deploy now, with these names, unless the person asked otherwise: the server work
    ```
    `propose-update` installs the next design into a stage in `.<APP name>.aepm-transaction/` beside APP and runs every package's declared checks there: `--trusted` runs package code, so the policy lists the digest of each package in `next-lock.json` in `trustedExecution` (the `python3` line adds them), and `--allow-network` lets the checks' `npm ci` download.
    Without `--trusted` it refuses with `trusted-execution-required`. `approve` signs the proposal with the owner key, which must be the policy's `owner` key; `apply` checks that neither APP nor the stage has changed since the proposal and swaps them. `aepm recover APP` completes or reverses an interrupted `apply`. Then, before deploying, check the updated application:
-   `aepm verify APP --policy POLICY --trusted`, then `npm ci`, `npm run typecheck` and `npm test` in `server/`, and `npm ci` and `npm run typecheck` in `web/` (and `npm ci` in `desktop/`). The answers and selections the update used are in `APP/.aepm/definition.json`.
+   `aepm verify APP --policy POLICY --trusted --allow-network` (the python3 line above added the new packages to `trustedExecution`), then `npm ci`, `npm run typecheck` and `npm test` in `server/`, and `npm ci` and `npm run typecheck` in `web/` (and `npm ci` in `desktop/`). The answers and selections the update used are in `APP/.aepm/definition.json`.
 
    Installing the design again into a new folder also works: `aepm install next.json --lock next-lock.json --store STORE --policy POLICY --target NEXT`; then move anything you added to APP (`CHANGELOG.md`, `.git/`) across and use NEXT from here on.
 3. Deploy the server again (`npm ci`, `npm run deploy` in `server/`): it now accepts the web client from `webAddress` (and from localhost). Rebuild and publish the web client from `web/` as in step 1 without `VITE_SERVER` (it now calls `serverAddress`), then build the other clients below; they call `serverAddress`.

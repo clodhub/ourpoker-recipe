@@ -97,7 +97,7 @@ test("recipe.json passes the ourapps catalogue validator, with the components' s
   const result = validateRecipe(recipe, validatorContext());
   assert.ok(result.ok, result.ok ? "" : result.errors.join("\n"));
   assert.equal(recipe.name, "ourapps-ae/ourpoker");
-  assert.equal(recipe.version, "0.9.0");
+  assert.equal(recipe.version, "0.10.0");
   assert.equal(recipe.components.length, 39);
   assert.equal(recipe.questions.length, 28);
 });
@@ -112,6 +112,18 @@ test("page, instructions and diagram files exist; the diagrams are safe SVG", ()
     else assert.ok(isSafeSvg(svg), `page/${name} is not accepted by isSafeSvg`);
   }
   assert.ok(existsSync(join(root, "page", "diagram.png")), "page/diagram.png is missing");
+});
+
+test("the policy trusts every locked package, and every aepm verify runs the checks with network", () => {
+  const text = readFileSync(join(root, "INSTRUCTIONS.md"), "utf8");
+  const policies = text.split("\n").filter((line) => line.includes('"trustedExecution":'));
+  assert.ok(policies.length >= 2, "the shell and PowerShell policy steps");
+  for (const line of policies) assert.match(line, /"trustedExecution": sorted\(x\["digest"\] for x in json\.load\(open\("lock\.json"\)\)\["packages"\]\)/);
+  const verify = [...text.matchAll(/aepm verify [^`\n]*/g)].map((match) => match[0]).filter((line) => line.includes("--policy"));
+  assert.ok(verify.length >= 3, "part 3 step 8, the PowerShell list and the update");
+  for (const line of verify) assert.ok(line.includes("--trusted") && line.includes("--allow-network"), line);
+  const page = readFileSync(join(root, "page/description.md"), "utf8");
+  for (const line of page.split("\n").filter((item) => item.includes("aepm verify"))) assert.ok(line.includes("--trusted") && line.includes("--allow-network"), line);
 });
 
 test("no line of INSTRUCTIONS.md is longer than 400 characters, and none splits inline code", () => {

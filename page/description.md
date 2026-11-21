@@ -76,10 +76,10 @@ Each component sits in a slot named after it: the slot's class is what the recip
 
 ## Building it
 
-With aepm and the published catalogue: `aepm fetch ourpoker@0.9.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
+With aepm and the published catalogue: `aepm fetch ourpoker@0.10.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
 
 ```
-python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.9.0 > INSTRUCTIONS.md
+python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.10.0 > INSTRUCTIONS.md
 ```
 
 The steps, all set out in INSTRUCTIONS.md:
@@ -89,7 +89,7 @@ The steps, all set out in INSTRUCTIONS.md:
 3. `aepm design` with your answers.
 4. `aepm doctor` checks this machine's build tools for the devices you chose (`--install` installs the missing ones it can).
 5. `aepm resolve`, then the owner's policy, then `aepm install`.
-6. `aepm verify --trusted` runs every package's checks on the installed application.
+6. `aepm verify APP --policy POLICY --trusted --allow-network` runs every package's checks on the installed application: the policy's `trustedExecution` lists the digests in `lock.json`, `--trusted` lets the checks run package code and `--allow-network` lets them download their dependencies.
 7. Build and run on each device; a local server and the web client need no account.
 8. When the server runs on Cloudflare: the two-step deploy. Deploy the server (`npm run deploy`, which handles a first deploy to a new worker name), build the web client against it and publish it as its own worker; then add both addresses to your answers, update the application in place, verify it again and deploy both again.
 
@@ -110,7 +110,7 @@ The default answers, `book-club`, `poker-league`, `company-event`, `company-even
 
 ## Status
 
-Version 0.9.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
+Version 0.10.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
 
 - Server on Node; the web client in a browser: a player sits, a computer player joins and a hand is played to its settlement with every chip counted.
 - iPhone and iPad, Mac (Mac Catalyst) and Apple TV apps built for their simulators and Mac; the Android app built, unit-tested and played on the emulator to a settled hand; the desktop web build for Windows.
