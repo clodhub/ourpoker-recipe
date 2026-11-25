@@ -6,12 +6,12 @@
   "view": "application",
   "definitions": [
     {
-      "id": "ourapps-ae.web-host",
+      "id": "clodhub.web-host",
       "name": "Web host",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/web-host",
-      "version": "0.9.0",
+      "package": "clodhub/web-host",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
@@ -86,12 +86,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.apple-host",
+      "id": "clodhub.apple-host",
       "name": "Apple host",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/apple-host",
-      "version": "0.10.0",
+      "package": "clodhub/apple-host",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "theme",
@@ -153,12 +153,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.android-host",
+      "id": "clodhub.android-host",
       "name": "Android host",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/android-host",
-      "version": "0.9.0",
+      "package": "clodhub/android-host",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
@@ -205,12 +205,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.windows-desktop",
+      "id": "clodhub.windows-desktop",
       "name": "Windows desktop",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/windows-desktop",
-      "version": "0.10.0",
+      "package": "clodhub/windows-desktop",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "windows-desktop-configuration",
@@ -234,12 +234,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.server-host",
+      "id": "clodhub.server-host",
       "name": "Server host",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/server-host",
-      "version": "0.10.0",
+      "package": "clodhub/server-host",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "room-session",
@@ -316,7 +316,7 @@
     {
       "id": "web-host",
       "name": "Web host",
-      "definition": "ourapps-ae.web-host",
+      "definition": "clodhub.web-host",
       "configuration": {
         "iconPath": "icon",
         "applicationId": "ourpoker",
@@ -330,7 +330,7 @@
     {
       "id": "apple-host",
       "name": "Apple host",
-      "definition": "ourapps-ae.apple-host",
+      "definition": "clodhub.apple-host",
       "configuration": {
         "targets": "web ios android macos windows tvos",
         "deploymentTargets": "ios17 tvos17 macos14",
@@ -342,7 +342,7 @@
     {
       "id": "android-host",
       "name": "Android host",
-      "definition": "ourapps-ae.android-host",
+      "definition": "clodhub.android-host",
       "configuration": {
         "minSdk": 26,
         "packageId": "app.ourapps.ourpoker",
@@ -352,13 +352,13 @@
     {
       "id": "windows-desktop",
       "name": "Windows desktop",
-      "definition": "ourapps-ae.windows-desktop",
+      "definition": "clodhub.windows-desktop",
       "configuration": {}
     },
     {
       "id": "server-host",
       "name": "Server host",
-      "definition": "ourapps-ae.server-host",
+      "definition": "clodhub.server-host",
       "configuration": {
         "accountReference": "ourpoker-cloudflare-account",
         "allowedOrigins": "http://localhost:5173",

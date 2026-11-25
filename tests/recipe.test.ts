@@ -9,11 +9,11 @@ import "../authoring/register-ts-js.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const componentsRoot = process.env.OURPOKER_COMPONENTS ?? join(root, "..", "..", "components");
-// The ourapps checkout whose catalogue validator is used: OURAPPS, else ../../ourapps beside the recipes folder.
-const ourapps = process.env.OURAPPS ?? join(root, "..", "..", "ourapps");
-const catalogueFoundations = existsSync(join(ourapps, 'shared/src/foundations.ts'));
-const { validateRecipe, isSafeSvg } = await import(pathToFileURL(join(ourapps, "shared/src/catalogue.ts")).href);
-const { checkCondition } = await import(pathToFileURL(join(ourapps, "shared/src/conditions.ts")).href);
+// The clodhub checkout whose catalogue validator is used: CLODHUB, else ../../clodhub beside the recipes folder.
+const clodhub = process.env.CLODHUB ?? join(root, "..", "..", "clodhub");
+const catalogueFoundations = existsSync(join(clodhub, 'shared/src/foundations.ts'));
+const { validateRecipe, isSafeSvg } = await import(pathToFileURL(join(clodhub, "shared/src/catalogue.ts")).href);
+const { checkCondition } = await import(pathToFileURL(join(clodhub, "shared/src/conditions.ts")).href);
 
 type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 type Obj = Record<string, any>;
@@ -93,11 +93,11 @@ function validatorContext() {
 
 const everyQuestionEffect = (): [Obj, string, any][] => recipe.questions.flatMap((q: Obj) => q.effects.flatMap((e: Obj) => Object.entries(e.sets ?? {}).map(([target, value]) => [q, target, value] as [Obj, string, any])));
 
-test("recipe.json passes the ourapps catalogue validator, with the components' settings and profiles", { skip: !catalogueFoundations && 'selected catalogue validator has no foundation contract; set OURAPPS to a compatible checkout' }, () => {
+test("recipe.json passes the clodhub catalogue validator, with the components' settings and profiles", { skip: !catalogueFoundations && 'selected catalogue validator has no foundation contract; set CLODHUB to a compatible checkout' }, () => {
   const result = validateRecipe(recipe, validatorContext());
   assert.ok(result.ok, result.ok ? "" : result.errors.join("\n"));
-  assert.equal(recipe.name, "ourapps-ae/ourpoker");
-  assert.equal(recipe.version, "0.11.0");
+  assert.equal(recipe.name, "clodhub/ourpoker");
+  assert.equal(recipe.version, "0.12.0");
   assert.equal(recipe.components.length, 39);
   assert.equal(recipe.questions.length, 28);
 });
@@ -509,8 +509,8 @@ test("INTEGRATION-GAPS.md lists only open and deferred items, and its totals mat
 
 test("every version a document names for this package is recipe.json's (scripts/make_component.py writes them)", () => {
   const version = recipe.version;
-  const places: [string, RegExp][] = [["INSTRUCTIONS.md", /Package `ourapps-ae\/ourpoker` (\d+\.\d+\.\d+)/], ["INSTRUCTIONS.md", /this file belongs to (\d+\.\d+\.\d+)/],
-    ["CONTRACT.md", /Package `ourapps-ae\/ourpoker` version (\d+\.\d+\.\d+)/], ["INTEGRATION-GAPS.md", /\(recipe (\d+\.\d+\.\d+)\)/],
+  const places: [string, RegExp][] = [["INSTRUCTIONS.md", /Package `clodhub\/ourpoker` (\d+\.\d+\.\d+)/], ["INSTRUCTIONS.md", /this file belongs to (\d+\.\d+\.\d+)/],
+    ["CONTRACT.md", /Package `clodhub\/ourpoker` version (\d+\.\d+\.\d+)/], ["INTEGRATION-GAPS.md", /\(recipe (\d+\.\d+\.\d+)\)/],
     ["page/description.md", /Version (\d+\.\d+\.\d+)/], ["page/description.md", /ourpoker@(\d+\.\d+\.\d+)/], ["page/description.md", /STORE (\d+\.\d+\.\d+)/], ["AGENTS.md", /Version (\d+\.\d+\.\d+)/]];
   for (const [file, pattern] of places) {
     const found = readFileSync(join(root, file), "utf8").match(pattern);
@@ -521,7 +521,7 @@ test("every version a document names for this package is recipe.json's (scripts/
 
 test("the recipe's documents name no machine path and no tool or folder outside the recipe's repository", () => {
   const documents = ["AGENTS.md", "CONTRACT.md", "SOURCE.md", "INTEGRATION-GAPS.md", "REVIEW.md", "INSTRUCTIONS.md", "page/description.md", ".opencode/knowledge/00-index.md", ".opencode/knowledge/workflow.md"];
-  const banned = /\/Users\/|\/home\/[a-z]|\/private\/var|[A-Z]:\\|\.pyenv|recipes\/ourpoker|check_component|scaffold_component|sync_required_interfaces|tools\/standards|\.\.\/\.\.\/(aepm|components\/|ourapps\/)|component-standard\.md|OurPoker\/recipe/;
+  const banned = /\/Users\/|\/home\/[a-z]|\/private\/var|[A-Z]:\\|\.pyenv|recipes\/ourpoker|check_component|scaffold_component|sync_required_interfaces|tools\/standards|\.\.\/\.\.\/(aepm|components\/|ourapps\/|clodhub\/)|component-standard\.md|OurPoker\/recipe/;
   for (const file of documents) {
     const text = readFileSync(join(root, file), "utf8");
     for (const [index, line] of text.split("\n").entries()) {

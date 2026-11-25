@@ -121,7 +121,7 @@ class Marks(unittest.TestCase):
 
     def test_aepm_refuses_a_mark_naming_a_package_instead_of_a_slot(self):
         broken = json.loads((ROOT / "component.json").read_text())
-        next(a for a in broken["artefacts"] if "component" in a)["component"] = "ourapps-ae/video-calls"
+        next(a for a in broken["artefacts"] if "component" in a)["component"] = "clodhub/video-calls"
         with self.assertRaises(Exception):
             model.validate_component(broken)
 

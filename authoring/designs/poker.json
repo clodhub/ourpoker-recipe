@@ -6,12 +6,12 @@
   "view": "application",
   "definitions": [
     {
-      "id": "ourapps-ae.poker-hand-ranking",
+      "id": "clodhub.poker-hand-ranking",
       "name": "Poker hand ranking",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/poker-hand-ranking",
-      "version": "0.9.0",
+      "package": "clodhub/poker-hand-ranking",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "card-deck",
@@ -35,12 +35,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.poker-odds",
+      "id": "clodhub.poker-odds",
       "name": "Poker odds",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/poker-odds",
-      "version": "0.9.0",
+      "package": "clodhub/poker-odds",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "hand-ranking",
@@ -91,12 +91,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.holdem-rules",
+      "id": "clodhub.holdem-rules",
       "name": "Hold'em rules",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/holdem-rules",
-      "version": "0.9.0",
+      "package": "clodhub/holdem-rules",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "card-deck",
@@ -185,12 +185,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.poker-strategy",
+      "id": "clodhub.poker-strategy",
       "name": "Poker strategy",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/poker-strategy",
-      "version": "0.9.0",
+      "package": "clodhub/poker-strategy",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "hand-ranking",
@@ -245,13 +245,13 @@
     {
       "id": "poker-hand-ranking",
       "name": "Poker hand ranking",
-      "definition": "ourapps-ae.poker-hand-ranking",
+      "definition": "clodhub.poker-hand-ranking",
       "configuration": {}
     },
     {
       "id": "poker-odds",
       "name": "Poker odds",
-      "definition": "ourapps-ae.poker-odds",
+      "definition": "clodhub.poker-odds",
       "configuration": {
         "sampleBoards": 2000,
         "cacheSize": 500
@@ -260,7 +260,7 @@
     {
       "id": "holdem-rules",
       "name": "Hold'em rules",
-      "definition": "ourapps-ae.holdem-rules",
+      "definition": "clodhub.holdem-rules",
       "configuration": {
         "seats": 9,
         "minimumOpeningBetBigBlinds": 1,
@@ -270,7 +270,7 @@
     {
       "id": "poker-strategy",
       "name": "Poker strategy",
-      "definition": "ourapps-ae.poker-strategy",
+      "definition": "clodhub.poker-strategy",
       "configuration": {
         "difficulty": 2,
         "aggression": 50

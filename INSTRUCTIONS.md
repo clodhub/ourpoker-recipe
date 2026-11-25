@@ -1,6 +1,6 @@
 # OurPoker recipe: instructions
 
-Package `ourapps-ae/ourpoker` 0.11.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
+Package `clodhub/ourpoker` 0.12.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
 
 ## 1. For the agent
 
@@ -143,19 +143,19 @@ A small group stays inside the free tiers: the small and medium bands both fit `
 
 ## 3. Install
 
-Needs Python 3.12, Node 26.5 and git. aepm is the installer: `git clone https://github.com/ourapps-ae/aepm`, then define the command for this shell (bash or zsh; PowerShell on Windows is below):
+Needs Python 3.12, Node 26.5 and git. aepm is the installer: `git clone https://github.com/clodhub/aepm`, then define the command for this shell (bash or zsh; PowerShell on Windows is below):
 
 ```
 AEPM="$PWD/aepm"
 aepm() { PYTHONPATH="$AEPM" python3 -B -m aepm "$@"; }
 ```
 
-STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.11.0).
+STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.12.0).
 
 1. Fetch the recipe and every component it names, with their release and guardian attestations, then read these instructions from the recipe's archive:
    ```
    aepm fetch ourpoker@<version> --with-dependencies --store STORE
-   python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE <version> > INSTRUCTIONS.md
+   python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="clodhub/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE <version> > INSTRUCTIONS.md
    ```
 2. Read the questions (id, wording, type, options or range, default, askWhen):
    ```
@@ -182,9 +182,9 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
 
    To put another component in a slot, list the catalogue components that fit it, fetch the one chosen into STORE, and name it in `--substitute` (repeat for several slots):
    ```
-   aepm alternatives ourpoker@<version> theme --store STORE --from https://ourapps.app
-   aepm fetch ourapps-ae/theme-high-contrast@0.5.0 --store STORE --from https://ourapps.app
-   aepm design ourpoker@<version> --store STORE --answers answers.json --substitute theme=ourapps-ae/theme-high-contrast@0.5.0 --out definition.json
+   aepm alternatives ourpoker@<version> theme --store STORE --from https://clodhub.com
+   aepm fetch clodhub/theme-high-contrast@0.6.0 --store STORE --from https://clodhub.com
+   aepm design ourpoker@<version> --store STORE --answers answers.json --substitute theme=clodhub/theme-high-contrast@0.6.0 --out definition.json
    ```
    `alternatives` prints `[{name, version, fits, reasons}]`. `design` refuses a component that does not fit (`unfit` with the reason) and records the choice in the design's `selections` as `{component, version, reason: "substituted"}`. A substitute in a job's slot (`server-host`, `realtime-rooms`, `video-calls`) replaces the job's selection.
 5. Lock the exact packages:
@@ -194,7 +194,7 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
 6. Make the owner's policy (once). The policy names whose signatures aepm accepts: Level N's public release and guardian keys, which sign every published package, and the owner's own key, which signs approvals of later updates. For trying the recipe, make a disposable owner key:
    ```
    PYTHONPATH="$AEPM" python3 -B -m aepm.test_identities "$PWD/identities"
-   curl -fsSL https://ourapps.app/policy/levelnpolicy.json -o levelnpolicy.json
+   curl -fsSL https://clodhub.com/policy/levelnpolicy.json -o levelnpolicy.json
    python3 - <<'POLICY'
    import json
    level_n = json.load(open("levelnpolicy.json"))
@@ -226,7 +226,7 @@ aepm fetch ourpoker@<version> --with-dependencies --store STORE
 @'
 import json, sys, tarfile
 s, v = sys.argv[1:]
-d = next(e["digest"] for e in json.load(open(s + "/catalogue.json"))["entries"] if e["name"] == "ourapps-ae/ourpoker" and e["version"] == v)
+d = next(e["digest"] for e in json.load(open(s + "/catalogue.json"))["entries"] if e["name"] == "clodhub/ourpoker" and e["version"] == v)
 sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())
 '@ | python - STORE <version> > INSTRUCTIONS.md
 aepm questions ourpoker@<version> --store STORE
@@ -234,7 +234,7 @@ aepm design ourpoker@<version> --store STORE --answers answers.json --out defini
 aepm doctor ourpoker@<version> --store STORE --answers answers.json
 aepm resolve definition.json --catalogue STORE\catalogue.json --out lock.json
 python -B -m aepm.test_identities "$PWD\identities"
-curl.exe -fsSL https://ourapps.app/policy/levelnpolicy.json -o levelnpolicy.json
+curl.exe -fsSL https://clodhub.com/policy/levelnpolicy.json -o levelnpolicy.json
 @'
 import json
 level_n = json.load(open("levelnpolicy.json"))
@@ -282,7 +282,7 @@ The application goes to the GitHub repository the `repository` answer names (the
 
 ```
 printf '# Changelog\n\n## [0.1.0]\n\n### Added\n\n- First release.\n' > CHANGELOG.md
-git init -b main && git add -A && git commit -m "OurPoker from ourapps-ae/ourpoker <version>"
+git init -b main && git add -A && git commit -m "OurPoker from clodhub/ourpoker <version>"
 gh repo create <owner>/<name> --private --source . --push
 ```
 
@@ -303,7 +303,7 @@ Every release of a package belongs to one channel: `security` (a patch release o
 For each channel that is not `hold` and offers an update, aepm works out the next design (the newest security release on each installed package's line; the newest features or preview recipe version with the recorded answers and substitutions) and `aepm propose-update --trusted --allow-network` stages it and runs the packages' checks.
 `auto`: approved with the owner's private key, applied and committed to main in the same run. `manual`: a pull request carrying `.aepm/update/definition.json` and a summary of the package versions that change; merging it proposes the update again, approves it with the owner key, applies it and commits it to main. A `manual` proposal ends the run, so a later channel waits for the next run.
 Started by hand with `-f version=<version>` or `-f answers='{"languages":["en","fr"]}'` (answer changes, at the same or another version), it proposes that design as a pull request whatever the policy; with neither a newer version nor an answer change it does nothing and says so.
-The script is `components/ourapps-release/server/scripts/aepm_update.py`; it trusts Level N's keys from https://ourapps.app/policy/levelnpolicy.json, runs the checks of exactly the packages it fetched, and first installs the current design again to put back the package copies the repository leaves out.
+The script is `components/ourapps-release/server/scripts/aepm_update.py`; it trusts Level N's keys from https://clodhub.com/policy/levelnpolicy.json, runs the checks of exactly the packages it fetched, and first installs the current design again to put back the package copies the repository leaves out.
 
 Repository secrets and settings it needs:
 
@@ -517,7 +517,7 @@ Every client shows the version it was built with; a build given none shows `dev`
 
 ## 5. For maintainers of the recipe repository
 
-Commands run from the root of the recipe's repository with Node 26.5 and Python 3.12. `PY` is `python3 -B` with an aepm checkout on `PYTHONPATH`. Set `OURPOKER_COMPONENTS` to a folder holding one checkout per component, each named as the component (`web-host`, `server-host`, ...), and `OURAPPS` to a checkout of the ourapps catalogue (its recipe validator).
+Commands run from the root of the recipe's repository with Node 26.5 and Python 3.12. `PY` is `python3 -B` with an aepm checkout on `PYTHONPATH`. Set `OURPOKER_COMPONENTS` to a folder holding one checkout per component, each named as the component (`web-host`, `server-host`, ...), and `CLODHUB` to a checkout of the clodhub catalogue (its recipe validator).
 
 ```
 node --test tests/recipe.test.ts
@@ -526,7 +526,7 @@ PY tests/evaluate_recipe_test.py
 PY tests/conditional_artefacts_test.py
 PY authoring/check_conditional_artefacts.py -v
 PY authoring/try_install.py        (packs, signs, reviews and installs designs, then builds and runs them: parts 3 and 4)
-node "$OURAPPS/scripts/validate-recipe-file.ts" recipe.json --components "$OURPOKER_COMPONENTS"
+node "$CLODHUB/scripts/validate-recipe-file.ts" recipe.json --components "$OURPOKER_COMPONENTS"
 gradle -p authoring/kotlin-stand-ins compileKotlin   (type-checks the Kotlin stand-ins without the Android SDK)
 npm install --prefix authoring        (once: @bufbuild/cel for the condition parity test)
 PY scripts/make_component.py --render
@@ -536,10 +536,10 @@ PY authoring/draw_default_design.py
 ```
 
 -
-  `tests/recipe.test.ts` checks consistency only: the recipe passes the ourapps catalogue validator with the components' settings and profiles; every component exists at the named version in `components/`; every setting a question or the configuration sets exists with a matching type and grammar; no secret is in `configuration`; inclusion is by `includedWhen` only;
+  `tests/recipe.test.ts` checks consistency only: the recipe passes the clodhub catalogue validator with the components' settings and profiles; every component exists at the named version in `components/`; every setting a question or the configuration sets exists with a matching type and grammar; no secret is in `configuration`; inclusion is by `includedWhen` only;
   every connection uses ports and types that exist and only optional requirements stay open; every job candidate profile exists; every answer in the answer sets is allowed; the recipe restates no number of the house rules file and sets the application's copy of each answer; the totals in `INTEGRATION-GAPS.md` match its table; the recipe's documents carry no history wording.
 -  `tests/evaluate_recipe_test.py` runs aepm's evaluator (`aepm.recipe`, the same code as `aepm design`) on each answer set, on every combination of the answers that change inclusion, asking and selection, and on each error code, and validates each design with aepm's definition validator.
-  It evaluates every condition of `recipe.json` and a set of sample expressions for every answer set and every combination with aepm's CEL subset and compares each result with `@bufbuild/cel` (`authoring/cel_evaluate.mjs`, installed under `authoring/`, which is not packaged). `tests/recipe.test.ts` reads the ourapps validator from `OURAPPS`.
+  It evaluates every condition of `recipe.json` and a set of sample expressions for every answer set and every combination with aepm's CEL subset and compares each result with `@bufbuild/cel` (`authoring/cel_evaluate.mjs`, installed under `authoring/`, which is not packaged). `tests/recipe.test.ts` reads the clodhub validator from `CLODHUB`.
 - `tests/conditional_artefacts_test.py` and `authoring/check_conditional_artefacts.py` check, for every answer set, that the files aepm installs reach no component the design leaves out, that every stand-in replaces a marked module at its destination, and that every relative import of an installed file is installed.
 - `make_recipe.py` rewrites `recipe.json` from the components' manifests and the settings written in the script. `draw_default_design.py` evaluates the default answers and draws the result with aepm's generator.
 -  `authoring/try_install.py [ANSWERS ...]` proves parts 3 and 4 for answer sets (default:

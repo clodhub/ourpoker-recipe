@@ -4,7 +4,7 @@
   AEPM_CHECKOUT=<aepm checkout> python3.12 -B authoring/prove_instructions.py --work DIR [--answers FILE]
 
 The packages come from a local store that try_install.py packs, releases, reviews and guardian-signs with stand-in keys,
-because an unpublished recipe version is not on ourapps.app. Two lines of the text change for that, and only these:
+because an unpublished recipe version is not on clodhub.com. Two lines of the text change for that, and only these:
 `aepm fetch` (the packages are already in the store) and the `curl` of levelnpolicy.json (the stand-in release and
 guardian keys are written there instead). Every other step runs as written, with STORE, POLICY, APP and <version>
 filled in, in a reader folder of its own. report.json holds each step's command, exit status and output tail, and the
@@ -55,7 +55,7 @@ def main():
              ("3 answers", None),
              ("4 design", found[4]), ("4 doctor", found[5]),
              ("5 resolve", found[7]),
-             ("6 policy", found[8].replace("curl -fsSL https://ourapps.app/policy/levelnpolicy.json -o levelnpolicy.json",
+             ("6 policy", found[8].replace("curl -fsSL https://clodhub.com/policy/levelnpolicy.json -o levelnpolicy.json",
                                            "cp stand-in-levelnpolicy.json levelnpolicy.json")),
              ("7 install", found[9]), ("8 verify", found[10])]
     answers = arguments.answers.read_text() if arguments.answers else found[3]

@@ -6,11 +6,11 @@
   "view": "application",
   "definitions": [
     {
-      "id": "ourapps-ae.ourpoker",
+      "id": "clodhub.ourpoker",
       "name": "OurPoker",
       "kind": "application",
       "status": "example",
-      "revision": "0.11.0",
+      "revision": "0.12.0",
       "ports": [
         {
           "id": "wrapped-game-adapter",
@@ -569,7 +569,7 @@
     {
       "id": "application",
       "name": "OurPoker",
-      "definition": "ourapps-ae.ourpoker",
+      "definition": "clodhub.ourpoker",
       "configuration": {}
     },
     {

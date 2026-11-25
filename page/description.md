@@ -72,14 +72,14 @@ Secrets are given by reference only; no key is written into the recipe, the answ
 
 39 components in five groups (delivery and hosts; rooms, people and sessions; turn-based game framework; poker; interface and presentation) plus the recipe's own application-specific component: screen flow, artwork, text in four languages, lessons and end-to-end tests. Thirty-five of the 39 have nothing to do with poker. The diagram names every component, grouped, with the connections of the default design; store-update is dashed because it is present only when updates is yes.
 
-Each component sits in a slot named after it: the slot's class is what the recipe relies on (the interfaces it connects and the settings it writes), and the component named is the one the recipe prefers. Any catalogue component of the same class can take its place: `aepm alternatives ourpoker@<version> <slot>` lists them and `aepm design ... --substitute <slot>=<name>@<version>` uses one. `ourapps-ae/theme-high-contrast`, for example, fills the `theme` slot with high-contrast night and lounge looks.
+Each component sits in a slot named after it: the slot's class is what the recipe relies on (the interfaces it connects and the settings it writes), and the component named is the one the recipe prefers. Any catalogue component of the same class can take its place: `aepm alternatives ourpoker@<version> <slot>` lists them and `aepm design ... --substitute <slot>=<name>@<version>` uses one. `clodhub/theme-high-contrast`, for example, fills the `theme` slot with high-contrast night and lounge looks.
 
 ## Building it
 
-With aepm and the published catalogue: `aepm fetch ourpoker@0.11.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
+With aepm and the published catalogue: `aepm fetch ourpoker@0.12.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
 
 ```
-python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.11.0 > INSTRUCTIONS.md
+python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="clodhub/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.12.0 > INSTRUCTIONS.md
 ```
 
 The steps, all set out in INSTRUCTIONS.md:
@@ -98,7 +98,7 @@ The steps, all set out in INSTRUCTIONS.md:
 The installed application goes to your GitHub repository (the agent proposes `<your login>/ourpoker`, made private):
 
 ```
-git init -b main && git add -A && git commit -m "OurPoker from ourapps-ae/ourpoker <version>"
+git init -b main && git add -A && git commit -m "OurPoker from clodhub/ourpoker <version>"
 gh repo create <owner>/<name> --private --source . --push
 ```
 
@@ -110,11 +110,11 @@ The default answers, `book-club`, `poker-league`, `company-event`, `company-even
 
 ## Status
 
-Version 0.11.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
+Version 0.12.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
 
 - Server on Node; the web client in a browser: a player sits, a computer player joins and a hand is played to its settlement with every chip counted.
 - iPhone and iPad, Mac (Mac Catalyst) and Apple TV apps built for their simulators and Mac; the Android app built, unit-tested and played on the emulator to a settled hand; the desktop web build for Windows.
-- Substitution: the `theme` slot filled with `ourapps-ae/theme-high-contrast`.
+- Substitution: the `theme` slot filled with `clodhub/theme-high-contrast`.
 - Windows 11 in PowerShell, from a local store: `aepm doctor` (Node 26 found), `aepm install`, the server's type check, tests and start, the web client's type check and build, and the desktop tests and build. The installer is not built there: that machine's Smart App Control refuses the unsigned uninstaller step of packaging.
 - An in-place update of an installed `local-web` application (33 components; serverAddress and webAddress changed): `aepm propose-update --trusted --allow-network` staged it and ran every package's checks, then `aepm approve` with the owner key, `aepm apply` and `aepm recover`. A tree that still holds `node_modules` is refused for its links; INSTRUCTIONS.md says which folders to remove first.
 - The Android app built and unit-tested on Windows 11 with strict Gradle dependency verification.

@@ -42,7 +42,7 @@ APP_REVISION = recipe["version"]
 
 
 def publishable(path):
-    """The generator writes a DOCTYPE line; the ourapps catalogue (isSafeSvg) refuses any DOCTYPE, so drop it."""
+    """The generator writes a DOCTYPE line; the catalogue (isSafeSvg) refuses any DOCTYPE, so drop it."""
     text = Path(path).read_text()
     Path(path).write_text(re.sub(r"<!DOCTYPE[^>]*>\s*", "", text))
 

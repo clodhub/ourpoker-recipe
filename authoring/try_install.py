@@ -1221,7 +1221,7 @@ def github_run(work, store, policy, world, name, answers, repo, options, server_
     (app / "CHANGELOG.md").write_text(CHANGELOG.replace("<version>", tag[1:]))
     git(["init", "-q", "-b", "main"], work, f"{label}-git-init", app)
     git(["add", "-A"], work, f"{label}-git-add", app)
-    git(["commit", "-q", "-m", f"OurPoker from ourapps-ae/ourpoker {version}"], work, f"{label}-git-commit", app)
+    git(["commit", "-q", "-m", f"OurPoker from clodhub/ourpoker {version}"], work, f"{label}-git-commit", app)
     names, expected = workflow_names(app)
     results = {"repository": repo, "workflows": sorted(names)}
     if succeeds(["gh", "repo", "view", repo, "--json", "name"]):
@@ -1230,7 +1230,7 @@ def github_run(work, store, policy, world, name, answers, repo, options, server_
         git(["reset", "-q", "--soft", "origin/main"], work, f"{label}-git-reset", app)
         # main already holding this very tree needs no commit: its workflows are started by hand below
         if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=app).returncode == 1:
-            git(["commit", "-q", "-m", f"OurPoker from ourapps-ae/ourpoker {version}"], work, f"{label}-git-commit-again", app)
+            git(["commit", "-q", "-m", f"OurPoker from clodhub/ourpoker {version}"], work, f"{label}-git-commit-again", app)
             git(["push", "-q", "origin", "main"], work, f"{label}-git-push", app)
         results["created"] = False
     else:

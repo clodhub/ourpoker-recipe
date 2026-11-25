@@ -211,7 +211,7 @@ class AnswerSets(unittest.TestCase):
                         self.assertEqual(settings[instance].get(setting), value, f"{instance}.{setting}")
                 self.assertEqual({k: v["profile"] for k, v in design["selections"].items()}, want["selections"])
                 for job, selection in design["selections"].items():
-                    self.assertTrue(selection["reason"] and selection["component"].startswith("ourapps-ae/"), job)
+                    self.assertTrue(selection["reason"] and selection["component"].startswith("clodhub/"), job)
 
     def test_unasked_references_stay_unset_and_defaults_apply(self):
         book = settings_of(evaluated(SETS["book-club"]))
@@ -614,7 +614,7 @@ class Rules(unittest.TestCase):
 
     def test_unknown_component_and_unknown_setting(self):
         def component(recipe):
-            recipe["components"].append({"id": "ghost", "class": {"provides": [], "requires": [], "configuration": {"type": "object"}}, "preferred": {"name": "ourapps-ae/ghost", "version": "0.1.0"}, "configuration": {}, "includedWhen": None})
+            recipe["components"].append({"id": "ghost", "class": {"provides": [], "requires": [], "configuration": {"type": "object"}}, "preferred": {"name": "clodhub/ghost", "version": "0.1.0"}, "configuration": {}, "includedWhen": None})
         self.assertIn(("unknown-component", "ghost"), codes(E.evaluate(self.mutate(component), SETS["default"])))
 
         def setting(recipe):

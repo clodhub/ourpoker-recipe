@@ -30,7 +30,7 @@ import component_imports  # noqa: E402
 import make_recipe  # noqa: E402
 import poker_game_adapter  # noqa: E402
 
-NAME = "ourapps-ae/ourpoker"
+NAME = f"{model.SCOPE}/ourpoker"
 # Tool pins are MAJOR.MINOR: aepm matches an installed tool's version by its leading components.
 TOOLS = {"node": "26.5", "python3": "3.12", "swiftc": "6.4", "kotlinc": "2.2", "java": "26.0"}
 VERSION = json.loads((Path(__file__).resolve().parent.parent / "recipe.json").read_text(encoding="utf-8"))["version"]
@@ -415,7 +415,7 @@ def app_definition(manifest):
         if "default" in s:
             entry["default"] = s["default"]
         settings.append(entry)
-    return {"id": "ourapps-ae.ourpoker", "name": TITLE, "kind": "application", "status": "example", "revision": VERSION, "ports": ports, "settings": settings}
+    return {"id": f"{model.SCOPE}.ourpoker", "name": TITLE, "kind": "application", "status": "example", "revision": VERSION, "ports": ports, "settings": settings}
 
 
 def connected_example(manifest, definition):
@@ -482,13 +482,13 @@ def generate_translations():
 
 # Every place a document names the package's own version, rewritten from recipe.json's version on each run.
 VERSION_PLACES = {
-    "INSTRUCTIONS.md": [r"(Package `ourapps-ae/ourpoker` )\d+\.\d+\.\d+", r"(this file belongs to )\d+\.\d+\.\d+", r"(ourpoker@)\d+\.\d+\.\d+"],
-    "CONTRACT.md": [r"(Package `ourapps-ae/ourpoker` version )\d+\.\d+\.\d+"],
+    "INSTRUCTIONS.md": [r"(Package `clodhub/ourpoker` )\d+\.\d+\.\d+", r"(this file belongs to )\d+\.\d+\.\d+", r"(ourpoker@)\d+\.\d+\.\d+"],
+    "CONTRACT.md": [r"(Package `clodhub/ourpoker` version )\d+\.\d+\.\d+"],
     "INTEGRATION-GAPS.md": [r"(# OurPoker integration status \(recipe )\d+\.\d+\.\d+"],
-    "REVIEW.md": [r"(package `ourapps-ae/ourpoker` )\d+\.\d+\.\d+", r"(ourpoker@)\d+\.\d+\.\d+"],
+    "REVIEW.md": [r"(package `clodhub/ourpoker` )\d+\.\d+\.\d+", r"(ourpoker@)\d+\.\d+\.\d+"],
     "page/description.md": [r"(Version )\d+\.\d+\.\d+", r"(ourpoker@)\d+\.\d+\.\d+", r"(STORE )\d+\.\d+\.\d+"],
     "AGENTS.md": [r"(Version )\d+\.\d+\.\d+"],
-    ".opencode/knowledge/00-index.md": [r"(Package `ourapps-ae/ourpoker` version )\d+\.\d+\.\d+"],
+    ".opencode/knowledge/00-index.md": [r"(Package `clodhub/ourpoker` version )\d+\.\d+\.\d+"],
 }
 
 

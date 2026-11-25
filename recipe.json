@@ -1,7 +1,7 @@
 {
   "format": 2,
-  "name": "ourapps-ae/ourpoker",
-  "version": "0.11.0",
+  "name": "clodhub/ourpoker",
+  "version": "0.12.0",
   "title": "OurPoker",
   "summary": "A complete Texas hold'em game for two to nine players: phones, tablets, computers, the web and a television as a shared table, optional video, computer players, lessons, rebuys and rising blinds.",
   "category": "games",
@@ -30,13 +30,13 @@
     {
       "id": "web-host",
       "class": {
-        "name": "ourapps-ae/web-host-class",
+        "name": "clodhub/web-host-class",
         "version": "1.1.0",
-        "digest": "3435beee79383a08ef26a41509c1dc99eabbde55a4950363c5b8e4797773d6a8"
+        "digest": "0c427fad04bc5abecb994dd9888dec41f04de8ba1cc26e105ebb85f6f30253e8"
       },
       "preferred": {
-        "name": "ourapps-ae/web-host",
-        "version": "0.10.0"
+        "name": "clodhub/web-host",
+        "version": "0.11.0"
       },
       "configuration": {
         "applicationId": "ourpoker",
@@ -50,13 +50,13 @@
     {
       "id": "apple-host",
       "class": {
-        "name": "ourapps-ae/apple-host-class",
+        "name": "clodhub/apple-host-class",
         "version": "1.1.0",
-        "digest": "32f8b30ff7b0f0b5d73b600d8556eb790c9acd2bd7da1050fec6da8524eeaaf3"
+        "digest": "b94a15c06a6e30975f3afb94fd81af662fc5d61b62845faf8f9b89c3a2cd8a97"
       },
       "preferred": {
-        "name": "ourapps-ae/apple-host",
-        "version": "0.11.0"
+        "name": "clodhub/apple-host",
+        "version": "0.12.0"
       },
       "configuration": {
         "bundleIdentifier": "app.ourapps.ourpoker",
@@ -68,13 +68,13 @@
     {
       "id": "android-host",
       "class": {
-        "name": "ourapps-ae/android-host-class",
+        "name": "clodhub/android-host-class",
         "version": "1.1.0",
-        "digest": "9292637ff0488bee0156210518fe20355d0d0854c4dbcbff214f030d9dbd55a3"
+        "digest": "18a73e59e9348c62521579110b8f07111ff05a4d208635e5c02380fdc96b5cfa"
       },
       "preferred": {
-        "name": "ourapps-ae/android-host",
-        "version": "0.10.0"
+        "name": "clodhub/android-host",
+        "version": "0.11.0"
       },
       "configuration": {
         "packageId": "app.ourapps.ourpoker",
@@ -85,13 +85,13 @@
     {
       "id": "windows-desktop",
       "class": {
-        "name": "ourapps-ae/windows-desktop-class",
+        "name": "clodhub/windows-desktop-class",
         "version": "1.1.0",
-        "digest": "c50e156621058e599e810535a1b0098faa13a3d7d6f91d14e5bffec9127c4a87"
+        "digest": "8bfc5cc62cb0657204c1411f57b362687322ed052b53ad07c41835a2b5834dce"
       },
       "preferred": {
-        "name": "ourapps-ae/windows-desktop",
-        "version": "0.11.0"
+        "name": "clodhub/windows-desktop",
+        "version": "0.12.0"
       },
       "configuration": {},
       "includedWhen": "'windows' in targets"
@@ -99,13 +99,13 @@
     {
       "id": "server-host",
       "class": {
-        "name": "ourapps-ae/server-host-class",
+        "name": "clodhub/server-host-class",
         "version": "1.1.0",
-        "digest": "1c9f5cea090f096c7372503deabd37f597df41a82e72e8b5a27fe5615fae7573"
+        "digest": "08d7873867ce29f451c871ca6883eea8dec456a7a302a320495246c2cd1bcab0"
       },
       "preferred": {
-        "name": "ourapps-ae/server-host",
-        "version": "0.11.0"
+        "name": "clodhub/server-host",
+        "version": "0.12.0"
       },
       "configuration": {
         "roomPrefix": "ourpoker-"
@@ -115,13 +115,13 @@
     {
       "id": "ourapps-release",
       "class": {
-        "name": "ourapps-ae/ourapps-release-class",
+        "name": "clodhub/ourapps-release-class",
         "version": "1.1.0",
-        "digest": "9898cce2ad89a9c41945bdb0af401f577d14d0e2c65a50e351acf5f6afecdbe4"
+        "digest": "f741c0230503caa1ba5ad7016621ee47dd43624dbf20904cf0ac0f5eb32152a1"
       },
       "preferred": {
-        "name": "ourapps-ae/ourapps-release",
-        "version": "0.10.0"
+        "name": "clodhub/ourapps-release",
+        "version": "0.11.0"
       },
       "configuration": {
         "applicationId": "ourpoker",
@@ -133,13 +133,13 @@
     {
       "id": "store-update",
       "class": {
-        "name": "ourapps-ae/store-update-class",
+        "name": "clodhub/store-update-class",
         "version": "1.1.0",
-        "digest": "90baf810d5bd8402a424468a15af5a2748de2e32858af2bf408d001fadff0862"
+        "digest": "24cf11844a32a72b18c87c498abe97cbadf8b51dbc4cee1f80c207606d703bcc"
       },
       "preferred": {
-        "name": "ourapps-ae/store-update",
-        "version": "0.11.0"
+        "name": "clodhub/store-update",
+        "version": "0.12.0"
       },
       "configuration": {},
       "includedWhen": "updates"
@@ -147,13 +147,13 @@
     {
       "id": "realtime-rooms",
       "class": {
-        "name": "ourapps-ae/realtime-rooms-class",
+        "name": "clodhub/realtime-rooms-class",
         "version": "1.1.0",
-        "digest": "277dd86c6c85a122cca116434940794e7be6245d053c5403d7f4e2df3a71be03"
+        "digest": "845fd7ba02a1aadd11300f8e53adf55e007b42191a06ec6ca01acf2e74e58d9e"
       },
       "preferred": {
-        "name": "ourapps-ae/realtime-rooms",
-        "version": "0.12.0"
+        "name": "clodhub/realtime-rooms",
+        "version": "0.13.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -161,13 +161,13 @@
     {
       "id": "room-directory",
       "class": {
-        "name": "ourapps-ae/room-directory-class",
+        "name": "clodhub/room-directory-class",
         "version": "1.1.0",
-        "digest": "e79fe18442fe0927c23ff6a2ae779af267c58a6fec662a4abe1f542a5547f138"
+        "digest": "be56989b56e4b2f409bdd9227d144cab06af098f4b1c0ca135d2116f58958d65"
       },
       "preferred": {
-        "name": "ourapps-ae/room-directory",
-        "version": "0.9.0"
+        "name": "clodhub/room-directory",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -175,13 +175,13 @@
     {
       "id": "guest-identity",
       "class": {
-        "name": "ourapps-ae/guest-identity-class",
+        "name": "clodhub/guest-identity-class",
         "version": "1.1.0",
-        "digest": "b5f950c1986ac25c6820a37e208da0c76fec0491fb68d97d6813106df6f809a9"
+        "digest": "bbe9dc6331da475971088ab53f1fc048127191cf6f6ddde5a514ff766da2f347"
       },
       "preferred": {
-        "name": "ourapps-ae/guest-identity",
-        "version": "0.10.0"
+        "name": "clodhub/guest-identity",
+        "version": "0.11.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -189,13 +189,13 @@
     {
       "id": "presence",
       "class": {
-        "name": "ourapps-ae/presence-class",
+        "name": "clodhub/presence-class",
         "version": "1.1.0",
-        "digest": "7c80f0630ea3b103859c0a8ee4265042b9d1b24c567a09943e8218929252e541"
+        "digest": "ea265dab6216eecb7f6f4a8e4a1d8239c0c0adff85c37ffecc8cd7a335f0458a"
       },
       "preferred": {
-        "name": "ourapps-ae/presence",
-        "version": "0.9.0"
+        "name": "clodhub/presence",
+        "version": "0.10.0"
       },
       "configuration": {
         "awayAfterSeconds": 30,
@@ -207,13 +207,13 @@
     {
       "id": "invitations",
       "class": {
-        "name": "ourapps-ae/invitations-class",
+        "name": "clodhub/invitations-class",
         "version": "1.1.0",
-        "digest": "24954ffc9b635c0f44d0081469428a7584b5ff42ec29151a5cc1cfbe9f815928"
+        "digest": "5a7abb21dd72f8444c5486210da33037c4359e82d3b35155c40287695d10c77a"
       },
       "preferred": {
-        "name": "ourapps-ae/invitations",
-        "version": "0.7.0"
+        "name": "clodhub/invitations",
+        "version": "0.8.0"
       },
       "configuration": {
         "codeLength": 6
@@ -223,13 +223,13 @@
     {
       "id": "private-views",
       "class": {
-        "name": "ourapps-ae/private-views-class",
+        "name": "clodhub/private-views-class",
         "version": "1.1.0",
-        "digest": "258d4b952b2be04e7e7856b913719058fdec23ffa9a030b2c6eabf4a0e5c0f1e"
+        "digest": "393ef6d1d74dde2ad9d553d50c149c6f106adcc133a4ea40414905b7dcd02eb1"
       },
       "preferred": {
-        "name": "ourapps-ae/private-views",
-        "version": "0.9.0"
+        "name": "clodhub/private-views",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -237,13 +237,13 @@
     {
       "id": "display-mode",
       "class": {
-        "name": "ourapps-ae/display-mode-class",
+        "name": "clodhub/display-mode-class",
         "version": "1.1.0",
-        "digest": "a845d8fc278f3afbd7370848b70b8dc8d7bf60bc00e210b58694aeea30e8b3ad"
+        "digest": "e713f73d92895f05dcc9be4a415cfc29e70198197a4b33b99c2ef8064d0457f5"
       },
       "preferred": {
-        "name": "ourapps-ae/display-mode",
-        "version": "0.11.0"
+        "name": "clodhub/display-mode",
+        "version": "0.12.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -251,13 +251,13 @@
     {
       "id": "video-calls",
       "class": {
-        "name": "ourapps-ae/video-calls-class",
+        "name": "clodhub/video-calls-class",
         "version": "1.1.0",
-        "digest": "c62e8cb966fabfa7453dc277f51da0c8d99b1ad9f39c082414a0aa6f24faf576"
+        "digest": "e25be7b2b5d6a0c7982413089525a2f7e7b59ce065649b2d0dc0af1503d44630"
       },
       "preferred": {
-        "name": "ourapps-ae/video-calls",
-        "version": "0.11.0"
+        "name": "clodhub/video-calls",
+        "version": "0.12.0"
       },
       "configuration": {},
       "includedWhen": "video"
@@ -265,13 +265,13 @@
     {
       "id": "preferences",
       "class": {
-        "name": "ourapps-ae/preferences-class",
+        "name": "clodhub/preferences-class",
         "version": "1.1.0",
-        "digest": "8c1e97e5265742aa36a660b6905d3272e91494de06c0c85bd48d5a28adb0c75c"
+        "digest": "0fbc246357cc45f3ef5bb03d48668fdf44a269fde29510972e52a7a567a7d16f"
       },
       "preferred": {
-        "name": "ourapps-ae/preferences",
-        "version": "0.7.0"
+        "name": "clodhub/preferences",
+        "version": "0.8.0"
       },
       "configuration": {
         "defaultSound": true,
@@ -283,13 +283,13 @@
     {
       "id": "turn-engine",
       "class": {
-        "name": "ourapps-ae/turn-engine-class",
+        "name": "clodhub/turn-engine-class",
         "version": "1.1.0",
-        "digest": "0df0fa7eb20a8d4b228250488b0387d147fb8c5fdd919370acd804645744fd06"
+        "digest": "e6a49666ce4ee186d55a4402a9208e91fd18784d90b7177b20f0f9a4ca78f1d1"
       },
       "preferred": {
-        "name": "ourapps-ae/turn-engine",
-        "version": "0.11.0"
+        "name": "clodhub/turn-engine",
+        "version": "0.12.0"
       },
       "configuration": {
         "settleMs": 4000,
@@ -302,13 +302,13 @@
     {
       "id": "game-clock",
       "class": {
-        "name": "ourapps-ae/game-clock-class",
+        "name": "clodhub/game-clock-class",
         "version": "1.1.0",
-        "digest": "315870e4dbb01c2eb065410c05b4b87b8de6871c816e1560fb9642217017be7e"
+        "digest": "daa2badc90058187c3be8873aa233e4ef7a8335af62ac5459f0a3cf2e44ec2c8"
       },
       "preferred": {
-        "name": "ourapps-ae/game-clock",
-        "version": "0.9.0"
+        "name": "clodhub/game-clock",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -316,13 +316,13 @@
     {
       "id": "seating",
       "class": {
-        "name": "ourapps-ae/seating-class",
+        "name": "clodhub/seating-class",
         "version": "1.1.0",
-        "digest": "61df5d165b4f17d637bdd45beacf39f25b6d2a64f043ddecdc66d0ea8776e7bb"
+        "digest": "779824fd6c5f8edbbc21ff6500b75e3b596f4c4cdf91fca769daace802d24c5a"
       },
       "preferred": {
-        "name": "ourapps-ae/seating",
-        "version": "0.9.0"
+        "name": "clodhub/seating",
+        "version": "0.10.0"
       },
       "configuration": {
         "hostRemovesPeople": false
@@ -332,13 +332,13 @@
     {
       "id": "fair-shuffle",
       "class": {
-        "name": "ourapps-ae/fair-shuffle-class",
+        "name": "clodhub/fair-shuffle-class",
         "version": "1.1.0",
-        "digest": "4474dcb3af7bf34088c30b2e5f75ca0304998eb6f92f4f912680d9a7e9826f27"
+        "digest": "225de03fd7cdb6893c4afa96e10e883da253f492973a59464e30ff7962dcea69"
       },
       "preferred": {
-        "name": "ourapps-ae/fair-shuffle",
-        "version": "0.9.0"
+        "name": "clodhub/fair-shuffle",
+        "version": "0.10.0"
       },
       "configuration": {
         "source": "secure"
@@ -348,13 +348,13 @@
     {
       "id": "card-deck",
       "class": {
-        "name": "ourapps-ae/card-deck-class",
+        "name": "clodhub/card-deck-class",
         "version": "1.1.0",
-        "digest": "57a139a8faca808463beefdc0b29e1202279861e7c46c10cf529e47bf9a283ce"
+        "digest": "25e5cb8ff3a78e74aa0accf799801b0816fe00a2450477af4a78c9a84ce51b85"
       },
       "preferred": {
-        "name": "ourapps-ae/card-deck",
-        "version": "0.9.0"
+        "name": "clodhub/card-deck",
+        "version": "0.10.0"
       },
       "configuration": {
         "decks": 1,
@@ -365,13 +365,13 @@
     {
       "id": "computer-players",
       "class": {
-        "name": "ourapps-ae/computer-players-class",
+        "name": "clodhub/computer-players-class",
         "version": "1.1.0",
-        "digest": "81789b353a08614c650b23dfe1459da236738454b7e9412de362fe780fed13ff"
+        "digest": "a7c7d9b24c5c193634c12b2000afc9c5cf4d5e8e7d4384b88d2b3522ecd4c770"
       },
       "preferred": {
-        "name": "ourapps-ae/computer-players",
-        "version": "0.10.0"
+        "name": "clodhub/computer-players",
+        "version": "0.11.0"
       },
       "configuration": {
         "names": "Robin Sam Alex Jordan Casey Morgan Taylor Riley",
@@ -385,13 +385,13 @@
     {
       "id": "chip-ledger",
       "class": {
-        "name": "ourapps-ae/chip-ledger-class",
+        "name": "clodhub/chip-ledger-class",
         "version": "1.1.0",
-        "digest": "e0da22461a591d7378a477efebc531367c9128eaa4e97d90b1cb1549cf5f391d"
+        "digest": "abf62d72b36998e01b92d2942fd8427a14cf8bb9340dc30484910e2a3eeb2555"
       },
       "preferred": {
-        "name": "ourapps-ae/chip-ledger",
-        "version": "0.10.0"
+        "name": "clodhub/chip-ledger",
+        "version": "0.11.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -399,13 +399,13 @@
     {
       "id": "level-schedule",
       "class": {
-        "name": "ourapps-ae/level-schedule-class",
+        "name": "clodhub/level-schedule-class",
         "version": "1.1.0",
-        "digest": "7abf5c786c688995e97df53544d9751c5ef22d6b410e7ad47ae7a622273a687b"
+        "digest": "9a7fafef7da325bf5b7f6b9b8c7fffef78f2656853f54472d075ff519dd42e9a"
       },
       "preferred": {
-        "name": "ourapps-ae/level-schedule",
-        "version": "0.9.0"
+        "name": "clodhub/level-schedule",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -413,13 +413,13 @@
     {
       "id": "tournament",
       "class": {
-        "name": "ourapps-ae/tournament-class",
+        "name": "clodhub/tournament-class",
         "version": "1.1.0",
-        "digest": "b77ed2f7d27e69bdd7f7b3092e57731ad7a52b4e1d7c6dfa2588b8b1fe713266"
+        "digest": "83c760bd0415b41d5db0d55d79ec8d93ac7c55b8ce6e679902b003597095a464"
       },
       "preferred": {
-        "name": "ourapps-ae/tournament",
-        "version": "0.9.0"
+        "name": "clodhub/tournament",
+        "version": "0.10.0"
       },
       "configuration": {
         "tiebreak": "stackAtDeal"
@@ -429,13 +429,13 @@
     {
       "id": "round-history",
       "class": {
-        "name": "ourapps-ae/round-history-class",
+        "name": "clodhub/round-history-class",
         "version": "1.1.0",
-        "digest": "2816edbe02811a5d411d54f1f7dabc99aeed613d1b7bae28a55f1ce109127d2b"
+        "digest": "c598d4a410cea4017fa138c7b41ecdc42109d2b6a5e886ecc97edbc8b0ecdb01"
       },
       "preferred": {
-        "name": "ourapps-ae/round-history",
-        "version": "0.9.0"
+        "name": "clodhub/round-history",
+        "version": "0.10.0"
       },
       "configuration": {
         "maxRounds": 50
@@ -445,13 +445,13 @@
     {
       "id": "rules-settings",
       "class": {
-        "name": "ourapps-ae/rules-settings-class",
+        "name": "clodhub/rules-settings-class",
         "version": "1.1.0",
-        "digest": "c7db43c06c8ed39738e167c75d673c43af3a44cddb4a0ae0d14f8ecb66e35987"
+        "digest": "ad578301ef7bc3e350a99cb53765e30e7e31f8994db2959695d443e00455e0b4"
       },
       "preferred": {
-        "name": "ourapps-ae/rules-settings",
-        "version": "0.9.0"
+        "name": "clodhub/rules-settings",
+        "version": "0.10.0"
       },
       "configuration": {
         "rulesFile": "texas-holdem-house-rules",
@@ -462,13 +462,13 @@
     {
       "id": "poker-hand-ranking",
       "class": {
-        "name": "ourapps-ae/poker-hand-ranking-class",
+        "name": "clodhub/poker-hand-ranking-class",
         "version": "1.1.0",
-        "digest": "9f98049eb095c5c9ebc6d205290a52f631e4d572cd008d93ce4e9586b878ebfe"
+        "digest": "2fe0badeeb5510523275b1685d55ad67af412bf7ee1e9db7d257e3a4c5a09bab"
       },
       "preferred": {
-        "name": "ourapps-ae/poker-hand-ranking",
-        "version": "0.9.0"
+        "name": "clodhub/poker-hand-ranking",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -476,13 +476,13 @@
     {
       "id": "poker-odds",
       "class": {
-        "name": "ourapps-ae/poker-odds-class",
+        "name": "clodhub/poker-odds-class",
         "version": "1.1.0",
-        "digest": "c0de3f22c6ba01ddfd6350554867e8163d438a76803d768f9089a8161a1466e4"
+        "digest": "f0bd43603f8c506f7265130438433fe094ed3f09e39d8e90371dd9d5c6c1c1be"
       },
       "preferred": {
-        "name": "ourapps-ae/poker-odds",
-        "version": "0.10.0"
+        "name": "clodhub/poker-odds",
+        "version": "0.11.0"
       },
       "configuration": {
         "sampleBoards": 2000,
@@ -493,13 +493,13 @@
     {
       "id": "holdem-rules",
       "class": {
-        "name": "ourapps-ae/holdem-rules-class",
+        "name": "clodhub/holdem-rules-class",
         "version": "1.1.0",
-        "digest": "f232a215f6a21ad08cc2890052a641695f770ae855fcb40b964ca23d17503f74"
+        "digest": "4268206fe55b9b3fed57a5c3d9631421be8d2c86ec05275113c6569b33253fd0"
       },
       "preferred": {
-        "name": "ourapps-ae/holdem-rules",
-        "version": "0.10.0"
+        "name": "clodhub/holdem-rules",
+        "version": "0.11.0"
       },
       "configuration": {
         "revealAtRunout": true
@@ -509,13 +509,13 @@
     {
       "id": "poker-strategy",
       "class": {
-        "name": "ourapps-ae/poker-strategy-class",
+        "name": "clodhub/poker-strategy-class",
         "version": "1.1.0",
-        "digest": "e70a738ab948b3ea5b724c85e8cde27356c7f015d257c30b77e02194b0317e80"
+        "digest": "07b6a8ae1ca8e684eb094b87afcee4db41735fde196c5735080c0cd3c4fd5769"
       },
       "preferred": {
-        "name": "ourapps-ae/poker-strategy",
-        "version": "0.10.0"
+        "name": "clodhub/poker-strategy",
+        "version": "0.11.0"
       },
       "configuration": {
         "difficulty": 2,
@@ -526,13 +526,13 @@
     {
       "id": "theme",
       "class": {
-        "name": "ourapps-ae/theme-class",
+        "name": "clodhub/theme-class",
         "version": "1.1.0",
-        "digest": "6f3e3e9cb48181e97792618b6126aa559462372f29e342a9a93f3b3fab928afe"
+        "digest": "bf5af6daa7e308237b3c1d4b0cfe35959ad698188a275187cc764ce34df8cc73"
       },
       "preferred": {
-        "name": "ourapps-ae/theme",
-        "version": "0.9.0"
+        "name": "clodhub/theme",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -540,13 +540,13 @@
     {
       "id": "controls",
       "class": {
-        "name": "ourapps-ae/controls-class",
+        "name": "clodhub/controls-class",
         "version": "1.1.0",
-        "digest": "11b7e2fc396fa37c53d98f9d14252fad82e33c93d9610cb09212fea7b2811987"
+        "digest": "429b4bfd57943a8179ef483d5fc67065f5a9e634599a380f5c6eac33d4e86c08"
       },
       "preferred": {
-        "name": "ourapps-ae/controls",
-        "version": "0.9.0"
+        "name": "clodhub/controls",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -554,13 +554,13 @@
     {
       "id": "table-layout",
       "class": {
-        "name": "ourapps-ae/table-layout-class",
+        "name": "clodhub/table-layout-class",
         "version": "1.1.0",
-        "digest": "389d934599befffde27a65d46729b932f5d14ebc38220f0b2dc113fe2592f1a7"
+        "digest": "9aeb887361501cf1e24ee14c9e8fc2c60aeabcbe87189ebba40b49c431584dc7"
       },
       "preferred": {
-        "name": "ourapps-ae/table-layout",
-        "version": "0.9.0"
+        "name": "clodhub/table-layout",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -568,13 +568,13 @@
     {
       "id": "card-graphics",
       "class": {
-        "name": "ourapps-ae/card-graphics-class",
+        "name": "clodhub/card-graphics-class",
         "version": "1.1.0",
-        "digest": "3baca95460fab41c86d8f2bdf9017073dcba5f0e46923a716572b75d7cdaf295"
+        "digest": "179147b981fb2e22b0e6a4583d9a4e7fe87c856ac509c887bbc6956be04a8bdc"
       },
       "preferred": {
-        "name": "ourapps-ae/card-graphics",
-        "version": "0.9.0"
+        "name": "clodhub/card-graphics",
+        "version": "0.10.0"
       },
       "configuration": {
         "cornerStyle": "rounded",
@@ -585,13 +585,13 @@
     {
       "id": "chip-graphics",
       "class": {
-        "name": "ourapps-ae/chip-graphics-class",
+        "name": "clodhub/chip-graphics-class",
         "version": "1.1.0",
-        "digest": "cd818db855c062ec00f3ac7cb3c9cacd320ba8d70ce34d79533da09de8bd8aa9"
+        "digest": "4321daced08974e3e12ab86a4bb85b25164c10f6ed35a6338323588cea39551d"
       },
       "preferred": {
-        "name": "ourapps-ae/chip-graphics",
-        "version": "0.9.0"
+        "name": "clodhub/chip-graphics",
+        "version": "0.10.0"
       },
       "configuration": {
         "denominations": "casino 5000 1000 500 100 25 5 1",
@@ -602,13 +602,13 @@
     {
       "id": "sound-cues",
       "class": {
-        "name": "ourapps-ae/sound-cues-class",
+        "name": "clodhub/sound-cues-class",
         "version": "1.1.0",
-        "digest": "f3d5d5da3fefa237f8b64842cf95eb457f283b356a217de4f2f9e98486757040"
+        "digest": "8ee148be79cb3499d35be888ca5a31735c48b1cafe88f95411c742a33d37af75"
       },
       "preferred": {
-        "name": "ourapps-ae/sound-cues",
-        "version": "0.9.0"
+        "name": "clodhub/sound-cues",
+        "version": "0.10.0"
       },
       "configuration": {
         "soundManifest": "sounds",
@@ -619,13 +619,13 @@
     {
       "id": "guided-tour",
       "class": {
-        "name": "ourapps-ae/guided-tour-class",
+        "name": "clodhub/guided-tour-class",
         "version": "1.1.0",
-        "digest": "23cab90db6b2e25dad68482cf90b5931cf965d901488a75c83aae0b315191405"
+        "digest": "aa40e4ff5fae7285a074cccef7a7f00724856bffdd065d4da4f7e26b22e30b05"
       },
       "preferred": {
-        "name": "ourapps-ae/guided-tour",
-        "version": "0.9.0"
+        "name": "clodhub/guided-tour",
+        "version": "0.10.0"
       },
       "configuration": {},
       "includedWhen": "lessons"
@@ -633,13 +633,13 @@
     {
       "id": "translations",
       "class": {
-        "name": "ourapps-ae/translations-class",
+        "name": "clodhub/translations-class",
         "version": "1.1.0",
-        "digest": "f92cf9360903e7c5802004297c6d80581f966c1cd9df80243273e708daec43d8"
+        "digest": "ead9fb7866bc727c21780b2dcc7f283c66613ce25a9e61678deb94ef6ca823e0"
       },
       "preferred": {
-        "name": "ourapps-ae/translations",
-        "version": "0.11.0"
+        "name": "clodhub/translations",
+        "version": "0.12.0"
       },
       "configuration": {},
       "includedWhen": null
@@ -652,15 +652,15 @@
       "overrideQuestion": "server",
       "candidates": [
         {
-          "component": "ourapps-ae/server-host",
+          "component": "clodhub/server-host",
           "profile": "cloudflare-free"
         },
         {
-          "component": "ourapps-ae/server-host",
+          "component": "clodhub/server-host",
           "profile": "cloudflare-paid"
         },
         {
-          "component": "ourapps-ae/server-host",
+          "component": "clodhub/server-host",
           "profile": "own-hardware"
         }
       ]
@@ -671,15 +671,15 @@
       "overrideQuestion": "server",
       "candidates": [
         {
-          "component": "ourapps-ae/realtime-rooms",
+          "component": "clodhub/realtime-rooms",
           "profile": "free"
         },
         {
-          "component": "ourapps-ae/realtime-rooms",
+          "component": "clodhub/realtime-rooms",
           "profile": "paid"
         },
         {
-          "component": "ourapps-ae/realtime-rooms",
+          "component": "clodhub/realtime-rooms",
           "profile": "own-hardware"
         }
       ]
@@ -689,15 +689,15 @@
       "slot": "video-calls",
       "candidates": [
         {
-          "component": "ourapps-ae/video-calls",
+          "component": "clodhub/video-calls",
           "profile": "free"
         },
         {
-          "component": "ourapps-ae/video-calls",
+          "component": "clodhub/video-calls",
           "profile": "paid"
         },
         {
-          "component": "ourapps-ae/video-calls",
+          "component": "clodhub/video-calls",
           "profile": "scale"
         }
       ]

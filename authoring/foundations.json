@@ -245,13 +245,13 @@
   "classes": [
     {
       "reference": {
-        "name": "ourapps-ae/android-host-class",
+        "name": "clodhub/android-host-class",
         "version": "1.1.0",
-        "digest": "9292637ff0488bee0156210518fe20355d0d0854c4dbcbff214f030d9dbd55a3"
+        "digest": "18a73e59e9348c62521579110b8f07111ff05a4d208635e5c02380fdc96b5cfa"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/android-host-class",
+        "name": "clodhub/android-host-class",
         "version": "1.1.0",
         "title": "Android host",
         "summary": "An Android application project rendered from the application's files, with locked dependencies",
@@ -299,7 +299,7 @@
         "inventory": [
           {
             "path": "classes/android-host-class/android-shell.json",
-            "digest": "e90552b94c435fcdd6885c9745e6fae90031b1a0ca5509ddbbff703dd3063d7f"
+            "digest": "0a76d5cc882cbe2b5b4a3b07d7f04fec698dadfc60b49692705fb3a3f1373625"
           },
           {
             "path": "classes/android-host-class/check.mjs",
@@ -338,13 +338,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/apple-host-class",
+        "name": "clodhub/apple-host-class",
         "version": "1.1.0",
-        "digest": "32f8b30ff7b0f0b5d73b600d8556eb790c9acd2bd7da1050fec6da8524eeaaf3"
+        "digest": "b94a15c06a6e30975f3afb94fd81af662fc5d61b62845faf8f9b89c3a2cd8a97"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/apple-host-class",
+        "name": "clodhub/apple-host-class",
         "version": "1.1.0",
         "title": "Apple host",
         "summary": "An Xcode project for iPhone, iPad, Mac and Apple TV rendered from the application's files",
@@ -408,7 +408,7 @@
         "inventory": [
           {
             "path": "classes/apple-host-class/apple-shell.json",
-            "digest": "4dc8aea13aa9724e898fc6befa790578b84f3ff8cd4e90a0dc5459895ace3987"
+            "digest": "5096cd921d47558c170c0cf0febcafaf1ec913bb4bf576e394600a04d6ab6d41"
           },
           {
             "path": "classes/apple-host-class/check.mjs",
@@ -447,13 +447,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/card-deck-class",
+        "name": "clodhub/card-deck-class",
         "version": "1.1.0",
-        "digest": "57a139a8faca808463beefdc0b29e1202279861e7c46c10cf529e47bf9a283ce"
+        "digest": "25e5cb8ff3a78e74aa0accf799801b0816fe00a2450477af4a78c9a84ce51b85"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/card-deck-class",
+        "name": "clodhub/card-deck-class",
         "version": "1.1.0",
         "title": "Card deck",
         "summary": "A deck of playing cards: building, dealing and naming cards",
@@ -514,7 +514,7 @@
         "inventory": [
           {
             "path": "classes/card-deck-class/card-deck.json",
-            "digest": "4c163190762cd8be45e536754adf4c63eee83f70f5dcc2e051d735ab6005fa0a"
+            "digest": "68cfd5d4a86134e123246c8e53737301c1769fd3bb872063c6ba0cf8594141b8"
           },
           {
             "path": "classes/card-deck-class/check.mjs",
@@ -553,13 +553,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/card-graphics-class",
+        "name": "clodhub/card-graphics-class",
         "version": "1.1.0",
-        "digest": "3baca95460fab41c86d8f2bdf9017073dcba5f0e46923a716572b75d7cdaf295"
+        "digest": "179147b981fb2e22b0e6a4583d9a4e7fe87c856ac509c887bbc6956be04a8bdc"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/card-graphics-class",
+        "name": "clodhub/card-graphics-class",
         "version": "1.1.0",
         "title": "Card graphics",
         "summary": "Card faces, backs, slots, dealing and flipping",
@@ -623,7 +623,7 @@
         "inventory": [
           {
             "path": "classes/card-graphics-class/card-graphics.json",
-            "digest": "fe3ce396e10ca26ed43d7b8142eaecc464be240fc9aca64e4d36df3271e88484"
+            "digest": "71be60fc3edbc0197a12d3a3f7153ef10e39c92b52fbf1977101307a6bf2ac08"
           },
           {
             "path": "classes/card-graphics-class/check.mjs",
@@ -662,13 +662,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/chip-graphics-class",
+        "name": "clodhub/chip-graphics-class",
         "version": "1.1.0",
-        "digest": "cd818db855c062ec00f3ac7cb3c9cacd320ba8d70ce34d79533da09de8bd8aa9"
+        "digest": "4321daced08974e3e12ab86a4bb85b25164c10f6ed35a6338323588cea39551d"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/chip-graphics-class",
+        "name": "clodhub/chip-graphics-class",
         "version": "1.1.0",
         "title": "Chip graphics",
         "summary": "Chip stacks in denominations and chips flying between bets and the pot",
@@ -732,7 +732,7 @@
           },
           {
             "path": "classes/chip-graphics-class/chip-graphics.json",
-            "digest": "50b4703b3f7c7e8021e6a4bf1106a77646fda5dd2e00404e8ff5946835335c66"
+            "digest": "2ee1ef538aaeb704c08d0edef5b77702dd75b6bb377c623e04c25e8ba886a443"
           },
           {
             "path": "classes/chip-graphics-class/runtime.mjs",
@@ -767,13 +767,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/chip-ledger-class",
+        "name": "clodhub/chip-ledger-class",
         "version": "1.1.0",
-        "digest": "e0da22461a591d7378a477efebc531367c9128eaa4e97d90b1cb1549cf5f391d"
+        "digest": "abf62d72b36998e01b92d2942fd8427a14cf8bb9340dc30484910e2a3eeb2555"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/chip-ledger-class",
+        "name": "clodhub/chip-ledger-class",
         "version": "1.1.0",
         "title": "Chip ledger",
         "summary": "Wagers, pots, side pots and settlement with every chip accounted for",
@@ -811,7 +811,7 @@
           },
           {
             "path": "classes/chip-ledger-class/chip-ledger.json",
-            "digest": "2a9fb27145d5372117bc6a95d7e64fd426abf83fb2d025ff459c51378dad1ded"
+            "digest": "039194c71bfbc922f7fceb6b61a78ac343d1ca6f918a02bdd5dcd1c0c18a1184"
           },
           {
             "path": "classes/chip-ledger-class/runtime.mjs",
@@ -846,13 +846,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/computer-players-class",
+        "name": "clodhub/computer-players-class",
         "version": "1.1.0",
-        "digest": "81789b353a08614c650b23dfe1459da236738454b7e9412de362fe780fed13ff"
+        "digest": "a7c7d9b24c5c193634c12b2000afc9c5cf4d5e8e7d4384b88d2b3522ecd4c770"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/computer-players-class",
+        "name": "clodhub/computer-players-class",
         "version": "1.1.0",
         "title": "Computer players",
         "summary": "Computer opponents that take empty seats and act in their turn",
@@ -925,7 +925,7 @@
           },
           {
             "path": "classes/computer-players-class/computer-players.json",
-            "digest": "ce146a6ec81ab8b0738e88d1be016ea5c66fe9127b345488c292bb87979b8675"
+            "digest": "7ae42500d0a299cfc06a14d8167c5ec9f19c650330091f15ac5d702f96c6f228"
           },
           {
             "path": "classes/computer-players-class/runtime.mjs",
@@ -960,13 +960,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/controls-class",
+        "name": "clodhub/controls-class",
         "version": "1.1.0",
-        "digest": "11b7e2fc396fa37c53d98f9d14252fad82e33c93d9610cb09212fea7b2811987"
+        "digest": "429b4bfd57943a8179ef483d5fc67065f5a9e634599a380f5c6eac33d4e86c08"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/controls-class",
+        "name": "clodhub/controls-class",
         "version": "1.1.0",
         "title": "Controls",
         "summary": "Buttons, toggles, dialogs, panels and help pages with accessible names",
@@ -1018,7 +1018,7 @@
           },
           {
             "path": "classes/controls-class/controls.json",
-            "digest": "34547afc0e198a0d45cc963c7377998fe1f7064aea8949fba49a1f2c74cafa2e"
+            "digest": "5051a207b8701759b0b699174798fa117793e4c48b2150403ab50274ffb489a1"
           },
           {
             "path": "classes/controls-class/dom.mjs",
@@ -1057,13 +1057,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/display-mode-class",
+        "name": "clodhub/display-mode-class",
         "version": "1.1.0",
-        "digest": "a845d8fc278f3afbd7370848b70b8dc8d7bf60bc00e210b58694aeea30e8b3ad"
+        "digest": "e713f73d92895f05dcc9be4a415cfc29e70198197a4b33b99c2ef8064d0457f5"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/display-mode-class",
+        "name": "clodhub/display-mode-class",
         "version": "1.1.0",
         "title": "Display mode",
         "summary": "A shared screen, such as a television, that shows the table and never acts",
@@ -1115,7 +1115,7 @@
           },
           {
             "path": "classes/display-mode-class/display-policy.json",
-            "digest": "a816562c1ec86f34ac9d1e2b38b2553fa82dbb7407c31ea28f87a44f40f8dd48"
+            "digest": "c9d0739fe1c7ab4b629352b3dd8d0d9b785e2f62426a19a4ff24b4b19566fe1e"
           },
           {
             "path": "classes/display-mode-class/runtime.mjs",
@@ -1150,13 +1150,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/fair-shuffle-class",
+        "name": "clodhub/fair-shuffle-class",
         "version": "1.1.0",
-        "digest": "4474dcb3af7bf34088c30b2e5f75ca0304998eb6f92f4f912680d9a7e9826f27"
+        "digest": "225de03fd7cdb6893c4afa96e10e883da253f492973a59464e30ff7962dcea69"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/fair-shuffle-class",
+        "name": "clodhub/fair-shuffle-class",
         "version": "1.1.0",
         "title": "Fair shuffle",
         "summary": "Uniform shuffles and random choices from a cryptographic or seeded source",
@@ -1195,7 +1195,7 @@
           },
           {
             "path": "classes/fair-shuffle-class/random-source.json",
-            "digest": "84de99d834e0d221cfbf11d4307f6fe85bdbcfa802dcc936c702f4ac19d35552"
+            "digest": "5eac0904db9fdffaddff8cc83aba3753886bc49d8f5819ca10689b905ba66931"
           },
           {
             "path": "classes/fair-shuffle-class/runtime.mjs",
@@ -1230,13 +1230,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/game-clock-class",
+        "name": "clodhub/game-clock-class",
         "version": "1.1.0",
-        "digest": "315870e4dbb01c2eb065410c05b4b87b8de6871c816e1560fb9642217017be7e"
+        "digest": "daa2badc90058187c3be8873aa233e4ef7a8335af62ac5459f0a3cf2e44ec2c8"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/game-clock-class",
+        "name": "clodhub/game-clock-class",
         "version": "1.1.0",
         "title": "Game clock",
         "summary": "Decision deadlines and countdowns that pause and expire",
@@ -1292,7 +1292,7 @@
           },
           {
             "path": "classes/game-clock-class/game-clock.json",
-            "digest": "d1a3ea6cded9e6845ffa5ef4a9bfbf47fc77279b9b72fd1974437db1942c1956"
+            "digest": "6c78156e8d843e997cc3c146590fc1216556d38c582f24e7a0857ab7a9aa98c9"
           },
           {
             "path": "classes/game-clock-class/runtime.mjs",
@@ -1327,13 +1327,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/guest-identity-class",
+        "name": "clodhub/guest-identity-class",
         "version": "1.1.0",
-        "digest": "b5f950c1986ac25c6820a37e208da0c76fec0491fb68d97d6813106df6f809a9"
+        "digest": "bbe9dc6331da475971088ab53f1fc048127191cf6f6ddde5a514ff766da2f347"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/guest-identity-class",
+        "name": "clodhub/guest-identity-class",
         "version": "1.1.0",
         "title": "Guest identity",
         "summary": "Sign-in by name with a device token, no account",
@@ -1383,7 +1383,7 @@
           },
           {
             "path": "classes/guest-identity-class/guest-identity.json",
-            "digest": "1bbc2885818ff536216e69837b325043d0a9ca757774aaf76cdf7e9fa654ce71"
+            "digest": "69d270f606c147f5eacba37e1cc480e3841c2e70a9182396bd5f4efde0cc67f6"
           },
           {
             "path": "classes/guest-identity-class/runtime.mjs",
@@ -1418,13 +1418,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/guided-tour-class",
+        "name": "clodhub/guided-tour-class",
         "version": "1.1.0",
-        "digest": "23cab90db6b2e25dad68482cf90b5931cf965d901488a75c83aae0b315191405"
+        "digest": "aa40e4ff5fae7285a074cccef7a7f00724856bffdd065d4da4f7e26b22e30b05"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/guided-tour-class",
+        "name": "clodhub/guided-tour-class",
         "version": "1.1.0",
         "title": "Guided tour",
         "summary": "Step-by-step lessons that point at parts of the screen",
@@ -1484,7 +1484,7 @@
           },
           {
             "path": "classes/guided-tour-class/guided-tour.json",
-            "digest": "0e6c4e75c33567bb00e60b9aa71dacd1c3a0c7422bd50107023db4a8ac9a271e"
+            "digest": "afb04bbdcb707c24dce0a2d91e519f733efaf1d3f60fe76d1b24d8da8d7723ea"
           },
           {
             "path": "classes/guided-tour-class/runtime.mjs",
@@ -1519,13 +1519,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/holdem-rules-class",
+        "name": "clodhub/holdem-rules-class",
         "version": "1.1.0",
-        "digest": "f232a215f6a21ad08cc2890052a641695f770ae855fcb40b964ca23d17503f74"
+        "digest": "4268206fe55b9b3fed57a5c3d9631421be8d2c86ec05275113c6569b33253fd0"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/holdem-rules-class",
+        "name": "clodhub/holdem-rules-class",
         "version": "1.1.0",
         "title": "Texas hold'em rules",
         "summary": "Blinds, betting rounds, legal actions and showdown for Texas hold'em",
@@ -1606,7 +1606,7 @@
           },
           {
             "path": "classes/holdem-rules-class/game-rules.json",
-            "digest": "a52a0fc94e63c45e902cd98a36adb424d21a571ed2c805c4741156baa721336a"
+            "digest": "07a150814abc9f8cfdc8331fd3c0e3cc2710f7e935bc99fac47d2e8c6c285d29"
           },
           {
             "path": "classes/holdem-rules-class/ledger.mjs",
@@ -1645,13 +1645,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/invitations-class",
+        "name": "clodhub/invitations-class",
         "version": "1.1.0",
-        "digest": "24954ffc9b635c0f44d0081469428a7584b5ff42ec29151a5cc1cfbe9f815928"
+        "digest": "5a7abb21dd72f8444c5486210da33037c4359e82d3b35155c40287695d10c77a"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/invitations-class",
+        "name": "clodhub/invitations-class",
         "version": "1.1.0",
         "title": "Invitations",
         "summary": "Invitation links and codes, shared or copied",
@@ -1712,7 +1712,7 @@
           },
           {
             "path": "classes/invitations-class/invitations.json",
-            "digest": "faab3821928607a874482e23fac9466d5bb48e50425e2e5080fe875d3073b950"
+            "digest": "48ca93ffa9504f95958e8186dd497294c3ef2b7b51e3c7297e5e12669ff6b3a6"
           },
           {
             "path": "classes/invitations-class/runtime.mjs",
@@ -1747,13 +1747,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/level-schedule-class",
+        "name": "clodhub/level-schedule-class",
         "version": "1.1.0",
-        "digest": "7abf5c786c688995e97df53544d9751c5ef22d6b410e7ad47ae7a622273a687b"
+        "digest": "9a7fafef7da325bf5b7f6b9b8c7fffef78f2656853f54472d075ff519dd42e9a"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/level-schedule-class",
+        "name": "clodhub/level-schedule-class",
         "version": "1.1.0",
         "title": "Level schedule",
         "summary": "Timed levels with rising values, such as tournament blinds",
@@ -1791,7 +1791,7 @@
           },
           {
             "path": "classes/level-schedule-class/level-schedule.json",
-            "digest": "ac03dde9dc1d0adb1def3f557c209a5841c06a46eadd0e1e28214cbb41f135e7"
+            "digest": "585eb376b1a72cded8f8afccc0637e24eb38e753f7c27941dd5f9c21a9a645b0"
           },
           {
             "path": "classes/level-schedule-class/runtime.mjs",
@@ -1826,13 +1826,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/ourapps-release-class",
+        "name": "clodhub/ourapps-release-class",
         "version": "1.1.0",
-        "digest": "9898cce2ad89a9c41945bdb0af401f577d14d0e2c65a50e351acf5f6afecdbe4"
+        "digest": "f741c0230503caa1ba5ad7016621ee47dd43624dbf20904cf0ac0f5eb32152a1"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/ourapps-release-class",
+        "name": "clodhub/ourapps-release-class",
         "version": "1.1.0",
         "title": "Release pipeline",
         "summary": "GitHub workflows that check, build, release and update the application",
@@ -1910,7 +1910,7 @@
           },
           {
             "path": "classes/ourapps-release-class/release-pipeline.json",
-            "digest": "c1aefaecf1b213261d9c8a7726c6133dd35d515d2481d6615aab907cfc361763"
+            "digest": "cea4c10b6aa6867a0ca550b7e0e3edba8edd7a06c544065925046760818fc4f1"
           },
           {
             "path": "classes/ourapps-release-class/runtime.mjs",
@@ -1945,13 +1945,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/poker-hand-ranking-class",
+        "name": "clodhub/poker-hand-ranking-class",
         "version": "1.1.0",
-        "digest": "9f98049eb095c5c9ebc6d205290a52f631e4d572cd008d93ce4e9586b878ebfe"
+        "digest": "2fe0badeeb5510523275b1685d55ad67af412bf7ee1e9db7d257e3a4c5a09bab"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/poker-hand-ranking-class",
+        "name": "clodhub/poker-hand-ranking-class",
         "version": "1.1.0",
         "title": "Poker hand ranking",
         "summary": "Ranks five to seven cards into poker hands and finds the winners",
@@ -1988,7 +1988,7 @@
           },
           {
             "path": "classes/poker-hand-ranking-class/hand-ranking.json",
-            "digest": "0661a2a4b3986548921ed54988b2028a268dbc4bb34a81f00a1368713c5810ba"
+            "digest": "0dfc90c5e65b3762aabec61f2798ae5a9c34153af7ce4ecd573eaf149b88a455"
           },
           {
             "path": "classes/poker-hand-ranking-class/runtime.mjs",
@@ -2023,13 +2023,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/poker-odds-class",
+        "name": "clodhub/poker-odds-class",
         "version": "1.1.0",
-        "digest": "c0de3f22c6ba01ddfd6350554867e8163d438a76803d768f9089a8161a1466e4"
+        "digest": "f0bd43603f8c506f7265130438433fe094ed3f09e39d8e90371dd9d5c6c1c1be"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/poker-odds-class",
+        "name": "clodhub/poker-odds-class",
         "version": "1.1.0",
         "title": "Poker odds",
         "summary": "Winning chances of each hand from the cards that are known",
@@ -2080,7 +2080,7 @@
           },
           {
             "path": "classes/poker-odds-class/poker-odds.json",
-            "digest": "5000cef4a0cacc4a05c44e2cbd97a3205c22c93818bb3d1d401f539fd1613a67"
+            "digest": "660568833de47e06371d675b5d3a82f08efe89e0636ad6f19b5b9cec67e16bd9"
           },
           {
             "path": "classes/poker-odds-class/runtime.mjs",
@@ -2115,13 +2115,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/poker-strategy-class",
+        "name": "clodhub/poker-strategy-class",
         "version": "1.1.0",
-        "digest": "e70a738ab948b3ea5b724c85e8cde27356c7f015d257c30b77e02194b0317e80"
+        "digest": "07b6a8ae1ca8e684eb094b87afcee4db41735fde196c5735080c0cd3c4fd5769"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/poker-strategy-class",
+        "name": "clodhub/poker-strategy-class",
         "version": "1.1.0",
         "title": "Poker strategy",
         "summary": "Decisions for a computer poker player from its cards and the table",
@@ -2172,7 +2172,7 @@
           },
           {
             "path": "classes/poker-strategy-class/player-strategy.json",
-            "digest": "2fc41faee431394460b3889c0dd4ab0c1032d962d85bcb82c412d2a46828704f"
+            "digest": "a121f002ad1b3a5e49df79a6b69ef90894212e2a7348fe588437f8621cd1e46b"
           },
           {
             "path": "classes/poker-strategy-class/runtime.mjs",
@@ -2207,13 +2207,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/preferences-class",
+        "name": "clodhub/preferences-class",
         "version": "1.1.0",
-        "digest": "8c1e97e5265742aa36a660b6905d3272e91494de06c0c85bd48d5a28adb0c75c"
+        "digest": "0fbc246357cc45f3ef5bb03d48668fdf44a269fde29510972e52a7a567a7d16f"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/preferences-class",
+        "name": "clodhub/preferences-class",
         "version": "1.1.0",
         "title": "Preferences",
         "summary": "Per-device choices such as sound and language, kept and observed",
@@ -2274,7 +2274,7 @@
           },
           {
             "path": "classes/preferences-class/preferences.json",
-            "digest": "8e452eb67e1848577fd5179ed3d033612d0874f6515b0869b185eaec37f92923"
+            "digest": "eec4faf94dac5adae6f609a57359ed15a701223ade0616f61947261f65cb930f"
           },
           {
             "path": "classes/preferences-class/runtime.mjs",
@@ -2309,13 +2309,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/presence-class",
+        "name": "clodhub/presence-class",
         "version": "1.1.0",
-        "digest": "7c80f0630ea3b103859c0a8ee4265042b9d1b24c567a09943e8218929252e541"
+        "digest": "ea265dab6216eecb7f6f4a8e4a1d8239c0c0adff85c37ffecc8cd7a335f0458a"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/presence-class",
+        "name": "clodhub/presence-class",
         "version": "1.1.0",
         "title": "Presence",
         "summary": "Who is connected, away or back, and missed turns",
@@ -2367,7 +2367,7 @@
           },
           {
             "path": "classes/presence-class/presence.json",
-            "digest": "fc6b1b7d3ca315a22ab0c731882ef54446499e34753a63aef2e999f8bac42e3d"
+            "digest": "3f6e0f1c019481d5dd0924b67762a85cd0eb70b018085c73034199c5f51477f5"
           },
           {
             "path": "classes/presence-class/runtime.mjs",
@@ -2402,13 +2402,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/private-views-class",
+        "name": "clodhub/private-views-class",
         "version": "1.1.0",
-        "digest": "258d4b952b2be04e7e7856b913719058fdec23ffa9a030b2c6eabf4a0e5c0f1e"
+        "digest": "393ef6d1d74dde2ad9d553d50c149c6f106adcc133a4ea40414905b7dcd02eb1"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/private-views-class",
+        "name": "clodhub/private-views-class",
         "version": "1.1.0",
         "title": "Private views",
         "summary": "Each person sees only what they may see of shared state",
@@ -2458,7 +2458,7 @@
           },
           {
             "path": "classes/private-views-class/private-views.json",
-            "digest": "62d9d1929e88796c8b8e71180f5a437ee3bbe1e9f6f2abf3c31b9c1e723ca582"
+            "digest": "d49872de242e91adb798386b018fa340de4809b3877940c7176efa2072b7a44c"
           },
           {
             "path": "classes/private-views-class/runtime.mjs",
@@ -2493,13 +2493,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/realtime-rooms-class",
+        "name": "clodhub/realtime-rooms-class",
         "version": "1.1.0",
-        "digest": "277dd86c6c85a122cca116434940794e7be6245d053c5403d7f4e2df3a71be03"
+        "digest": "845fd7ba02a1aadd11300f8e53adf55e007b42191a06ec6ca01acf2e74e58d9e"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/realtime-rooms-class",
+        "name": "clodhub/realtime-rooms-class",
         "version": "1.1.0",
         "title": "Real-time rooms",
         "summary": "Rooms that hold state on a server and push changes to every connected client",
@@ -2558,7 +2558,7 @@
           },
           {
             "path": "classes/realtime-rooms-class/room-session.json",
-            "digest": "e31d13f2d632525fa3e738485ca8eeff4f29411408618b2d1972c56ca324a0b7"
+            "digest": "1014555c475b76e7619b040c563d1e73e76635eb9f850de9913c2efc71f2d097"
           },
           {
             "path": "classes/realtime-rooms-class/runtime.mjs",
@@ -2593,13 +2593,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/room-directory-class",
+        "name": "clodhub/room-directory-class",
         "version": "1.1.0",
-        "digest": "e79fe18442fe0927c23ff6a2ae779af267c58a6fec662a4abe1f542a5547f138"
+        "digest": "be56989b56e4b2f409bdd9227d144cab06af098f4b1c0ca135d2116f58958d65"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/room-directory-class",
+        "name": "clodhub/room-directory-class",
         "version": "1.1.0",
         "title": "Room directory",
         "summary": "The list of rooms with their status and who is in them, kept current",
@@ -2660,7 +2660,7 @@
           },
           {
             "path": "classes/room-directory-class/room-directory.json",
-            "digest": "742d6bccf102c762527f00b1a3c4d6f7216405dba3d090a898e5ccbb7a4a0092"
+            "digest": "845238916543a87dbf5568c1c62008795c179b6364f249d5dd299d2f962db86d"
           },
           {
             "path": "classes/room-directory-class/runtime.mjs",
@@ -2695,13 +2695,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/round-history-class",
+        "name": "clodhub/round-history-class",
         "version": "1.1.0",
-        "digest": "2816edbe02811a5d411d54f1f7dabc99aeed613d1b7bae28a55f1ce109127d2b"
+        "digest": "c598d4a410cea4017fa138c7b41ecdc42109d2b6a5e886ecc97edbc8b0ecdb01"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/round-history-class",
+        "name": "clodhub/round-history-class",
         "version": "1.1.0",
         "title": "Round history",
         "summary": "A bounded record of completed rounds with totals, exportable and checked",
@@ -2751,7 +2751,7 @@
           },
           {
             "path": "classes/round-history-class/round-history.json",
-            "digest": "dc6e258eda990761554a5374e0255a7e7a2fd60a780d18214ea74e693d8f6654"
+            "digest": "889a9ac3b81db829c96bd47b9ad323f98f85d99c61cacf4fb6bb57b1b7afd36c"
           },
           {
             "path": "classes/round-history-class/runtime.mjs",
@@ -2786,13 +2786,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/rules-settings-class",
+        "name": "clodhub/rules-settings-class",
         "version": "1.1.0",
-        "digest": "c7db43c06c8ed39738e167c75d673c43af3a44cddb4a0ae0d14f8ecb66e35987"
+        "digest": "ad578301ef7bc3e350a99cb53765e30e7e31f8994db2959695d443e00455e0b4"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/rules-settings-class",
+        "name": "clodhub/rules-settings-class",
         "version": "1.1.0",
         "title": "Rules settings",
         "summary": "A typed settings file read, checked and frozen for the rest of the application",
@@ -2841,7 +2841,7 @@
           },
           {
             "path": "classes/rules-settings-class/rules-settings.json",
-            "digest": "b5f146d4e11aca0904075e8b589460a0037af6a70e22fb12ed7ddf418a24c684"
+            "digest": "30fb1bd341295be7e30ffa8268c079fc08d59b318f67399d658364d816c76734"
           },
           {
             "path": "classes/rules-settings-class/runtime.mjs",
@@ -2876,13 +2876,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/seating-class",
+        "name": "clodhub/seating-class",
         "version": "1.1.0",
-        "digest": "61df5d165b4f17d637bdd45beacf39f25b6d2a64f043ddecdc66d0ea8776e7bb"
+        "digest": "779824fd6c5f8edbbc21ff6500b75e3b596f4c4cdf91fca769daace802d24c5a"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/seating-class",
+        "name": "clodhub/seating-class",
         "version": "1.1.0",
         "title": "Seating",
         "summary": "Seats at a table: taking, leaving and starting when enough are taken",
@@ -2951,7 +2951,7 @@
           },
           {
             "path": "classes/seating-class/seating.json",
-            "digest": "69bcab6877714760a79905b5884ced37b1bc48b6abf71b16b18e5f14d80eba31"
+            "digest": "ceb446c6a20f64192cc06bc0690e0742e89dbca0470c5ec58262a54ee0f32b6f"
           }
         ],
         "verification": [
@@ -2982,13 +2982,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/server-host-class",
+        "name": "clodhub/server-host-class",
         "version": "1.1.0",
-        "digest": "1c9f5cea090f096c7372503deabd37f597df41a82e72e8b5a27fe5615fae7573"
+        "digest": "08d7873867ce29f451c871ca6883eea8dec456a7a302a320495246c2cd1bcab0"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/server-host-class",
+        "name": "clodhub/server-host-class",
         "version": "1.1.0",
         "title": "Server host",
         "summary": "Runs the application's server on Cloudflare Workers or on Node on your own hardware",
@@ -3054,7 +3054,7 @@
           },
           {
             "path": "classes/server-host-class/server-host.json",
-            "digest": "9f72a5bde1a55d5deb7f2c62c72a733e56b2f5b40c062b1e884de2b4a8d35ecf"
+            "digest": "a419c730f068b8d32d54c26f41d26c454bf800e0da9880a5859848709ff0dc07"
           }
         ],
         "verification": [
@@ -3085,13 +3085,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/sound-cues-class",
+        "name": "clodhub/sound-cues-class",
         "version": "1.1.0",
-        "digest": "f3d5d5da3fefa237f8b64842cf95eb457f283b356a217de4f2f9e98486757040"
+        "digest": "8ee148be79cb3499d35be888ca5a31735c48b1cafe88f95411c742a33d37af75"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/sound-cues-class",
+        "name": "clodhub/sound-cues-class",
         "version": "1.1.0",
         "title": "Sound cues",
         "summary": "Short sounds played for events, with mute and delay",
@@ -3158,7 +3158,7 @@
           },
           {
             "path": "classes/sound-cues-class/sound-cues.json",
-            "digest": "6ed86b6152de0e4931c3990d36b9a7beaeca3af6fa41fe4df1250e6eecf0b98a"
+            "digest": "53f9b6c96e51276eef1511979d3759837cdca7f05efa7e143dcc770b8911f23c"
           }
         ],
         "verification": [
@@ -3189,13 +3189,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/store-update-class",
+        "name": "clodhub/store-update-class",
         "version": "1.1.0",
-        "digest": "90baf810d5bd8402a424468a15af5a2748de2e32858af2bf408d001fadff0862"
+        "digest": "24cf11844a32a72b18c87c498abe97cbadf8b51dbc4cee1f80c207606d703bcc"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/store-update-class",
+        "name": "clodhub/store-update-class",
         "version": "1.1.0",
         "title": "Store update",
         "summary": "Tells the application a newer version is available from its store",
@@ -3254,7 +3254,7 @@
           },
           {
             "path": "classes/store-update-class/updates.json",
-            "digest": "561b97b9e53fa04b1320b28307167d005d83d08e9145d9cd161ad4974d810776"
+            "digest": "5824bd7587d5cc8b74973f458f9d110d4386a6f1d6c6ec22548252c1bf07015e"
           }
         ],
         "verification": [
@@ -3285,13 +3285,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/table-layout-class",
+        "name": "clodhub/table-layout-class",
         "version": "1.1.0",
-        "digest": "389d934599befffde27a65d46729b932f5d14ebc38220f0b2dc113fe2592f1a7"
+        "digest": "9aeb887361501cf1e24ee14c9e8fc2c60aeabcbe87189ebba40b49c431584dc7"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/table-layout-class",
+        "name": "clodhub/table-layout-class",
         "version": "1.1.0",
         "title": "Table layout",
         "summary": "Seat, card and stake positions around a table for any screen",
@@ -3351,7 +3351,7 @@
           },
           {
             "path": "classes/table-layout-class/table-layout.json",
-            "digest": "d80dbd6b570d4e696e391838151daa72c45e4a4911980c567d30a25818fbc284"
+            "digest": "e3178f355d747c8d18f2f7d5fd9359cc3c6d15287fad6db1abe81bf8a8a6e050"
           }
         ],
         "verification": [
@@ -3382,13 +3382,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/theme-class",
+        "name": "clodhub/theme-class",
         "version": "1.1.0",
-        "digest": "6f3e3e9cb48181e97792618b6126aa559462372f29e342a9a93f3b3fab928afe"
+        "digest": "bf5af6daa7e308237b3c1d4b0cfe35959ad698188a275187cc764ce34df8cc73"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/theme-class",
+        "name": "clodhub/theme-class",
         "version": "1.1.0",
         "title": "Theme",
         "summary": "Colours, spacing, type and an animated background for every client",
@@ -3465,7 +3465,7 @@
           },
           {
             "path": "classes/theme-class/theme.json",
-            "digest": "fc9cb9d907ad9c5e2fc7cfa888c744b16dbdbfde5714b744807bdc2cd78ce078"
+            "digest": "5f60ffdf33c50fd1c4ba911b56fe59fbeb1ef7f9e06ed2001401d2614939c70f"
           }
         ],
         "verification": [
@@ -3520,13 +3520,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/tournament-class",
+        "name": "clodhub/tournament-class",
         "version": "1.1.0",
-        "digest": "b77ed2f7d27e69bdd7f7b3092e57731ad7a52b4e1d7c6dfa2588b8b1fe713266"
+        "digest": "83c760bd0415b41d5db0d55d79ec8d93ac7c55b8ce6e679902b003597095a464"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/tournament-class",
+        "name": "clodhub/tournament-class",
         "version": "1.1.0",
         "title": "Tournament",
         "summary": "Entries, rebuys, eliminations, places and the result screen",
@@ -3612,7 +3612,7 @@
           },
           {
             "path": "classes/tournament-class/tournament.json",
-            "digest": "45bd348f3007ffa729a951d9981e20fbcd3dfe2959c41874dc7fb54b6ab857ec"
+            "digest": "3d36d41e5f9d83a92e1785e00dc963ed2239dd0979bbd6577e02def9081ce206"
           }
         ],
         "verification": [
@@ -3643,13 +3643,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/translations-class",
+        "name": "clodhub/translations-class",
         "version": "1.1.0",
-        "digest": "f92cf9360903e7c5802004297c6d80581f966c1cd9df80243273e708daec43d8"
+        "digest": "ead9fb7866bc727c21780b2dcc7f283c66613ce25a9e61678deb94ef6ca823e0"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/translations-class",
+        "name": "clodhub/translations-class",
         "version": "1.1.0",
         "title": "Translations",
         "summary": "The application's text in several languages with fallback",
@@ -3703,7 +3703,7 @@
           },
           {
             "path": "classes/translations-class/language.json",
-            "digest": "11b9209c3d1bee055de8f65b4009ea5a7b9080e38fb67bd7b56c5e3e8dfde677"
+            "digest": "1cfb1325dfa058f8f7f37fd628f359b25fb87d1635dff0d3ba754e67329a0041"
           },
           {
             "path": "classes/translations-class/runtime.mjs",
@@ -3738,13 +3738,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/turn-engine-class",
+        "name": "clodhub/turn-engine-class",
         "version": "1.1.0",
-        "digest": "0df0fa7eb20a8d4b228250488b0387d147fb8c5fdd919370acd804645744fd06"
+        "digest": "e6a49666ce4ee186d55a4402a9208e91fd18784d90b7177b20f0f9a4ca78f1d1"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/turn-engine-class",
+        "name": "clodhub/turn-engine-class",
         "version": "1.1.0",
         "title": "Turn engine",
         "summary": "Lobby, turns, timing and computer players around a game's own rules",
@@ -3835,7 +3835,7 @@
           },
           {
             "path": "classes/turn-engine-class/game-adapter.json",
-            "digest": "1943f4d6f3e2352af7280fe444059c2095c7d074f890bdd20aede74e079705f7"
+            "digest": "5f3cb93953794502d3d1f27deef7530d9aff8a1c70e89d5238ef64dce4f99110"
           },
           {
             "path": "classes/turn-engine-class/runtime.mjs",
@@ -3870,13 +3870,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/video-calls-class",
+        "name": "clodhub/video-calls-class",
         "version": "1.1.0",
-        "digest": "c62e8cb966fabfa7453dc277f51da0c8d99b1ad9f39c082414a0aa6f24faf576"
+        "digest": "e25be7b2b5d6a0c7982413089525a2f7e7b59ce065649b2d0dc0af1503d44630"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/video-calls-class",
+        "name": "clodhub/video-calls-class",
         "version": "1.1.0",
         "title": "Video calls",
         "summary": "Video and voice for the people in a room",
@@ -3944,7 +3944,7 @@
           },
           {
             "path": "classes/video-calls-class/media-session.json",
-            "digest": "6ee162341bf63b9ef939f758d72514d36fe8714a65a1dbf351454267b64d1acc"
+            "digest": "af0478a55e1a291b80920d4a309fa8aa7b080e48c849e6111502559d467947f6"
           },
           {
             "path": "classes/video-calls-class/runtime.mjs",
@@ -3979,13 +3979,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/web-host-class",
+        "name": "clodhub/web-host-class",
         "version": "1.1.0",
-        "digest": "3435beee79383a08ef26a41509c1dc99eabbde55a4950363c5b8e4797773d6a8"
+        "digest": "0c427fad04bc5abecb994dd9888dec41f04de8ba1cc26e105ebb85f6f30253e8"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/web-host-class",
+        "name": "clodhub/web-host-class",
         "version": "1.1.0",
         "title": "Web host",
         "summary": "The web client's page, installable manifest, install banner and build",
@@ -4064,7 +4064,7 @@
           },
           {
             "path": "classes/web-host-class/web-shell.json",
-            "digest": "96438dd6623fe70381116073063aefe7a95aafa0c22cfd2e4d28ed1388eb18ab"
+            "digest": "2640f964d23d37aca730d39efd7d22fce95034b64c937349f500b0452ea787f8"
           }
         ],
         "verification": [
@@ -4095,13 +4095,13 @@
     },
     {
       "reference": {
-        "name": "ourapps-ae/windows-desktop-class",
+        "name": "clodhub/windows-desktop-class",
         "version": "1.1.0",
-        "digest": "c50e156621058e599e810535a1b0098faa13a3d7d6f91d14e5bffec9127c4a87"
+        "digest": "8bfc5cc62cb0657204c1411f57b362687322ed052b53ad07c41835a2b5834dce"
       },
       "descriptor": {
         "format": 2,
-        "name": "ourapps-ae/windows-desktop-class",
+        "name": "clodhub/windows-desktop-class",
         "version": "1.1.0",
         "title": "Windows desktop",
         "summary": "The web client packaged as a Windows desktop application",
@@ -4138,7 +4138,7 @@
           },
           {
             "path": "classes/windows-desktop-class/desktop-host.json",
-            "digest": "f4e64b07c541506367b6d543ee1df92b001a2f7b32f1f900ab6382b9f08738c8"
+            "digest": "37a01348685b8d4bb865a60f99e7233c7ee5b1a0511d737d5e6292b00ceca54b"
           },
           {
             "path": "classes/windows-desktop-class/runtime.mjs",
@@ -31242,10 +31242,10 @@
     "owners": [
       "Level N Ltd"
     ],
-    "contact": "https://github.com/ourapps-ae/ourpoker-recipe/issues",
-    "repository": "https://github.com/ourapps-ae/ourpoker-recipe",
+    "contact": "https://github.com/clodhub/ourpoker-recipe/issues",
+    "repository": "https://github.com/clodhub/ourpoker-recipe",
     "updates": {
-      "source": "https://github.com/ourapps-ae/ourpoker-recipe/releases",
+      "source": "https://github.com/clodhub/ourpoker-recipe/releases",
       "strategy": "manual"
     }
   },

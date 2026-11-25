@@ -6,12 +6,12 @@
   "view": "application",
   "definitions": [
     {
-      "id": "ourapps-ae.theme",
+      "id": "clodhub.theme",
       "name": "Theme",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/theme",
-      "version": "0.9.0",
+      "package": "clodhub/theme",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -48,12 +48,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.controls",
+      "id": "clodhub.controls",
       "name": "Controls",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/controls",
-      "version": "0.9.0",
+      "package": "clodhub/controls",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -77,12 +77,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.table-layout",
+      "id": "clodhub.table-layout",
       "name": "Table layout",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/table-layout",
-      "version": "0.9.0",
+      "package": "clodhub/table-layout",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -116,12 +116,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.card-graphics",
+      "id": "clodhub.card-graphics",
       "name": "Card graphics",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/card-graphics",
-      "version": "0.9.0",
+      "package": "clodhub/card-graphics",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -170,12 +170,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.chip-graphics",
+      "id": "clodhub.chip-graphics",
       "name": "Chip graphics",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/chip-graphics",
-      "version": "0.9.0",
+      "package": "clodhub/chip-graphics",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -216,12 +216,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.sound-cues",
+      "id": "clodhub.sound-cues",
       "name": "Sound cues",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/sound-cues",
-      "version": "0.9.0",
+      "package": "clodhub/sound-cues",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "preferences",
@@ -262,12 +262,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.guided-tour",
+      "id": "clodhub.guided-tour",
       "name": "Guided tour",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/guided-tour",
-      "version": "0.9.0",
+      "package": "clodhub/guided-tour",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "controls",
@@ -311,12 +311,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.translations",
+      "id": "clodhub.translations",
       "name": "Translations",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/translations",
-      "version": "0.10.0",
+      "package": "clodhub/translations",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "language",
@@ -343,7 +343,7 @@
     {
       "id": "theme",
       "name": "Theme",
-      "definition": "ourapps-ae.theme",
+      "definition": "clodhub.theme",
       "configuration": {
         "themeName": "night"
       }
@@ -351,19 +351,19 @@
     {
       "id": "controls",
       "name": "Controls",
-      "definition": "ourapps-ae.controls",
+      "definition": "clodhub.controls",
       "configuration": {}
     },
     {
       "id": "table-layout",
       "name": "Table layout",
-      "definition": "ourapps-ae.table-layout",
+      "definition": "clodhub.table-layout",
       "configuration": {}
     },
     {
       "id": "card-graphics",
       "name": "Card graphics",
-      "definition": "ourapps-ae.card-graphics",
+      "definition": "clodhub.card-graphics",
       "configuration": {
         "backStyle": "stripes",
         "cornerStyle": "rounded",
@@ -373,7 +373,7 @@
     {
       "id": "chip-graphics",
       "name": "Chip graphics",
-      "definition": "ourapps-ae.chip-graphics",
+      "definition": "clodhub.chip-graphics",
       "configuration": {
         "denominations": "casino 5000 1000 500 100 25 5 1",
         "chipColours": "casino"
@@ -382,7 +382,7 @@
     {
       "id": "sound-cues",
       "name": "Sound cues",
-      "definition": "ourapps-ae.sound-cues",
+      "definition": "clodhub.sound-cues",
       "configuration": {
         "soundManifest": "sounds",
         "defaultMuted": false
@@ -391,13 +391,13 @@
     {
       "id": "guided-tour",
       "name": "Guided tour",
-      "definition": "ourapps-ae.guided-tour",
+      "definition": "clodhub.guided-tour",
       "configuration": {}
     },
     {
       "id": "translations",
       "name": "Translations",
-      "definition": "ourapps-ae.translations",
+      "definition": "clodhub.translations",
       "configuration": {
         "languages": "en fr de es"
       }

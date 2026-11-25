@@ -1,4 +1,4 @@
-# OurPoker integration status (recipe 0.11.0)
+# OurPoker integration status (recipe 0.12.0)
 
 Open items between the 39 components and the recipe, and the decisions that shape it. Status is `open` (work remains, owner named) or `deferred` (consciously left, with the reason). Nothing here is waiting for a decision: the decisions are under "Decisions".
 
@@ -11,7 +11,7 @@ Evidence: `node --test tests/recipe.test.ts` checks the recipe against the compo
 | G7.6 | recipe | theme, card-graphics, chip-graphics | `look` sets no chip colours; table artwork and card backs are not named | cosmetic | deferred | chip-graphics has the `casino` colour set only, so both looks use `casino`; card backs follow the look through `card-graphics.backStyle`; the web page's theme colour (`web/vite.config.ts`) comes from the theme's default look, because theme installs no file with its `themeName` | recipe |
 | G7.15 | recipe | paper | Section 5.5 gives 36 components for the book club | cosmetic | deferred | the paper is not edited here; the book club design has 35 components (39 minus `web-host`, `windows-desktop`, `video-calls`, `store-update`) beside the application | paper |
 | G7.16 | recipe | paper | Section 5.5 `apple-host.targets` and secret reference examples fail their grammars | cosmetic | deferred | the paper is not edited here | paper |
-| G7.17 | recipe, every component | aepm diagram generator, ourapps catalogue | the generated SVG has a DOCTYPE and `isSafeSvg` refuses it | needs adapter | deferred | `authoring/draw_default_design.py` and `scripts/make_component.py` strip the DOCTYPE; `page/diagram-full.svg` is over `isSafeSvg`'s 200,000 character limit and is not published | ourapps/shared or aepm |
+| G7.17 | recipe, every component | aepm diagram generator, clodhub catalogue | the generated SVG has a DOCTYPE and `isSafeSvg` refuses it | needs adapter | deferred | `authoring/draw_default_design.py` and `scripts/make_component.py` strip the DOCTYPE; `page/diagram-full.svg` is over `isSafeSvg`'s 200,000 character limit and is not published | ourapps/shared or aepm |
 | G9.2 | application Apple client | holdem-rules | `BetRange` is not `Decodable` in holdem-rules' Swift | cosmetic | deferred | the application adds the decoding in `Model.swift` | holdem-rules |
 | G9.3 | application Apple client | controls, seating | no numbered badge for lobby and standings lists | cosmetic | deferred | drawn in `Marks.swift`; no component provides a numbered badge | controls |
 | G9.4 | application Apple and Android clients | video-calls | no microphone and camera toggle strip | needs adapter | deferred | drawn in `MediaToggles.swift` and `MediaToggles.kt`; video-calls has the session only | video-calls |

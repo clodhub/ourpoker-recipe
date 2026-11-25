@@ -6,12 +6,12 @@
   "view": "application",
   "definitions": [
     {
-      "id": "ourapps-ae.web-host",
+      "id": "clodhub.web-host",
       "name": "Web host",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/web-host",
-      "version": "0.9.0",
+      "package": "clodhub/web-host",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
@@ -86,12 +86,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.apple-host",
+      "id": "clodhub.apple-host",
       "name": "Apple host",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/apple-host",
-      "version": "0.10.0",
+      "package": "clodhub/apple-host",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "theme",
@@ -153,12 +153,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.android-host",
+      "id": "clodhub.android-host",
       "name": "Android host",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/android-host",
-      "version": "0.9.0",
+      "package": "clodhub/android-host",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
@@ -205,12 +205,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.windows-desktop",
+      "id": "clodhub.windows-desktop",
       "name": "Windows desktop",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/windows-desktop",
-      "version": "0.10.0",
+      "package": "clodhub/windows-desktop",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "windows-desktop-configuration",
@@ -234,12 +234,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.server-host",
+      "id": "clodhub.server-host",
       "name": "Server host",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/server-host",
-      "version": "0.10.0",
+      "package": "clodhub/server-host",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "room-session",
@@ -312,12 +312,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.realtime-rooms",
+      "id": "clodhub.realtime-rooms",
       "name": "Realtime rooms",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/realtime-rooms",
-      "version": "0.11.0",
+      "package": "clodhub/realtime-rooms",
+      "version": "0.13.0",
       "ports": [
         {
           "id": "game-adapter",
@@ -351,12 +351,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.room-directory",
+      "id": "clodhub.room-directory",
       "name": "Room directory",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/room-directory",
-      "version": "0.9.0",
+      "package": "clodhub/room-directory",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "room-session",
@@ -397,12 +397,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.guest-identity",
+      "id": "clodhub.guest-identity",
       "name": "Guest identity",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/guest-identity",
-      "version": "0.10.0",
+      "package": "clodhub/guest-identity",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "guest-identity",
@@ -441,12 +441,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.presence",
+      "id": "clodhub.presence",
       "name": "Presence",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/presence",
-      "version": "0.9.0",
+      "package": "clodhub/presence",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "guest-identity",
@@ -495,12 +495,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.invitations",
+      "id": "clodhub.invitations",
       "name": "Invitations",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/invitations",
-      "version": "0.7.0",
+      "package": "clodhub/invitations",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "invitations",
@@ -530,12 +530,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.private-views",
+      "id": "clodhub.private-views",
       "name": "Private views",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/private-views",
-      "version": "0.9.0",
+      "package": "clodhub/private-views",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "private-views",
@@ -549,12 +549,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.display-mode",
+      "id": "clodhub.display-mode",
       "name": "Display mode",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/display-mode",
-      "version": "0.10.0",
+      "package": "clodhub/display-mode",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "display-mode-configuration",
@@ -578,12 +578,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.video-calls",
+      "id": "clodhub.video-calls",
       "name": "Video calls",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/video-calls",
-      "version": "0.10.0",
+      "package": "clodhub/video-calls",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "video-calls-configuration",
@@ -637,12 +637,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.preferences",
+      "id": "clodhub.preferences",
       "name": "Preferences",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/preferences",
-      "version": "0.7.0",
+      "package": "clodhub/preferences",
+      "version": "0.8.0",
       "ports": [
         {
           "id": "preferences",
@@ -681,12 +681,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.turn-engine",
+      "id": "clodhub.turn-engine",
       "name": "Turn engine",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/turn-engine",
-      "version": "0.10.0",
+      "package": "clodhub/turn-engine",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "game-rules",
@@ -830,12 +830,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.game-clock",
+      "id": "clodhub.game-clock",
       "name": "Game clock",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/game-clock",
-      "version": "0.9.0",
+      "package": "clodhub/game-clock",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "game-clock",
@@ -866,12 +866,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.seating",
+      "id": "clodhub.seating",
       "name": "Seating",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/seating",
-      "version": "0.9.0",
+      "package": "clodhub/seating",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "guest-identity",
@@ -936,12 +936,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.fair-shuffle",
+      "id": "clodhub.fair-shuffle",
       "name": "Fair shuffle",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/fair-shuffle",
-      "version": "0.9.0",
+      "package": "clodhub/fair-shuffle",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "random-source",
@@ -971,12 +971,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.card-deck",
+      "id": "clodhub.card-deck",
       "name": "Card deck",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/card-deck",
-      "version": "0.9.0",
+      "package": "clodhub/card-deck",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "random-source",
@@ -1017,12 +1017,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.computer-players",
+      "id": "clodhub.computer-players",
       "name": "Computer players",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/computer-players",
-      "version": "0.10.0",
+      "package": "clodhub/computer-players",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "player-strategy",
@@ -1115,12 +1115,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.chip-ledger",
+      "id": "clodhub.chip-ledger",
       "name": "Chip ledger",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/chip-ledger",
-      "version": "0.10.0",
+      "package": "clodhub/chip-ledger",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "chip-ledger",
@@ -1175,12 +1175,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.level-schedule",
+      "id": "clodhub.level-schedule",
       "name": "Level schedule",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/level-schedule",
-      "version": "0.9.0",
+      "package": "clodhub/level-schedule",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "level-schedule",
@@ -1219,12 +1219,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.tournament",
+      "id": "clodhub.tournament",
       "name": "Tournament",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/tournament",
-      "version": "0.9.0",
+      "package": "clodhub/tournament",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "chip-ledger",
@@ -1317,12 +1317,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.round-history",
+      "id": "clodhub.round-history",
       "name": "Round history",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/round-history",
-      "version": "0.9.0",
+      "package": "clodhub/round-history",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "round-history",
@@ -1345,12 +1345,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.rules-settings",
+      "id": "clodhub.rules-settings",
       "name": "Rules settings",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/rules-settings",
-      "version": "0.9.0",
+      "package": "clodhub/rules-settings",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "rules-settings",
@@ -1381,12 +1381,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.poker-hand-ranking",
+      "id": "clodhub.poker-hand-ranking",
       "name": "Poker hand ranking",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/poker-hand-ranking",
-      "version": "0.9.0",
+      "package": "clodhub/poker-hand-ranking",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "card-deck",
@@ -1410,12 +1410,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.poker-odds",
+      "id": "clodhub.poker-odds",
       "name": "Poker odds",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/poker-odds",
-      "version": "0.9.0",
+      "package": "clodhub/poker-odds",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "hand-ranking",
@@ -1466,12 +1466,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.holdem-rules",
+      "id": "clodhub.holdem-rules",
       "name": "Hold'em rules",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/holdem-rules",
-      "version": "0.9.0",
+      "package": "clodhub/holdem-rules",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "card-deck",
@@ -1560,12 +1560,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.poker-strategy",
+      "id": "clodhub.poker-strategy",
       "name": "Poker strategy",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/poker-strategy",
-      "version": "0.9.0",
+      "package": "clodhub/poker-strategy",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "hand-ranking",
@@ -1616,12 +1616,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.theme",
+      "id": "clodhub.theme",
       "name": "Theme",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/theme",
-      "version": "0.9.0",
+      "package": "clodhub/theme",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -1658,12 +1658,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.controls",
+      "id": "clodhub.controls",
       "name": "Controls",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/controls",
-      "version": "0.9.0",
+      "package": "clodhub/controls",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -1687,12 +1687,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.table-layout",
+      "id": "clodhub.table-layout",
       "name": "Table layout",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/table-layout",
-      "version": "0.9.0",
+      "package": "clodhub/table-layout",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -1726,12 +1726,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.card-graphics",
+      "id": "clodhub.card-graphics",
       "name": "Card graphics",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/card-graphics",
-      "version": "0.9.0",
+      "package": "clodhub/card-graphics",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -1780,12 +1780,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.chip-graphics",
+      "id": "clodhub.chip-graphics",
       "name": "Chip graphics",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/chip-graphics",
-      "version": "0.9.0",
+      "package": "clodhub/chip-graphics",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "theme",
@@ -1826,12 +1826,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.sound-cues",
+      "id": "clodhub.sound-cues",
       "name": "Sound cues",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/sound-cues",
-      "version": "0.9.0",
+      "package": "clodhub/sound-cues",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "preferences",
@@ -1872,12 +1872,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.guided-tour",
+      "id": "clodhub.guided-tour",
       "name": "Guided tour",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/guided-tour",
-      "version": "0.9.0",
+      "package": "clodhub/guided-tour",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "controls",
@@ -1921,12 +1921,12 @@
       "settings": []
     },
     {
-      "id": "ourapps-ae.translations",
+      "id": "clodhub.translations",
       "name": "Translations",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/translations",
-      "version": "0.10.0",
+      "package": "clodhub/translations",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "language",
@@ -1949,11 +1949,11 @@
       ]
     },
     {
-      "id": "ourapps-ae.ourpoker",
+      "id": "clodhub.ourpoker",
       "name": "OurPoker",
       "kind": "application",
       "status": "example",
-      "revision": "0.11.0",
+      "revision": "0.12.0",
       "ports": [
         {
           "id": "wrapped-game-adapter",
@@ -2332,7 +2332,7 @@
     {
       "id": "web-host",
       "name": "Web host",
-      "definition": "ourapps-ae.web-host",
+      "definition": "clodhub.web-host",
       "configuration": {
         "iconPath": "icon",
         "applicationId": "ourpoker",
@@ -2346,7 +2346,7 @@
     {
       "id": "apple-host",
       "name": "Apple host",
-      "definition": "ourapps-ae.apple-host",
+      "definition": "clodhub.apple-host",
       "configuration": {
         "targets": "web ios android macos windows tvos",
         "deploymentTargets": "ios17 tvos17 macos14",
@@ -2358,7 +2358,7 @@
     {
       "id": "android-host",
       "name": "Android host",
-      "definition": "ourapps-ae.android-host",
+      "definition": "clodhub.android-host",
       "configuration": {
         "minSdk": 26,
         "packageId": "app.ourapps.ourpoker",
@@ -2368,13 +2368,13 @@
     {
       "id": "windows-desktop",
       "name": "Windows desktop",
-      "definition": "ourapps-ae.windows-desktop",
+      "definition": "clodhub.windows-desktop",
       "configuration": {}
     },
     {
       "id": "server-host",
       "name": "Server host",
-      "definition": "ourapps-ae.server-host",
+      "definition": "clodhub.server-host",
       "configuration": {
         "accountReference": "ourpoker-cloudflare-account",
         "allowedOrigins": "http://localhost:5173",
@@ -2386,13 +2386,13 @@
     {
       "id": "realtime-rooms",
       "name": "Realtime rooms",
-      "definition": "ourapps-ae.realtime-rooms",
+      "definition": "clodhub.realtime-rooms",
       "configuration": {}
     },
     {
       "id": "room-directory",
       "name": "Room directory",
-      "definition": "ourapps-ae.room-directory",
+      "definition": "clodhub.room-directory",
       "configuration": {
         "roomCapacity": 9,
         "maxConnections": 1000
@@ -2401,7 +2401,7 @@
     {
       "id": "guest-identity",
       "name": "Guest identity",
-      "definition": "ourapps-ae.guest-identity",
+      "definition": "clodhub.guest-identity",
       "configuration": {
         "nameMinLength": 1,
         "nameMaxLength": 20,
@@ -2411,7 +2411,7 @@
     {
       "id": "presence",
       "name": "Presence",
-      "definition": "ourapps-ae.presence",
+      "definition": "clodhub.presence",
       "configuration": {
         "awayAfterSeconds": 30,
         "dropAfterSeconds": 1800,
@@ -2421,7 +2421,7 @@
     {
       "id": "invitations",
       "name": "Invitations",
-      "definition": "ourapps-ae.invitations",
+      "definition": "clodhub.invitations",
       "configuration": {
         "codeLength": 6,
         "inviteAddress": "http://localhost:5173"
@@ -2430,19 +2430,19 @@
     {
       "id": "private-views",
       "name": "Private views",
-      "definition": "ourapps-ae.private-views",
+      "definition": "clodhub.private-views",
       "configuration": {}
     },
     {
       "id": "display-mode",
       "name": "Display mode",
-      "definition": "ourapps-ae.display-mode",
+      "definition": "clodhub.display-mode",
       "configuration": {}
     },
     {
       "id": "video-calls",
       "name": "Video calls",
-      "definition": "ourapps-ae.video-calls",
+      "definition": "clodhub.video-calls",
       "configuration": {
         "enabled": true
       }
@@ -2450,7 +2450,7 @@
     {
       "id": "preferences",
       "name": "Preferences",
-      "definition": "ourapps-ae.preferences",
+      "definition": "clodhub.preferences",
       "configuration": {
         "defaultSound": true,
         "defaultMicrophoneOn": true,
@@ -2460,7 +2460,7 @@
     {
       "id": "turn-engine",
       "name": "Turn engine",
-      "definition": "ourapps-ae.turn-engine",
+      "definition": "clodhub.turn-engine",
       "configuration": {
         "settleMs": 4000,
         "staleMinutes": 30,
@@ -2472,7 +2472,7 @@
     {
       "id": "game-clock",
       "name": "Game clock",
-      "definition": "ourapps-ae.game-clock",
+      "definition": "clodhub.game-clock",
       "configuration": {
         "decisionSeconds": 30,
         "onTimeout": "check-or-fold"
@@ -2481,7 +2481,7 @@
     {
       "id": "seating",
       "name": "Seating",
-      "definition": "ourapps-ae.seating",
+      "definition": "clodhub.seating",
       "configuration": {
         "minimumPlayers": 2,
         "maximumPlayers": 9,
@@ -2493,7 +2493,7 @@
     {
       "id": "fair-shuffle",
       "name": "Fair shuffle",
-      "definition": "ourapps-ae.fair-shuffle",
+      "definition": "clodhub.fair-shuffle",
       "configuration": {
         "source": "secure"
       }
@@ -2501,7 +2501,7 @@
     {
       "id": "card-deck",
       "name": "Card deck",
-      "definition": "ourapps-ae.card-deck",
+      "definition": "clodhub.card-deck",
       "configuration": {
         "decks": 1,
         "jokers": false
@@ -2510,7 +2510,7 @@
     {
       "id": "computer-players",
       "name": "Computer players",
-      "definition": "ourapps-ae.computer-players",
+      "definition": "clodhub.computer-players",
       "configuration": {
         "names": "Robin Sam Alex Jordan Casey Morgan Taylor Riley",
         "mode": "on-request",
@@ -2523,7 +2523,7 @@
     {
       "id": "chip-ledger",
       "name": "Chip ledger",
-      "definition": "ourapps-ae.chip-ledger",
+      "definition": "clodhub.chip-ledger",
       "configuration": {
         "startingStack": 5000,
         "minimumUnit": 1,
@@ -2535,7 +2535,7 @@
     {
       "id": "level-schedule",
       "name": "Level schedule",
-      "definition": "ourapps-ae.level-schedule",
+      "definition": "clodhub.level-schedule",
       "configuration": {
         "levelSeconds": 600,
         "afterLastLevel": "double",
@@ -2545,7 +2545,7 @@
     {
       "id": "tournament",
       "name": "Tournament",
-      "definition": "ourapps-ae.tournament",
+      "definition": "clodhub.tournament",
       "configuration": {
         "startingStack": 5000,
         "rebuysPerPlayer": 1,
@@ -2558,7 +2558,7 @@
     {
       "id": "round-history",
       "name": "Round history",
-      "definition": "ourapps-ae.round-history",
+      "definition": "clodhub.round-history",
       "configuration": {
         "maxRounds": 50
       }
@@ -2566,7 +2566,7 @@
     {
       "id": "rules-settings",
       "name": "Rules settings",
-      "definition": "ourapps-ae.rules-settings",
+      "definition": "clodhub.rules-settings",
       "configuration": {
         "rulesFile": "texas-holdem-house-rules",
         "strict": true
@@ -2575,13 +2575,13 @@
     {
       "id": "poker-hand-ranking",
       "name": "Poker hand ranking",
-      "definition": "ourapps-ae.poker-hand-ranking",
+      "definition": "clodhub.poker-hand-ranking",
       "configuration": {}
     },
     {
       "id": "poker-odds",
       "name": "Poker odds",
-      "definition": "ourapps-ae.poker-odds",
+      "definition": "clodhub.poker-odds",
       "configuration": {
         "sampleBoards": 2000,
         "cacheSize": 500
@@ -2590,7 +2590,7 @@
     {
       "id": "holdem-rules",
       "name": "Hold'em rules",
-      "definition": "ourapps-ae.holdem-rules",
+      "definition": "clodhub.holdem-rules",
       "configuration": {
         "seats": 9,
         "minimumOpeningBetBigBlinds": 1,
@@ -2600,7 +2600,7 @@
     {
       "id": "poker-strategy",
       "name": "Poker strategy",
-      "definition": "ourapps-ae.poker-strategy",
+      "definition": "clodhub.poker-strategy",
       "configuration": {
         "difficulty": 2,
         "aggression": 50
@@ -2609,7 +2609,7 @@
     {
       "id": "theme",
       "name": "Theme",
-      "definition": "ourapps-ae.theme",
+      "definition": "clodhub.theme",
       "configuration": {
         "themeName": "night"
       }
@@ -2617,19 +2617,19 @@
     {
       "id": "controls",
       "name": "Controls",
-      "definition": "ourapps-ae.controls",
+      "definition": "clodhub.controls",
       "configuration": {}
     },
     {
       "id": "table-layout",
       "name": "Table layout",
-      "definition": "ourapps-ae.table-layout",
+      "definition": "clodhub.table-layout",
       "configuration": {}
     },
     {
       "id": "card-graphics",
       "name": "Card graphics",
-      "definition": "ourapps-ae.card-graphics",
+      "definition": "clodhub.card-graphics",
       "configuration": {
         "backStyle": "stripes",
         "cornerStyle": "rounded",
@@ -2639,7 +2639,7 @@
     {
       "id": "chip-graphics",
       "name": "Chip graphics",
-      "definition": "ourapps-ae.chip-graphics",
+      "definition": "clodhub.chip-graphics",
       "configuration": {
         "denominations": "casino 5000 1000 500 100 25 5 1",
         "chipColours": "casino"
@@ -2648,7 +2648,7 @@
     {
       "id": "sound-cues",
       "name": "Sound cues",
-      "definition": "ourapps-ae.sound-cues",
+      "definition": "clodhub.sound-cues",
       "configuration": {
         "soundManifest": "sounds",
         "defaultMuted": false
@@ -2657,13 +2657,13 @@
     {
       "id": "guided-tour",
       "name": "Guided tour",
-      "definition": "ourapps-ae.guided-tour",
+      "definition": "clodhub.guided-tour",
       "configuration": {}
     },
     {
       "id": "translations",
       "name": "Translations",
-      "definition": "ourapps-ae.translations",
+      "definition": "clodhub.translations",
       "configuration": {
         "languages": "en fr de es"
       }
@@ -2671,7 +2671,7 @@
     {
       "id": "application",
       "name": "OurPoker",
-      "definition": "ourapps-ae.ourpoker",
+      "definition": "clodhub.ourpoker",
       "configuration": {
         "applicationId": "ourpoker",
         "applicationName": "OurPoker",

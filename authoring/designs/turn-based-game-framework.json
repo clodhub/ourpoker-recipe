@@ -6,12 +6,12 @@
   "view": "application",
   "definitions": [
     {
-      "id": "ourapps-ae.turn-engine",
+      "id": "clodhub.turn-engine",
       "name": "Turn engine",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/turn-engine",
-      "version": "0.10.0",
+      "package": "clodhub/turn-engine",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "game-rules",
@@ -155,12 +155,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.game-clock",
+      "id": "clodhub.game-clock",
       "name": "Game clock",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/game-clock",
-      "version": "0.9.0",
+      "package": "clodhub/game-clock",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "game-clock",
@@ -191,12 +191,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.seating",
+      "id": "clodhub.seating",
       "name": "Seating",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/seating",
-      "version": "0.9.0",
+      "package": "clodhub/seating",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "guest-identity",
@@ -261,12 +261,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.fair-shuffle",
+      "id": "clodhub.fair-shuffle",
       "name": "Fair shuffle",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/fair-shuffle",
-      "version": "0.9.0",
+      "package": "clodhub/fair-shuffle",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "random-source",
@@ -296,12 +296,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.card-deck",
+      "id": "clodhub.card-deck",
       "name": "Card deck",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/card-deck",
-      "version": "0.9.0",
+      "package": "clodhub/card-deck",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "random-source",
@@ -342,12 +342,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.computer-players",
+      "id": "clodhub.computer-players",
       "name": "Computer players",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/computer-players",
-      "version": "0.10.0",
+      "package": "clodhub/computer-players",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "player-strategy",
@@ -440,12 +440,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.chip-ledger",
+      "id": "clodhub.chip-ledger",
       "name": "Chip ledger",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/chip-ledger",
-      "version": "0.10.0",
+      "package": "clodhub/chip-ledger",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "chip-ledger",
@@ -500,12 +500,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.level-schedule",
+      "id": "clodhub.level-schedule",
       "name": "Level schedule",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/level-schedule",
-      "version": "0.9.0",
+      "package": "clodhub/level-schedule",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "level-schedule",
@@ -544,12 +544,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.tournament",
+      "id": "clodhub.tournament",
       "name": "Tournament",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/tournament",
-      "version": "0.9.0",
+      "package": "clodhub/tournament",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "chip-ledger",
@@ -642,12 +642,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.round-history",
+      "id": "clodhub.round-history",
       "name": "Round history",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/round-history",
-      "version": "0.9.0",
+      "package": "clodhub/round-history",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "round-history",
@@ -670,12 +670,12 @@
       ]
     },
     {
-      "id": "ourapps-ae.rules-settings",
+      "id": "clodhub.rules-settings",
       "name": "Rules settings",
       "kind": "component",
       "status": "example",
-      "package": "ourapps-ae/rules-settings",
-      "version": "0.9.0",
+      "package": "clodhub/rules-settings",
+      "version": "0.10.0",
       "ports": [
         {
           "id": "rules-settings",
@@ -710,7 +710,7 @@
     {
       "id": "turn-engine",
       "name": "Turn engine",
-      "definition": "ourapps-ae.turn-engine",
+      "definition": "clodhub.turn-engine",
       "configuration": {
         "settleMs": 4000,
         "staleMinutes": 30,
@@ -722,7 +722,7 @@
     {
       "id": "game-clock",
       "name": "Game clock",
-      "definition": "ourapps-ae.game-clock",
+      "definition": "clodhub.game-clock",
       "configuration": {
         "decisionSeconds": 30,
         "onTimeout": "check-or-fold"
@@ -731,7 +731,7 @@
     {
       "id": "seating",
       "name": "Seating",
-      "definition": "ourapps-ae.seating",
+      "definition": "clodhub.seating",
       "configuration": {
         "minimumPlayers": 2,
         "maximumPlayers": 9,
@@ -743,7 +743,7 @@
     {
       "id": "fair-shuffle",
       "name": "Fair shuffle",
-      "definition": "ourapps-ae.fair-shuffle",
+      "definition": "clodhub.fair-shuffle",
       "configuration": {
         "source": "secure"
       }
@@ -751,7 +751,7 @@
     {
       "id": "card-deck",
       "name": "Card deck",
-      "definition": "ourapps-ae.card-deck",
+      "definition": "clodhub.card-deck",
       "configuration": {
         "decks": 1,
         "jokers": false
@@ -760,7 +760,7 @@
     {
       "id": "computer-players",
       "name": "Computer players",
-      "definition": "ourapps-ae.computer-players",
+      "definition": "clodhub.computer-players",
       "configuration": {
         "names": "Robin Sam Alex Jordan Casey Morgan Taylor Riley",
         "mode": "on-request",
@@ -773,7 +773,7 @@
     {
       "id": "chip-ledger",
       "name": "Chip ledger",
-      "definition": "ourapps-ae.chip-ledger",
+      "definition": "clodhub.chip-ledger",
       "configuration": {
         "startingStack": 5000,
         "minimumUnit": 1,
@@ -785,7 +785,7 @@
     {
       "id": "level-schedule",
       "name": "Level schedule",
-      "definition": "ourapps-ae.level-schedule",
+      "definition": "clodhub.level-schedule",
       "configuration": {
         "levelSeconds": 600,
         "afterLastLevel": "double",
@@ -795,7 +795,7 @@
     {
       "id": "tournament",
       "name": "Tournament",
-      "definition": "ourapps-ae.tournament",
+      "definition": "clodhub.tournament",
       "configuration": {
         "startingStack": 5000,
         "rebuysPerPlayer": 1,
@@ -808,7 +808,7 @@
     {
       "id": "round-history",
       "name": "Round history",
-      "definition": "ourapps-ae.round-history",
+      "definition": "clodhub.round-history",
       "configuration": {
         "maxRounds": 50
       }
@@ -816,7 +816,7 @@
     {
       "id": "rules-settings",
       "name": "Rules settings",
-      "definition": "ourapps-ae.rules-settings",
+      "definition": "clodhub.rules-settings",
       "configuration": {
         "rulesFile": "texas-holdem-house-rules",
         "strict": true

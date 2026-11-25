@@ -1,9 +1,9 @@
 {
-  "id": "ourapps-ae.ourpoker",
+  "id": "clodhub.ourpoker",
   "name": "OurPoker",
   "kind": "application",
   "status": "example",
-  "revision": "0.11.0",
+  "revision": "0.12.0",
   "ports": [
     {
       "id": "wrapped-game-adapter",

@@ -156,13 +156,13 @@ def document():
     schemas.update(copy.deepcopy(POKER))
     document = {
         "openrpc": "1.3.2",
-        "x-ourapps-modules": {"server": "server/src/adapter.ts"},
+        "x-clodhub-modules": {"server": "server/src/adapter.ts"},
         "info": {
             "title": "ae/game-adapter",
             "version": "1.0.0",
             "description": "The game adapter realtime-rooms calls (recipe.json connects this port to realtime-rooms' `game-adapter` requirement): turn-engine's GameAdapter over the recipe's parts (server/src/parts.ts: holdem-rules, seating, game-clock, private-views, presence, tournament, computer players, round-history, the house rules), whose view answers in the poker wire view the web, Apple and Android clients decode. The application's own `game-adapter` requirement takes turn-engine's adapter, which pokerAdapter wraps. Methods named `GameAdapter.<name>` are members of the object pokerAdapter returns; every one but view is turn-engine's. TypeScript, `implementation/server/src/adapter.ts` (wire.ts, contract.ts).",
         },
-        "x-ourapps-modules": {"server": "server/src/adapter.ts"},
+        "x-clodhub-modules": {"server": "server/src/adapter.ts"},
         "methods": [
             {
                 "name": "pokerAdapter",

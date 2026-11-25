@@ -1,6 +1,6 @@
 {
   "openrpc": "1.3.2",
-  "x-ourapps-modules": {
+  "x-clodhub-modules": {
     "server": "server/src/adapter.ts"
   },
   "info": {

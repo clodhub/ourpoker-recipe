@@ -1,4 +1,4 @@
-// Lets node import the TypeScript sources of ourapps/shared, which name their relative imports "./x.js".
+// Lets node import the TypeScript sources of clodhub/shared, which name their relative imports "./x.js".
 import { registerHooks } from "node:module";
 
 registerHooks({

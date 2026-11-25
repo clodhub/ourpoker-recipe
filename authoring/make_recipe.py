@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Writes recipe.json for ourapps-ae/ourpoker in the decided format (component-standard.md, "Recipe evaluation rules").
+"""Writes recipe.json for clodhub/ourpoker in the decided format (component-standard.md, "Recipe evaluation rules").
 
 Everything that can be read from the components is read from them: names, versions, port ids and which requirements are
 optional come from each component.json; connections are derived from the manifests. Settings, questions and answer sets
@@ -14,7 +14,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent.parent
 COMPONENTS = Path(os.environ.get("OURPOKER_COMPONENTS") or HERE.parent.parent / "components")  # the component checkouts
 sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(HERE.parent.parent / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
-from aepm.model import canonical, digest  # noqa: E402
+from aepm.model import SCOPE, canonical, digest  # noqa: E402
 
 # Order follows paper Section 5.3.
 ORDER = [
@@ -209,10 +209,10 @@ QUESTIONS = [
 # Server provider and size are chosen by selection (rule 7); the server answer restricts the candidates.
 JOBS = [
     {"id": "server", "slot": "server-host", "overrideQuestion": "server",
-     "candidates": [{"component": "ourapps-ae/server-host", "profile": p} for p in ("cloudflare-free", "cloudflare-paid", "own-hardware")]},
+     "candidates": [{"component": f"{SCOPE}/server-host", "profile": p} for p in ("cloudflare-free", "cloudflare-paid", "own-hardware")]},
     {"id": "realtime", "slot": "realtime-rooms", "overrideQuestion": "server",
-     "candidates": [{"component": "ourapps-ae/realtime-rooms", "profile": p} for p in ("free", "paid", "own-hardware")]},
-    {"id": "video", "slot": "video-calls", "candidates": [{"component": "ourapps-ae/video-calls", "profile": p} for p in ("free", "paid", "scale")]},
+     "candidates": [{"component": f"{SCOPE}/realtime-rooms", "profile": p} for p in ("free", "paid", "own-hardware")]},
+    {"id": "video", "slot": "video-calls", "candidates": [{"component": f"{SCOPE}/video-calls", "profile": p} for p in ("free", "paid", "scale")]},
 ]
 
 SCALE = {"question": "scale", "bands": [
@@ -318,13 +318,13 @@ def main() -> None:
     components = []
     for slug in ORDER:
         ident = manifests[slug]["identity"]
-        assert ident["name"] == f"ourapps-ae/{slug}"
+        assert ident["name"] == f"{SCOPE}/{slug}"
         components.append({"id": slug, "class": slot_class(slug),
                            "preferred": {"name": ident["name"], "version": ident["version"]},
                            "configuration": CONFIGURATION.get(slug, {}), "includedWhen": included_when.get(slug)})
 
     recipe = {
-        "format": 2, "name": "ourapps-ae/ourpoker", "version": "0.11.0", "title": "OurPoker",
+        "format": 2, "name": f"{SCOPE}/ourpoker", "version": "0.12.0", "title": "OurPoker",
         "summary": "A complete Texas hold'em game for two to nine players: phones, tablets, computers, the web and a television as a shared table, optional video, computer players, lessons, rebuys and rising blinds.",
         "category": "games", "tags": ["cards", "multiplayer", "poker", "texas-holdem", "tournament"],
         "targets": {"client": ALL_TARGETS, "server": ["hosting-provider", "own-hardware"]},

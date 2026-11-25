@@ -847,7 +847,7 @@
       }
     }
   },
-  "x-ourapps-modules": {
+  "x-clodhub-modules": {
     "server": "server/index.ts",
     "android": "android/src/main/java"
   }

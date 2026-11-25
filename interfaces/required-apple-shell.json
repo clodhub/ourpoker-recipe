@@ -875,7 +875,7 @@
       }
     }
   },
-  "x-ourapps-modules": {
+  "x-clodhub-modules": {
     "server": "server/index.ts",
     "apple": "apple/Sources"
   }
