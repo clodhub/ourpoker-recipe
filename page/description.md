@@ -76,10 +76,10 @@ Each component sits in a slot named after it: the slot's class is what the recip
 
 ## Building it
 
-With aepm and the published catalogue: `aepm fetch ourpoker@0.10.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
+With aepm and the published catalogue: `aepm fetch ourpoker@0.11.0 --with-dependencies --store STORE`, then read the recipe's INSTRUCTIONS.md from the fetched archive:
 
 ```
-python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.10.0 > INSTRUCTIONS.md
+python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="ourapps-ae/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE 0.11.0 > INSTRUCTIONS.md
 ```
 
 The steps, all set out in INSTRUCTIONS.md:
@@ -110,7 +110,7 @@ The default answers, `book-club`, `poker-league`, `company-event`, `company-even
 
 ## Status
 
-Version 0.10.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
+Version 0.11.0. Installed with `aepm install` from signed packages and built and run with the recipe's own install proof (`default` and `local-web` answers):
 
 - Server on Node; the web client in a browser: a player sits, a computer player joins and a hand is played to its settlement with every chip counted.
 - iPhone and iPad, Mac (Mac Catalyst) and Apple TV apps built for their simulators and Mac; the Android app built, unit-tested and played on the emulator to a settled hand; the desktop web build for Windows.
