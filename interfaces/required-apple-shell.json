@@ -1,7 +1,7 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "ae/apple-shell",
+    "title": "com.clodhub/apple-shell",
     "version": "1.0.0",
     "description": "Apple application shell for iPhone, iPad, Mac (Catalyst) and Apple TV. Methods tagged typescript are exported functions of apple/render.ts run at build time under Node; methods tagged swift are public Swift API in apple/Sources compiled into the application.",
     "license": {

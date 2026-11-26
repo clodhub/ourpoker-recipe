@@ -1,9 +1,9 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "ae/chip-graphics",
+    "title": "com.clodhub/chip-graphics",
     "version": "1.0.0",
-    "description": "Chip piles for an amount in the application's denominations, and bets moving to the pot and winnings moving to winners. Web: implementation/web/chip-model.ts, chips.ts and chips.css (reads the theme's --primary). Apple: ChipModel and the SwiftUI views ChipPile and ChipFlightLayer. Android: ChipModel and the Compose functions ChipPile and ChipFlightLayer in package ae.chips."
+    "description": "Chip piles for an amount in the application's denominations, and bets moving to the pot and winnings moving to winners. Web: implementation/web/chip-model.ts, chips.ts and chips.css (reads the theme's --primary). Apple: ChipModel and the SwiftUI views ChipPile and ChipFlightLayer. Android: ChipModel and the Compose functions ChipPile and ChipFlightLayer in package com.clodhub.chips."
   },
   "methods": [
     {

@@ -1,7 +1,7 @@
 package app.ourapps.ourpoker.ui
 
-import ae.controls.HelpPage
-import ae.controls.HelpSection
+import com.clodhub.controls.HelpPage
+import com.clodhub.controls.HelpSection
 import androidx.compose.runtime.Composable
 
 // Rules text lives in strings.xml (generated from locales/strings.json); the server enforces them.

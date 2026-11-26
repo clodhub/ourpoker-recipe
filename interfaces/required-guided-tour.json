@@ -1,9 +1,9 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "ae/guided-tour",
+    "title": "com.clodhub/guided-tour",
     "version": "1.0.0",
-    "description": "Step-by-step lessons that pause play while a player learns. The mechanism (steps, highlighting, pausing, progress kept on the device) is here; what the lessons say and which element each step rings stay with the application. Progress is one storage key per lesson (prefix plus lesson id) and one key for whether the person wants to be guided. The card uses the controls component's panel and button, text comes through the language component's lookup, and the storage is where the preferences component keeps the device's choices. Web: implementation/web/tour-model.ts, tour-view.ts and tour.css. Apple: TourModel, Tour, TourOverlay and the tourAnchor and tourHost modifiers. Android: TourModel, LessonsJson, Tour, TourOverlay, TourHost and Modifier.tourAnchor in package ae.tour."
+    "description": "Step-by-step lessons that pause play while a player learns. The mechanism (steps, highlighting, pausing, progress kept on the device) is here; what the lessons say and which element each step rings stay with the application. Progress is one storage key per lesson (prefix plus lesson id) and one key for whether the person wants to be guided. The card uses the controls component's panel and button, text comes through the language component's lookup, and the storage is where the preferences component keeps the device's choices. Web: implementation/web/tour-model.ts, tour-view.ts and tour.css. Apple: TourModel, Tour, TourOverlay and the tourAnchor and tourHost modifiers. Android: TourModel, LessonsJson, Tour, TourOverlay, TourHost and Modifier.tourAnchor in package com.clodhub.tour."
   },
   "methods": [
     {

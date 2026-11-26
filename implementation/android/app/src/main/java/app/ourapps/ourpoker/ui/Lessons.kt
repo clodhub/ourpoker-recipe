@@ -1,12 +1,12 @@
 package app.ourapps.ourpoker.ui
 
-import ae.tour.LessonsJson
-import ae.tour.PreferencesTourStorage
-import ae.tour.Tour
-import ae.tour.TourButtons
-import ae.tour.TourHost
-import ae.tour.TourKeys
-import ae.tour.tourAnchor
+import com.clodhub.tour.LessonsJson
+import com.clodhub.tour.PreferencesTourStorage
+import com.clodhub.tour.Tour
+import com.clodhub.tour.TourButtons
+import com.clodhub.tour.TourHost
+import com.clodhub.tour.TourKeys
+import com.clodhub.tour.tourAnchor
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.compose.runtime.Composable

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Install OurPoker designs with aepm and build and run what was installed, as INSTRUCTIONS.md "Build and run" says.
+"""Install OurPoker designs with clod and build and run what was installed, as INSTRUCTIONS.md "Build and run" says.
 
 For the given answers it packs the 39 components and this recipe into a temporary store, creates disposable identities
-(`python -m aepm.test_identities`), signs each release (aepm.trust.publish_release), reviews each package
-(`aepm review --trusted --allow-network`) and signs the review (aepm.trust.publish_review) when its required-local suites
-passed. Then, per answers: evaluates the design with aepm's evaluator (aepm.recipe), resolves and installs it (`aepm resolve`,
-`aepm install`), and in the installed folder runs the documented local build:
+(`python -m clod.test_identities`), signs each release (clod.trust.publish_release), reviews each package
+(`clod review --trusted --allow-network`) and signs the review (clod.trust.publish_review) when its required-local suites
+passed. Then, per answers: evaluates the design with clod's evaluator (clod.recipe), resolves and installs it (`clod resolve`,
+`clod install`), and in the installed folder runs the documented local build:
 
   server  npm ci; tsc --noEmit; vitest run (the application's tests from tests/e2e/server); npm start (Node, own hardware)
   web     npm ci; tsc --noEmit; npm run build (pointed at the running server); vite preview
@@ -42,7 +42,7 @@ With options, for designs that have the target:
                     served here and drawn in Chrome. Needs gh signed in; the repository stays.
 
 Usage (from the recipe folder; python 3.12, node 26.5.0, Chrome):
-  PYTHONPATH=<aepm checkout> python3.12 -B authoring/try_install.py [ANSWERS ...] [--components DIR] [--work DIR] [--chrome PATH]
+  PYTHONPATH=<clod checkout> python3.12 -B authoring/try_install.py [ANSWERS ...] [--components DIR] [--work DIR] [--chrome PATH]
                                          [--android [--avd NAME]] [--windows HOST] [--cloudflare NAME] [--github REPO [--github-tag TAG]]
                                          [--substitute SLOT=NAME@VERSION ...] [--keep-builds]
 ANSWERS is an answer-set id of recipe.json (`default` for its default answers) or a path to an answers JSON file;
@@ -55,8 +55,8 @@ a process group the run started could not be stopped, or the processes could not
 inside an output is first copied to the design's evidence/ folder (sha256 checked) and the report names the copy; an output
 holding a folder, a link or a signed document's path the report names, or a file that cannot be copied unchanged, is kept whole.
 Each command run() runs and each long-running process gets a session of its own; what it leaves running in that session is
-stopped, and nothing else is. Before the store and each design, free space for it is reserved with aepm (aepm.space), and
-Xcode, Gradle and emulator steps hold aepm's machine-wide locks (aepm.locks). Exit status 0 when every step passed.
+stopped, and nothing else is. Before the store and each design, free space for it is reserved with clod (clod.space), and
+Xcode, Gradle and emulator steps hold clod's machine-wide locks (clod.locks). Exit status 0 when every step passed.
 """
 import argparse
 import base64
@@ -82,12 +82,12 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 
-from aepm import recipe as E  # noqa: E402
+from clod import recipe as E  # noqa: E402
 import recipe_world  # noqa: E402
-from aepm.trust import publish_release, publish_review  # noqa: E402
-from aepm.io import load, write  # noqa: E402
-from aepm import ledger, locks, space  # noqa: E402
-from aepm.model import AepmError  # noqa: E402
+from clod.trust import publish_release, publish_review  # noqa: E402
+from clod.io import load, write  # noqa: E402
+from clod import ledger, locks, space  # noqa: E402
+from clod.model import ClodError  # noqa: E402
 
 DEFAULT_ANSWERS = ["default", "local-web", "fill-empty-own-hardware", "lounge-web-ios"]
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
@@ -109,7 +109,7 @@ HELD = contextlib.ExitStack()  # locks held until the run ends
 
 def run(argv, work, name, cwd=None, env=None, timeout=900, check=True, lock=None):
     """Run a command, keep its output in logs/<name>.log, and return the output. With lock (xcode, gradle), the command runs
-    under that machine-wide aepm lock, so heavy native builds of every agent on this machine run one at a time."""
+    under that machine-wide clod lock, so heavy native builds of every agent on this machine run one at a time."""
     if lock:
         with locks.heavy(lock, purpose=f"try_install {name}") as waited:
             LOCK_WAITS[name] = round(waited, 1)
@@ -151,8 +151,8 @@ def finish_unstoppable(process):
         process.wait(10)
 
 
-def aepm(args, work, name, check=True, timeout=1800):
-    output = run([sys.executable, "-B", "-m", "aepm", *args], work, name, env=python_env(), timeout=timeout, check=False)
+def clod(args, work, name, check=True, timeout=1800):
+    output = run([sys.executable, "-B", "-m", "clod", *args], work, name, env=python_env(), timeout=timeout, check=False)
     last = [line for line in output.splitlines() if line.startswith("{")]
     result = json.loads(last[-1]) if last else {"ok": False, "error": output[-2000:]}
     if check and not result.get("ok"):
@@ -232,7 +232,7 @@ def build_outputs(folder):
         if "node_modules" in folders:
             found.append(Path(directory) / "node_modules")
             folders.remove("node_modules")
-        if (Path(directory) / ".aepm").is_dir():
+        if (Path(directory) / ".clod").is_dir():
             found += [Path(directory) / relative for relative in APP_BUILD_OUTPUTS]
     found += [folder / relative for relative in DESIGN_BUILD_OUTPUTS]
     return [path for path in found if path.exists() and not path.is_symlink()]
@@ -493,24 +493,38 @@ def answers_for(world, item):
 # ---- store, identities, releases and reviews ----
 
 def review(work, store, policy_path, ref, attempt):
-    """One `aepm review`; returns the report, or None when aepm refused."""
-    name = "review-" + ref["name"].split("/")[1] + ("" if attempt == 1 else f"-{attempt}")
-    result = aepm(["review", ref["digest"], "--store", str(store), "--policy", str(policy_path), "--trusted", "--allow-network"], work, name, check=False)
+    """One `clod review`; returns the report, or None when clod refused."""
+    name = "review-" + ref["name"].rsplit("/", 1)[1] + ("" if attempt == 1 else f"-{attempt}")
+    result = clod(["review", ref["digest"], "--store", str(store), "--policy", str(policy_path), "--trusted", "--allow-network"], work, name, check=False)
     return result.get("result") if result.get("ok") else None
 
 
-def prepare_store(work, components):
-    """Pack, release, review and guardian-sign every package. A work folder that already has a store is reused when no package
-    changed since (aepm refuses a second archive of the same name and version): only packages without a guardian statement
-    are reviewed again."""
+def recipe_sources(components, substitutes=()):
+    """The recipe's own folder and the folders under components of every component it names (slot components and job
+    candidates) and of each --substitute SLOT=NAME@VERSION; no other component folder is read."""
+    recipe = json.loads((ROOT / "recipe.json").read_text())
+    names = {slot["preferred"]["name"] for slot in recipe["components"]}
+    names |= {candidate["component"] for job in recipe.get("jobs", []) for candidate in job["candidates"]}
+    names |= {item.partition("=")[2].rpartition("@")[0] for item in substitutes}
+    folders = sorted({Path(components) / name.rsplit("/", 1)[-1] for name in names})
+    missing = [str(folder) for folder in folders if not (folder / "component.json").is_file()]
+    if missing:
+        raise Step("component folders missing: " + ", ".join(missing))
+    return folders + [ROOT]
+
+
+def prepare_store(work, components, substitutes=()):
+    """Pack, release, review and guardian-sign the recipe and every component it names (recipe_sources). A work folder that
+    already has a store is reused when no package changed since (clod refuses a second archive of the same name and version):
+    only packages without a guardian statement are reviewed again."""
     store, identities = work / "store", work / "identities"
     if not (identities / "policy.json").is_file():
-        run([sys.executable, "-B", "-m", "aepm.test_identities", str(identities)], work, "identities", env=python_env())
+        run([sys.executable, "-B", "-m", "clod.test_identities", str(identities)], work, "identities", env=python_env())
     policy_path = identities / "policy.json"
-    sources = sorted(p for p in components.iterdir() if (p / "component.json").is_file()) + [ROOT]
+    sources = recipe_sources(components, substitutes)
     refs = []
     for source in sources:
-        result = aepm(["pack", "--store", str(store), str(source)], work, "pack-" + source.name, check=False)
+        result = clod(["pack", "--store", str(store), str(source)], work, "pack-" + source.name, check=False)
         if not result.get("ok"):
             if result.get("error", {}).get("code") == "identity-rebinding":
                 raise Step(f"{source.name} changed since this work folder's store was made; use a new --work folder")
@@ -552,7 +566,7 @@ GROUPS_LEFT = []  # process groups this run started and could not stop; while an
 
 def launched(process):
     """The launch record of a process this run started in a session of its own: pid and process start time."""
-    from aepm.state import process_start
+    from clod.state import process_start
     return {"pid": process.pid, "start": process_start(process.pid), "command": " ".join(map(str, process.args))[:300]}
 
 
@@ -573,7 +587,7 @@ def verified_members(record):
     """The members of the group a launch record names, when every one is provably this run's: each is in the session the
     launch created (only its descendants can join that session), and a leader still running has the recorded start time (not
     a reused pid). Raises InspectionFailed otherwise."""
-    from aepm.state import process_start
+    from clod.state import process_start
     members = group_members(record["pid"])
     for pid in members:
         try:
@@ -675,20 +689,20 @@ def get_json(url, timeout=10):
 
 
 def install(work, store, policy, world, name, answers, substitutes=()):
-    """`aepm design` (with each --substitute SLOT=NAME@VERSION), `aepm resolve` and `aepm install`, as INSTRUCTIONS.md part 3 says."""
+    """`clod design` (with each --substitute SLOT=NAME@VERSION), `clod resolve` and `clod install`, as INSTRUCTIONS.md part 3 says."""
     folder = work / "designs" / name
     folder.mkdir(parents=True)
     definition, lock, app = folder / "definition.json", folder / "lock.json", folder / "app"
     (folder / "answers.json").write_text(json.dumps(answers, indent=2) + "\n")
     recipe = world.recipe
     extra = [argument for item in substitutes for argument in ("--substitute", item)]
-    result = aepm(["design", f"{recipe['name'].split('/')[1]}@{recipe['version']}", "--store", str(store), "--answers", str(folder / "answers.json"),
+    result = clod(["design", f"{recipe['name'].rsplit('/', 1)[1]}@{recipe['version']}", "--store", str(store), "--answers", str(folder / "answers.json"),
                    *extra, "--out", str(definition)], work, f"{name}-design", check=False)
     if not result.get("ok") or not definition.is_file():
         raise Step(f"design: {json.dumps(result)[:3000]}")
     design = json.loads(definition.read_text())
-    aepm(["resolve", str(definition), "--catalogue", str(store / "catalogue.json"), "--out", str(lock)], work, f"{name}-resolve")
-    aepm(["install", str(definition), "--lock", str(lock), "--store", str(store), "--policy", str(policy), "--target", str(app)], work, f"{name}-install")
+    clod(["resolve", str(definition), "--catalogue", str(store / "catalogue.json"), "--out", str(lock)], work, f"{name}-resolve")
+    clod(["install", str(definition), "--lock", str(lock), "--store", str(store), "--policy", str(policy), "--target", str(app)], work, f"{name}-install")
     return design, app
 
 
@@ -752,7 +766,7 @@ def build_and_run(work, name, app, options, results):
 def native(work, name, app, results, start_server, options):
     """Apple: generate the project and build each scheme for its simulator (needs Xcode and XcodeGen). Android: generate the
     project and check its string resources; build it with Gradle only where an Android SDK is set (ANDROID_HOME)."""
-    languages = json.loads((app / ".aepm/definition.json").read_text())["configuration"].get("languages", "en fr de es").split()
+    languages = json.loads((app / ".clod/definition.json").read_text())["configuration"].get("languages", "en fr de es").split()
     if (app / "ios/generate-project.ts").exists():
         ios = app / "ios"
         run(["node", "generate-project.ts"], work, f"{name}-ios-generate", cwd=ios)
@@ -1221,7 +1235,7 @@ def github_run(work, store, policy, world, name, answers, repo, options, server_
     (app / "CHANGELOG.md").write_text(CHANGELOG.replace("<version>", tag[1:]))
     git(["init", "-q", "-b", "main"], work, f"{label}-git-init", app)
     git(["add", "-A"], work, f"{label}-git-add", app)
-    git(["commit", "-q", "-m", f"OurPoker from clodhub/ourpoker {version}"], work, f"{label}-git-commit", app)
+    git(["commit", "-q", "-m", f"OurPoker from ourpoker-recipe {version}"], work, f"{label}-git-commit", app)
     names, expected = workflow_names(app)
     results = {"repository": repo, "workflows": sorted(names)}
     if succeeds(["gh", "repo", "view", repo, "--json", "name"]):
@@ -1230,7 +1244,7 @@ def github_run(work, store, policy, world, name, answers, repo, options, server_
         git(["reset", "-q", "--soft", "origin/main"], work, f"{label}-git-reset", app)
         # main already holding this very tree needs no commit: its workflows are started by hand below
         if subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=app).returncode == 1:
-            git(["commit", "-q", "-m", f"OurPoker from clodhub/ourpoker {version}"], work, f"{label}-git-commit-again", app)
+            git(["commit", "-q", "-m", f"OurPoker from ourpoker-recipe {version}"], work, f"{label}-git-commit-again", app)
             git(["push", "-q", "origin", "main"], work, f"{label}-git-push", app)
         results["created"] = False
     else:
@@ -1422,18 +1436,18 @@ process.exit(0);
 
 
 def working_tree(work, name, app):
-    """After building and deploying, a repository made of the application folder holds only what aepm installed: every file
+    """After building and deploying, a repository made of the application folder holds only what clod installed: every file
     a build or deploy wrote is left out by the installed .gitignore (and no installed file is)."""
     if not (app / ".gitignore").is_file():
         return "no .gitignore installed"
-    owned = {item["path"] for item in json.loads((app / ".aepm/assembly.json").read_text())["files"]}
+    owned = {item["path"] for item in json.loads((app / ".clod/assembly.json").read_text())["files"]}
     probe = work / "designs" / name / "git-probe"
     shutil.rmtree(probe, ignore_errors=True)
     env = {**os.environ, "GIT_DIR": str(probe), "GIT_WORK_TREE": str(app)}
     run(["git", "init", "-q"], work, f"{name}-git-probe", env=env)
     listed = run(["git", "ls-files", "--others", "--exclude-standard"], work, f"{name}-git-probe-files", env=env, cwd=app).splitlines()
     shutil.rmtree(probe, ignore_errors=True)
-    extra = sorted(p for p in listed if p not in owned and not p.startswith(".aepm/"))
+    extra = sorted(p for p in listed if p not in owned and not p.startswith(".clod/"))
     lost = sorted(owned - set(listed))
     if extra or lost:
         raise Step(f"working tree: {len(extra)} files a build wrote are not ignored {extra[:12]}; {len(lost)} installed files are ignored {lost[:12]}")
@@ -1591,7 +1605,7 @@ def main(argv):
     parser.add_argument("--github", metavar="REPO", help="push a fresh install to the private repository REPO (owner/name), run its workflows and its release, check the release")
     parser.add_argument("--github-tag", default="v0.1.0", help="the version tag --github pushes (default v0.1.0)")
     parser.add_argument("--substitute", action="append", default=[], metavar="SLOT=NAME@VERSION",
-                        help="put that component in the slot (aepm design --substitute); its folder must be in --components")
+                        help="put that component in the slot (clod design --substitute); its folder must be in --components")
     parser.add_argument("--keep-builds", action="store_true",
                         help="keep node_modules, native build folders, browser profiles, unpacked installers and the run's Swift packages")
     args = parser.parse_args(argv)
@@ -1606,15 +1620,15 @@ def main(argv):
             print(f"answers: {error}")
             return 2
     report = {"work": str(work), "designs": {}}
-    # the work folder is this run's proof: registered as kept, so `aepm clean` never lists it
+    # the work folder is this run's proof: registered as kept, so `clod clean` never lists it
     entry = ledger.register(work, "proof", purpose="ourpoker try_install", keep=True)
-    sources = sorted(p for p in args.components.resolve().iterdir() if (p / "component.json").is_file()) + [ROOT]
     try:
-        # the store holds each archive once and a review copy of it; each check's own copy is admitted by aepm
+        sources = recipe_sources(args.components.resolve(), args.substitute)
+        # the store holds each archive once and a review copy of it; each check's own copy is admitted by clod
         with space.reserve(work, 2 * packaged_bytes(sources), purpose="try_install store") as admitted:
             report["admission"] = {"store": admitted}
-            store, policy, refs, reviews, blocked = prepare_store(work, args.components.resolve())
-    except AepmError as error:
+            store, policy, refs, reviews, blocked = prepare_store(work, args.components.resolve(), args.substitute)
+    except ClodError as error:
         print(f"store: {json.dumps(error.document())}")
         (work / "report.json").write_text(json.dumps({**report, "error": error.document()}, indent=2) + "\n")
         ledger.finish(entry)
@@ -1668,7 +1682,7 @@ def main(argv):
                 results["workingTreeAfterDeploy"] = working_tree(work, f"{name}-cloudflare", work / "designs" / f"{name}-cloudflare" / "app")
             if args.github:
                 results["github"] = github_run(work, store, policy, world, name, answers, args.github, args, app)
-        except AepmError as error:
+        except ClodError as error:
             ok = False
             results["error"] = error.document()
             if error.code == "insufficient-space":

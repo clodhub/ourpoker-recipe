@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Checks the conditional artefacts of the application component against every answer set of recipe.json.
 
-For each answer set it evaluates the design with aepm's evaluator (aepm.recipe), takes the artefacts
-aepm would install for that design (aepm.application.installed_artefacts), and reads each installed file, without assembling anything:
+For each answer set it evaluates the design with clod's evaluator (clod.recipe), takes the artefacts
+clod would install for that design (clod.application.installed_artefacts), and reads each installed file, without assembling anything:
 
   marks       every `component` mark (one name or a list) names components the recipe can leave out (they have an includedWhen)
               and are in the recipe;
@@ -18,7 +18,7 @@ aepm would install for that design (aepm.application.installed_artefacts), and r
 
 Exit status 0 when marks, excluded and unresolved are empty for every answer set; `seams` are listed and counted but do not
 change the status (tests/conditional_artefacts_test.py states the expected list). Nothing here resolves, installs or runs
-components. Usage: PYTHONPATH=<aepm checkout> python3.12 -B authoring/check_conditional_artefacts.py [-v]
+components. Usage: PYTHONPATH=<clod checkout> python3.12 -B authoring/check_conditional_artefacts.py [-v]
 """
 import os
 import sys
@@ -28,18 +28,18 @@ sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
-sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(ROOT.parent.parent / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
+sys.path.insert(0, os.environ.get("CLOD_CHECKOUT", str(ROOT.parent.parent / "clod")))  # CLOD_CHECKOUT, else the sibling checkout
 
 import component_imports  # noqa: E402
-from aepm import recipe as E  # noqa: E402
+from clod import recipe as E  # noqa: E402
 import recipe_world  # noqa: E402
 import make_recipe  # noqa: E402
-from aepm import application  # noqa: E402
+from clod import application  # noqa: E402
 
 
 def destinations(world, component_id: str) -> set[str]:
     """What a component installs, relative to its folder `components/<name>/` (its manifest's artefact destinations)."""
-    prefix = f"components/{world.recipe_names[component_id].split('/')[1]}/"
+    prefix = f"components/{world.recipe_names[component_id].rsplit('/', 1)[1]}/"
     return {a["destination"][len(prefix):] for a in world.manifests[component_id]["artefacts"] if a["destination"].startswith(prefix)}
 
 

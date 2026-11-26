@@ -1,7 +1,7 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "ae/random-source",
+    "title": "com.clodhub/random-source",
     "version": "1.0.0",
     "description": "Random numbers behind one interface: a seeded generator (Mulberry32) tests can replay, and a source backed by the platform's cryptographic generator. TypeScript, `implementation/server/random.ts`. Methods named `RandomSource.<name>` are members of the object the factories return."
   },

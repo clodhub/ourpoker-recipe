@@ -6,19 +6,19 @@
   "view": "application",
   "definitions": [
     {
-      "id": "clodhub.realtime-rooms",
+      "id": "com.clodhub.realtime-rooms",
       "name": "Realtime rooms",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/realtime-rooms",
-      "version": "0.13.0",
+      "package": "pkg:clod/com.clodhub/realtime-rooms",
+      "version": "0.14.0",
       "ports": [
         {
           "id": "game-adapter",
           "name": "Game adapter",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/game-adapter",
+          "type": "com.clodhub/game-adapter",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -28,7 +28,7 @@
           "name": "Guest identity",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/guest-identity",
+          "type": "com.clodhub/guest-identity",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -38,26 +38,26 @@
           "name": "Room session",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/room-session",
+          "type": "com.clodhub/room-session",
           "version": "1.0.0"
         }
       ],
       "settings": []
     },
     {
-      "id": "clodhub.room-directory",
+      "id": "com.clodhub.room-directory",
       "name": "Room directory",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/room-directory",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/room-directory",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "room-session",
           "name": "Room session",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/room-session",
+          "type": "com.clodhub/room-session",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -67,7 +67,7 @@
           "name": "Room directory",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/room-directory",
+          "type": "com.clodhub/room-directory",
           "version": "1.0.0"
         }
       ],
@@ -91,19 +91,19 @@
       ]
     },
     {
-      "id": "clodhub.guest-identity",
+      "id": "com.clodhub.guest-identity",
       "name": "Guest identity",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/guest-identity",
-      "version": "0.11.0",
+      "package": "pkg:clod/com.clodhub/guest-identity",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "guest-identity",
           "name": "Guest identity",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/guest-identity",
+          "type": "com.clodhub/guest-identity",
           "version": "1.0.0"
         }
       ],
@@ -135,19 +135,19 @@
       ]
     },
     {
-      "id": "clodhub.presence",
+      "id": "com.clodhub.presence",
       "name": "Presence",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/presence",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/presence",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "guest-identity",
           "name": "Guest identity",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/guest-identity",
+          "type": "com.clodhub/guest-identity",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -157,7 +157,7 @@
           "name": "Presence",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/presence",
+          "type": "com.clodhub/presence",
           "version": "1.0.0"
         }
       ],
@@ -189,19 +189,19 @@
       ]
     },
     {
-      "id": "clodhub.invitations",
+      "id": "com.clodhub.invitations",
       "name": "Invitations",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/invitations",
-      "version": "0.8.0",
+      "package": "pkg:clod/com.clodhub/invitations",
+      "version": "0.9.0",
       "ports": [
         {
           "id": "invitations",
           "name": "Invitations",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/invitations",
+          "type": "com.clodhub/invitations",
           "version": "1.0.0"
         }
       ],
@@ -224,38 +224,38 @@
       ]
     },
     {
-      "id": "clodhub.private-views",
+      "id": "com.clodhub.private-views",
       "name": "Private views",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/private-views",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/private-views",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "private-views",
           "name": "Private views",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/private-views",
+          "type": "com.clodhub/private-views",
           "version": "1.0.0"
         }
       ],
       "settings": []
     },
     {
-      "id": "clodhub.display-mode",
+      "id": "com.clodhub.display-mode",
       "name": "Display mode",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/display-mode",
-      "version": "0.12.0",
+      "package": "pkg:clod/com.clodhub/display-mode",
+      "version": "0.13.0",
       "ports": [
         {
           "id": "display-mode-configuration",
           "name": "Host configuration",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/display-mode-configuration",
+          "type": "com.clodhub/display-mode-configuration",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -265,26 +265,26 @@
           "name": "Display mode",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/display-policy",
+          "type": "com.clodhub/display-policy",
           "version": "1.0.0"
         }
       ],
       "settings": []
     },
     {
-      "id": "clodhub.video-calls",
+      "id": "com.clodhub.video-calls",
       "name": "Video calls",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/video-calls",
-      "version": "0.12.0",
+      "package": "pkg:clod/com.clodhub/video-calls",
+      "version": "0.13.0",
       "ports": [
         {
           "id": "video-calls-configuration",
           "name": "Host configuration",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/video-calls-configuration",
+          "type": "com.clodhub/video-calls-configuration",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -294,7 +294,7 @@
           "name": "Video calls",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/media-session",
+          "type": "com.clodhub/media-session",
           "version": "1.0.0"
         }
       ],
@@ -331,19 +331,19 @@
       ]
     },
     {
-      "id": "clodhub.preferences",
+      "id": "com.clodhub.preferences",
       "name": "Preferences",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/preferences",
-      "version": "0.8.0",
+      "package": "pkg:clod/com.clodhub/preferences",
+      "version": "0.9.0",
       "ports": [
         {
           "id": "preferences",
           "name": "Preferences",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/preferences",
+          "type": "com.clodhub/preferences",
           "version": "1.0.0"
         }
       ],
@@ -379,13 +379,13 @@
     {
       "id": "realtime-rooms",
       "name": "Realtime rooms",
-      "definition": "clodhub.realtime-rooms",
+      "definition": "com.clodhub.realtime-rooms",
       "configuration": {}
     },
     {
       "id": "room-directory",
       "name": "Room directory",
-      "definition": "clodhub.room-directory",
+      "definition": "com.clodhub.room-directory",
       "configuration": {
         "roomCapacity": 9,
         "maxConnections": 1000
@@ -394,7 +394,7 @@
     {
       "id": "guest-identity",
       "name": "Guest identity",
-      "definition": "clodhub.guest-identity",
+      "definition": "com.clodhub.guest-identity",
       "configuration": {
         "nameMinLength": 1,
         "nameMaxLength": 20,
@@ -404,7 +404,7 @@
     {
       "id": "presence",
       "name": "Presence",
-      "definition": "clodhub.presence",
+      "definition": "com.clodhub.presence",
       "configuration": {
         "awayAfterSeconds": 30,
         "dropAfterSeconds": 1800,
@@ -414,7 +414,7 @@
     {
       "id": "invitations",
       "name": "Invitations",
-      "definition": "clodhub.invitations",
+      "definition": "com.clodhub.invitations",
       "configuration": {
         "codeLength": 6,
         "inviteAddress": "http://localhost:5173"
@@ -423,19 +423,19 @@
     {
       "id": "private-views",
       "name": "Private views",
-      "definition": "clodhub.private-views",
+      "definition": "com.clodhub.private-views",
       "configuration": {}
     },
     {
       "id": "display-mode",
       "name": "Display mode",
-      "definition": "clodhub.display-mode",
+      "definition": "com.clodhub.display-mode",
       "configuration": {}
     },
     {
       "id": "video-calls",
       "name": "Video calls",
-      "definition": "clodhub.video-calls",
+      "definition": "com.clodhub.video-calls",
       "configuration": {
         "enabled": true
       }
@@ -443,7 +443,7 @@
     {
       "id": "preferences",
       "name": "Preferences",
-      "definition": "clodhub.preferences",
+      "definition": "com.clodhub.preferences",
       "configuration": {
         "defaultSound": true,
         "defaultMicrophoneOn": true,

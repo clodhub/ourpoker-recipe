@@ -1,11 +1,11 @@
 package app.ourapps.ourpoker
 
-import ae.androidhost.ShellActivity
-import ae.androidhost.ShellLanguage
-import ae.androidhost.ShellPalette
-import ae.controls.ControlsTheme
-import ae.controls.HelpBulb
-import ae.theme.ThemeSet
+import com.clodhub.androidhost.ShellActivity
+import com.clodhub.androidhost.ShellLanguage
+import com.clodhub.androidhost.ShellPalette
+import com.clodhub.controls.ControlsTheme
+import com.clodhub.controls.HelpBulb
+import com.clodhub.theme.ThemeSet
 import android.Manifest
 import androidx.activity.result.contract.ActivityResultContracts
 import android.content.pm.PackageManager

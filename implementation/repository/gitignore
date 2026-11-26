@@ -44,10 +44,10 @@ android/app/src/main/res/mipmap-anydpi-v26/
 android/app/src/main/res/values/strings.xml
 android/app/src/main/res/values-*/strings.xml
 
-# aepm's records stay (definition, lock, assembly, receipts, evidence); its package copies and archives stay on the
+# clod's records stay (definition, lock, assembly, receipts, evidence); its package copies and archives stay on the
 # machine that installed the application.
-.aepm/packages/
-.aepm/archives/
+.clod/packages/
+.clod/archives/
 
 # Signing keys and local secrets
 *.jks

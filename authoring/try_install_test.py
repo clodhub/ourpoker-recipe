@@ -1,6 +1,6 @@
 """try_install.py's build-output removal and emulator port choice, on ordinary temporary folders.
 
-Run: PYTHONPATH=<aepm checkout> python3.12 -B authoring/try_install_test.py
+Run: PYTHONPATH=<clod checkout> python3.12 -B authoring/try_install_test.py
 """
 import json
 import os
@@ -35,8 +35,8 @@ class BuildOutputs(unittest.TestCase):
         self.work = Path(self.temporary.name).resolve()
         self.design = self.work / "designs" / "default"
         app = self.design / "app"
-        (app / ".aepm").mkdir(parents=True)
-        self.kept = [app / ".aepm/definition.json", app / "server/src/index.ts", app / "ios/OurPoker.xcodeproj/project.pbxproj",
+        (app / ".clod").mkdir(parents=True)
+        self.kept = [app / ".clod/definition.json", app / "server/src/index.ts", app / "ios/OurPoker.xcodeproj/project.pbxproj",
                      self.design / "browser.png", self.design / "answers.json", self.work / "logs/default-install.log", self.work / "report.json"]
         self.removed = [app / "server/node_modules/vitest/index.js", app / "web/node_modules/vite/index.js",
                         app / "components/theme/web/node_modules/x/index.js", app / "ios/build/DerivedData/Build/Products/a.app/a",
@@ -219,7 +219,7 @@ class Evidence(BuildOutputs):
 class AdmissionAndLocks(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
-        self.state = mock.patch.dict(os.environ, {"AEPM_STATE_HOME": str(Path(self.temporary.name) / "state")})
+        self.state = mock.patch.dict(os.environ, {"CLOD_STATE_HOME": str(Path(self.temporary.name) / "state")})
         self.state.start()
 
     def tearDown(self):
@@ -238,7 +238,7 @@ class AdmissionAndLocks(unittest.TestCase):
 
     def test_a_locked_step_holds_the_machine_lock(self):
         work = Path(self.temporary.name) / "work"
-        script = "import json, sys; from aepm import locks; print(json.dumps([h['kind'] for h in locks.holders() if h['held']]))"
+        script = "import json, sys; from clod import locks; print(json.dumps([h['kind'] for h in locks.holders() if h['held']]))"
         output = try_install.run([sys.executable, "-B", "-c", script], work, "probe", env={**os.environ, "PYTHONPATH": os.environ.get("PYTHONPATH", "")}, lock="xcode")
         self.assertIn('"xcode"', output)
         self.assertIn("probe", try_install.LOCK_WAITS)
@@ -246,8 +246,8 @@ class AdmissionAndLocks(unittest.TestCase):
         self.assertNotIn('"xcode"', output)
 
     def test_too_little_space_refuses_with_the_numbers(self):
-        with mock.patch("aepm.space.free_bytes", return_value=5 * try_install.GIB):
-            with self.assertRaises(try_install.AepmError) as raised:
+        with mock.patch("clod.space.free_bytes", return_value=5 * try_install.GIB):
+            with self.assertRaises(try_install.ClodError) as raised:
                 with try_install.space.reserve(Path(self.temporary.name), try_install.DESIGN_BASE, purpose="try_install design probe"):
                     pass
         self.assertEqual(raised.exception.code, "insufficient-space")
@@ -262,7 +262,7 @@ class WorkFolderWithSpaces(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             work = (Path(folder) / "my proofs, run (1): ok").resolve()
             design = work / "designs" / "default"
-            (design / "app/.aepm").mkdir(parents=True)
+            (design / "app/.clod").mkdir(parents=True)
             apk = design / "app/android/app/build/outputs/apk/debug/app-debug.apk"
             make(apk)
             make(design / "app/server/node_modules/x/index.js")
@@ -309,7 +309,7 @@ class AnswersNames(unittest.TestCase):
 
 class EmulatorLock(unittest.TestCase):
     def test_an_emulator_left_running_keeps_the_lock_until_the_run_ends(self):
-        with tempfile.TemporaryDirectory() as folder, mock.patch.dict(os.environ, {"AEPM_STATE_HOME": folder}):
+        with tempfile.TemporaryDirectory() as folder, mock.patch.dict(os.environ, {"CLOD_STATE_HOME": folder}):
             try_install.GROUPS_LEFT.clear()
             left = lambda *args: try_install.GROUPS_LEFT.append({"pgid": 1, "command": "emulator", "reason": "not stopped"})  # noqa: E731
             with mock.patch.object(try_install, "emulator_run", side_effect=left):
@@ -432,7 +432,7 @@ class LaunchedGroups(unittest.TestCase):
 
     def test_a_reused_pid_is_not_signalled(self):
         processes, leader = self.start([sys.executable, "-c", SLEEPER])
-        with mock.patch("aepm.state.process_start", return_value="darwin:1.0"):
+        with mock.patch("clod.state.process_start", return_value="darwin:1.0"):
             processes.stop()
         self.assertTrue(group_running(leader.pid))
         self.assertIn("reused", try_install.GROUPS_LEFT[0]["reason"])

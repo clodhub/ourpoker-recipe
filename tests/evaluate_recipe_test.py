@@ -1,10 +1,10 @@
-"""Tests of this recipe under aepm's evaluator (aepm.recipe), which implements the recipe evaluation rules.
+"""Tests of this recipe under clod's evaluator (clod.recipe), which implements the recipe evaluation rules.
 
 They check the evaluator against what the rules say, for each answer set in recipe.json, for every answer that changes which
 components are included or which hosts are selected, and for each error code. The point is to show the written rules are
 complete: nothing here assembles, installs or runs an application.
 
-Run from the repository root with aepm on PYTHONPATH: python3 -B tests/evaluate_recipe_test.py
+Run from the repository root with clod on PYTHONPATH: python3 -B tests/evaluate_recipe_test.py
 """
 import os
 import copy
@@ -19,13 +19,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(ROOT / "authoring"))
-sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(ROOT.parent.parent / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
+sys.path.insert(0, os.environ.get("CLOD_CHECKOUT", str(ROOT.parent.parent / "clod")))  # CLOD_CHECKOUT, else the sibling checkout
 
 import draw_design  # noqa: E402
-from aepm import recipe as E  # noqa: E402
+from clod import recipe as E  # noqa: E402
 import recipe_world  # noqa: E402
-from aepm import application as aepm_application  # noqa: E402
-from aepm.diagram import generate as diagram  # noqa: E402
+from clod import application as clod_application  # noqa: E402
+from clod.diagram import generate as diagram  # noqa: E402
 
 WORLD = recipe_world.world()
 RECIPE = WORLD.recipe
@@ -41,7 +41,7 @@ PUBLISHED = {**SETS["default"], "publish": True, "videoKey": "ourpoker/video-key
 
 CONDITIONAL = {"web-host", "apple-host", "android-host", "windows-desktop", "guided-tour", "video-calls", "store-update", "ourapps-release"}
 # turn-engine's computer-players requirement is optional (0.3.0), so computer-players and poker-strategy follow the answer.
-assert any(p["type"] == "ae/computer-players" and p.get("optional") for p in WORLD.manifests["turn-engine"]["requires"])
+assert any(p["type"] == "com.clodhub/computer-players" and p.get("optional") for p in WORLD.manifests["turn-engine"]["requires"])
 
 
 def evaluated(answers, world=WORLD):
@@ -211,7 +211,7 @@ class AnswerSets(unittest.TestCase):
                         self.assertEqual(settings[instance].get(setting), value, f"{instance}.{setting}")
                 self.assertEqual({k: v["profile"] for k, v in design["selections"].items()}, want["selections"])
                 for job, selection in design["selections"].items():
-                    self.assertTrue(selection["reason"] and selection["component"].startswith("clodhub/"), job)
+                    self.assertTrue(selection["reason"] and selection["component"].startswith("pkg:clod/com.clodhub/"), job)
 
     def test_unasked_references_stay_unset_and_defaults_apply(self):
         book = settings_of(evaluated(SETS["book-club"]))
@@ -229,10 +229,10 @@ class AnswerSets(unittest.TestCase):
                     manifest = WORLD.manifests[component["id"]]
                     declared = {s["id"] for s in manifest["collect"]}
                     self.assertLessEqual(set(component["configuration"]), declared, component["id"])
-                    # aepm's own check: grammar, type, secret shape, required settings, address host and port
-                    effective = aepm_application.configuration(manifest["collect"], component["configuration"])
+                    # clod's own check: grammar, type, secret shape, required settings, address host and port
+                    effective = clod_application.configuration(manifest["collect"], component["configuration"])
                     self.assertEqual(effective, component["configuration"], component["id"])
-                own = aepm_application.configuration(WORLD.manifests["application"]["collect"], design["configuration"])
+                own = clod_application.configuration(WORLD.manifests["application"]["collect"], design["configuration"])
                 self.assertEqual(own, design["configuration"])
 
     def test_no_secret_value_and_no_null_anywhere_in_the_design(self):
@@ -269,26 +269,26 @@ class AnswerSets(unittest.TestCase):
                 self.assertEqual(first, E.to_json(E.evaluate(WORLD, shuffled)), "answer order does not matter")
                 self.assertEqual(first, E.to_json(json.loads(first)), "canonical form is stable")
 
-    def test_the_design_is_an_aepm_definition_with_answers_and_selections(self):
-        """aepm's own validation (the one `resolve`, `install` and `update` run on a definition file) accepts every design as emitted."""
+    def test_the_design_is_an_clod_definition_with_answers_and_selections(self):
+        """clod's own validation (the one `resolve`, `install` and `update` run on a definition file) accepts every design as emitted."""
         for name, answers in SETS.items():
             with self.subTest(name):
                 design = evaluated(answers)
                 self.assertEqual(design["recipe"], {"name": RECIPE["name"], "version": RECIPE["version"]})
                 self.assertEqual(set(design["answers"]) - {q["id"] for q in RECIPE["questions"]}, set())
                 self.assertTrue(design["answers"] and design["selections"])
-                validated = aepm_application.validate_definition(json.loads(E.to_json(design)))
+                validated = clod_application.validate_definition(json.loads(E.to_json(design)))
                 self.assertEqual(validated, design)
                 self.assertIn("answers", validated)
                 self.assertIn("selections", validated)
 
-    def test_aepm_refuses_a_definition_whose_answers_or_selections_are_not_maps(self):
+    def test_clod_refuses_a_definition_whose_answers_or_selections_are_not_maps(self):
         design = evaluated(SETS["default"])
         for field in ("answers", "selections"):
             with self.subTest(field), self.assertRaises(Exception):
-                aepm_application.validate_definition({**design, field: ["not", "a", "map"]})
+                clod_application.validate_definition({**design, field: ["not", "a", "map"]})
         with self.assertRaises(Exception):
-            aepm_application.validate_definition({**design, "unknown": 1})
+            clod_application.validate_definition({**design, "unknown": 1})
 
     def test_the_recorded_answers_are_the_asked_ones(self):
         design = evaluated(SETS["book-club"])
@@ -417,7 +417,7 @@ def evaluate_case(answers):
 
 
 class EveryAnswer(unittest.TestCase):
-    """Runs every one of the 1,622 CASES through aepm.recipe.evaluate (nothing is checked by condition evaluation alone, and no
+    """Runs every one of the 1,622 CASES through clod.recipe.evaluate (nothing is checked by condition evaluation alone, and no
     cases are merged): the 1,440 combinations of video, publish, releases, updates, computerPlayers and server (96) with each
     of the 15 ways targets decides inclusion, lessons on; 189 rows giving every pair of values of the 8 questions any
     includedWhen or askWhen names, targets as every non-empty set; 32 rows giving every value of every other question. 39
@@ -457,7 +457,7 @@ class EveryAnswer(unittest.TestCase):
             elif required_but_unconnected(result["design"]):
                 bad.append((answers, required_but_unconnected(result["design"])))
         self.assertEqual(bad[:3], [])
-        self.assertEqual(evaluated_cases, len(CASES), "every case through aepm.recipe.evaluate")
+        self.assertEqual(evaluated_cases, len(CASES), "every case through clod.recipe.evaluate")
 
     def test_inclusion_follows_the_conditions_for_every_case(self):
         for answers in CASES:
@@ -614,7 +614,7 @@ class Rules(unittest.TestCase):
 
     def test_unknown_component_and_unknown_setting(self):
         def component(recipe):
-            recipe["components"].append({"id": "ghost", "class": {"provides": [], "requires": [], "configuration": {"type": "object"}}, "preferred": {"name": "clodhub/ghost", "version": "0.1.0"}, "configuration": {}, "includedWhen": None})
+            recipe["components"].append({"id": "ghost", "class": {"provides": [], "requires": [], "configuration": {"type": "object"}}, "preferred": {"name": "pkg:clod/com.clodhub/ghost", "version": "0.1.0"}, "configuration": {}, "includedWhen": None})
         self.assertIn(("unknown-component", "ghost"), codes(E.evaluate(self.mutate(component), SETS["default"])))
 
         def setting(recipe):
@@ -824,8 +824,8 @@ class Cel(unittest.TestCase):
 
 
 class Grammars(unittest.TestCase):
-    def test_the_evaluators_grammars_are_aepms(self):
-        self.assertEqual(E.GRAMMARS, aepm_application.GRAMMARS)
+    def test_the_evaluators_grammars_are_clods(self):
+        self.assertEqual(E.GRAMMARS, clod_application.GRAMMARS)
 
     def test_the_diagram_generator_rejects_a_drawing_with_an_unconnected_required_input(self):
         drawing = draw_design.drawing(evaluated(SETS["default"]))

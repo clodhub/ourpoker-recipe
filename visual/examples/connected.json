@@ -6,18 +6,18 @@
   "view": "application",
   "definitions": [
     {
-      "id": "clodhub.ourpoker",
+      "id": "com.clodhub.ourpoker-recipe",
       "name": "OurPoker",
       "kind": "application",
       "status": "example",
-      "revision": "0.12.0",
+      "revision": "0.13.0",
       "ports": [
         {
           "id": "wrapped-game-adapter",
           "name": "Wrapped game adapter",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/game-adapter",
+          "type": "com.clodhub/game-adapter",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -27,7 +27,7 @@
           "name": "Web shell",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/web-shell",
+          "type": "com.clodhub/web-shell",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -37,7 +37,7 @@
           "name": "Apple shell",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/apple-shell",
+          "type": "com.clodhub/apple-shell",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -47,7 +47,7 @@
           "name": "Android shell",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/android-shell",
+          "type": "com.clodhub/android-shell",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -57,7 +57,7 @@
           "name": "Desktop host",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/desktop-host",
+          "type": "com.clodhub/desktop-host",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -67,7 +67,7 @@
           "name": "Server host",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/server-host",
+          "type": "com.clodhub/server-host",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -77,7 +77,7 @@
           "name": "Release pipeline",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/release-pipeline",
+          "type": "com.clodhub/release-pipeline",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -87,7 +87,7 @@
           "name": "Invitations",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/invitations",
+          "type": "com.clodhub/invitations",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -97,7 +97,7 @@
           "name": "Display policy",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/display-policy",
+          "type": "com.clodhub/display-policy",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -107,7 +107,7 @@
           "name": "Media session",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/media-session",
+          "type": "com.clodhub/media-session",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -117,7 +117,7 @@
           "name": "Table layout",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/table-layout",
+          "type": "com.clodhub/table-layout",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -127,7 +127,7 @@
           "name": "Card graphics",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/card-graphics",
+          "type": "com.clodhub/card-graphics",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -137,7 +137,7 @@
           "name": "Chip graphics",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/chip-graphics",
+          "type": "com.clodhub/chip-graphics",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -147,7 +147,7 @@
           "name": "Sound cues",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/sound-cues",
+          "type": "com.clodhub/sound-cues",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -157,7 +157,7 @@
           "name": "Guided tour",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/guided-tour",
+          "type": "com.clodhub/guided-tour",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -167,7 +167,7 @@
           "name": "Updates",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/updates",
+          "type": "com.clodhub/updates",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -177,7 +177,7 @@
           "name": "Controls",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/controls",
+          "type": "com.clodhub/controls",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -187,7 +187,7 @@
           "name": "Preferences",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/preferences",
+          "type": "com.clodhub/preferences",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -197,7 +197,7 @@
           "name": "Language",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/language",
+          "type": "com.clodhub/language",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -207,7 +207,7 @@
           "name": "Theme",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -217,7 +217,7 @@
           "name": "Game adapter",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/game-adapter",
+          "type": "com.clodhub/game-adapter",
           "version": "1.0.0"
         }
       ],
@@ -396,7 +396,7 @@
           "name": "Wrapped game adapter",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/game-adapter",
+          "type": "com.clodhub/game-adapter",
           "version": "1.0.0"
         },
         {
@@ -404,7 +404,7 @@
           "name": "Web shell",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/web-shell",
+          "type": "com.clodhub/web-shell",
           "version": "1.0.0"
         },
         {
@@ -412,7 +412,7 @@
           "name": "Apple shell",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/apple-shell",
+          "type": "com.clodhub/apple-shell",
           "version": "1.0.0"
         },
         {
@@ -420,7 +420,7 @@
           "name": "Android shell",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/android-shell",
+          "type": "com.clodhub/android-shell",
           "version": "1.0.0"
         },
         {
@@ -428,7 +428,7 @@
           "name": "Desktop host",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/desktop-host",
+          "type": "com.clodhub/desktop-host",
           "version": "1.0.0"
         },
         {
@@ -436,7 +436,7 @@
           "name": "Server host",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/server-host",
+          "type": "com.clodhub/server-host",
           "version": "1.0.0"
         },
         {
@@ -444,7 +444,7 @@
           "name": "Release pipeline",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/release-pipeline",
+          "type": "com.clodhub/release-pipeline",
           "version": "1.0.0"
         },
         {
@@ -452,7 +452,7 @@
           "name": "Invitations",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/invitations",
+          "type": "com.clodhub/invitations",
           "version": "1.0.0"
         },
         {
@@ -460,7 +460,7 @@
           "name": "Display policy",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/display-policy",
+          "type": "com.clodhub/display-policy",
           "version": "1.0.0"
         },
         {
@@ -468,7 +468,7 @@
           "name": "Media session",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/media-session",
+          "type": "com.clodhub/media-session",
           "version": "1.0.0"
         },
         {
@@ -476,7 +476,7 @@
           "name": "Table layout",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/table-layout",
+          "type": "com.clodhub/table-layout",
           "version": "1.0.0"
         },
         {
@@ -484,7 +484,7 @@
           "name": "Card graphics",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/card-graphics",
+          "type": "com.clodhub/card-graphics",
           "version": "1.0.0"
         },
         {
@@ -492,7 +492,7 @@
           "name": "Chip graphics",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/chip-graphics",
+          "type": "com.clodhub/chip-graphics",
           "version": "1.0.0"
         },
         {
@@ -500,7 +500,7 @@
           "name": "Sound cues",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/sound-cues",
+          "type": "com.clodhub/sound-cues",
           "version": "1.0.0"
         },
         {
@@ -508,7 +508,7 @@
           "name": "Guided tour",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/guided-tour",
+          "type": "com.clodhub/guided-tour",
           "version": "1.0.0"
         },
         {
@@ -516,7 +516,7 @@
           "name": "Updates",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/updates",
+          "type": "com.clodhub/updates",
           "version": "1.0.0"
         },
         {
@@ -524,7 +524,7 @@
           "name": "Controls",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/controls",
+          "type": "com.clodhub/controls",
           "version": "1.0.0"
         },
         {
@@ -532,7 +532,7 @@
           "name": "Preferences",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/preferences",
+          "type": "com.clodhub/preferences",
           "version": "1.0.0"
         },
         {
@@ -540,7 +540,7 @@
           "name": "Language",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/language",
+          "type": "com.clodhub/language",
           "version": "1.0.0"
         },
         {
@@ -548,7 +548,7 @@
           "name": "Theme",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0"
         },
         {
@@ -556,7 +556,7 @@
           "name": "Game adapter",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/game-adapter",
+          "type": "com.clodhub/game-adapter",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -569,7 +569,7 @@
     {
       "id": "application",
       "name": "OurPoker",
-      "definition": "clodhub.ourpoker",
+      "definition": "com.clodhub.ourpoker-recipe",
       "configuration": {}
     },
     {

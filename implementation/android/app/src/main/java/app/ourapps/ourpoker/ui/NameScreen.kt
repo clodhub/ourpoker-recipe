@@ -1,6 +1,6 @@
 package app.ourapps.ourpoker.ui
 
-import ae.controls.Panel
+import com.clodhub.controls.Panel
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

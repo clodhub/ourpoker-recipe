@@ -16,7 +16,7 @@ const inspector = listener.address().port;
 await new Promise(resolve => listener.close(resolve));
 if (inspector === port) throw new Error('port-collision');
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const storage = path.join(path.dirname(process.env.AEPM_CONTEXT_FILE), 'native-server-' + context.runId);
+const storage = path.join(path.dirname(process.env.CLOD_CONTEXT_FILE), 'native-server-' + context.runId);
 await mkdir(storage);
 const worker = spawn(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'dev', '--local', '--ip', '127.0.0.1', '--port', String(port), '--inspector-port', String(inspector), '--persist-to', storage], {
   cwd: path.join(root, 'server'), env: { ...process.env, WRANGLER_SEND_METRICS: 'false', NO_COLOR: '1', FORCE_COLOR: '0' }, stdio: ['ignore', 'pipe', 'pipe'],

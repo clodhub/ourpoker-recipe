@@ -1,7 +1,7 @@
 package app.ourapps.ourpoker.ui
 
-import ae.cards.PlayingCard
-import ae.controls.BadgedIcon
+import com.clodhub.cards.PlayingCard
+import com.clodhub.controls.BadgedIcon
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row

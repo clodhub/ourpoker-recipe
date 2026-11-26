@@ -1,22 +1,22 @@
 package app.ourapps.ourpoker.ui
 
-import ae.cards.CardSlot
-import ae.cards.PlayingCard
-import ae.chips.ChipPile
-import ae.clock.remaining
-import ae.controls.BackIcon
-import ae.controls.HelpBulb
-import ae.controls.Panel
-import ae.controls.PromptBanner
-import ae.controls.RoundIconButton
-import ae.controls.mmss
-import ae.controls.pulseHalo
-import ae.holdem.BetKind
-import ae.holdem.BetRange as BetLimits
-import ae.holdem.betIsAllIn
-import ae.holdem.betPresets
-import ae.holdem.betStep
-import ae.holdem.callIsAllIn
+import com.clodhub.cards.CardSlot
+import com.clodhub.cards.PlayingCard
+import com.clodhub.chips.ChipPile
+import com.clodhub.clock.remaining
+import com.clodhub.controls.BackIcon
+import com.clodhub.controls.HelpBulb
+import com.clodhub.controls.Panel
+import com.clodhub.controls.PromptBanner
+import com.clodhub.controls.RoundIconButton
+import com.clodhub.controls.mmss
+import com.clodhub.controls.pulseHalo
+import com.clodhub.holdem.BetKind
+import com.clodhub.holdem.BetRange as BetLimits
+import com.clodhub.holdem.betIsAllIn
+import com.clodhub.holdem.betPresets
+import com.clodhub.holdem.betStep
+import com.clodhub.holdem.callIsAllIn
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

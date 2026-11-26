@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit
 class ApiException(val status: Int, val code: String, message: String, val view: View?) : IOException(message)
 
 // A live connection ended; code 1000 is a normal close.
-typealias LiveClosed = ae.rooms.LiveClosed
+typealias LiveClosed = com.clodhub.rooms.LiveClosed
 
 class TableClient(private val baseUrl: String) {
     private val http = OkHttpClient.Builder()
@@ -34,7 +34,7 @@ class TableClient(private val baseUrl: String) {
     private val jsonType = "application/json".toMediaType()
     // Live connections stay open; a protocol ping every 20 s finds a dead one, and a text "ping"
     // every 25 s tells the server we are still here (it answers without waking the room).
-    private val transport = ae.rooms.RoomTransport(baseUrl)
+    private val transport = com.clodhub.rooms.RoomTransport(baseUrl)
 
     // Messages from a live connection at path, sending hello first when given; ends when it
     // closes. `opened` gets the connection, for sending on it.

@@ -1,9 +1,9 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "ae/display-policy",
+    "title": "com.clodhub/display-policy",
     "version": "1.0.0",
-    "description": "Mode publication and display capability restrictions. createMode and displayCapabilities are TypeScript (web/mode.ts); DisplayPolicy.canAct, canCapture and canSeePrivate are Swift (enum DisplayPolicy) and Kotlin (object ae.display.DisplayPolicy). Every capability is false for a display on every platform. This policy does not authorize requests or redact server responses.",
+    "description": "Mode publication and display capability restrictions. createMode and displayCapabilities are TypeScript (web/mode.ts); DisplayPolicy.canAct, canCapture and canSeePrivate are Swift (enum DisplayPolicy) and Kotlin (object com.clodhub.display.DisplayPolicy). Every capability is false for a display on every platform. This policy does not authorize requests or redact server responses.",
     "license": {
       "name": "Apache-2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0"

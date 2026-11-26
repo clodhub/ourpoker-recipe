@@ -1,9 +1,9 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "ae/invitations",
+    "title": "com.clodhub/invitations",
     "version": "1.0.0",
-    "description": "Invitations: a link to the application with a short code, for people to type, share or scan. TypeScript functions in server/invitations.ts and web/share.ts; the same rules in Swift (enum Invitations, struct Invitation) and Kotlin (object ae.invitations.Invitations, data class Invitation), and links round trip between them. Methods are tagged with the languages that provide them; native link and parse take inviteAddress and codeLength as separate arguments.",
+    "description": "Invitations: a link to the application with a short code, for people to type, share or scan. TypeScript functions in server/invitations.ts and web/share.ts; the same rules in Swift (enum Invitations, struct Invitation) and Kotlin (object com.clodhub.invitations.Invitations, data class Invitation), and links round trip between them. Methods are tagged with the languages that provide them; native link and parse take inviteAddress and codeLength as separate arguments.",
     "license": {
       "name": "Apache-2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0"

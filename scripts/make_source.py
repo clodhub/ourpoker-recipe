@@ -127,13 +127,13 @@ desktop = {
     "test/integration.test.cjs": ("desktop/test/integration.test.cjs 1-20", "Adds the check that every packaged script's relative requires are packaged."),
 }
 
-# The repository files, at the application root; GitHub's ${{ }} keeps the workflows out of aepm's templates.
+# The repository files, at the application root; GitHub's ${{ }} keeps the workflows out of clod's templates.
 repository = {
     "workflows/ci-server.yml": ("McInPoker .github/workflows/ci-server.yml 1-36", "Server type check and tests; Node 26.5."),
     "workflows/ci-web.yml": ("McInPoker .github/workflows/ci-web.yml 1-35", "Web type check and build; a hand played by test/browser.mjs in headless Chrome against the server started on the runner."),
     "workflows/ci-android.yml": ("McInPoker .github/workflows/ci-android.yml 1-34", "generate-project.ts first; unit tests and debug build; the app started in an emulator until it shows the room list from the server started on the runner."),
     "workflows/apple-builds.yml": ("new", "Unsigned iPhone and iPad, Mac Catalyst and Apple TV builds on a macOS runner, on a version tag or by hand."),
-    "workflows/aepm-update.yml": ("new", "Weekly update proposal as a pull request; on merge, owner approval from AEPM_OWNER_KEY, apply and commit."),
+    "workflows/clod-update.yml": ("new", "Weekly update proposal as a pull request; on merge, owner approval from CLOD_OWNER_KEY, apply and commit."),
     "workflows/platform-packages.yml": ("McInPoker .github/workflows/platform-packages.yml 65-93", "Windows only, also on pushes; the installer installed, started and uninstalled."),
     "workflows/release.yml": ("McInPoker .github/workflows/release.yml 1-307", "Jobs per target found in the installation; secret names from ourapps-release's release.json; unsigned builds when the secrets are absent; the Windows installer attached; web and server deploys."),
     "workflows/apple-testflight.yml": ("McInPoker .github/workflows/apple-testflight.yml 1-82", "Runs only with the store credentials; reservation inline."),

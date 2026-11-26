@@ -1,9 +1,9 @@
 """Tests for the conditional artefacts of the application component (`component` marks in component.json).
 
-They use aepm's own artefact selection (`aepm.application.installed_artefacts`) and its manifest validation, and the checks of
+They use clod's own artefact selection (`clod.application.installed_artefacts`) and its manifest validation, and the checks of
 authoring/check_conditional_artefacts.py, for every answer set of recipe.json. Nothing here assembles components.
 
-Run from the repository root with aepm on PYTHONPATH: python3 -B tests/conditional_artefacts_test.py
+Run from the repository root with clod on PYTHONPATH: python3 -B tests/conditional_artefacts_test.py
 """
 import json
 import os
@@ -14,16 +14,16 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-AEPM = Path(os.environ.get("AEPM_CHECKOUT", ROOT.parent.parent / "aepm"))  # AEPM_CHECKOUT, else the sibling checkout
+CLOD = Path(os.environ.get("CLOD_CHECKOUT", ROOT.parent.parent / "clod"))  # CLOD_CHECKOUT, else the sibling checkout
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(ROOT / "authoring"))
-sys.path.insert(0, str(AEPM))
+sys.path.insert(0, str(CLOD))
 
 import check_conditional_artefacts as C  # noqa: E402
 import component_imports  # noqa: E402
-from aepm import recipe as E  # noqa: E402
-from aepm import application, model  # noqa: E402
-from aepm.io import load  # noqa: E402
+from clod import recipe as E  # noqa: E402
+from clod import application, model  # noqa: E402
+from clod.io import load  # noqa: E402
 
 WORLD = C.load_world()
 MANIFEST = WORLD.manifests[E.APPLICATION]
@@ -80,8 +80,8 @@ class Marks(unittest.TestCase):
     def test_repository_files_install_only_with_the_release_pipeline(self):
         repository = [a for a in MANIFEST["artefacts"] if a["source"].startswith("implementation/repository/")]
         self.assertEqual(sorted(a["destination"] for a in repository), [
-            ".gitattributes", ".github/workflows/aepm-update.yml", ".github/workflows/apple-builds.yml",
-            ".github/workflows/apple-testflight.yml", ".github/workflows/ci-android.yml", ".github/workflows/ci-server.yml", ".github/workflows/ci-web.yml",
+            ".gitattributes", ".github/workflows/apple-builds.yml", ".github/workflows/apple-testflight.yml",
+            ".github/workflows/ci-android.yml", ".github/workflows/ci-server.yml", ".github/workflows/ci-web.yml", ".github/workflows/clod-update.yml",
             ".github/workflows/platform-packages.yml", ".github/workflows/release.yml", ".gitignore", "release/app.json", "scripts/build-apple-testflight.sh",
             "scripts/build-ipa.sh", "scripts/build-windows.sh", "scripts/inspect-windows.ps1"])
         for artefact in repository:
@@ -101,9 +101,9 @@ class Marks(unittest.TestCase):
 
     def test_native_files_that_name_an_optional_components_types_are_marked(self):
         # Swift and Kotlin reach a component through its types, not a path: only the marked modules may name them.
-        names = {"video-calls": r"\bVideoSession\b|\bimport LiveKit\b|\bio\.livekit\.|\bae\.video\.",
-                 "guided-tour": r"\bTour(Model|Host|Buttons|Keys)?\b|\btourAnchor\b|\btourHost\b|\bae\.tour\.|UserDefaultsTourStorage",
-                 "store-update": r"\bisNewer\(|\bae\.update\."}
+        names = {"video-calls": r"\bVideoSession\b|\bimport LiveKit\b|\bio\.livekit\.|\bcom\.clodhub\.video\.",
+                 "guided-tour": r"\bTour(Model|Host|Buttons|Keys)?\b|\btourAnchor\b|\btourHost\b|\bcom\.clodhub\.tour\.|UserDefaultsTourStorage",
+                 "store-update": r"\bisNewer\(|\bcom\.clodhub\.update\."}
         import re
         for artefact in MANIFEST["artefacts"]:
             if not artefact["source"].endswith((".swift", ".kt")) or artefact["source"].startswith("tests/"):
@@ -115,19 +115,19 @@ class Marks(unittest.TestCase):
                 if re.search(pattern, text):
                     self.assertEqual(artefact.get("component"), component, artefact["source"])
 
-    def test_a_package_with_these_marks_is_a_valid_component_to_aepm(self):
+    def test_a_package_with_these_marks_is_a_valid_component_to_clod(self):
         model.validate_component(load(ROOT / "component.json"))
         self.assertEqual(sum(1 for a in MANIFEST["artefacts"] if "component" in a), sum(EXPECTED_MARKS.values()) + sum(EXPECTED_RELEASE_MARKS.values()))
 
-    def test_aepm_refuses_a_mark_naming_a_package_instead_of_a_slot(self):
+    def test_clod_refuses_a_mark_naming_a_package_instead_of_a_slot(self):
         broken = json.loads((ROOT / "component.json").read_text())
-        next(a for a in broken["artefacts"] if "component" in a)["component"] = "clodhub/video-calls"
+        next(a for a in broken["artefacts"] if "component" in a)["component"] = "pkg:clod/com.clodhub/video-calls"
         with self.assertRaises(Exception):
             model.validate_component(broken)
 
 
 class Installed(unittest.TestCase):
-    def test_aepm_installs_the_unmarked_artefacts_and_those_of_included_components(self):
+    def test_clod_installs_the_unmarked_artefacts_and_those_of_included_components(self):
         for name, answers in C.answer_sets(WORLD).items():
             with self.subTest(name):
                 design = E.evaluate(WORLD, answers)["design"]
@@ -208,11 +208,11 @@ class Checker(unittest.TestCase):
 
 
 class Pack(unittest.TestCase):
-    def test_the_package_packs_with_aepm(self):
+    def test_the_package_packs_with_clod(self):
         base = Path(os.path.realpath(tempfile.gettempdir()))
         with tempfile.TemporaryDirectory(dir=base) as store:
             env = {**os.environ, "PYTHONPATH": str(Path(model.__file__).resolve().parent.parent), "PYTHONDONTWRITEBYTECODE": "1"}
-            run = subprocess.run([sys.executable, "-B", "-m", "aepm", "pack", "--store", store, str(ROOT)], capture_output=True, text=True, env=env, timeout=300)
+            run = subprocess.run([sys.executable, "-B", "-m", "clod", "pack", "--store", store, str(ROOT)], capture_output=True, text=True, env=env, timeout=300)
             self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
 
 

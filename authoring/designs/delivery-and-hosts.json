@@ -6,19 +6,19 @@
   "view": "application",
   "definitions": [
     {
-      "id": "clodhub.web-host",
+      "id": "com.clodhub.web-host",
       "name": "Web host",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/web-host",
-      "version": "0.11.0",
+      "package": "pkg:clod/com.clodhub/web-host",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "theme",
           "name": "Theme",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -28,7 +28,7 @@
           "name": "Web shell",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/web-shell",
+          "type": "com.clodhub/web-shell",
           "version": "1.0.0"
         }
       ],
@@ -86,19 +86,19 @@
       ]
     },
     {
-      "id": "clodhub.apple-host",
+      "id": "com.clodhub.apple-host",
       "name": "Apple host",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/apple-host",
-      "version": "0.12.0",
+      "package": "pkg:clod/com.clodhub/apple-host",
+      "version": "0.13.0",
       "ports": [
         {
           "id": "theme",
           "name": "Theme",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -108,7 +108,7 @@
           "name": "Apple shell",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/apple-shell",
+          "type": "com.clodhub/apple-shell",
           "version": "1.0.0"
         }
       ],
@@ -153,19 +153,19 @@
       ]
     },
     {
-      "id": "clodhub.android-host",
+      "id": "com.clodhub.android-host",
       "name": "Android host",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/android-host",
-      "version": "0.11.0",
+      "package": "pkg:clod/com.clodhub/android-host",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "theme",
           "name": "Theme",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -175,7 +175,7 @@
           "name": "Android shell",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/android-shell",
+          "type": "com.clodhub/android-shell",
           "version": "1.0.0"
         }
       ],
@@ -205,19 +205,19 @@
       ]
     },
     {
-      "id": "clodhub.windows-desktop",
+      "id": "com.clodhub.windows-desktop",
       "name": "Windows desktop",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/windows-desktop",
-      "version": "0.12.0",
+      "package": "pkg:clod/com.clodhub/windows-desktop",
+      "version": "0.13.0",
       "ports": [
         {
           "id": "windows-desktop-configuration",
           "name": "Host configuration",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/windows-desktop-configuration",
+          "type": "com.clodhub/windows-desktop-configuration",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -227,26 +227,26 @@
           "name": "Windows desktop",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/desktop-host",
+          "type": "com.clodhub/desktop-host",
           "version": "1.0.0"
         }
       ],
       "settings": []
     },
     {
-      "id": "clodhub.server-host",
+      "id": "com.clodhub.server-host",
       "name": "Server host",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/server-host",
-      "version": "0.12.0",
+      "package": "pkg:clod/com.clodhub/server-host",
+      "version": "0.13.0",
       "ports": [
         {
           "id": "room-session",
           "name": "Room session",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/room-session",
+          "type": "com.clodhub/room-session",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -256,7 +256,7 @@
           "name": "Room directory",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/room-directory",
+          "type": "com.clodhub/room-directory",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -266,7 +266,7 @@
           "name": "Server host",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/server-host",
+          "type": "com.clodhub/server-host",
           "version": "1.0.0"
         }
       ],
@@ -316,7 +316,7 @@
     {
       "id": "web-host",
       "name": "Web host",
-      "definition": "clodhub.web-host",
+      "definition": "com.clodhub.web-host",
       "configuration": {
         "iconPath": "icon",
         "applicationId": "ourpoker",
@@ -330,7 +330,7 @@
     {
       "id": "apple-host",
       "name": "Apple host",
-      "definition": "clodhub.apple-host",
+      "definition": "com.clodhub.apple-host",
       "configuration": {
         "targets": "web ios android macos windows tvos",
         "deploymentTargets": "ios17 tvos17 macos14",
@@ -342,7 +342,7 @@
     {
       "id": "android-host",
       "name": "Android host",
-      "definition": "clodhub.android-host",
+      "definition": "com.clodhub.android-host",
       "configuration": {
         "minSdk": 26,
         "packageId": "app.ourapps.ourpoker",
@@ -352,13 +352,13 @@
     {
       "id": "windows-desktop",
       "name": "Windows desktop",
-      "definition": "clodhub.windows-desktop",
+      "definition": "com.clodhub.windows-desktop",
       "configuration": {}
     },
     {
       "id": "server-host",
       "name": "Server host",
-      "definition": "clodhub.server-host",
+      "definition": "com.clodhub.server-host",
       "configuration": {
         "accountReference": "ourpoker-cloudflare-account",
         "allowedOrigins": "http://localhost:5173",

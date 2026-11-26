@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import app.ourapps.ourpoker.net.LastAction
 import app.ourapps.ourpoker.net.View
-import ae.controls.formatCount
+import com.clodhub.controls.formatCount
 import android.content.Context
 
 // Text by key. The string resources are generated from locales/strings.json by the translations

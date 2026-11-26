@@ -1,13 +1,13 @@
 package app.ourapps.ourpoker.ui
 
-import ae.cards.PlayingCard
-import ae.chips.ChipPile
-import ae.controls.formatCount
-import ae.tablelayout.SeatSpot
-import ae.tablelayout.TableGeometry
-import ae.tablelayout.TableLayout
-import ae.tablelayout.TableOrientation
-import ae.tablelayout.TablePoint
+import com.clodhub.cards.PlayingCard
+import com.clodhub.chips.ChipPile
+import com.clodhub.controls.formatCount
+import com.clodhub.tablelayout.SeatSpot
+import com.clodhub.tablelayout.TableGeometry
+import com.clodhub.tablelayout.TableLayout
+import com.clodhub.tablelayout.TableOrientation
+import com.clodhub.tablelayout.TablePoint
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween

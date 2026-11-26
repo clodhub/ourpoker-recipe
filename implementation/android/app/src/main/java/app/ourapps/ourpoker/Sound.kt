@@ -1,10 +1,10 @@
 package app.ourapps.ourpoker
 
-import ae.preferences.DevicePreferences
-import ae.preferences.PreferenceStorage
-import ae.sound.ManifestJson
-import ae.sound.SoundCuePlayer
-import ae.sound.SoundManifest
+import com.clodhub.preferences.DevicePreferences
+import com.clodhub.preferences.PreferenceStorage
+import com.clodhub.sound.ManifestJson
+import com.clodhub.sound.SoundCuePlayer
+import com.clodhub.sound.SoundManifest
 import android.content.Context
 import android.content.SharedPreferences
 import kotlinx.coroutines.flow.MutableStateFlow

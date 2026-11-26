@@ -6,19 +6,19 @@
   "view": "application",
   "definitions": [
     {
-      "id": "clodhub.poker-hand-ranking",
+      "id": "com.clodhub.poker-hand-ranking",
       "name": "Poker hand ranking",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/poker-hand-ranking",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/poker-hand-ranking",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "card-deck",
           "name": "Card deck",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/card-deck",
+          "type": "com.clodhub/card-deck",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -28,26 +28,26 @@
           "name": "Hand ranking",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/hand-ranking",
+          "type": "com.clodhub/hand-ranking",
           "version": "1.0.0"
         }
       ],
       "settings": []
     },
     {
-      "id": "clodhub.poker-odds",
+      "id": "com.clodhub.poker-odds",
       "name": "Poker odds",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/poker-odds",
-      "version": "0.11.0",
+      "package": "pkg:clod/com.clodhub/poker-odds",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "hand-ranking",
           "name": "Hand ranking",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/hand-ranking",
+          "type": "com.clodhub/hand-ranking",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -57,7 +57,7 @@
           "name": "Card deck",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/card-deck",
+          "type": "com.clodhub/card-deck",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -67,7 +67,7 @@
           "name": "Poker odds",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/poker-odds",
+          "type": "com.clodhub/poker-odds",
           "version": "1.0.0"
         }
       ],
@@ -91,19 +91,19 @@
       ]
     },
     {
-      "id": "clodhub.holdem-rules",
+      "id": "com.clodhub.holdem-rules",
       "name": "Hold'em rules",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/holdem-rules",
-      "version": "0.11.0",
+      "package": "pkg:clod/com.clodhub/holdem-rules",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "card-deck",
           "name": "Card deck",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/card-deck",
+          "type": "com.clodhub/card-deck",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -113,7 +113,7 @@
           "name": "Chip ledger",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/chip-ledger",
+          "type": "com.clodhub/chip-ledger",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -123,7 +123,7 @@
           "name": "Level schedule",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/level-schedule",
+          "type": "com.clodhub/level-schedule",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -133,7 +133,7 @@
           "name": "Hand ranking",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/hand-ranking",
+          "type": "com.clodhub/hand-ranking",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -143,7 +143,7 @@
           "name": "Rules settings",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/rules-settings",
+          "type": "com.clodhub/rules-settings",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -153,7 +153,7 @@
           "name": "Game rules",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/game-rules",
+          "type": "com.clodhub/game-rules",
           "version": "1.0.0"
         }
       ],
@@ -185,19 +185,19 @@
       ]
     },
     {
-      "id": "clodhub.poker-strategy",
+      "id": "com.clodhub.poker-strategy",
       "name": "Poker strategy",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/poker-strategy",
-      "version": "0.11.0",
+      "package": "pkg:clod/com.clodhub/poker-strategy",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "hand-ranking",
           "name": "Hand ranking",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/hand-ranking",
+          "type": "com.clodhub/hand-ranking",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -207,7 +207,7 @@
           "name": "Poker odds",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/poker-odds",
+          "type": "com.clodhub/poker-odds",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -217,7 +217,7 @@
           "name": "Player strategy",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/player-strategy",
+          "type": "com.clodhub/player-strategy",
           "version": "1.0.0"
         }
       ],
@@ -245,13 +245,13 @@
     {
       "id": "poker-hand-ranking",
       "name": "Poker hand ranking",
-      "definition": "clodhub.poker-hand-ranking",
+      "definition": "com.clodhub.poker-hand-ranking",
       "configuration": {}
     },
     {
       "id": "poker-odds",
       "name": "Poker odds",
-      "definition": "clodhub.poker-odds",
+      "definition": "com.clodhub.poker-odds",
       "configuration": {
         "sampleBoards": 2000,
         "cacheSize": 500
@@ -260,7 +260,7 @@
     {
       "id": "holdem-rules",
       "name": "Hold'em rules",
-      "definition": "clodhub.holdem-rules",
+      "definition": "com.clodhub.holdem-rules",
       "configuration": {
         "seats": 9,
         "minimumOpeningBetBigBlinds": 1,
@@ -270,7 +270,7 @@
     {
       "id": "poker-strategy",
       "name": "Poker strategy",
-      "definition": "clodhub.poker-strategy",
+      "definition": "com.clodhub.poker-strategy",
       "configuration": {
         "difficulty": 2,
         "aggression": 50

@@ -2,7 +2,7 @@
 # publishes one GitHub Release with my-app.json for ourapps.app. With the store credentials set it also reads the store's
 # switch per target and sends the iPhone and iPad build to TestFlight; with the web or server hosting references set it
 # deploys the web client or the server to Cloudflare. Secret names come from components/ourapps-release/server/release.json,
-# which aepm rendered from the design's answers; a secret that is not set reads as empty and its step is skipped.
+# which clod rendered from the design's answers; a secret that is not set reads as empty and its step is skipped.
 name: release
 
 on:

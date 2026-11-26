@@ -9,7 +9,7 @@ import app.ourapps.ourpoker.net.TableClient
 import app.ourapps.ourpoker.net.UpdateInfo
 import app.ourapps.ourpoker.net.VideoGrant
 import app.ourapps.ourpoker.net.View
-import ae.display.DisplayPolicy
+import com.clodhub.display.DisplayPolicy
 import app.ourapps.ourpoker.ui.Lessons
 import kotlinx.coroutines.Job
 import app.ourapps.ourpoker.ui.GuideId

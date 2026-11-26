@@ -22,7 +22,7 @@ const read = (path: string): any => JSON.parse(readFileSync(path, "utf8"));
 const recipe: Obj = read(join(root, "recipe.json"));
 const manifest = (slug: string): Obj => read(join(componentsRoot, slug, "component.json"));
 const suitability = (slug: string): Obj => read(join(componentsRoot, slug, "suitability.json"));
-const slugOf = (name: string): string => name.split("/")[1];
+const slugOf = (name: string): string => name.slice(name.lastIndexOf("/") + 1);
 
 const GRAMMARS: Record<string, RegExp> = {
   identifier: /^[A-Za-z][A-Za-z0-9_]{0,63}$/,
@@ -38,7 +38,9 @@ const LOAD_KEYS = ["concurrentPeople", "requestsPerDay", "storedMegabytes"];
 const APPLICATION = "application";
 const ownManifest: Obj = read(join(root, "component.json"));
 const rules: Obj = read(join(root, "rules", "texas-holdem-house-rules.json"));
-const componentDirectories = () => readdirSync(componentsRoot, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort();
+// The component folders the recipe names (slot components and job candidates); no other folder is read.
+const recipeComponents = () => [...new Set([...recipe.components.map((c: Obj) => slugOf(c.preferred.name)),
+  ...recipe.jobs.flatMap((j: Obj) => j.candidates.map((c: Obj) => slugOf(c.component)))])].sort();
 
 const byId = new Map<string, Obj>(recipe.components.map((c: Obj) => [c.id, c]));
 const manifests = new Map<string, Obj>(recipe.components.map((c: Obj) => [c.id, manifest(slugOf(c.preferred.name))]));
@@ -96,8 +98,8 @@ const everyQuestionEffect = (): [Obj, string, any][] => recipe.questions.flatMap
 test("recipe.json passes the clodhub catalogue validator, with the components' settings and profiles", { skip: !catalogueFoundations && 'selected catalogue validator has no foundation contract; set CLODHUB to a compatible checkout' }, () => {
   const result = validateRecipe(recipe, validatorContext());
   assert.ok(result.ok, result.ok ? "" : result.errors.join("\n"));
-  assert.equal(recipe.name, "clodhub/ourpoker");
-  assert.equal(recipe.version, "0.12.0");
+  assert.equal(recipe.name, "pkg:clod/com.clodhub/ourpoker-recipe");
+  assert.equal(recipe.version, "0.13.0");
   assert.equal(recipe.components.length, 39);
   assert.equal(recipe.questions.length, 28);
 });
@@ -114,16 +116,16 @@ test("page, instructions and diagram files exist; the diagrams are safe SVG", ()
   assert.ok(existsSync(join(root, "page", "diagram.png")), "page/diagram.png is missing");
 });
 
-test("the policy trusts every locked package, and every aepm verify runs the checks with network", () => {
+test("the policy trusts every locked package, and every clod verify runs the checks with network", () => {
   const text = readFileSync(join(root, "INSTRUCTIONS.md"), "utf8");
   const policies = text.split("\n").filter((line) => line.includes('"trustedExecution":'));
   assert.ok(policies.length >= 2, "the shell and PowerShell policy steps");
   for (const line of policies) assert.match(line, /"trustedExecution": sorted\(x\["digest"\] for x in json\.load\(open\("lock\.json"\)\)\["packages"\]\)/);
-  const verify = [...text.matchAll(/aepm verify [^`\n]*/g)].map((match) => match[0]).filter((line) => line.includes("--policy"));
+  const verify = [...text.matchAll(/clod verify [^`\n]*/g)].map((match) => match[0]).filter((line) => line.includes("--policy"));
   assert.ok(verify.length >= 3, "part 3 step 8, the PowerShell list and the update");
   for (const line of verify) assert.ok(line.includes("--trusted") && line.includes("--allow-network"), line);
   const page = readFileSync(join(root, "page/description.md"), "utf8");
-  for (const line of page.split("\n").filter((item) => item.includes("aepm verify"))) assert.ok(line.includes("--trusted") && line.includes("--allow-network"), line);
+  for (const line of page.split("\n").filter((item) => item.includes("clod verify"))) assert.ok(line.includes("--trusted") && line.includes("--allow-network"), line);
 });
 
 test("no line of INSTRUCTIONS.md is longer than 400 characters, and none splits inline code", () => {
@@ -136,8 +138,7 @@ test("no line of INSTRUCTIONS.md is longer than 400 characters, and none splits 
 });
 
 test("every slot's preferred component exists in components/ at the version named", () => {
-  const directories = componentDirectories();
-  assert.deepEqual(recipe.components.map((c: Obj) => slugOf(c.preferred.name)).sort(), directories.filter((d) => recipe.components.some((c: Obj) => slugOf(c.preferred.name) === d)));
+  for (const c of recipe.components) assert.ok(existsSync(join(componentsRoot, slugOf(c.preferred.name), "component.json")), `${c.id}: no component folder`);
   for (const c of recipe.components) {
     const m = manifests.get(c.id)!;
     assert.equal(m.identity.name, c.preferred.name, `${c.id} name`);
@@ -264,7 +265,7 @@ test("inclusion is by includedWhen only, with the decided conditions", () => {
   assert.equal(when("store-update"), "updates");
   assert.equal(when("ourapps-release"), "publish || releases", "GitHub Actions whenever builds are published");
   const computersOut = "computerPlayers != 'none'";
-  assert.ok(manifests.get("turn-engine")!.requires.some((p: Obj) => p.type === "ae/computer-players" && p.optional === true), "turn-engine's computer-players requirement is optional");
+  assert.ok(manifests.get("turn-engine")!.requires.some((p: Obj) => p.type === "com.clodhub/computer-players" && p.optional === true), "turn-engine's computer-players requirement is optional");
   assert.equal(when("computer-players"), computersOut);
   assert.equal(when("poker-strategy"), computersOut);
   const conditional = recipe.components.filter((c: Obj) => c.includedWhen).map((c: Obj) => c.id).sort();
@@ -342,7 +343,7 @@ test("scale bands match the scale question and use the suitability load keys, ri
     previous = band.load;
   }
   const used = new Set<string>();
-  for (const slug of componentDirectories()) for (const p of suitability(slug).profiles) for (const key of Object.keys(p.load)) used.add(key);
+  for (const slug of recipeComponents()) for (const p of suitability(slug).profiles) for (const key of Object.keys(p.load)) used.add(key);
   for (const key of used) assert.ok(LOAD_KEYS.includes(key), `suitability load key ${key} is not in the scale bands`);
 });
 
@@ -509,9 +510,9 @@ test("INTEGRATION-GAPS.md lists only open and deferred items, and its totals mat
 
 test("every version a document names for this package is recipe.json's (scripts/make_component.py writes them)", () => {
   const version = recipe.version;
-  const places: [string, RegExp][] = [["INSTRUCTIONS.md", /Package `clodhub\/ourpoker` (\d+\.\d+\.\d+)/], ["INSTRUCTIONS.md", /this file belongs to (\d+\.\d+\.\d+)/],
-    ["CONTRACT.md", /Package `clodhub\/ourpoker` version (\d+\.\d+\.\d+)/], ["INTEGRATION-GAPS.md", /\(recipe (\d+\.\d+\.\d+)\)/],
-    ["page/description.md", /Version (\d+\.\d+\.\d+)/], ["page/description.md", /ourpoker@(\d+\.\d+\.\d+)/], ["page/description.md", /STORE (\d+\.\d+\.\d+)/], ["AGENTS.md", /Version (\d+\.\d+\.\d+)/]];
+  const places: [string, RegExp][] = [["INSTRUCTIONS.md", /Package `pkg:clod\/com\.clodhub\/ourpoker-recipe` (\d+\.\d+\.\d+)/], ["INSTRUCTIONS.md", /this file belongs to (\d+\.\d+\.\d+)/],
+    ["CONTRACT.md", /Package `pkg:clod\/com\.clodhub\/ourpoker-recipe` version (\d+\.\d+\.\d+)/], ["INTEGRATION-GAPS.md", /\(recipe (\d+\.\d+\.\d+)\)/],
+    ["page/description.md", /Version (\d+\.\d+\.\d+)/], ["page/description.md", /ourpoker-recipe@(\d+\.\d+\.\d+)/], ["page/description.md", /STORE (\d+\.\d+\.\d+)/], ["AGENTS.md", /Version (\d+\.\d+\.\d+)/]];
   for (const [file, pattern] of places) {
     const found = readFileSync(join(root, file), "utf8").match(pattern);
     assert.ok(found, `${file}: ${pattern}`);
@@ -521,7 +522,7 @@ test("every version a document names for this package is recipe.json's (scripts/
 
 test("the recipe's documents name no machine path and no tool or folder outside the recipe's repository", () => {
   const documents = ["AGENTS.md", "CONTRACT.md", "SOURCE.md", "INTEGRATION-GAPS.md", "REVIEW.md", "INSTRUCTIONS.md", "page/description.md", ".opencode/knowledge/00-index.md", ".opencode/knowledge/workflow.md"];
-  const banned = /\/Users\/|\/home\/[a-z]|\/private\/var|[A-Z]:\\|\.pyenv|recipes\/ourpoker|check_component|scaffold_component|sync_required_interfaces|tools\/standards|\.\.\/\.\.\/(aepm|components\/|ourapps\/|clodhub\/)|component-standard\.md|OurPoker\/recipe/;
+  const banned = /\/Users\/|\/home\/[a-z]|\/private\/var|[A-Z]:\\|\.pyenv|recipes\/ourpoker|check_component|scaffold_component|sync_required_interfaces|tools\/standards|\.\.\/\.\.\/(clod|components\/|ourapps\/|clodhub\/)|component-standard\.md|OurPoker\/recipe/;
   for (const file of documents) {
     const text = readFileSync(join(root, file), "utf8");
     for (const [index, line] of text.split("\n").entries()) {

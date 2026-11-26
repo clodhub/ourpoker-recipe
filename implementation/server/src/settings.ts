@@ -1,6 +1,6 @@
 // Filled in from the design's answers when the application is assembled.
 // The server host's own settings (provider, account reference, allowed origins, room prefix, region) are not here:
-// aepm renders them into components/server-host/server/host-settings.ts (see index.ts).
+// clod renders them into components/server-host/server/host-settings.ts (see index.ts).
 export const settings = {
   applicationId: "{{applicationId}}",
   allowedOrigins: ["{{webAddress}}", "{{scheme}}://app"],

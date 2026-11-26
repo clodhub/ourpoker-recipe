@@ -20,7 +20,7 @@ test('fixture: native test backend binds its own port and terminates after its i
     const port = reservation.address().port;
     await new Promise(resolve => reservation.close(resolve));
     child = spawn(process.execPath, [fileURLToPath(new URL('./native-server.mjs', import.meta.url)), String(port)], {
-      env: { ...process.env, AEPM_CONTEXT_FILE: contextFile }, stdio: ['pipe', 'pipe', 'pipe'],
+      env: { ...process.env, CLOD_CONTEXT_FILE: contextFile }, stdio: ['pipe', 'pipe', 'pipe'],
     });
     child.stderr.on('data', () => {});
     const exited = new Promise(resolve => child.once('exit', resolve));

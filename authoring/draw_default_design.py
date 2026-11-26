@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Draws the OurPoker design for the DEFAULT answers with aepm's diagram generator.
+"""Draws the OurPoker design for the DEFAULT answers with clod's diagram generator.
 
-The design comes from aepm's evaluator (aepm.recipe) applied to the default answers; this script only
+The design comes from clod's evaluator (clod.recipe) applied to the default answers; this script only
 draws it. It does not assemble, resolve, install or run anything.
 
 Writes authoring/designs/*.json and renders page/diagram.{svg,png} (every component by name, grouped as in paper Section 5.3), page/diagram-<group>.{svg,png}
 (each group's components) and page/diagram-full.svg (every included component; over the generator's PNG size limit, so SVG only).
-Usage: PYTHONPATH=<aepm checkout> python3.12 -B authoring/draw_default_design.py
+Usage: PYTHONPATH=<clod checkout> python3.12 -B authoring/draw_default_design.py
 """
 import copy
 import os
@@ -17,18 +17,18 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent.parent
 COMPONENTS = Path(os.environ.get("OURPOKER_COMPONENTS") or HERE.parent.parent / "components")  # the component checkouts
-sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(HERE.parent.parent / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
-from aepm.diagram import generate as diagram  # noqa: E402
+sys.path.insert(0, os.environ.get("CLOD_CHECKOUT", str(HERE.parent.parent / "clod")))  # CLOD_CHECKOUT, else the sibling checkout
+from clod.diagram import generate as diagram  # noqa: E402
 
 sys.path.insert(0, str(HERE / "authoring"))
 import draw_design  # noqa: E402
 import draw_overview  # noqa: E402
-from aepm import recipe as evaluator  # noqa: E402
+from clod import recipe as evaluator  # noqa: E402
 import recipe_world  # noqa: E402
 
 recipe = json.loads((HERE / "recipe.json").read_text())
 
-# The default answers (recipe.json tests.defaultAnswers) are evaluated by aepm's evaluator and the result is drawn:
+# The default answers (recipe.json tests.defaultAnswers) are evaluated by clod's evaluator and the result is drawn:
 # all six devices, small, video yes, computer players on request, lessons yes, updates no, Cloudflare. Under these answers every
 # component is present except store-update (updates is no).
 GROUPS = [
@@ -110,7 +110,7 @@ def main():
     else:
         print("validate_design: ok (every connection has matching kind, type and version; every required input is connected)")
 
-    # The aepm generator refuses images over 8192 pixels on an axis; the full drawing is about 9544 x 5200.
+    # The clod generator refuses images over 8192 pixels on an axis; the full drawing is about 9544 x 5200.
     dot = diagram.to_dot(copy.deepcopy(full))
     svg = diagram.run_renderer(diagram.resolve_dot(), "svg", dot).decode()
     print("full drawing size:", svg[svg.index("<svg width"):svg.index(">", svg.index("<svg width"))])

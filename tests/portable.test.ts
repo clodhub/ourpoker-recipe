@@ -183,7 +183,7 @@ test("the manifest lists every packaged file, and every artefact has a source an
     if (artefact.template) for (const m of (text as string).matchAll(/\{\{([A-Za-z][A-Za-z0-9_.-]*)\}\}/g)) assert.ok(settings.has(m[1]), `${artefact.source} names ${m[1]}`);
   }
   assert.equal(manifest.kind, "recipe");
-  assert.equal(manifest.identity.name, "clodhub/ourpoker");
+  assert.equal(manifest.identity.name, "pkg:clod/com.clodhub/ourpoker-recipe");
 });
 
 test("code that imports components names only the recipe's slots", () => {

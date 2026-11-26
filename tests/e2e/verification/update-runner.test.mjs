@@ -25,7 +25,7 @@ test('fixture: all advertised public/private and direct-desktop routes write bou
       await writeFile(secrets, JSON.stringify({ format: 1, runId: context.runId, package: context.package, id: context.id,
         values: { updateInvitation: { version: 'one', value: 'https://localhost:9443/l/SecretFixture123' } } }));
       const child = spawnSync(process.execPath, [fileURLToPath(new URL('./update-runner.mjs', import.meta.url)), route], {
-        env: { ...process.env, AEPM_CONTEXT_FILE: input, AEPM_RESULT_FILE: output, AEPM_SECRETS_FILE: secrets }, encoding: 'utf8', timeout: 10000,
+        env: { ...process.env, CLOD_CONTEXT_FILE: input, CLOD_RESULT_FILE: output, CLOD_SECRETS_FILE: secrets }, encoding: 'utf8', timeout: 10000,
       });
       assert.equal(child.status, 0, child.stderr);
       const text = await readFile(output, 'utf8');

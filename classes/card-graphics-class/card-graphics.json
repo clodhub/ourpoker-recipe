@@ -1,9 +1,9 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "ae/card-graphics",
+    "title": "com.clodhub/card-graphics",
     "version": "1.0.0",
-    "description": "Playing card faces, backs and empty slots, with deal and flip animation, for a 52 card pack. When the application ships artwork it names the files card-back-<theme>.png and card-<theme>-jack.png, -queen.png and -king.png; artFor says where each is, or null to draw in code. Web: implementation/web/card-model.ts, cards.ts and cards.css (reads the theme's --paper, --paper-accent, --on-primary and --primary). Apple: CardModel and SwiftUI views in PlayingCard.swift. Android: CardModel and Compose functions in package ae.cards."
+    "description": "Playing card faces, backs and empty slots, with deal and flip animation, for a 52 card pack. When the application ships artwork it names the files card-back-<theme>.png and card-<theme>-jack.png, -queen.png and -king.png; artFor says where each is, or null to draw in code. Web: implementation/web/card-model.ts, cards.ts and cards.css (reads the theme's --paper, --paper-accent, --on-primary and --primary). Apple: CardModel and SwiftUI views in PlayingCard.swift. Android: CardModel and Compose functions in package com.clodhub.cards."
   },
   "methods": [
     {

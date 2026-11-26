@@ -28,7 +28,7 @@ import io.livekit.android.room.Room
 import io.livekit.android.room.participant.Participant
 import io.livekit.android.room.track.Track
 
-// GAP: G9.5 video-calls has the session (ae.video.VideoSession) but no seat video tile; this one is drawn here.
+// GAP: G9.5 video-calls has the session (com.clodhub.video.VideoSession) but no seat video tile; this one is drawn here.
 
 // A small monitor showing a player's camera, framed like a screen standing by their seat.
 @Composable

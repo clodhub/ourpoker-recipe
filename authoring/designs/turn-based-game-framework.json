@@ -6,19 +6,19 @@
   "view": "application",
   "definitions": [
     {
-      "id": "clodhub.turn-engine",
+      "id": "com.clodhub.turn-engine",
       "name": "Turn engine",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/turn-engine",
-      "version": "0.12.0",
+      "package": "pkg:clod/com.clodhub/turn-engine",
+      "version": "0.13.0",
       "ports": [
         {
           "id": "game-rules",
           "name": "Game rules",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/game-rules",
+          "type": "com.clodhub/game-rules",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -28,7 +28,7 @@
           "name": "Seating",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/seating",
+          "type": "com.clodhub/seating",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -38,7 +38,7 @@
           "name": "Game clock",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/game-clock",
+          "type": "com.clodhub/game-clock",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -48,7 +48,7 @@
           "name": "Private views",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/private-views",
+          "type": "com.clodhub/private-views",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -58,7 +58,7 @@
           "name": "Presence",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/presence",
+          "type": "com.clodhub/presence",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -68,7 +68,7 @@
           "name": "Tournament",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/tournament",
+          "type": "com.clodhub/tournament",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -78,7 +78,7 @@
           "name": "Computer players",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/computer-players",
+          "type": "com.clodhub/computer-players",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -88,7 +88,7 @@
           "name": "Round history",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/round-history",
+          "type": "com.clodhub/round-history",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -98,7 +98,7 @@
           "name": "Rules settings",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/rules-settings",
+          "type": "com.clodhub/rules-settings",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -108,7 +108,7 @@
           "name": "Game adapter",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/game-adapter",
+          "type": "com.clodhub/game-adapter",
           "version": "1.0.0"
         }
       ],
@@ -155,19 +155,19 @@
       ]
     },
     {
-      "id": "clodhub.game-clock",
+      "id": "com.clodhub.game-clock",
       "name": "Game clock",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/game-clock",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/game-clock",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "game-clock",
           "name": "Game clock",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/game-clock",
+          "type": "com.clodhub/game-clock",
           "version": "1.0.0"
         }
       ],
@@ -191,19 +191,19 @@
       ]
     },
     {
-      "id": "clodhub.seating",
+      "id": "com.clodhub.seating",
       "name": "Seating",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/seating",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/seating",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "guest-identity",
           "name": "Guest identity",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/guest-identity",
+          "type": "com.clodhub/guest-identity",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -213,7 +213,7 @@
           "name": "Seating",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/seating",
+          "type": "com.clodhub/seating",
           "version": "1.0.0"
         }
       ],
@@ -261,19 +261,19 @@
       ]
     },
     {
-      "id": "clodhub.fair-shuffle",
+      "id": "com.clodhub.fair-shuffle",
       "name": "Fair shuffle",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/fair-shuffle",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/fair-shuffle",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "random-source",
           "name": "Random source",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/random-source",
+          "type": "com.clodhub/random-source",
           "version": "1.0.0"
         }
       ],
@@ -296,19 +296,19 @@
       ]
     },
     {
-      "id": "clodhub.card-deck",
+      "id": "com.clodhub.card-deck",
       "name": "Card deck",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/card-deck",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/card-deck",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "random-source",
           "name": "Random source",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/random-source",
+          "type": "com.clodhub/random-source",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -318,7 +318,7 @@
           "name": "Card deck",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/card-deck",
+          "type": "com.clodhub/card-deck",
           "version": "1.0.0"
         }
       ],
@@ -342,19 +342,19 @@
       ]
     },
     {
-      "id": "clodhub.computer-players",
+      "id": "com.clodhub.computer-players",
       "name": "Computer players",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/computer-players",
-      "version": "0.11.0",
+      "package": "pkg:clod/com.clodhub/computer-players",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "player-strategy",
           "name": "Player strategy",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/player-strategy",
+          "type": "com.clodhub/player-strategy",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -364,7 +364,7 @@
           "name": "Game clock",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/game-clock",
+          "type": "com.clodhub/game-clock",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -374,7 +374,7 @@
           "name": "Seating",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/seating",
+          "type": "com.clodhub/seating",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -384,7 +384,7 @@
           "name": "Computer players",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/computer-players",
+          "type": "com.clodhub/computer-players",
           "version": "1.0.0"
         }
       ],
@@ -440,19 +440,19 @@
       ]
     },
     {
-      "id": "clodhub.chip-ledger",
+      "id": "com.clodhub.chip-ledger",
       "name": "Chip ledger",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/chip-ledger",
-      "version": "0.11.0",
+      "package": "pkg:clod/com.clodhub/chip-ledger",
+      "version": "0.12.0",
       "ports": [
         {
           "id": "chip-ledger",
           "name": "Chip ledger",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/chip-ledger",
+          "type": "com.clodhub/chip-ledger",
           "version": "1.0.0"
         }
       ],
@@ -500,19 +500,19 @@
       ]
     },
     {
-      "id": "clodhub.level-schedule",
+      "id": "com.clodhub.level-schedule",
       "name": "Level schedule",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/level-schedule",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/level-schedule",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "level-schedule",
           "name": "Level schedule",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/level-schedule",
+          "type": "com.clodhub/level-schedule",
           "version": "1.0.0"
         }
       ],
@@ -544,19 +544,19 @@
       ]
     },
     {
-      "id": "clodhub.tournament",
+      "id": "com.clodhub.tournament",
       "name": "Tournament",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/tournament",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/tournament",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "chip-ledger",
           "name": "Chip ledger",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/chip-ledger",
+          "type": "com.clodhub/chip-ledger",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -566,7 +566,7 @@
           "name": "Level schedule",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/level-schedule",
+          "type": "com.clodhub/level-schedule",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -576,7 +576,7 @@
           "name": "Seating",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/seating",
+          "type": "com.clodhub/seating",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -586,7 +586,7 @@
           "name": "Tournament",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/tournament",
+          "type": "com.clodhub/tournament",
           "version": "1.0.0"
         }
       ],
@@ -642,19 +642,19 @@
       ]
     },
     {
-      "id": "clodhub.round-history",
+      "id": "com.clodhub.round-history",
       "name": "Round history",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/round-history",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/round-history",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "round-history",
           "name": "Round history",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/round-history",
+          "type": "com.clodhub/round-history",
           "version": "1.0.0"
         }
       ],
@@ -670,19 +670,19 @@
       ]
     },
     {
-      "id": "clodhub.rules-settings",
+      "id": "com.clodhub.rules-settings",
       "name": "Rules settings",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/rules-settings",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/rules-settings",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "rules-settings",
           "name": "Rules settings",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/rules-settings",
+          "type": "com.clodhub/rules-settings",
           "version": "1.0.0"
         }
       ],
@@ -710,7 +710,7 @@
     {
       "id": "turn-engine",
       "name": "Turn engine",
-      "definition": "clodhub.turn-engine",
+      "definition": "com.clodhub.turn-engine",
       "configuration": {
         "settleMs": 4000,
         "staleMinutes": 30,
@@ -722,7 +722,7 @@
     {
       "id": "game-clock",
       "name": "Game clock",
-      "definition": "clodhub.game-clock",
+      "definition": "com.clodhub.game-clock",
       "configuration": {
         "decisionSeconds": 30,
         "onTimeout": "check-or-fold"
@@ -731,7 +731,7 @@
     {
       "id": "seating",
       "name": "Seating",
-      "definition": "clodhub.seating",
+      "definition": "com.clodhub.seating",
       "configuration": {
         "minimumPlayers": 2,
         "maximumPlayers": 9,
@@ -743,7 +743,7 @@
     {
       "id": "fair-shuffle",
       "name": "Fair shuffle",
-      "definition": "clodhub.fair-shuffle",
+      "definition": "com.clodhub.fair-shuffle",
       "configuration": {
         "source": "secure"
       }
@@ -751,7 +751,7 @@
     {
       "id": "card-deck",
       "name": "Card deck",
-      "definition": "clodhub.card-deck",
+      "definition": "com.clodhub.card-deck",
       "configuration": {
         "decks": 1,
         "jokers": false
@@ -760,7 +760,7 @@
     {
       "id": "computer-players",
       "name": "Computer players",
-      "definition": "clodhub.computer-players",
+      "definition": "com.clodhub.computer-players",
       "configuration": {
         "names": "Robin Sam Alex Jordan Casey Morgan Taylor Riley",
         "mode": "on-request",
@@ -773,7 +773,7 @@
     {
       "id": "chip-ledger",
       "name": "Chip ledger",
-      "definition": "clodhub.chip-ledger",
+      "definition": "com.clodhub.chip-ledger",
       "configuration": {
         "startingStack": 5000,
         "minimumUnit": 1,
@@ -785,7 +785,7 @@
     {
       "id": "level-schedule",
       "name": "Level schedule",
-      "definition": "clodhub.level-schedule",
+      "definition": "com.clodhub.level-schedule",
       "configuration": {
         "levelSeconds": 600,
         "afterLastLevel": "double",
@@ -795,7 +795,7 @@
     {
       "id": "tournament",
       "name": "Tournament",
-      "definition": "clodhub.tournament",
+      "definition": "com.clodhub.tournament",
       "configuration": {
         "startingStack": 5000,
         "rebuysPerPlayer": 1,
@@ -808,7 +808,7 @@
     {
       "id": "round-history",
       "name": "Round history",
-      "definition": "clodhub.round-history",
+      "definition": "com.clodhub.round-history",
       "configuration": {
         "maxRounds": 50
       }
@@ -816,7 +816,7 @@
     {
       "id": "rules-settings",
       "name": "Rules settings",
-      "definition": "clodhub.rules-settings",
+      "definition": "com.clodhub.rules-settings",
       "configuration": {
         "rulesFile": "texas-holdem-house-rules",
         "strict": true

@@ -1,13 +1,13 @@
 package app.ourapps.ourpoker.ui
 
-import ae.cards.BackStyle
-import ae.cards.CardSettings
-import ae.cards.CardStyle
-import ae.cards.LocalCardStyle
-import ae.theme.BackgroundScene
-import ae.theme.SceneFront
-import ae.theme.ThemeBackground
-import ae.theme.ThemeSet
+import com.clodhub.cards.BackStyle
+import com.clodhub.cards.CardSettings
+import com.clodhub.cards.CardStyle
+import com.clodhub.cards.LocalCardStyle
+import com.clodhub.theme.BackgroundScene
+import com.clodhub.theme.SceneFront
+import com.clodhub.theme.ThemeBackground
+import com.clodhub.theme.ThemeSet
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider

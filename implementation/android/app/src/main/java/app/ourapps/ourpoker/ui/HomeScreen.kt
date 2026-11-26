@@ -1,7 +1,7 @@
 package app.ourapps.ourpoker.ui
 
-import ae.controls.Panel
-import ae.controls.RoundIconButton
+import com.clodhub.controls.Panel
+import com.clodhub.controls.RoundIconButton
 
 import android.app.Activity
 import android.content.Intent

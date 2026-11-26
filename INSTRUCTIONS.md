@@ -1,13 +1,13 @@
 # OurPoker recipe: instructions
 
-Package `clodhub/ourpoker` 0.12.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with aepm, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
+Package `pkg:clod/com.clodhub/ourpoker-recipe` 0.13.0. Part 1 is for the agent that answers the questions, part 2 for the developer who owns the accounts, part 3 installs the application with clod, part 4 builds and runs it, and part 5 is for maintainers of the recipe's own repository. `recipe.json` is the source of truth; this file explains how to use it.
 
 ## 1. For the agent
 
 ### Answering
 
 Each question in `recipe.json` has `ask`: `required` (no default: always put to the person when its condition holds), `unless-settled` (a default, but the person's request should settle it, so it is asked when the request does not) or `default` (the default is taken unless the request says otherwise).
-`aepm questions ourpoker@<version> --store STORE --answers PARTIAL` (PARTIAL: what the request settles) returns `toAsk`, the questions to put to the person, and `followUps`, the questions an answer can bring in, with that condition in words.
+`clod questions ourpoker-recipe@<version> --store STORE --answers PARTIAL` (PARTIAL: what the request settles) returns `toAsk`, the questions to put to the person, and `followUps`, the questions an answer can bring in, with that condition in words.
 
 Tell the person how many questions there are: the length of `toAsk`. Ask them all in one round, including `scale` and every other question `toAsk` lists. Include in the same round, as conditional questions, the follow-ups whose condition one of those answers could meet; for example "and if Cloudflare, under which name is your Cloudflare account kept in your secret store?" for `hostingAccount`.
 Ask nothing else: every other question takes its default or what the request settles. With no answers settled, `toAsk` is `targets`, `scale`, `server` and `videoServiceUrl`, and the follow-up is `hostingAccount` when `server` is `cloudflare`; a request such as "a poker game for me and my family" settles `targets` and `scale` too.
@@ -51,7 +51,7 @@ The table lists the questions in `recipe.json` order, each with its `ask`.
 ### What each answer changes
 
 An empty text answer writes nothing: the setting keeps its recipe value or default. `videoServiceUrl` and `storeInvitation` may be answered with an empty text and set later. A secret reference answer is the plain reference name as text, for example `"hostingAccount": "ourpoker-cloudflare-account"`, never an object such as `{"ref": ...}` and never a value;
-the design records `{"secretRef": name}` for a secret setting and the plain name for `server-host.accountReference` and for the four reference settings of `ourapps-release`, because aepm renders those into `components/ourapps-release/server/release.json` (a template cannot render a secret setting) and the release workflow takes the repository secret names from there.
+the design records `{"secretRef": name}` for a secret setting and the plain name for `server-host.accountReference` and for the four reference settings of `ourapps-release`, because clod renders those into `components/ourapps-release/server/release.json` (a template cannot render a secret setting) and the release workflow takes the repository secret names from there.
 
 | Answer | Components included | Settings set |
 |---|---|---|
@@ -78,11 +78,11 @@ the design records `{"secretRef": name}` for a secret setting and the plain name
 | `storeCredentials`, `androidSigning`, `webDeploy` | none | `ourapps-release.storeCredentials`, `.androidSigning`, `.webDeploy` (reference names; `none` when not asked) |
 
 Each entry of `recipe.json` `components` is a slot: `id`, `class` (the interfaces the recipe takes from and feeds into it, and a JSON Schema of the settings it writes on it), `preferred` (the component the recipe was built and tested with) and `includedWhen`. Any component that fits the class may fill the slot (part 3, step 4).
-The application reaches each component only through the entry modules its interface documents declare (`components/<slot>/web/index.ts`, `server/index.ts`, `desktop/index.cjs`; the Swift and Kotlin public names), and aepm installs a slot's component at `components/<slot id>/`. A slot is in the design only through its `includedWhen`; no question effect includes anything.
+The application reaches each component only through the entry modules its interface documents declare (`components/<slot>/web/index.ts`, `server/index.ts`, `desktop/index.cjs`; the Swift and Kotlin public names), and clod installs a slot's component at `components/<slot id>/`. A slot is in the design only through its `includedWhen`; no question effect includes anything.
 `web-host` is in when `'web' in targets || 'windows' in targets`; `apple-host` when `'ios' in targets || 'macos' in targets || 'tvos' in targets`. `computer-players` and `poker-strategy` are in when `computerPlayers != 'none'` (turn-engine's `computer-players` requirement is optional). `ourapps-release` is in when `publish || releases`.
 The application's files that use an optional component carry `component: "<slot id>"` in `component.json` and are installed only when that slot is filled. Each optional module the rest of the application uses has a stand-in at the same destination marked `withoutComponent: "<slot id>"`, installed when the design leaves the component out,
 so every design installs one of the two and every client compiles: server `video.ts`, `update-links.ts`, `computers.ts`; web `video.ts`, `shell.ts`, `guide.ts`, `guide-style.ts`, `update.ts` and the web package files (which declare `livekit-client`); Apple `Video.swift`, `SeatScreen.swift`, `Lessons.swift`, `Updates.swift`; Android `Video.kt`, `ui/SeatScreen.kt`, `ui/Lessons.kt`, `Updates.kt`.
-The repository files at the application root (`.github/workflows/*.yml`, `scripts/*`, `release/app.json`) are the recipe's own, because aepm installs a component's files only under `components/<slot id>/`; each carries `component: "ourapps-release"`, or a list such as `["ourapps-release", "web-host"]` for `ci-web.yml`, installed only when every slot in it is filled.
+The repository files at the application root (`.github/workflows/*.yml`, `scripts/*`, `release/app.json`) are the recipe's own, because clod installs a component's files only under `components/<slot id>/`; each carries `component: "ourapps-release"`, or a list such as `["ourapps-release", "web-host"]` for `ci-web.yml`, installed only when every slot in it is filled.
 `.gitignore` is installed in every design.
 
 `application.<setting>` names a setting of the recipe's own component (`component.json`).
@@ -90,7 +90,7 @@ The six that change the house rules (`maximumPlayers`, `startingStack`, `levelSe
 and `recipe.json` does not restate any number the rules file states (`rules-settings.rulesFile` is `texas-holdem-house-rules`).
 `guest-identity` keeps its own defaults, which the application uses too.
 
-Forms of a `sets` value in `recipe.json` (aepm's recipe evaluation rules): a literal; `"$answer"` (the answer; a set joined with spaces); `{"map": {...}}` (a choice answer to a value, covering every option); `{"fromScale": "<load key>"}`; `{"template": "prefix-{{answer}}"}`; `{"ref": "<secretRef question>"}`. This recipe uses `$answer`, `map`, `template` and `ref`.
+Forms of a `sets` value in `recipe.json` (clod's recipe evaluation rules): a literal; `"$answer"` (the answer; a set joined with spaces); `{"map": {...}}` (a choice answer to a value, covering every option); `{"fromScale": "<load key>"}`; `{"template": "prefix-{{answer}}"}`; `{"ref": "<secretRef question>"}`. This recipe uses `$answer`, `map`, `template` and `ref`.
 There is no `includes`, `$job`, `null` or `mapEach`.
 
 ### Scale and profiles
@@ -143,23 +143,23 @@ A small group stays inside the free tiers: the small and medium bands both fit `
 
 ## 3. Install
 
-Needs Python 3.12, Node 26.5 and git. aepm is the installer: `git clone https://github.com/clodhub/aepm`, then define the command for this shell (bash or zsh; PowerShell on Windows is below):
+Needs Python 3.12, Node 26.5 and git. clod is the installer: `git clone https://github.com/clodhub/clod`, then define the command for this shell (bash or zsh; PowerShell on Windows is below):
 
 ```
-AEPM="$PWD/aepm"
-aepm() { PYTHONPATH="$AEPM" python3 -B -m aepm "$@"; }
+CLOD="$PWD/clod"
+clod() { PYTHONPATH="$CLOD" python3 -B -m clod "$@"; }
 ```
 
-STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `aepm install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.12.0).
+STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder for downloaded packages, POLICY the owner's policy file, APP the application folder `clod install` creates (it must not exist yet). `<version>` is the recipe version the catalogue lists (this file belongs to 0.13.0).
 
 1. Fetch the recipe and every component it names, with their release and guardian attestations, then read these instructions from the recipe's archive:
    ```
-   aepm fetch ourpoker@<version> --with-dependencies --store STORE
-   python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="clodhub/ourpoker" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE <version> > INSTRUCTIONS.md
+   clod fetch ourpoker-recipe@<version> --with-dependencies --store STORE
+   python3 -c 'import json,sys,tarfile; s,v=sys.argv[1:]; d=next(e["digest"] for e in json.load(open(s+"/catalogue.json"))["entries"] if e["name"]=="pkg:clod/com.clodhub/ourpoker-recipe" and e["version"]==v); sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())' STORE <version> > INSTRUCTIONS.md
    ```
 2. Read the questions (id, wording, type, options or range, default, askWhen):
    ```
-   aepm questions ourpoker@<version> --store STORE
+   clod questions ourpoker-recipe@<version> --store STORE
    ```
    With `--answers PARTIAL`, the answers the request settles, it also returns `toAsk` and `followUps`. Tell the person how many questions `toAsk` holds, ask them in one round together with the follow-ups as conditional questions, and ask nothing else (part 1).
 3. Answer them as part 1 says and write `answers.json`, an object from question id to answer, for example:
@@ -169,31 +169,31 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    Unanswered questions take their defaults; `server` has none and must be answered. Secret reference questions have no default and are asked only when their condition holds: `hostingAccount` for a Cloudflare server, the others only when `publish` is yes. Answer each with a name in your secret store, never the secret.
 4. Evaluate the design:
    ```
-   aepm design ourpoker@<version> --store STORE --answers answers.json --out definition.json
+   clod design ourpoker-recipe@<version> --store STORE --answers answers.json --out definition.json
    ```
    A refusal lists each error as `{code, path}` (for example `unanswered` with the question id); fix the answer and run it again.
 
    Check this machine's build tools for the design's targets:
    ```
-   aepm doctor ourpoker@<version> --store STORE --answers answers.json
+   clod doctor ourpoker-recipe@<version> --store STORE --answers answers.json
    ```
    It prints each tool with the version range the packages need (`node` for the server, web and Windows; `xcodebuild` and `xcodegen` for Apple targets; `java` and `sdkmanager` for Android), what it found and `ok`, `missing` or `wrong-version`, and exits 1 unless all are `ok`.
    With `--install` it runs the listed installer (Homebrew on macOS, winget on Windows, apt-get on Linux) for each missing tool; a wrong version and the steps in `manual` (Xcode, the Android SDK packages) are left to you. Apple targets build only on macOS.
 
    To put another component in a slot, list the catalogue components that fit it, fetch the one chosen into STORE, and name it in `--substitute` (repeat for several slots):
    ```
-   aepm alternatives ourpoker@<version> theme --store STORE --from https://clodhub.com
-   aepm fetch clodhub/theme-high-contrast@0.6.0 --store STORE --from https://clodhub.com
-   aepm design ourpoker@<version> --store STORE --answers answers.json --substitute theme=clodhub/theme-high-contrast@0.6.0 --out definition.json
+   clod alternatives ourpoker-recipe@<version> theme --store STORE --from https://clodhub.com
+   clod fetch theme-high-contrast@0.7.0 --store STORE --from https://clodhub.com
+   clod design ourpoker-recipe@<version> --store STORE --answers answers.json --substitute theme=theme-high-contrast@0.7.0 --out definition.json
    ```
    `alternatives` prints `[{name, version, fits, reasons}]`. `design` refuses a component that does not fit (`unfit` with the reason) and records the choice in the design's `selections` as `{component, version, reason: "substituted"}`. A substitute in a job's slot (`server-host`, `realtime-rooms`, `video-calls`) replaces the job's selection.
 5. Lock the exact packages:
    ```
-   aepm resolve definition.json --catalogue STORE/catalogue.json --out lock.json
+   clod resolve definition.json --catalogue STORE/catalogue.json --out lock.json
    ```
-6. Make the owner's policy (once). The policy names whose signatures aepm accepts: Level N's public release and guardian keys, which sign every published package, and the owner's own key, which signs approvals of later updates. For trying the recipe, make a disposable owner key:
+6. Make the owner's policy (once). The policy names whose signatures clod accepts: Level N's public release and guardian keys, which sign every published package, and the owner's own key, which signs approvals of later updates. For trying the recipe, make a disposable owner key:
    ```
-   PYTHONPATH="$AEPM" python3 -B -m aepm.test_identities "$PWD/identities"
+   PYTHONPATH="$CLOD" python3 -B -m clod.test_identities "$PWD/identities"
    curl -fsSL https://clodhub.com/policy/levelnpolicy.json -o levelnpolicy.json
    python3 - <<'POLICY'
    import json
@@ -204,15 +204,15 @@ STORE, POLICY and APP below are absolute paths of your choosing: STORE a folder 
    POLICY
    ```
    `identities/` then holds three disposable private keys; keep `owner.pem` (it approves updates), delete the other two, and keep the folder outside STORE and APP. For an owner key you keep, make it with OpenSSL instead and put its public key in the policy's `owner` list:
-   `openssl genpkey -algorithm ed25519 -out owner.pem` and `openssl pkey -in owner.pem -pubout` (the `publicKey` value is that PEM text). POLICY is the resulting `policy.json`. Its `trustedExecution` lists the digest of every package in `lock.json`: those are the packages whose checks `aepm verify --trusted` may run.
+   `openssl genpkey -algorithm ed25519 -out owner.pem` and `openssl pkey -in owner.pem -pubout` (the `publicKey` value is that PEM text). POLICY is the resulting `policy.json`. Its `trustedExecution` lists the digest of every package in `lock.json`: those are the packages whose checks `clod verify --trusted` may run.
 7. Install:
    ```
-   aepm install definition.json --lock lock.json --store STORE --policy POLICY --target APP
+   clod install definition.json --lock lock.json --store STORE --policy POLICY --target APP
    ```
-   aepm checks every package's release and guardian signatures against POLICY, places the files, renders each setting into the files that name it, and records the design in `APP/.aepm/`. It runs no package code.
+   clod checks every package's release and guardian signatures against POLICY, places the files, renders each setting into the files that name it, and records the design in `APP/.clod/`. It runs no package code.
 8. Check the installed application:
    ```
-   aepm verify APP --policy POLICY --trusted --allow-network
+   clod verify APP --policy POLICY --trusted --allow-network
    ```
    `--trusted` runs each package's declared checks (package code, allowed only for the packages in the policy's `trustedExecution`); `--allow-network` lets those checks download their dependencies (`npm ci`). Then put the application in its repository and build and run it (part 4).
 
@@ -220,20 +220,20 @@ On Windows, in PowerShell (Windows PowerShell 5.1 or PowerShell 7) with Python 3
 
 ```
 Set-ExecutionPolicy -Scope Process RemoteSigned -Force   # this window only: lets PowerShell run npm and npx
-$env:PYTHONPATH = "$PWD\aepm"
-function aepm { python -B -m aepm @args }
-aepm fetch ourpoker@<version> --with-dependencies --store STORE
+$env:PYTHONPATH = "$PWD\clod"
+function clod { python -B -m clod @args }
+clod fetch ourpoker-recipe@<version> --with-dependencies --store STORE
 @'
 import json, sys, tarfile
 s, v = sys.argv[1:]
-d = next(e["digest"] for e in json.load(open(s + "/catalogue.json"))["entries"] if e["name"] == "clodhub/ourpoker" and e["version"] == v)
+d = next(e["digest"] for e in json.load(open(s + "/catalogue.json"))["entries"] if e["name"] == "pkg:clod/com.clodhub/ourpoker-recipe" and e["version"] == v)
 sys.stdout.write(tarfile.open(f"{s}/objects/{d}.tar").extractfile("INSTRUCTIONS.md").read().decode())
 '@ | python - STORE <version> > INSTRUCTIONS.md
-aepm questions ourpoker@<version> --store STORE
-aepm design ourpoker@<version> --store STORE --answers answers.json --out definition.json
-aepm doctor ourpoker@<version> --store STORE --answers answers.json
-aepm resolve definition.json --catalogue STORE\catalogue.json --out lock.json
-python -B -m aepm.test_identities "$PWD\identities"
+clod questions ourpoker-recipe@<version> --store STORE
+clod design ourpoker-recipe@<version> --store STORE --answers answers.json --out definition.json
+clod doctor ourpoker-recipe@<version> --store STORE --answers answers.json
+clod resolve definition.json --catalogue STORE\catalogue.json --out lock.json
+python -B -m clod.test_identities "$PWD\identities"
 curl.exe -fsSL https://clodhub.com/policy/levelnpolicy.json -o levelnpolicy.json
 @'
 import json
@@ -242,8 +242,8 @@ mine = json.load(open("identities/policy.json"))
 policy = {"format": 1, "keys": {"release": level_n["keys"]["release"], "guardian": level_n["keys"]["guardian"], "owner": mine["keys"]["owner"]}, "trustedExecution": sorted(x["digest"] for x in json.load(open("lock.json"))["packages"])}
 json.dump(policy, open("policy.json", "w"), indent=2)
 '@ | python -
-aepm install definition.json --lock lock.json --store STORE --policy POLICY --target APP
-aepm verify APP --policy POLICY --trusted --allow-network
+clod install definition.json --lock lock.json --store STORE --policy POLICY --target APP
+clod verify APP --policy POLICY --trusted --allow-network
 ```
 
 STORE, POLICY and APP are absolute Windows paths (for example `$HOME\ourpoker-store`; APP needs a short parent folder, part 4, Windows). Write `answers.json` without a byte order mark: with an editor, or `Set-Content answers.json '{"targets": ["web", "windows"], "server": "own-hardware"}' -Encoding ascii`.
@@ -251,7 +251,7 @@ STORE, POLICY and APP are absolute Windows paths (for example `$HOME\ourpoker-st
 
 ## 4. Build and run
 
-What `aepm install` writes into the application folder. `web/`, `ios/` and `android/` hold their client's sources in every design; what builds them comes only with the target in brackets (web-host's `vite.config.ts`, apple-host's and android-host's `generate-project.ts`), so build only the clients the design targets. `desktop/` appears only with Windows.
+What `clod install` writes into the application folder. `web/`, `ios/` and `android/` hold their client's sources in every design; what builds them comes only with the target in brackets (web-host's `vite.config.ts`, apple-host's and android-host's `generate-project.ts`), so build only the clients the design targets. `desktop/` appears only with Windows.
 
 ```
 server/       package.json, package-lock.json, tsconfig.json, vitest.config.ts, src/, test/, fixtures/
@@ -263,16 +263,16 @@ rules/        the house rules file, its schema and text
 resources/    strings.json, the text table the generated string files come from
 verification/ end-to-end checks for the platforms
 components/   one folder per component of the design; server-host's server/ holds wrangler.jsonc and start.ts
-.aepm/        aepm's records: definition, lock, assembly, packages, receipts
+.clod/        clod's records: definition, lock, assembly, packages, receipts
 .gitignore    what the repository leaves out (part 4, "Repository and releases")
 .gitattributes  every file keeps its bytes on every checkout (Windows included): pinned files are checked by digest
-.github/      workflows/: ci-server, release, aepm-update; ci-web (web), ci-android (android),
+.github/      workflows/: ci-server, release, clod-update; ci-web (web), ci-android (android),
               platform-packages (windows), apple-testflight, apple-builds (ios, macos, tvos)   (publish or releases)
 scripts/      build-windows.sh, inspect-windows.ps1 (windows); build-ipa.sh, build-apple-testflight.sh (ios, macos, tvos)
 release/      app.json, what my-app.json says about the application                       (publish or releases)
 ```
 
-Every value that depends on an answer is already in the installed files (aepm renders the templates), and the generated string files are shipped, so nothing has to be generated before the commands below; the Apple and Android `generate-project.ts` steps write the native projects from them. Tools (what `aepm doctor` checks, part 3):
+Every value that depends on an answer is already in the installed files (clod renders the templates), and the generated string files are shipped, so nothing has to be generated before the commands below; the Apple and Android `generate-project.ts` steps write the native projects from them. Tools (what `clod doctor` checks, part 3):
 Node 26.5 or a later 26 with npm 11 for the server, web and Windows. Apple: macOS with Xcode 27 and XcodeGen 2.46 or later; the Apple targets build only on a Mac, not on Windows or Linux. Android: a JDK 17 to 26 and the Android command-line tools 22.0 (23.0 replaces `sdkmanager` with a new tool) with platform 36 and build-tools 36.0.0; the project carries its Gradle wrapper. Windows:
 Node on a Mac or on Windows to build the installer (not on a Windows machine with Smart App Control on, part 4, Windows); Windows 10 or 11 (x64) to run it.
 
@@ -282,41 +282,41 @@ The application goes to the GitHub repository the `repository` answer names (the
 
 ```
 printf '# Changelog\n\n## [0.1.0]\n\n### Added\n\n- First release.\n' > CHANGELOG.md
-git init -b main && git add -A && git commit -m "OurPoker from clodhub/ourpoker <version>"
+git init -b main && git add -A && git commit -m "OurPoker from ourpoker-recipe <version>"
 gh repo create <owner>/<name> --private --source . --push
 ```
 
 When the repository already exists, push to it instead: `git remote add origin https://github.com/<owner>/<name>.git && git push -u origin main`.
 
-`.gitignore` leaves out dependencies, build outputs, signing keys and aepm's package copies and archives (`.aepm/packages/`, `.aepm/archives/`, 37 MB for the default design). aepm's records in `.aepm/` (definition, lock, assembly, receipts, evidence) are committed: they show which packages built the application.
-The machine that installed the application keeps the full `.aepm/` that `aepm verify` and updates need; aepm's update work folder (`.<name>.aepm-transaction/`) sits beside the application folder, outside the repository.
+`.gitignore` leaves out dependencies, build outputs, signing keys and clod's package copies and archives (`.clod/packages/`, `.clod/archives/`, 37 MB for the default design). clod's records in `.clod/` (definition, lock, assembly, receipts, evidence) are committed: they show which packages built the application.
+The machine that installed the application keeps the full `.clod/` that `clod verify` and updates need; clod's update work folder (`.<name>.clod-transaction/`) sits beside the application folder, outside the repository.
 
 With `publish` or `releases` yes the application has GitHub Actions. A push to main runs, for the parts that changed: `ci-server` (type check and tests); `ci-web` (type check and build, then the server started on the runner and `web/test/browser.mjs` playing a hand in headless Chrome against it);
 `ci-android` (unit tests and the debug build against the runner's server, then the app started in an Android 36 emulator until it shows the room list, through `components/ourapps-release/server/scripts/android_screen.py`); and `platform-packages` (the unsigned Windows installer built, installed silently, started and uninstalled on Windows).
 Each can also be started by hand (`gh workflow run ci-web.yml`). `apple-builds` builds the iPhone and iPad, Mac (Mac Catalyst) and Apple TV clients unsigned on GitHub's Xcode 27 runner (`xcode-27`), for the design's Apple targets, on a version tag or by hand.
 
-Every release of a package belongs to one channel: `security` (a patch release on the same line that only fixes the advisories it lists), `features` (a new minor or major version) or `preview` (a `-preview.N` pre-release). The update policy in `.aepm/definition.json` says what happens to each:
-`auto` (applied without a person once every check passes), `manual` (proposed for a person to approve) or `hold` (not proposed). The defaults are security `auto`, features `manual`, preview `hold`. Set it when designing, `aepm design ourpoker@<version> --store STORE --answers answers.json --update-policy security=auto,features=manual,preview=hold --out definition.json`;
-`aepm propose-update` keeps it, and `aepm outdated APP --store STORE` lists what each channel offers, with the advisories each security release fixes.
+Every release of a package belongs to one channel: `security` (a patch release on the same line that only fixes the advisories it lists), `features` (a new minor or major version) or `preview` (a `-preview.N` pre-release). The update policy in `.clod/definition.json` says what happens to each:
+`auto` (applied without a person once every check passes), `manual` (proposed for a person to approve) or `hold` (not proposed). The defaults are security `auto`, features `manual`, preview `hold`. Set it when designing, `clod design ourpoker-recipe@<version> --store STORE --answers answers.json --update-policy security=auto,features=manual,preview=hold --out definition.json`;
+`clod propose-update` keeps it, and `clod outdated APP --store STORE` lists what each channel offers, with the advisories each security release fixes.
 
-`aepm-update` follows that policy. Weekly (Monday 05:17 UTC) or by hand (`gh workflow run aepm-update.yml`) it handles the channels in order, security first, then features, then preview.
-For each channel that is not `hold` and offers an update, aepm works out the next design (the newest security release on each installed package's line; the newest features or preview recipe version with the recorded answers and substitutions) and `aepm propose-update --trusted --allow-network` stages it and runs the packages' checks.
-`auto`: approved with the owner's private key, applied and committed to main in the same run. `manual`: a pull request carrying `.aepm/update/definition.json` and a summary of the package versions that change; merging it proposes the update again, approves it with the owner key, applies it and commits it to main. A `manual` proposal ends the run, so a later channel waits for the next run.
+`clod-update` follows that policy. Weekly (Monday 05:17 UTC) or by hand (`gh workflow run clod-update.yml`) it handles the channels in order, security first, then features, then preview.
+For each channel that is not `hold` and offers an update, clod works out the next design (the newest security release on each installed package's line; the newest features or preview recipe version with the recorded answers and substitutions) and `clod propose-update --trusted --allow-network` stages it and runs the packages' checks.
+`auto`: approved with the owner's private key, applied and committed to main in the same run. `manual`: a pull request carrying `.clod/update/definition.json` and a summary of the package versions that change; merging it proposes the update again, approves it with the owner key, applies it and commits it to main. A `manual` proposal ends the run, so a later channel waits for the next run.
 Started by hand with `-f version=<version>` or `-f answers='{"languages":["en","fr"]}'` (answer changes, at the same or another version), it proposes that design as a pull request whatever the policy; with neither a newer version nor an answer change it does nothing and says so.
-The script is `components/ourapps-release/server/scripts/aepm_update.py`; it trusts Level N's keys from https://clodhub.com/policy/levelnpolicy.json, runs the checks of exactly the packages it fetched, and first installs the current design again to put back the package copies the repository leaves out.
+The script is `components/ourapps-release/server/scripts/clod_update.py`; it trusts Level N's keys from https://clodhub.com/policy/levelnpolicy.json, runs the checks of exactly the packages it fetched, and first installs the current design again to put back the package copies the repository leaves out.
 
 Repository secrets and settings it needs:
 
-- `AEPM_OWNER_KEY`: the private key whose public key is the policy's owner key (`gh secret set AEPM_OWNER_KEY --repo <owner>/<name> < identities/owner.pem`). A channel set to `auto` needs it in every run; without it the run stops and says so.
+- `CLOD_OWNER_KEY`: the private key whose public key is the policy's owner key (`gh secret set CLOD_OWNER_KEY --repo <owner>/<name> < identities/owner.pem`). A channel set to `auto` needs it in every run; without it the run stops and says so.
 - Opening the pull request with the workflow's own token needs "Allow GitHub Actions to create and approve pull requests" (repository Settings, Actions, General; an organisation can forbid it for all its repositories).
--  `AEPM_PUSH_TOKEN` (optional): a fine-grained personal access token for this repository with Contents, Pull requests and Workflows read and write. When it is set, the workflow pushes and opens the pull request with it.
+-  `CLOD_PUSH_TOKEN` (optional): a fine-grained personal access token for this repository with Contents, Pull requests and Workflows read and write. When it is set, the workflow pushes and opens the pull request with it.
   GitHub refuses a push made with the workflow's own token that changes `.github/workflows/`, and an update that adds, changes or removes a workflow does, so without this token the apply job stops with a message naming the workflow files.
   A push made with it also starts `ci-server`, `ci-web` and `ci-android` on the updated application; a push with the workflow's own token starts no workflow, so start them by hand then.
 
 A version tag runs `release`: it builds the web client, the Android APK and the Windows installer the design has and publishes a GitHub Release (not a draft or pre-release) carrying `ourpoker.apk`, `web.zip`, the installer `ourpoker-<version>-windows-x64-unsigned.exe`, `icon.png`, `CHANGELOG.md` and, uploaded last, `my-app.json` for ourapps.app.
 The installer is attached but not offered in `my-app.json`: the ourapps contract lists a desktop package only after that package has passed download, install and start checks. `apple-platform-testflight` runs only when the store starts it for a Mac or Apple TV build.
 
-The workflows read the secret names from `components/ourapps-release/server/release.json`, which aepm rendered from the reference answers: the reference in capitals, with hyphens as underscores, then a suffix. A secret that is not set is skipped, and that part stays unsigned or is not deployed:
+The workflows read the secret names from `components/ourapps-release/server/release.json`, which clod rendered from the reference answers: the reference in capitals, with hyphens as underscores, then a suffix. A secret that is not set is skipped, and that part stays unsigned or is not deployed:
 
 | Answer (reference name) | Repository secrets, for the reference `ourpoker-...` shown | Without them |
 |---|---|---|
@@ -396,22 +396,22 @@ Deploy now, with these names, unless the person asked otherwise: the server work
    ```
    The first line after the build writes `web/wrangler.jsonc`: the worker name, the server's date setting and the `dist` folder as static files. It stays in the application: no package installs that path, so the update in step 2 keeps it, and step 3 publishes with it again. It serves at `https://<name>.<your subdomain>.workers.dev`, the subdomain the server's deploy printed.
    That is the web address.
-2. Add both addresses to `answers.json` (`"serverAddress": "<server address>", "webAddress": "<web address>"`) and update the installed application in place. Stop its server first. aepm refuses a tree that holds links, and dependency folders hold them (`node_modules/.bin`), so remove the dependency and build folders, then design, lock, trust, propose, approve and apply:
+2. Add both addresses to `answers.json` (`"serverAddress": "<server address>", "webAddress": "<web address>"`) and update the installed application in place. Stop its server first. clod refuses a tree that holds links, and dependency folders hold them (`node_modules/.bin`), so remove the dependency and build folders, then design, lock, trust, propose, approve and apply:
    ```
    rm -rf APP/server/node_modules APP/web/node_modules APP/desktop/node_modules APP/web/dist APP/desktop/build APP/desktop/artifacts APP/ios/build APP/android/build APP/android/app/build APP/android/.gradle
    find APP -type l          # prints nothing once no link is left
-   aepm design ourpoker@<version> --store STORE --answers answers.json --out next.json
-   aepm resolve next.json --catalogue STORE/catalogue.json --out next-lock.json
+   clod design ourpoker-recipe@<version> --store STORE --answers answers.json --out next.json
+   clod resolve next.json --catalogue STORE/catalogue.json --out next-lock.json
    python3 -c 'import json,sys; p=json.load(open(sys.argv[1])); p["trustedExecution"]=sorted(set(p["trustedExecution"])|{x["digest"] for x in json.load(open(sys.argv[2]))["packages"]}); json.dump(p,open(sys.argv[1],"w"),indent=2)' POLICY next-lock.json
-   aepm propose-update APP next.json --store STORE --policy POLICY --trusted --allow-network --out proposal.json
-   aepm approve proposal.json --key identities/owner.pem --policy POLICY --out approval.json
-   aepm apply APP proposal.json --approval approval.json --policy POLICY
+   clod propose-update APP next.json --store STORE --policy POLICY --trusted --allow-network --out proposal.json
+   clod approve proposal.json --key identities/owner.pem --policy POLICY --out approval.json
+   clod apply APP proposal.json --approval approval.json --policy POLICY
    ```
-   `propose-update` installs the next design into a stage in `.<APP name>.aepm-transaction/` beside APP and runs every package's declared checks there: `--trusted` runs package code, so the policy lists the digest of each package in `next-lock.json` in `trustedExecution` (the `python3` line adds them), and `--allow-network` lets the checks' `npm ci` download.
-   Without `--trusted` it refuses with `trusted-execution-required`. `approve` signs the proposal with the owner key, which must be the policy's `owner` key; `apply` checks that neither APP nor the stage has changed since the proposal and swaps them. `aepm recover APP` completes or reverses an interrupted `apply`. Then, before deploying, check the updated application:
-   `aepm verify APP --policy POLICY --trusted --allow-network` (the python3 line above added the new packages to `trustedExecution`), then `npm ci`, `npm run typecheck` and `npm test` in `server/`, and `npm ci` and `npm run typecheck` in `web/` (and `npm ci` in `desktop/`). The answers and selections the update used are in `APP/.aepm/definition.json`.
+   `propose-update` installs the next design into a stage in `.<APP name>.clod-transaction/` beside APP and runs every package's declared checks there: `--trusted` runs package code, so the policy lists the digest of each package in `next-lock.json` in `trustedExecution` (the `python3` line adds them), and `--allow-network` lets the checks' `npm ci` download.
+   Without `--trusted` it refuses with `trusted-execution-required`. `approve` signs the proposal with the owner key, which must be the policy's `owner` key; `apply` checks that neither APP nor the stage has changed since the proposal and swaps them. `clod recover APP` completes or reverses an interrupted `apply`. Then, before deploying, check the updated application:
+   `clod verify APP --policy POLICY --trusted --allow-network` (the python3 line above added the new packages to `trustedExecution`), then `npm ci`, `npm run typecheck` and `npm test` in `server/`, and `npm ci` and `npm run typecheck` in `web/` (and `npm ci` in `desktop/`). The answers and selections the update used are in `APP/.clod/definition.json`.
 
-   Installing the design again into a new folder also works: `aepm install next.json --lock next-lock.json --store STORE --policy POLICY --target NEXT`; then move anything you added to APP (`CHANGELOG.md`, `.git/`) across and use NEXT from here on.
+   Installing the design again into a new folder also works: `clod install next.json --lock next-lock.json --store STORE --policy POLICY --target NEXT`; then move anything you added to APP (`CHANGELOG.md`, `.git/`) across and use NEXT from here on.
 3. Deploy the server again (`npm ci`, `npm run deploy` in `server/`): it now accepts the web client from `webAddress` (and from localhost). Rebuild and publish the web client from `web/` as in step 1 without `VITE_SERVER` (it now calls `serverAddress`), then build the other clients below; they call `serverAddress`.
 
 For a web client run on localhost, `VITE_SERVER=<address> npm run build` alone points it at a deployed server without reinstalling. On other hosts, publishing the web client is copying `web/dist/` to the host at `webAddress` (the account named by `webDeploy`).
@@ -471,7 +471,7 @@ $ANDROID_HOME/platform-tools/adb shell am start -n <packageId>/.MainActivity
 The app calls the design's `serverAddress`; `./gradlew :app:assembleDebug -PserverUrl=<address>` builds it against another server. In the emulator `localhost` is the emulator itself: for the server running on the Mac, build with `-PserverUrl=http://10.0.2.2:8788`. `-PversionName=<version>` sets the version the app shows (local builds show `0.0.0-dev`).
 Release builds (`./gradlew :app:assembleRelease`) read the keystore from `OURPOKER_KEYSTORE`, `OURPOKER_KEYSTORE_PASSWORD`, `OURPOKER_KEY_ALIAS` and `OURPOKER_KEY_PASSWORD` (from the secret named by `androidSigning`).
 
-On Windows, in PowerShell: a JDK (`winget install --exact --id EclipseAdoptium.Temurin.21.JDK`, or the Temurin zip unpacked with `JAVA_HOME` set to it), and the command-line tools 22.0 unpacked as `<sdk>\cmdline-tools\latest` (the manual step `aepm doctor` prints). Then, with `$env:JAVA_HOME`, `$env:ANDROID_HOME = '<sdk>'` and `<sdk>\cmdline-tools\latest\bin` on `PATH`:
+On Windows, in PowerShell: a JDK (`winget install --exact --id EclipseAdoptium.Temurin.21.JDK`, or the Temurin zip unpacked with `JAVA_HOME` set to it), and the command-line tools 22.0 unpacked as `<sdk>\cmdline-tools\latest` (the manual step `clod doctor` prints). Then, with `$env:JAVA_HOME`, `$env:ANDROID_HOME = '<sdk>'` and `<sdk>\cmdline-tools\latest\bin` on `PATH`:
 
 ```
 ("y`n" * 20) | sdkmanager --sdk_root=$env:ANDROID_HOME --licenses
@@ -501,8 +501,8 @@ Where Smart App Control is on (Windows Security, App and browser control), it re
 On a Windows 10 or 11 machine, `<installer>.exe /S /D=<folder>` installs without questions (or run it and follow the installer); `<folder>\<applicationName>.exe` starts the application and `"<folder>\Uninstall <applicationName>.exe" /S` removes it.
 The installer is unsigned: a copy marked as downloaded from the internet meets SmartScreen's warning, and Smart App Control, where it is on, refuses it. The application calls the design's `serverAddress`; for the Mac's own server, forward it to the Windows machine, for example `ssh -R 127.0.0.1:8788:localhost:8788 <windows machine>`. Building and packaging need no account.
 
-On Windows a path holds at most 260 characters unless long paths are on. aepm assembles the application beside APP and its package copies reach about 210 characters below APP, so give APP a short parent folder, such as `apps\ourpoker` at the root of a drive, or turn long paths on as administrator:
-`Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled -Value 1`. With a long parent folder `aepm install` stops with `invalid-input` at `assemble`.
+On Windows a path holds at most 260 characters unless long paths are on. clod assembles the application beside APP and its package copies reach about 210 characters below APP, so give APP a short parent folder, such as `apps\ourpoker` at the root of a drive, or turn long paths on as administrator:
+`Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem' -Name LongPathsEnabled -Value 1`. With a long parent folder `clod install` stops with `invalid-input` at `assemble`.
 
 ### Versions
 
@@ -517,7 +517,7 @@ Every client shows the version it was built with; a build given none shows `dev`
 
 ## 5. For maintainers of the recipe repository
 
-Commands run from the root of the recipe's repository with Node 26.5 and Python 3.12. `PY` is `python3 -B` with an aepm checkout on `PYTHONPATH`. Set `OURPOKER_COMPONENTS` to a folder holding one checkout per component, each named as the component (`web-host`, `server-host`, ...), and `CLODHUB` to a checkout of the clodhub catalogue (its recipe validator).
+Commands run from the root of the recipe's repository with Node 26.5 and Python 3.12. `PY` is `python3 -B` with a clod checkout on `PYTHONPATH`. Set `OURPOKER_COMPONENTS` to a folder holding one checkout per component, each named as the component (`web-host`, `server-host`, ...), and `CLODHUB` to a checkout of the clodhub catalogue (its recipe validator).
 
 ```
 node --test tests/recipe.test.ts
@@ -538,12 +538,12 @@ PY authoring/draw_default_design.py
 -
   `tests/recipe.test.ts` checks consistency only: the recipe passes the clodhub catalogue validator with the components' settings and profiles; every component exists at the named version in `components/`; every setting a question or the configuration sets exists with a matching type and grammar; no secret is in `configuration`; inclusion is by `includedWhen` only;
   every connection uses ports and types that exist and only optional requirements stay open; every job candidate profile exists; every answer in the answer sets is allowed; the recipe restates no number of the house rules file and sets the application's copy of each answer; the totals in `INTEGRATION-GAPS.md` match its table; the recipe's documents carry no history wording.
--  `tests/evaluate_recipe_test.py` runs aepm's evaluator (`aepm.recipe`, the same code as `aepm design`) on each answer set, on every combination of the answers that change inclusion, asking and selection, and on each error code, and validates each design with aepm's definition validator.
-  It evaluates every condition of `recipe.json` and a set of sample expressions for every answer set and every combination with aepm's CEL subset and compares each result with `@bufbuild/cel` (`authoring/cel_evaluate.mjs`, installed under `authoring/`, which is not packaged). `tests/recipe.test.ts` reads the clodhub validator from `CLODHUB`.
-- `tests/conditional_artefacts_test.py` and `authoring/check_conditional_artefacts.py` check, for every answer set, that the files aepm installs reach no component the design leaves out, that every stand-in replaces a marked module at its destination, and that every relative import of an installed file is installed.
-- `make_recipe.py` rewrites `recipe.json` from the components' manifests and the settings written in the script. `draw_default_design.py` evaluates the default answers and draws the result with aepm's generator.
+-  `tests/evaluate_recipe_test.py` runs clod's evaluator (`clod.recipe`, the same code as `clod design`) on each answer set, on every combination of the answers that change inclusion, asking and selection, and on each error code, and validates each design with clod's definition validator.
+  It evaluates every condition of `recipe.json` and a set of sample expressions for every answer set and every combination with clod's CEL subset and compares each result with `@bufbuild/cel` (`authoring/cel_evaluate.mjs`, installed under `authoring/`, which is not packaged). `tests/recipe.test.ts` reads the clodhub validator from `CLODHUB`.
+- `tests/conditional_artefacts_test.py` and `authoring/check_conditional_artefacts.py` check, for every answer set, that the files clod installs reach no component the design leaves out, that every stand-in replaces a marked module at its destination, and that every relative import of an installed file is installed.
+- `make_recipe.py` rewrites `recipe.json` from the components' manifests and the settings written in the script. `draw_default_design.py` evaluates the default answers and draws the result with clod's generator.
 -  `authoring/try_install.py [ANSWERS ...]` proves parts 3 and 4 for answer sets (default:
-  `default`, `local-web`, `fill-empty-own-hardware`, `lounge-web-ios`): it packs the 39 components and this recipe into a temporary store, signs releases and reviews with disposable identities, installs each design with `aepm install`, type-checks the server and web code, runs the server tests, starts the server on Node, checks in headless Chrome at 1280x800 that the built web client loads,
+  `default`, `local-web`, `fill-empty-own-hardware`, `lounge-web-ios`): it packs the 39 components and this recipe into a temporary store, signs releases and reviews with disposable identities, installs each design with `clod install`, type-checks the server and web code, runs the server tests, starts the server on Node, checks in headless Chrome at 1280x800 that the built web client loads,
   lists the rooms from the server, seats a player and deals a hand with a computer player (or a second person) with the table inside the window, keeping screenshots of home, lobby and table, builds the Apple schemes for the iOS and tvOS simulators and checks that the app carries only the answered languages,
   and generates the Android project and checks its string folders (it builds it with `./gradlew` where `ANDROID_HOME` names an Android SDK).
   It needs Chrome (`--chrome` or `CHROME`), Xcode and XcodeGen for Apple designs, and network access for npm. Options, for designs with the target: `--android` builds against the local server, runs the unit tests and plays a hand on the emulator `--avd` (default `ourpoker`);

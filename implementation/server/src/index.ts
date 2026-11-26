@@ -5,7 +5,7 @@ import { videoRoute } from "./video";
 import { ROOM_IDS } from "./contract";
 import { Room as RoomBase, settings } from "./room";
 import { Directory as DirectoryBase } from "./directory";
-// aepm renders this file at install from the server-host settings (provider, account reference, allowed origins, room prefix, region).
+// clod renders this file at install from the server-host settings (provider, account reference, allowed origins, room prefix, region).
 import { serverSettings } from "../../components/server-host/server/index";
 
 // The web client, the native apps' own origin (not an http address, so the host takes it as a pattern),

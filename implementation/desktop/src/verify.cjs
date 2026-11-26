@@ -18,7 +18,7 @@ async function waitFor(check, milliseconds = 10000) {
 
 async function verify() {
   if (app.isReady()) throw new Error('verification-started-too-late');
-  const contextPath = realpathSync(process.env.AEPM_CONTEXT_FILE);
+  const contextPath = realpathSync(process.env.CLOD_CONTEXT_FILE);
   const context = validateContext(JSON.parse(readFileSync(contextPath, 'utf8')));
   if (context.mode !== 'local' || !context.operations.includes('windows-execute') || process.platform !== 'win32' || process.arch !== 'x64' || context.settings.windowsArchitecture !== 'x64') throw new Error('authorization-denied');
   const root = path.join(path.dirname(contextPath), 'profiles', 'desktop');

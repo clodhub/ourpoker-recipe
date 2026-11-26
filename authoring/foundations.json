@@ -245,13 +245,13 @@
   "classes": [
     {
       "reference": {
-        "name": "clodhub/android-host-class",
+        "name": "pkg:clod/com.clodhub/android-host-class",
         "version": "1.1.0",
-        "digest": "18a73e59e9348c62521579110b8f07111ff05a4d208635e5c02380fdc96b5cfa"
+        "digest": "5220d508e20add44761d9e1c07febafa4eace36f059325c87cab1c422b3445ae"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/android-host-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/android-host-class",
         "version": "1.1.0",
         "title": "Android host",
         "summary": "An Android application project rendered from the application's files, with locked dependencies",
@@ -259,7 +259,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/android-shell",
+            "type": "com.clodhub/android-shell",
             "version": "1.0.0",
             "path": "classes/android-host-class/android-shell.json",
             "modules": {
@@ -274,7 +274,7 @@
         ],
         "requires": [
           {
-            "type": "ae/theme",
+            "type": "com.clodhub/theme",
             "version": "1.0.0"
           }
         ],
@@ -299,7 +299,7 @@
         "inventory": [
           {
             "path": "classes/android-host-class/android-shell.json",
-            "digest": "0a76d5cc882cbe2b5b4a3b07d7f04fec698dadfc60b49692705fb3a3f1373625"
+            "digest": "880c40ee4abd29ff7fa193bc4b5ddb3971c077d67b4ab08d5398769985aba75d"
           },
           {
             "path": "classes/android-host-class/check.mjs",
@@ -307,7 +307,7 @@
           },
           {
             "path": "classes/android-host-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -338,13 +338,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/apple-host-class",
+        "name": "pkg:clod/com.clodhub/apple-host-class",
         "version": "1.1.0",
-        "digest": "b94a15c06a6e30975f3afb94fd81af662fc5d61b62845faf8f9b89c3a2cd8a97"
+        "digest": "b0640a01993d7d1b40c84ee8ed25245b213bc79e8904c47bd254b7bcf1267490"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/apple-host-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/apple-host-class",
         "version": "1.1.0",
         "title": "Apple host",
         "summary": "An Xcode project for iPhone, iPad, Mac and Apple TV rendered from the application's files",
@@ -352,7 +352,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/apple-shell",
+            "type": "com.clodhub/apple-shell",
             "version": "1.0.0",
             "path": "classes/apple-host-class/apple-shell.json",
             "modules": {
@@ -373,7 +373,7 @@
         ],
         "requires": [
           {
-            "type": "ae/theme",
+            "type": "com.clodhub/theme",
             "version": "1.0.0"
           }
         ],
@@ -408,7 +408,7 @@
         "inventory": [
           {
             "path": "classes/apple-host-class/apple-shell.json",
-            "digest": "5096cd921d47558c170c0cf0febcafaf1ec913bb4bf576e394600a04d6ab6d41"
+            "digest": "ae9bd91806efb3d9bab8cd2383c3dda0f198aa0a697343c2e8d4a291636cfa07"
           },
           {
             "path": "classes/apple-host-class/check.mjs",
@@ -416,7 +416,7 @@
           },
           {
             "path": "classes/apple-host-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -447,13 +447,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/card-deck-class",
+        "name": "pkg:clod/com.clodhub/card-deck-class",
         "version": "1.1.0",
-        "digest": "25e5cb8ff3a78e74aa0accf799801b0816fe00a2450477af4a78c9a84ce51b85"
+        "digest": "a7cf8847deeaf2c5e26cd26967dafb5f43302b45f68dc17c8fad982237f5d21b"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/card-deck-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/card-deck-class",
         "version": "1.1.0",
         "title": "Card deck",
         "summary": "A deck of playing cards: building, dealing and naming cards",
@@ -461,7 +461,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/card-deck",
+            "type": "com.clodhub/card-deck",
             "version": "1.0.0",
             "path": "classes/card-deck-class/card-deck.json",
             "modules": {
@@ -491,7 +491,7 @@
         ],
         "requires": [
           {
-            "type": "ae/random-source",
+            "type": "com.clodhub/random-source",
             "version": "1.0.0"
           }
         ],
@@ -514,7 +514,7 @@
         "inventory": [
           {
             "path": "classes/card-deck-class/card-deck.json",
-            "digest": "68cfd5d4a86134e123246c8e53737301c1769fd3bb872063c6ba0cf8594141b8"
+            "digest": "e3f51f5f77ccb57a23fda4af88e53ec895b42e680059675944fd1ad37c78aa96"
           },
           {
             "path": "classes/card-deck-class/check.mjs",
@@ -522,7 +522,7 @@
           },
           {
             "path": "classes/card-deck-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -553,13 +553,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/card-graphics-class",
+        "name": "pkg:clod/com.clodhub/card-graphics-class",
         "version": "1.1.0",
-        "digest": "179147b981fb2e22b0e6a4583d9a4e7fe87c856ac509c887bbc6956be04a8bdc"
+        "digest": "e241c04c17db4b4e097d269b595f599fe558f795a98b62d583838190e503852b"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/card-graphics-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/card-graphics-class",
         "version": "1.1.0",
         "title": "Card graphics",
         "summary": "Card faces, backs, slots, dealing and flipping",
@@ -567,7 +567,7 @@
         "presentation": "visual",
         "provides": [
           {
-            "type": "ae/card-graphics",
+            "type": "com.clodhub/card-graphics",
             "version": "1.0.0",
             "path": "classes/card-graphics-class/card-graphics.json",
             "modules": {
@@ -594,7 +594,7 @@
         ],
         "requires": [
           {
-            "type": "ae/theme",
+            "type": "com.clodhub/theme",
             "version": "1.0.0"
           }
         ],
@@ -623,7 +623,7 @@
         "inventory": [
           {
             "path": "classes/card-graphics-class/card-graphics.json",
-            "digest": "71be60fc3edbc0197a12d3a3f7153ef10e39c92b52fbf1977101307a6bf2ac08"
+            "digest": "0ab7f42eee224f3025b4a096f8ec491a065275ff65443ef706356e622c23b04d"
           },
           {
             "path": "classes/card-graphics-class/check.mjs",
@@ -631,7 +631,7 @@
           },
           {
             "path": "classes/card-graphics-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -662,13 +662,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/chip-graphics-class",
+        "name": "pkg:clod/com.clodhub/chip-graphics-class",
         "version": "1.1.0",
-        "digest": "4321daced08974e3e12ab86a4bb85b25164c10f6ed35a6338323588cea39551d"
+        "digest": "836c8a803d10169590ad0c8e771f36ce449b8f5f94daf2d46670819a61738d33"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/chip-graphics-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/chip-graphics-class",
         "version": "1.1.0",
         "title": "Chip graphics",
         "summary": "Chip stacks in denominations and chips flying between bets and the pot",
@@ -676,7 +676,7 @@
         "presentation": "visual",
         "provides": [
           {
-            "type": "ae/chip-graphics",
+            "type": "com.clodhub/chip-graphics",
             "version": "1.0.0",
             "path": "classes/chip-graphics-class/chip-graphics.json",
             "modules": {
@@ -703,7 +703,7 @@
         ],
         "requires": [
           {
-            "type": "ae/theme",
+            "type": "com.clodhub/theme",
             "version": "1.0.0"
           }
         ],
@@ -732,11 +732,11 @@
           },
           {
             "path": "classes/chip-graphics-class/chip-graphics.json",
-            "digest": "2ee1ef538aaeb704c08d0edef5b77702dd75b6bb377c623e04c25e8ba886a443"
+            "digest": "422ee90aade821714637bd75b42cea74986357f7042d51ae2d6809ec97f7b673"
           },
           {
             "path": "classes/chip-graphics-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -767,13 +767,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/chip-ledger-class",
+        "name": "pkg:clod/com.clodhub/chip-ledger-class",
         "version": "1.1.0",
-        "digest": "abf62d72b36998e01b92d2942fd8427a14cf8bb9340dc30484910e2a3eeb2555"
+        "digest": "4d3593e1cb989daeb4b66be3ed953661b41b7d5b70468b21154f06e193778d96"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/chip-ledger-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/chip-ledger-class",
         "version": "1.1.0",
         "title": "Chip ledger",
         "summary": "Wagers, pots, side pots and settlement with every chip accounted for",
@@ -781,7 +781,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/chip-ledger",
+            "type": "com.clodhub/chip-ledger",
             "version": "1.0.0",
             "path": "classes/chip-ledger-class/chip-ledger.json",
             "modules": {
@@ -811,11 +811,11 @@
           },
           {
             "path": "classes/chip-ledger-class/chip-ledger.json",
-            "digest": "039194c71bfbc922f7fceb6b61a78ac343d1ca6f918a02bdd5dcd1c0c18a1184"
+            "digest": "735a44973d87eeac304145e5f8a36bbbdb346bfc6c4e1c37bea8b5be9be68495"
           },
           {
             "path": "classes/chip-ledger-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -846,13 +846,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/computer-players-class",
+        "name": "pkg:clod/com.clodhub/computer-players-class",
         "version": "1.1.0",
-        "digest": "a7c7d9b24c5c193634c12b2000afc9c5cf4d5e8e7d4384b88d2b3522ecd4c770"
+        "digest": "73bce90fb270c6db3504f625f20dc7caf6042215fc35db1b8c1a1fe0a0074f5b"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/computer-players-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/computer-players-class",
         "version": "1.1.0",
         "title": "Computer players",
         "summary": "Computer opponents that take empty seats and act in their turn",
@@ -860,7 +860,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/computer-players",
+            "type": "com.clodhub/computer-players",
             "version": "1.0.0",
             "path": "classes/computer-players-class/computer-players.json",
             "modules": {
@@ -872,15 +872,15 @@
         ],
         "requires": [
           {
-            "type": "ae/player-strategy",
+            "type": "com.clodhub/player-strategy",
             "version": "1.0.0"
           },
           {
-            "type": "ae/game-clock",
+            "type": "com.clodhub/game-clock",
             "version": "1.0.0"
           },
           {
-            "type": "ae/seating",
+            "type": "com.clodhub/seating",
             "version": "1.0.0"
           }
         ],
@@ -925,11 +925,11 @@
           },
           {
             "path": "classes/computer-players-class/computer-players.json",
-            "digest": "7ae42500d0a299cfc06a14d8167c5ec9f19c650330091f15ac5d702f96c6f228"
+            "digest": "9504f5e6aec2cfc35a3de98caa76d348e54b8e3979a15cc2a3964f7e33a22b8a"
           },
           {
             "path": "classes/computer-players-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -960,13 +960,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/controls-class",
+        "name": "pkg:clod/com.clodhub/controls-class",
         "version": "1.1.0",
-        "digest": "429b4bfd57943a8179ef483d5fc67065f5a9e634599a380f5c6eac33d4e86c08"
+        "digest": "be0651276d45a01b06feacd3c732310121b69538a55f2b5fc8ea48a7a3253047"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/controls-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/controls-class",
         "version": "1.1.0",
         "title": "Controls",
         "summary": "Buttons, toggles, dialogs, panels and help pages with accessible names",
@@ -974,7 +974,7 @@
         "presentation": "visual",
         "provides": [
           {
-            "type": "ae/controls",
+            "type": "com.clodhub/controls",
             "version": "1.0.0",
             "path": "classes/controls-class/controls.json",
             "modules": {
@@ -1001,7 +1001,7 @@
         ],
         "requires": [
           {
-            "type": "ae/theme",
+            "type": "com.clodhub/theme",
             "version": "1.0.0"
           }
         ],
@@ -1018,7 +1018,7 @@
           },
           {
             "path": "classes/controls-class/controls.json",
-            "digest": "5051a207b8701759b0b699174798fa117793e4c48b2150403ab50274ffb489a1"
+            "digest": "c926bb37717fe2d157fdb81857010e61bbb8ebde13666c9b764b85005cf86cfe"
           },
           {
             "path": "classes/controls-class/dom.mjs",
@@ -1026,7 +1026,7 @@
           },
           {
             "path": "classes/controls-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1057,13 +1057,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/display-mode-class",
+        "name": "pkg:clod/com.clodhub/display-mode-class",
         "version": "1.1.0",
-        "digest": "e713f73d92895f05dcc9be4a415cfc29e70198197a4b33b99c2ef8064d0457f5"
+        "digest": "4b40dc93ba42ba8423e824e14a6cc706ee24f98def98d2abc453e3d6f2fc49e5"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/display-mode-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/display-mode-class",
         "version": "1.1.0",
         "title": "Display mode",
         "summary": "A shared screen, such as a television, that shows the table and never acts",
@@ -1071,7 +1071,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/display-policy",
+            "type": "com.clodhub/display-policy",
             "version": "1.0.0",
             "path": "classes/display-mode-class/display-policy.json",
             "modules": {
@@ -1098,7 +1098,7 @@
         ],
         "requires": [
           {
-            "type": "ae/display-mode-configuration",
+            "type": "com.clodhub/display-mode-configuration",
             "version": "1.0.0"
           }
         ],
@@ -1115,11 +1115,11 @@
           },
           {
             "path": "classes/display-mode-class/display-policy.json",
-            "digest": "c9d0739fe1c7ab4b629352b3dd8d0d9b785e2f62426a19a4ff24b4b19566fe1e"
+            "digest": "908d52565da76916e2b855747d038e3568b81025275623188a6c9f42efc7246b"
           },
           {
             "path": "classes/display-mode-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1150,13 +1150,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/fair-shuffle-class",
+        "name": "pkg:clod/com.clodhub/fair-shuffle-class",
         "version": "1.1.0",
-        "digest": "225de03fd7cdb6893c4afa96e10e883da253f492973a59464e30ff7962dcea69"
+        "digest": "2512dd98a1468fe8f98ec8e83c9974a989c2f7266eb4362874af8ad611db8cb7"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/fair-shuffle-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/fair-shuffle-class",
         "version": "1.1.0",
         "title": "Fair shuffle",
         "summary": "Uniform shuffles and random choices from a cryptographic or seeded source",
@@ -1164,7 +1164,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/random-source",
+            "type": "com.clodhub/random-source",
             "version": "1.0.0",
             "path": "classes/fair-shuffle-class/random-source.json",
             "modules": {
@@ -1195,11 +1195,11 @@
           },
           {
             "path": "classes/fair-shuffle-class/random-source.json",
-            "digest": "5eac0904db9fdffaddff8cc83aba3753886bc49d8f5819ca10689b905ba66931"
+            "digest": "2b66a53cdf0efa6b59c741e197eb465db85a6eee29f237521ed2d13148235c78"
           },
           {
             "path": "classes/fair-shuffle-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1230,13 +1230,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/game-clock-class",
+        "name": "pkg:clod/com.clodhub/game-clock-class",
         "version": "1.1.0",
-        "digest": "daa2badc90058187c3be8873aa233e4ef7a8335af62ac5459f0a3cf2e44ec2c8"
+        "digest": "7d7223e09dd99de86b93ad17705ccc24a75e97968d93c4c701075392a4f4938a"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/game-clock-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/game-clock-class",
         "version": "1.1.0",
         "title": "Game clock",
         "summary": "Decision deadlines and countdowns that pause and expire",
@@ -1244,7 +1244,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/game-clock",
+            "type": "com.clodhub/game-clock",
             "version": "1.0.0",
             "path": "classes/game-clock-class/game-clock.json",
             "modules": {
@@ -1292,11 +1292,11 @@
           },
           {
             "path": "classes/game-clock-class/game-clock.json",
-            "digest": "6c78156e8d843e997cc3c146590fc1216556d38c582f24e7a0857ab7a9aa98c9"
+            "digest": "920bb632c6647188161f82940325bb314e0b3b0dda5b00bc5e77232466b29617"
           },
           {
             "path": "classes/game-clock-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1327,13 +1327,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/guest-identity-class",
+        "name": "pkg:clod/com.clodhub/guest-identity-class",
         "version": "1.1.0",
-        "digest": "bbe9dc6331da475971088ab53f1fc048127191cf6f6ddde5a514ff766da2f347"
+        "digest": "caa00dd7bf72676259d84772b6b9058de0b2a3eef2662b8eb4199b78bc3056ed"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/guest-identity-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/guest-identity-class",
         "version": "1.1.0",
         "title": "Guest identity",
         "summary": "Sign-in by name with a device token, no account",
@@ -1341,7 +1341,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/guest-identity",
+            "type": "com.clodhub/guest-identity",
             "version": "1.0.0",
             "path": "classes/guest-identity-class/guest-identity.json",
             "modules": {
@@ -1383,11 +1383,11 @@
           },
           {
             "path": "classes/guest-identity-class/guest-identity.json",
-            "digest": "69d270f606c147f5eacba37e1cc480e3841c2e70a9182396bd5f4efde0cc67f6"
+            "digest": "d858c2b170319baf0da058c54aec9716c31c4090fedf7c37855b7fcc9604acdd"
           },
           {
             "path": "classes/guest-identity-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1418,13 +1418,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/guided-tour-class",
+        "name": "pkg:clod/com.clodhub/guided-tour-class",
         "version": "1.1.0",
-        "digest": "aa40e4ff5fae7285a074cccef7a7f00724856bffdd065d4da4f7e26b22e30b05"
+        "digest": "f37ad0655e8251f18443e893cb5b54ff73a7a07f1d598a06bfe66870e633f02f"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/guided-tour-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/guided-tour-class",
         "version": "1.1.0",
         "title": "Guided tour",
         "summary": "Step-by-step lessons that point at parts of the screen",
@@ -1432,7 +1432,7 @@
         "presentation": "visual",
         "provides": [
           {
-            "type": "ae/guided-tour",
+            "type": "com.clodhub/guided-tour",
             "version": "1.0.0",
             "path": "classes/guided-tour-class/guided-tour.json",
             "modules": {
@@ -1459,15 +1459,15 @@
         ],
         "requires": [
           {
-            "type": "ae/controls",
+            "type": "com.clodhub/controls",
             "version": "1.0.0"
           },
           {
-            "type": "ae/preferences",
+            "type": "com.clodhub/preferences",
             "version": "1.0.0"
           },
           {
-            "type": "ae/language",
+            "type": "com.clodhub/language",
             "version": "1.0.0"
           }
         ],
@@ -1484,11 +1484,11 @@
           },
           {
             "path": "classes/guided-tour-class/guided-tour.json",
-            "digest": "afb04bbdcb707c24dce0a2d91e519f733efaf1d3f60fe76d1b24d8da8d7723ea"
+            "digest": "210a6e8854b077254909f12f0a3c85c8aedc96c5c06714e4062d2a21741a0412"
           },
           {
             "path": "classes/guided-tour-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1519,13 +1519,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/holdem-rules-class",
+        "name": "pkg:clod/com.clodhub/holdem-rules-class",
         "version": "1.1.0",
-        "digest": "4268206fe55b9b3fed57a5c3d9631421be8d2c86ec05275113c6569b33253fd0"
+        "digest": "1664db6eb3bc74d855ae5998c6bdcc7dc2a9c07b2b139477d209209357d47c4f"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/holdem-rules-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/holdem-rules-class",
         "version": "1.1.0",
         "title": "Texas hold'em rules",
         "summary": "Blinds, betting rounds, legal actions and showdown for Texas hold'em",
@@ -1533,7 +1533,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/game-rules",
+            "type": "com.clodhub/game-rules",
             "version": "1.0.0",
             "path": "classes/holdem-rules-class/game-rules.json",
             "modules": {
@@ -1563,23 +1563,23 @@
         ],
         "requires": [
           {
-            "type": "ae/card-deck",
+            "type": "com.clodhub/card-deck",
             "version": "1.0.0"
           },
           {
-            "type": "ae/chip-ledger",
+            "type": "com.clodhub/chip-ledger",
             "version": "1.0.0"
           },
           {
-            "type": "ae/level-schedule",
+            "type": "com.clodhub/level-schedule",
             "version": "1.0.0"
           },
           {
-            "type": "ae/hand-ranking",
+            "type": "com.clodhub/hand-ranking",
             "version": "1.0.0"
           },
           {
-            "type": "ae/rules-settings",
+            "type": "com.clodhub/rules-settings",
             "version": "1.0.0"
           }
         ],
@@ -1606,7 +1606,7 @@
           },
           {
             "path": "classes/holdem-rules-class/game-rules.json",
-            "digest": "07a150814abc9f8cfdc8331fd3c0e3cc2710f7e935bc99fac47d2e8c6c285d29"
+            "digest": "d111f0834b9d08ebef0aa6f80a58de8e4d70b3c7ab8c2ce1e19f50bdb7f945a5"
           },
           {
             "path": "classes/holdem-rules-class/ledger.mjs",
@@ -1614,7 +1614,7 @@
           },
           {
             "path": "classes/holdem-rules-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1645,13 +1645,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/invitations-class",
+        "name": "pkg:clod/com.clodhub/invitations-class",
         "version": "1.1.0",
-        "digest": "5a7abb21dd72f8444c5486210da33037c4359e82d3b35155c40287695d10c77a"
+        "digest": "7ba0fd0a2c3c3f78a165071c910fa02549f9619251db47b81e3cf68329183716"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/invitations-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/invitations-class",
         "version": "1.1.0",
         "title": "Invitations",
         "summary": "Invitation links and codes, shared or copied",
@@ -1659,7 +1659,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/invitations",
+            "type": "com.clodhub/invitations",
             "version": "1.0.0",
             "path": "classes/invitations-class/invitations.json",
             "modules": {
@@ -1712,11 +1712,11 @@
           },
           {
             "path": "classes/invitations-class/invitations.json",
-            "digest": "48ca93ffa9504f95958e8186dd497294c3ef2b7b51e3c7297e5e12669ff6b3a6"
+            "digest": "f2fb14e03309d9fdab0999bd010750ea904e3c71f31a9833db016e3b04d23e46"
           },
           {
             "path": "classes/invitations-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1747,13 +1747,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/level-schedule-class",
+        "name": "pkg:clod/com.clodhub/level-schedule-class",
         "version": "1.1.0",
-        "digest": "9a7fafef7da325bf5b7f6b9b8c7fffef78f2656853f54472d075ff519dd42e9a"
+        "digest": "99e1541627ab2d88624b358c5e49a2a9a71b048113bf8680bffad3958bddcdbe"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/level-schedule-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/level-schedule-class",
         "version": "1.1.0",
         "title": "Level schedule",
         "summary": "Timed levels with rising values, such as tournament blinds",
@@ -1761,7 +1761,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/level-schedule",
+            "type": "com.clodhub/level-schedule",
             "version": "1.0.0",
             "path": "classes/level-schedule-class/level-schedule.json",
             "modules": {
@@ -1791,11 +1791,11 @@
           },
           {
             "path": "classes/level-schedule-class/level-schedule.json",
-            "digest": "585eb376b1a72cded8f8afccc0637e24eb38e753f7c27941dd5f9c21a9a645b0"
+            "digest": "6d0850a98914c07b5d0191d4123944fd7ec3eb7734ec42f07b2bf1ac709dcfbb"
           },
           {
             "path": "classes/level-schedule-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1826,13 +1826,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/ourapps-release-class",
+        "name": "pkg:clod/com.clodhub/ourapps-release-class",
         "version": "1.1.0",
-        "digest": "f741c0230503caa1ba5ad7016621ee47dd43624dbf20904cf0ac0f5eb32152a1"
+        "digest": "4f1cdf249f27ce0b5abc17fa53ae49cad2413e4208c68c81b877c97ecdddc621"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/ourapps-release-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/ourapps-release-class",
         "version": "1.1.0",
         "title": "Release pipeline",
         "summary": "GitHub workflows that check, build, release and update the application",
@@ -1840,7 +1840,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/release-pipeline",
+            "type": "com.clodhub/release-pipeline",
             "version": "1.0.0",
             "path": "classes/ourapps-release-class/release-pipeline.json",
             "modules": {
@@ -1910,11 +1910,11 @@
           },
           {
             "path": "classes/ourapps-release-class/release-pipeline.json",
-            "digest": "cea4c10b6aa6867a0ca550b7e0e3edba8edd7a06c544065925046760818fc4f1"
+            "digest": "e8b6accd3c76687d9a9ff738d77ad71c92cdd055e3716fe1669a07b98aa94ae0"
           },
           {
             "path": "classes/ourapps-release-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -1945,13 +1945,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/poker-hand-ranking-class",
+        "name": "pkg:clod/com.clodhub/poker-hand-ranking-class",
         "version": "1.1.0",
-        "digest": "2fe0badeeb5510523275b1685d55ad67af412bf7ee1e9db7d257e3a4c5a09bab"
+        "digest": "8d94d3ce58cee918cc7661ecb7b862ca83bcff9922b1d03bf07f5df253be13d0"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/poker-hand-ranking-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/poker-hand-ranking-class",
         "version": "1.1.0",
         "title": "Poker hand ranking",
         "summary": "Ranks five to seven cards into poker hands and finds the winners",
@@ -1959,7 +1959,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/hand-ranking",
+            "type": "com.clodhub/hand-ranking",
             "version": "1.0.0",
             "path": "classes/poker-hand-ranking-class/hand-ranking.json",
             "modules": {
@@ -1971,7 +1971,7 @@
         ],
         "requires": [
           {
-            "type": "ae/card-deck",
+            "type": "com.clodhub/card-deck",
             "version": "1.0.0"
           }
         ],
@@ -1988,11 +1988,11 @@
           },
           {
             "path": "classes/poker-hand-ranking-class/hand-ranking.json",
-            "digest": "0dfc90c5e65b3762aabec61f2798ae5a9c34153af7ce4ecd573eaf149b88a455"
+            "digest": "1b89996f55dd10b97df528dea6602e150700e7ce725b5deb6070c608764c77c6"
           },
           {
             "path": "classes/poker-hand-ranking-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2023,13 +2023,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/poker-odds-class",
+        "name": "pkg:clod/com.clodhub/poker-odds-class",
         "version": "1.1.0",
-        "digest": "f0bd43603f8c506f7265130438433fe094ed3f09e39d8e90371dd9d5c6c1c1be"
+        "digest": "603e654d3ea71caef3a772eb8892d89a3de7989b526a40cd47bdd25753fe44f7"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/poker-odds-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/poker-odds-class",
         "version": "1.1.0",
         "title": "Poker odds",
         "summary": "Winning chances of each hand from the cards that are known",
@@ -2037,7 +2037,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/poker-odds",
+            "type": "com.clodhub/poker-odds",
             "version": "1.0.0",
             "path": "classes/poker-odds-class/poker-odds.json",
             "modules": {
@@ -2049,11 +2049,11 @@
         ],
         "requires": [
           {
-            "type": "ae/hand-ranking",
+            "type": "com.clodhub/hand-ranking",
             "version": "1.0.0"
           },
           {
-            "type": "ae/card-deck",
+            "type": "com.clodhub/card-deck",
             "version": "1.0.0"
           }
         ],
@@ -2080,11 +2080,11 @@
           },
           {
             "path": "classes/poker-odds-class/poker-odds.json",
-            "digest": "660568833de47e06371d675b5d3a82f08efe89e0636ad6f19b5b9cec67e16bd9"
+            "digest": "ff689ab8b0f53407c3ed91418418f7db8913ddf5ee8ed519478c1160b02a650e"
           },
           {
             "path": "classes/poker-odds-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2115,13 +2115,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/poker-strategy-class",
+        "name": "pkg:clod/com.clodhub/poker-strategy-class",
         "version": "1.1.0",
-        "digest": "07b6a8ae1ca8e684eb094b87afcee4db41735fde196c5735080c0cd3c4fd5769"
+        "digest": "4c8235295b2477ecb7fcb2e6699e0d4d23a4ca6811a37f69c9cd6fa997f35d79"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/poker-strategy-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/poker-strategy-class",
         "version": "1.1.0",
         "title": "Poker strategy",
         "summary": "Decisions for a computer poker player from its cards and the table",
@@ -2129,7 +2129,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/player-strategy",
+            "type": "com.clodhub/player-strategy",
             "version": "1.0.0",
             "path": "classes/poker-strategy-class/player-strategy.json",
             "modules": {
@@ -2141,11 +2141,11 @@
         ],
         "requires": [
           {
-            "type": "ae/hand-ranking",
+            "type": "com.clodhub/hand-ranking",
             "version": "1.0.0"
           },
           {
-            "type": "ae/poker-odds",
+            "type": "com.clodhub/poker-odds",
             "version": "1.0.0"
           }
         ],
@@ -2172,11 +2172,11 @@
           },
           {
             "path": "classes/poker-strategy-class/player-strategy.json",
-            "digest": "a121f002ad1b3a5e49df79a6b69ef90894212e2a7348fe588437f8621cd1e46b"
+            "digest": "514338f7b983908d3ff2f06610ba3258e218ecd9f6c723ad00914f6b5d814a35"
           },
           {
             "path": "classes/poker-strategy-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2207,13 +2207,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/preferences-class",
+        "name": "pkg:clod/com.clodhub/preferences-class",
         "version": "1.1.0",
-        "digest": "0fbc246357cc45f3ef5bb03d48668fdf44a269fde29510972e52a7a567a7d16f"
+        "digest": "e69d13f4df14da9a6350429fe9ddfe6dbaf6f24d3c1991c46f247ae109c22aa1"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/preferences-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/preferences-class",
         "version": "1.1.0",
         "title": "Preferences",
         "summary": "Per-device choices such as sound and language, kept and observed",
@@ -2221,7 +2221,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/preferences",
+            "type": "com.clodhub/preferences",
             "version": "1.0.0",
             "path": "classes/preferences-class/preferences.json",
             "modules": {
@@ -2274,11 +2274,11 @@
           },
           {
             "path": "classes/preferences-class/preferences.json",
-            "digest": "eec4faf94dac5adae6f609a57359ed15a701223ade0616f61947261f65cb930f"
+            "digest": "dc75d5d442654fca97c12a9ae3ac4c2f5beae8cfb2f877d87ed51ecc65245acf"
           },
           {
             "path": "classes/preferences-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2309,13 +2309,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/presence-class",
+        "name": "pkg:clod/com.clodhub/presence-class",
         "version": "1.1.0",
-        "digest": "ea265dab6216eecb7f6f4a8e4a1d8239c0c0adff85c37ffecc8cd7a335f0458a"
+        "digest": "7ed1da69a973ee3d82d1bbecb3947756fbcc3663102198faa4b3f0db76abdeda"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/presence-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/presence-class",
         "version": "1.1.0",
         "title": "Presence",
         "summary": "Who is connected, away or back, and missed turns",
@@ -2323,7 +2323,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/presence",
+            "type": "com.clodhub/presence",
             "version": "1.0.0",
             "path": "classes/presence-class/presence.json",
             "modules": {
@@ -2335,7 +2335,7 @@
         ],
         "requires": [
           {
-            "type": "ae/guest-identity",
+            "type": "com.clodhub/guest-identity",
             "version": "1.0.0"
           }
         ],
@@ -2367,11 +2367,11 @@
           },
           {
             "path": "classes/presence-class/presence.json",
-            "digest": "3f6e0f1c019481d5dd0924b67762a85cd0eb70b018085c73034199c5f51477f5"
+            "digest": "38e3ea85271e393eff1ae0e61aa4d08eb6bd4f83708b924a4f9c7e084b880385"
           },
           {
             "path": "classes/presence-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2402,13 +2402,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/private-views-class",
+        "name": "pkg:clod/com.clodhub/private-views-class",
         "version": "1.1.0",
-        "digest": "393ef6d1d74dde2ad9d553d50c149c6f106adcc133a4ea40414905b7dcd02eb1"
+        "digest": "7bfbb5d4b642a7c0fc79134c42bd760f2fd2d30191f66fdab10334f9f8c24ba8"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/private-views-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/private-views-class",
         "version": "1.1.0",
         "title": "Private views",
         "summary": "Each person sees only what they may see of shared state",
@@ -2416,7 +2416,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/private-views",
+            "type": "com.clodhub/private-views",
             "version": "1.0.0",
             "path": "classes/private-views-class/private-views.json",
             "modules": {
@@ -2458,11 +2458,11 @@
           },
           {
             "path": "classes/private-views-class/private-views.json",
-            "digest": "d49872de242e91adb798386b018fa340de4809b3877940c7176efa2072b7a44c"
+            "digest": "86e1fb4459b4dc57a997da17a31cb40db3ce17f9e50a2bc5e4a4846a76913573"
           },
           {
             "path": "classes/private-views-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2493,13 +2493,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/realtime-rooms-class",
+        "name": "pkg:clod/com.clodhub/realtime-rooms-class",
         "version": "1.1.0",
-        "digest": "845fd7ba02a1aadd11300f8e53adf55e007b42191a06ec6ca01acf2e74e58d9e"
+        "digest": "1d3f39e03f8b26caafc36caaf501876bb1a2012b90f65abf549ff3d6432c71da"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/realtime-rooms-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/realtime-rooms-class",
         "version": "1.1.0",
         "title": "Real-time rooms",
         "summary": "Rooms that hold state on a server and push changes to every connected client",
@@ -2507,7 +2507,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/room-session",
+            "type": "com.clodhub/room-session",
             "version": "1.0.0",
             "path": "classes/realtime-rooms-class/room-session.json",
             "modules": {
@@ -2537,11 +2537,11 @@
         ],
         "requires": [
           {
-            "type": "ae/game-adapter",
+            "type": "com.clodhub/game-adapter",
             "version": "1.0.0"
           },
           {
-            "type": "ae/guest-identity",
+            "type": "com.clodhub/guest-identity",
             "version": "1.0.0"
           }
         ],
@@ -2558,11 +2558,11 @@
           },
           {
             "path": "classes/realtime-rooms-class/room-session.json",
-            "digest": "1014555c475b76e7619b040c563d1e73e76635eb9f850de9913c2efc71f2d097"
+            "digest": "3c2dd0b77a9b956fedf05d317ba6083489eae49ccb9a3394e783685948819b4e"
           },
           {
             "path": "classes/realtime-rooms-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2593,13 +2593,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/room-directory-class",
+        "name": "pkg:clod/com.clodhub/room-directory-class",
         "version": "1.1.0",
-        "digest": "be56989b56e4b2f409bdd9227d144cab06af098f4b1c0ca135d2116f58958d65"
+        "digest": "cdc42d88ce604cdd24818e5aaf37a0db41483559d34ba4557cfe1caeaa581870"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/room-directory-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/room-directory-class",
         "version": "1.1.0",
         "title": "Room directory",
         "summary": "The list of rooms with their status and who is in them, kept current",
@@ -2607,7 +2607,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/room-directory",
+            "type": "com.clodhub/room-directory",
             "version": "1.0.0",
             "path": "classes/room-directory-class/room-directory.json",
             "modules": {
@@ -2637,7 +2637,7 @@
         ],
         "requires": [
           {
-            "type": "ae/room-session",
+            "type": "com.clodhub/room-session",
             "version": "1.0.0"
           }
         ],
@@ -2660,11 +2660,11 @@
           },
           {
             "path": "classes/room-directory-class/room-directory.json",
-            "digest": "845238916543a87dbf5568c1c62008795c179b6364f249d5dd299d2f962db86d"
+            "digest": "6004fcfb3439bc012128c9e32b2981b5cb8ac9c35e72ca5ffceb7e9a5db8191f"
           },
           {
             "path": "classes/room-directory-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2695,13 +2695,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/round-history-class",
+        "name": "pkg:clod/com.clodhub/round-history-class",
         "version": "1.1.0",
-        "digest": "c598d4a410cea4017fa138c7b41ecdc42109d2b6a5e886ecc97edbc8b0ecdb01"
+        "digest": "be35662dd6da7fc948179a69999ad353c479754eb694a9f57ac95803bd8e3b58"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/round-history-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/round-history-class",
         "version": "1.1.0",
         "title": "Round history",
         "summary": "A bounded record of completed rounds with totals, exportable and checked",
@@ -2709,7 +2709,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/round-history",
+            "type": "com.clodhub/round-history",
             "version": "1.0.0",
             "path": "classes/round-history-class/round-history.json",
             "modules": {
@@ -2751,11 +2751,11 @@
           },
           {
             "path": "classes/round-history-class/round-history.json",
-            "digest": "889a9ac3b81db829c96bd47b9ad323f98f85d99c61cacf4fb6bb57b1b7afd36c"
+            "digest": "46274794f58c35e659b095d822f1a25ec0fe8cc69fbc7941cc1f08252c95f6ca"
           },
           {
             "path": "classes/round-history-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2786,13 +2786,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/rules-settings-class",
+        "name": "pkg:clod/com.clodhub/rules-settings-class",
         "version": "1.1.0",
-        "digest": "ad578301ef7bc3e350a99cb53765e30e7e31f8994db2959695d443e00455e0b4"
+        "digest": "79e247cd787503095a80b0e4dcea786731d5697855477ecc2ae740aea5ba7658"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/rules-settings-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/rules-settings-class",
         "version": "1.1.0",
         "title": "Rules settings",
         "summary": "A typed settings file read, checked and frozen for the rest of the application",
@@ -2800,7 +2800,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/rules-settings",
+            "type": "com.clodhub/rules-settings",
             "version": "1.0.0",
             "path": "classes/rules-settings-class/rules-settings.json",
             "modules": {
@@ -2841,11 +2841,11 @@
           },
           {
             "path": "classes/rules-settings-class/rules-settings.json",
-            "digest": "30fb1bd341295be7e30ffa8268c079fc08d59b318f67399d658364d816c76734"
+            "digest": "e664cf8a0630674b9697810a7a42821309c7a3a4091170dafcc1a54698103750"
           },
           {
             "path": "classes/rules-settings-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -2876,13 +2876,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/seating-class",
+        "name": "pkg:clod/com.clodhub/seating-class",
         "version": "1.1.0",
-        "digest": "779824fd6c5f8edbbc21ff6500b75e3b596f4c4cdf91fca769daace802d24c5a"
+        "digest": "4ba5c61697fc700fc75463e0227907774d7bc4fb2acc6ceec19226a07b0cba0d"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/seating-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/seating-class",
         "version": "1.1.0",
         "title": "Seating",
         "summary": "Seats at a table: taking, leaving and starting when enough are taken",
@@ -2890,7 +2890,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/seating",
+            "type": "com.clodhub/seating",
             "version": "1.0.0",
             "path": "classes/seating-class/seating.json",
             "modules": {
@@ -2920,7 +2920,7 @@
         ],
         "requires": [
           {
-            "type": "ae/guest-identity",
+            "type": "com.clodhub/guest-identity",
             "version": "1.0.0"
           }
         ],
@@ -2947,11 +2947,11 @@
           },
           {
             "path": "classes/seating-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           },
           {
             "path": "classes/seating-class/seating.json",
-            "digest": "ceb446c6a20f64192cc06bc0690e0742e89dbca0470c5ec58262a54ee0f32b6f"
+            "digest": "a558a73b0f6e27d1086db0279cb5f85437550274ac010a5a76d843b5e6bab79b"
           }
         ],
         "verification": [
@@ -2982,13 +2982,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/server-host-class",
+        "name": "pkg:clod/com.clodhub/server-host-class",
         "version": "1.1.0",
-        "digest": "08d7873867ce29f451c871ca6883eea8dec456a7a302a320495246c2cd1bcab0"
+        "digest": "9051566d360fcaa7cb61b35953f09b0d1a0417bda38ddd8b835cc28a495468aa"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/server-host-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/server-host-class",
         "version": "1.1.0",
         "title": "Server host",
         "summary": "Runs the application's server on Cloudflare Workers or on Node on your own hardware",
@@ -2996,7 +2996,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/server-host",
+            "type": "com.clodhub/server-host",
             "version": "1.0.0",
             "path": "classes/server-host-class/server-host.json",
             "modules": {
@@ -3008,11 +3008,11 @@
         ],
         "requires": [
           {
-            "type": "ae/room-session",
+            "type": "com.clodhub/room-session",
             "version": "1.0.0"
           },
           {
-            "type": "ae/room-directory",
+            "type": "com.clodhub/room-directory",
             "version": "1.0.0"
           }
         ],
@@ -3050,11 +3050,11 @@
           },
           {
             "path": "classes/server-host-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           },
           {
             "path": "classes/server-host-class/server-host.json",
-            "digest": "a419c730f068b8d32d54c26f41d26c454bf800e0da9880a5859848709ff0dc07"
+            "digest": "9baad37cd05b078155a36230845e4906ee0ceb0711cbb086f2f1a6355cb72609"
           }
         ],
         "verification": [
@@ -3085,13 +3085,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/sound-cues-class",
+        "name": "pkg:clod/com.clodhub/sound-cues-class",
         "version": "1.1.0",
-        "digest": "8ee148be79cb3499d35be888ca5a31735c48b1cafe88f95411c742a33d37af75"
+        "digest": "b867f3b60626cce214c9a9f609080571bd9c96b0a4c1fd9b664def66734cc69c"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/sound-cues-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/sound-cues-class",
         "version": "1.1.0",
         "title": "Sound cues",
         "summary": "Short sounds played for events, with mute and delay",
@@ -3099,7 +3099,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/sound-cues",
+            "type": "com.clodhub/sound-cues",
             "version": "1.0.0",
             "path": "classes/sound-cues-class/sound-cues.json",
             "modules": {
@@ -3126,7 +3126,7 @@
         ],
         "requires": [
           {
-            "type": "ae/preferences",
+            "type": "com.clodhub/preferences",
             "version": "1.0.0"
           }
         ],
@@ -3154,11 +3154,11 @@
           },
           {
             "path": "classes/sound-cues-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           },
           {
             "path": "classes/sound-cues-class/sound-cues.json",
-            "digest": "53f9b6c96e51276eef1511979d3759837cdca7f05efa7e143dcc770b8911f23c"
+            "digest": "b315c1d6c08617935fa691a915988e0802b444094360ea89008516150164bee2"
           }
         ],
         "verification": [
@@ -3189,13 +3189,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/store-update-class",
+        "name": "pkg:clod/com.clodhub/store-update-class",
         "version": "1.1.0",
-        "digest": "24cf11844a32a72b18c87c498abe97cbadf8b51dbc4cee1f80c207606d703bcc"
+        "digest": "febe4c58661a4bbc86d83fe5fd060bc6377e6c6ece5d7e54897d3abcce06bbb8"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/store-update-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/store-update-class",
         "version": "1.1.0",
         "title": "Store update",
         "summary": "Tells the application a newer version is available from its store",
@@ -3203,7 +3203,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/updates",
+            "type": "com.clodhub/updates",
             "version": "1.0.0",
             "path": "classes/store-update-class/updates.json",
             "modules": {
@@ -3250,11 +3250,11 @@
           },
           {
             "path": "classes/store-update-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           },
           {
             "path": "classes/store-update-class/updates.json",
-            "digest": "5824bd7587d5cc8b74973f458f9d110d4386a6f1d6c6ec22548252c1bf07015e"
+            "digest": "12fee4bcec62afa3754223803ce9475f14fc826ae1a9ea38cc2c6af2096f6835"
           }
         ],
         "verification": [
@@ -3285,13 +3285,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/table-layout-class",
+        "name": "pkg:clod/com.clodhub/table-layout-class",
         "version": "1.1.0",
-        "digest": "9aeb887361501cf1e24ee14c9e8fc2c60aeabcbe87189ebba40b49c431584dc7"
+        "digest": "fedffd4e439a56db251d53b977a2f691bf00c2390d3da4cd89fb0a82d216355c"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/table-layout-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/table-layout-class",
         "version": "1.1.0",
         "title": "Table layout",
         "summary": "Seat, card and stake positions around a table for any screen",
@@ -3299,7 +3299,7 @@
         "presentation": "visual",
         "provides": [
           {
-            "type": "ae/table-layout",
+            "type": "com.clodhub/table-layout",
             "version": "1.0.0",
             "path": "classes/table-layout-class/table-layout.json",
             "modules": {
@@ -3326,11 +3326,11 @@
         ],
         "requires": [
           {
-            "type": "ae/theme",
+            "type": "com.clodhub/theme",
             "version": "1.0.0"
           },
           {
-            "type": "ae/controls",
+            "type": "com.clodhub/controls",
             "version": "1.0.0"
           }
         ],
@@ -3347,11 +3347,11 @@
           },
           {
             "path": "classes/table-layout-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           },
           {
             "path": "classes/table-layout-class/table-layout.json",
-            "digest": "e3178f355d747c8d18f2f7d5fd9359cc3c6d15287fad6db1abe81bf8a8a6e050"
+            "digest": "c0e90bacbb0de8a66e772aa37881d428961982f0bbd09e2abde6d7e454cc4039"
           }
         ],
         "verification": [
@@ -3382,13 +3382,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/theme-class",
+        "name": "pkg:clod/com.clodhub/theme-class",
         "version": "1.1.0",
-        "digest": "bf5af6daa7e308237b3c1d4b0cfe35959ad698188a275187cc764ce34df8cc73"
+        "digest": "7c232af36715ae9385ef88b01b7fdf9aba15e222eb6421f38b0ba34db4403745"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/theme-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/theme-class",
         "version": "1.1.0",
         "title": "Theme",
         "summary": "Colours, spacing, type and an animated background for every client",
@@ -3396,7 +3396,7 @@
         "presentation": "visual",
         "provides": [
           {
-            "type": "ae/theme",
+            "type": "com.clodhub/theme",
             "version": "1.0.0",
             "path": "classes/theme-class/theme.json",
             "modules": {
@@ -3449,7 +3449,7 @@
         "inventory": [
           {
             "path": "classes/theme-class/apple.mjs",
-            "digest": "a788e32728ba9abff66b7b38b0e936b975ae5efd02fcf33f839937991d8c0d82"
+            "digest": "88e7de8846c7c63b23e5fcbd94f6e11932913c46882ea32fc152ba45a4942435"
           },
           {
             "path": "classes/theme-class/check.mjs",
@@ -3461,11 +3461,11 @@
           },
           {
             "path": "classes/theme-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           },
           {
             "path": "classes/theme-class/theme.json",
-            "digest": "5f60ffdf33c50fd1c4ba911b56fe59fbeb1ef7f9e06ed2001401d2614939c70f"
+            "digest": "1218aa890809f05d0255c7ec46c98cf2eb76599d2f091bb73eadb68886f26f47"
           }
         ],
         "verification": [
@@ -3520,13 +3520,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/tournament-class",
+        "name": "pkg:clod/com.clodhub/tournament-class",
         "version": "1.1.0",
-        "digest": "83c760bd0415b41d5db0d55d79ec8d93ac7c55b8ce6e679902b003597095a464"
+        "digest": "69633676ac28ef4cebef5230f8d7fbc31fc9dd27f513972724cff39ca57e1649"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/tournament-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/tournament-class",
         "version": "1.1.0",
         "title": "Tournament",
         "summary": "Entries, rebuys, eliminations, places and the result screen",
@@ -3534,7 +3534,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/tournament",
+            "type": "com.clodhub/tournament",
             "version": "1.0.0",
             "path": "classes/tournament-class/tournament.json",
             "modules": {
@@ -3564,15 +3564,15 @@
         ],
         "requires": [
           {
-            "type": "ae/chip-ledger",
+            "type": "com.clodhub/chip-ledger",
             "version": "1.0.0"
           },
           {
-            "type": "ae/level-schedule",
+            "type": "com.clodhub/level-schedule",
             "version": "1.0.0"
           },
           {
-            "type": "ae/seating",
+            "type": "com.clodhub/seating",
             "version": "1.0.0"
           }
         ],
@@ -3608,11 +3608,11 @@
           },
           {
             "path": "classes/tournament-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           },
           {
             "path": "classes/tournament-class/tournament.json",
-            "digest": "3d36d41e5f9d83a92e1785e00dc963ed2239dd0979bbd6577e02def9081ce206"
+            "digest": "2c3c7c408b9125329420c748c838f31bc2c65791b16477d2f88f50b62e7d3b2f"
           }
         ],
         "verification": [
@@ -3643,13 +3643,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/translations-class",
+        "name": "pkg:clod/com.clodhub/translations-class",
         "version": "1.1.0",
-        "digest": "ead9fb7866bc727c21780b2dcc7f283c66613ce25a9e61678deb94ef6ca823e0"
+        "digest": "513ec237401f805e4b7e93e56be2f8051743f7ce5f4963c81e49782771b09bbc"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/translations-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/translations-class",
         "version": "1.1.0",
         "title": "Translations",
         "summary": "The application's text in several languages with fallback",
@@ -3657,7 +3657,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/language",
+            "type": "com.clodhub/language",
             "version": "1.0.0",
             "path": "classes/translations-class/language.json",
             "modules": {
@@ -3703,11 +3703,11 @@
           },
           {
             "path": "classes/translations-class/language.json",
-            "digest": "1cfb1325dfa058f8f7f37fd628f359b25fb87d1635dff0d3ba754e67329a0041"
+            "digest": "f10696826a8d0c05e87fb4e4c50dab32bfb2c45acf031542039b862ccf78c1d9"
           },
           {
             "path": "classes/translations-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -3738,13 +3738,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/turn-engine-class",
+        "name": "pkg:clod/com.clodhub/turn-engine-class",
         "version": "1.1.0",
-        "digest": "e6a49666ce4ee186d55a4402a9208e91fd18784d90b7177b20f0f9a4ca78f1d1"
+        "digest": "edf80bd659ad68bbf71fc3f13641805ea55b5be2b0d5783c3638186bd4be9d46"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/turn-engine-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/turn-engine-class",
         "version": "1.1.0",
         "title": "Turn engine",
         "summary": "Lobby, turns, timing and computer players around a game's own rules",
@@ -3752,7 +3752,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/game-adapter",
+            "type": "com.clodhub/game-adapter",
             "version": "1.0.0",
             "path": "classes/turn-engine-class/game-adapter.json",
             "modules": {
@@ -3764,39 +3764,39 @@
         ],
         "requires": [
           {
-            "type": "ae/game-rules",
+            "type": "com.clodhub/game-rules",
             "version": "1.0.0"
           },
           {
-            "type": "ae/seating",
+            "type": "com.clodhub/seating",
             "version": "1.0.0"
           },
           {
-            "type": "ae/game-clock",
+            "type": "com.clodhub/game-clock",
             "version": "1.0.0"
           },
           {
-            "type": "ae/private-views",
+            "type": "com.clodhub/private-views",
             "version": "1.0.0"
           },
           {
-            "type": "ae/presence",
+            "type": "com.clodhub/presence",
             "version": "1.0.0"
           },
           {
-            "type": "ae/tournament",
+            "type": "com.clodhub/tournament",
             "version": "1.0.0"
           },
           {
-            "type": "ae/computer-players",
+            "type": "com.clodhub/computer-players",
             "version": "1.0.0"
           },
           {
-            "type": "ae/round-history",
+            "type": "com.clodhub/round-history",
             "version": "1.0.0"
           },
           {
-            "type": "ae/rules-settings",
+            "type": "com.clodhub/rules-settings",
             "version": "1.0.0"
           }
         ],
@@ -3835,11 +3835,11 @@
           },
           {
             "path": "classes/turn-engine-class/game-adapter.json",
-            "digest": "5f3cb93953794502d3d1f27deef7530d9aff8a1c70e89d5238ef64dce4f99110"
+            "digest": "c68f4026e0f2d744cb72c56258bdf0142e6c3c83332f2c89f1bc8a4ace9e657a"
           },
           {
             "path": "classes/turn-engine-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -3870,13 +3870,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/video-calls-class",
+        "name": "pkg:clod/com.clodhub/video-calls-class",
         "version": "1.1.0",
-        "digest": "e25be7b2b5d6a0c7982413089525a2f7e7b59ce065649b2d0dc0af1503d44630"
+        "digest": "521b4b9d7ccca52721aebcd925d7ef9270c276e6ff496743e9a6d17f0d55f3d0"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/video-calls-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/video-calls-class",
         "version": "1.1.0",
         "title": "Video calls",
         "summary": "Video and voice for the people in a room",
@@ -3884,7 +3884,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/media-session",
+            "type": "com.clodhub/media-session",
             "version": "1.0.0",
             "path": "classes/video-calls-class/media-session.json",
             "modules": {
@@ -3914,7 +3914,7 @@
         ],
         "requires": [
           {
-            "type": "ae/video-calls-configuration",
+            "type": "com.clodhub/video-calls-configuration",
             "version": "1.0.0"
           }
         ],
@@ -3944,11 +3944,11 @@
           },
           {
             "path": "classes/video-calls-class/media-session.json",
-            "digest": "af0478a55e1a291b80920d4a309fa8aa7b080e48c849e6111502559d467947f6"
+            "digest": "ec773a1744f1da09d17d3c6e9e1b8fb7d37d33d7376e95102b018cbc920ec1f7"
           },
           {
             "path": "classes/video-calls-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -3979,13 +3979,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/web-host-class",
+        "name": "pkg:clod/com.clodhub/web-host-class",
         "version": "1.1.0",
-        "digest": "0c427fad04bc5abecb994dd9888dec41f04de8ba1cc26e105ebb85f6f30253e8"
+        "digest": "339ef2b4aad771ff251d3cc16f2301cb0ee30493488d89a54f31b2e1e6cf13ad"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/web-host-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/web-host-class",
         "version": "1.1.0",
         "title": "Web host",
         "summary": "The web client's page, installable manifest, install banner and build",
@@ -3993,7 +3993,7 @@
         "presentation": "visual",
         "provides": [
           {
-            "type": "ae/web-shell",
+            "type": "com.clodhub/web-shell",
             "version": "1.0.0",
             "path": "classes/web-host-class/web-shell.json",
             "modules": {
@@ -4011,7 +4011,7 @@
         ],
         "requires": [
           {
-            "type": "ae/theme",
+            "type": "com.clodhub/theme",
             "version": "1.0.0"
           }
         ],
@@ -4060,11 +4060,11 @@
           },
           {
             "path": "classes/web-host-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           },
           {
             "path": "classes/web-host-class/web-shell.json",
-            "digest": "2640f964d23d37aca730d39efd7d22fce95034b64c937349f500b0452ea787f8"
+            "digest": "dd2c491a916899da46155a57c2b66d2f60a83744112edbbc496ba98c12e876c4"
           }
         ],
         "verification": [
@@ -4095,13 +4095,13 @@
     },
     {
       "reference": {
-        "name": "clodhub/windows-desktop-class",
+        "name": "pkg:clod/com.clodhub/windows-desktop-class",
         "version": "1.1.0",
-        "digest": "8bfc5cc62cb0657204c1411f57b362687322ed052b53ad07c41835a2b5834dce"
+        "digest": "98e692c42a4389c95477f50a55705b16649f185044a3eb7481bc8efeb371c9c4"
       },
       "descriptor": {
-        "format": 2,
-        "name": "clodhub/windows-desktop-class",
+        "format": 3,
+        "name": "pkg:clod/com.clodhub/windows-desktop-class",
         "version": "1.1.0",
         "title": "Windows desktop",
         "summary": "The web client packaged as a Windows desktop application",
@@ -4109,7 +4109,7 @@
         "presentation": "none",
         "provides": [
           {
-            "type": "ae/desktop-host",
+            "type": "com.clodhub/desktop-host",
             "version": "1.0.0",
             "path": "classes/windows-desktop-class/desktop-host.json",
             "modules": {
@@ -4121,7 +4121,7 @@
         ],
         "requires": [
           {
-            "type": "ae/windows-desktop-configuration",
+            "type": "com.clodhub/windows-desktop-configuration",
             "version": "1.0.0"
           }
         ],
@@ -4138,11 +4138,11 @@
           },
           {
             "path": "classes/windows-desktop-class/desktop-host.json",
-            "digest": "37a01348685b8d4bb865a60f99e7233c7ee5b1a0511d737d5e6292b00ceca54b"
+            "digest": "8b7bc2a4d3d547308e0e79d11d4cc738db21fa57e1879075c0494d4dcbed3540"
           },
           {
             "path": "classes/windows-desktop-class/runtime.mjs",
-            "digest": "7440f3891614c423f74668cb5a2445fea58bbfa4d7c740c8e8a855d1d9300d43"
+            "digest": "1d85f0dae92d5c6c859cd48a4211a933718ae3e168554a2b00806183c4b661f0"
           }
         ],
         "verification": [
@@ -4179,7 +4179,7 @@
       "version": "1.0.6",
       "revision": "ade400e37d4b8b867b7e01d8beef24c30a869414",
       "repository": "https://github.com/electron/extract-zip.git",
-      "purl": "pkg:npm/@electron-internal/extract-zip@1.0.6",
+      "purl": "pkg:npm/%40electron-internal/extract-zip@1.0.6",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40electron-internal%2Fextract-zip@1.0.6/0-LICENSE"
@@ -4198,7 +4198,7 @@
       "version": "3.4.1",
       "revision": "e4fb057678562b7b6170699a046d983ae6d31cb8",
       "repository": "https://github.com/electron/asar.git",
-      "purl": "pkg:npm/@electron/asar@3.4.1",
+      "purl": "pkg:npm/%40electron/asar@3.4.1",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40electron%2Fasar@3.4.1/0-LICENSE.md"
@@ -4274,7 +4274,7 @@
       "version": "1.8.0",
       "revision": "b38d2e80d9267b52d6db99cd9c9e616da3d037e8",
       "repository": "https://github.com/electron/fuses.git",
-      "purl": "pkg:npm/@electron/fuses@1.8.0",
+      "purl": "pkg:npm/%40electron/fuses@1.8.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40electron%2Ffuses@1.8.0/0-LICENSE"
@@ -4312,7 +4312,7 @@
       "version": "5.1.0",
       "revision": "da84467eacf58f36a8d43de64a09dd2cfe491d3f",
       "repository": "https://github.com/electron/get.git",
-      "purl": "pkg:npm/@electron/get@5.1.0",
+      "purl": "pkg:npm/%40electron/get@5.1.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40electron%2Fget@5.1.0/0-LICENSE"
@@ -4331,7 +4331,7 @@
       "version": "2.5.0",
       "revision": "268fa302d3e8f330fff069729dad8347a15490dd",
       "repository": "https://github.com/electron/notarize.git",
-      "purl": "pkg:npm/@electron/notarize@2.5.0",
+      "purl": "pkg:npm/%40electron/notarize@2.5.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40electron%2Fnotarize@2.5.0/0-LICENSE"
@@ -4350,7 +4350,7 @@
       "version": "1.3.3",
       "revision": "087ddb68ac73c223837bfe456c38078b395769a6",
       "repository": "https://github.com/electron/osx-sign.git",
-      "purl": "pkg:npm/@electron/osx-sign@1.3.3",
+      "purl": "pkg:npm/%40electron/osx-sign@1.3.3",
       "licence": "BSD-2-Clause",
       "notices": [
         "notices/npm/%40electron%2Fosx-sign@1.3.3/0-LICENSE"
@@ -4388,7 +4388,7 @@
       "version": "4.2.1",
       "revision": "d62d5a2c9dbee5dd27234490f695412d36ca65e2",
       "repository": "https://github.com/electron/rebuild.git",
-      "purl": "pkg:npm/@electron/rebuild@4.2.1",
+      "purl": "pkg:npm/%40electron/rebuild@4.2.1",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40electron%2Frebuild@4.2.1/0-LICENSE"
@@ -4407,7 +4407,7 @@
       "version": "2.0.3",
       "revision": "64be29d2f7fc64f8b93b9c87cd5460a5d422f72c",
       "repository": "https://github.com/electron/universal.git",
-      "purl": "pkg:npm/@electron/universal@2.0.3",
+      "purl": "pkg:npm/%40electron/universal@2.0.3",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40electron%2Funiversal@2.0.3/0-LICENSE"
@@ -4445,7 +4445,7 @@
       "version": "1.2.2",
       "revision": "c2a0c7897da0e24ac3d231b35e6860a2e1aa2eda",
       "repository": "https://github.com/electron/windows-sign.git",
-      "purl": "pkg:npm/@electron/windows-sign@1.2.2",
+      "purl": "pkg:npm/%40electron/windows-sign@1.2.2",
       "licence": "BSD-2-Clause",
       "notices": [
         "notices/npm/%40electron%2Fwindows-sign@1.2.2/0-LICENSE"
@@ -4464,7 +4464,7 @@
       "version": "4.0.1",
       "revision": "30706a599289d01e79f313b706c913a1600ddf32",
       "repository": "https://github.com/npm/fs-minipass.git",
-      "purl": "pkg:npm/@isaacs/fs-minipass@4.0.1",
+      "purl": "pkg:npm/%40isaacs/fs-minipass@4.0.1",
       "licence": "ISC",
       "notices": [
         "notices/npm/%40isaacs%2Ffs-minipass@4.0.1/0-LICENSE"
@@ -4483,7 +4483,7 @@
       "version": "1.1.0",
       "revision": "0ac7bea32e2be9613ca4eab38bbf108ef8f6f9fe",
       "repository": "https://github.com/isaacs/nonrecursive-glob-match",
-      "purl": "pkg:npm/@isaacs/nonrecursive-glob-match@1.1.0",
+      "purl": "pkg:npm/%40isaacs/nonrecursive-glob-match@1.1.0",
       "licence": "BlueOak-1.0.0",
       "notices": [
         "notices/npm/%40isaacs%2Fnonrecursive-glob-match@1.1.0/0-LICENSE.md"
@@ -4502,7 +4502,7 @@
       "version": "2.0.0",
       "revision": "d2357c58322dd07ee5a54780b4fa8f00bbf9f65e",
       "repository": "https://github.com/malept/cross-spawn-promise.git",
-      "purl": "pkg:npm/@malept/cross-spawn-promise@2.0.0",
+      "purl": "pkg:npm/%40malept/cross-spawn-promise@2.0.0",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40malept%2Fcross-spawn-promise@2.0.0/0-LICENSE"
@@ -4521,7 +4521,7 @@
       "version": "0.4.0",
       "revision": "8f0dc27a217f5ae7f49fa0d5a5570d332cbc9ec7",
       "repository": "https://github.com/malept/flatpak-bundler.git",
-      "purl": "pkg:npm/@malept/flatpak-bundler@0.4.0",
+      "purl": "pkg:npm/%40malept/flatpak-bundler@0.4.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40malept%2Fflatpak-bundler@0.4.0/0-LICENSE"
@@ -4540,7 +4540,7 @@
       "version": "2.4.0",
       "revision": "663c2aeeffc308ac0cded59bd32f7c212adacfc2",
       "repository": "https://github.com/paulmillr/noble-hashes.git",
-      "purl": "pkg:npm/@noble/hashes@2.4.0",
+      "purl": "pkg:npm/%40noble/hashes@2.4.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40noble%2Fhashes@2.4.0/0-LICENSE"
@@ -4559,7 +4559,7 @@
       "version": "2.11.0",
       "revision": "sha512:f318786afa39dffbd73ba504bfdc9aa09f37858e7cd6079a2d3ca07fad4d3c85cfe407886423e3261a53698536dc86641be3692cdfc2f456335a9ee1a61213f4",
       "repository": "https://github.com/PeculiarVentures/asn1-schema.git",
-      "purl": "pkg:npm/@peculiar/asn1-schema@2.11.0",
+      "purl": "pkg:npm/%40peculiar/asn1-schema@2.11.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40peculiar%2Fasn1-schema@2.11.0/0-LICENSE"
@@ -4578,7 +4578,7 @@
       "version": "1.1.12",
       "revision": "0ac71a4abcf23a4b54753f3a5433e41232db551e",
       "repository": "https://github.com/PeculiarVentures/json-schema.git",
-      "purl": "pkg:npm/@peculiar/json-schema@1.1.12",
+      "purl": "pkg:npm/%40peculiar/json-schema@1.1.12",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40peculiar%2Fjson-schema@1.1.12/0-LICENSE"
@@ -4597,7 +4597,7 @@
       "version": "2.0.3",
       "revision": "sha512:fa82f71cf151219d52b762b9d255825e28a82204a8c73cfb475277b85ea778edb2975b209a9818e975c91f805da680e4316ce741379817aa1634364b09d43879",
       "repository": "https://github.com/PeculiarVentures/pvtsutils.git",
-      "purl": "pkg:npm/@peculiar/utils@2.0.3",
+      "purl": "pkg:npm/%40peculiar/utils@2.0.3",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40peculiar%2Futils@2.0.3/0-LICENSE"
@@ -4616,7 +4616,7 @@
       "version": "1.7.1",
       "revision": "sha512:3833a8bf4b0630931fde33e89ce9201aa3e49d3b2ef83750ee40fefa0cfc688f9a14c38c1c56d6000dad6aa5d755374ff8e4ce411ff39c6bd2a6691e23459361",
       "repository": "https://github.com/PeculiarVentures/webcrypto.git",
-      "purl": "pkg:npm/@peculiar/webcrypto@1.7.1",
+      "purl": "pkg:npm/%40peculiar/webcrypto@1.7.1",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40peculiar%2Fwebcrypto@1.7.1/0-LICENSE.md"
@@ -4635,7 +4635,7 @@
       "version": "4.6.0",
       "revision": "65ea91297ede74046b19a65c434411a39c16dacd",
       "repository": "https://github.com/sindresorhus/is.git",
-      "purl": "pkg:npm/@sindresorhus/is@4.6.0",
+      "purl": "pkg:npm/%40sindresorhus/is@4.6.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40sindresorhus%2Fis@4.6.0/0-license"
@@ -4654,7 +4654,7 @@
       "version": "4.0.6",
       "revision": "a44ca1a3ebe5440211b0142f796760bb17aeee30",
       "repository": "https://github.com/szmarczak/http-timer.git",
-      "purl": "pkg:npm/@szmarczak/http-timer@4.0.6",
+      "purl": "pkg:npm/%40szmarczak/http-timer@4.0.6",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40szmarczak%2Fhttp-timer@4.0.6/0-LICENSE"
@@ -4673,7 +4673,7 @@
       "version": "6.0.3",
       "revision": "sha512:210dc46d3cc6c488a06f5237a8f65cd6b5899c7d019922afe506136a5130c1e16fc810cb4807b6e333f495efe1ca2ede7067d9565215020e0166a6fc581c0aab",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/cacheable-request@6.0.3",
+      "purl": "pkg:npm/%40types/cacheable-request@6.0.3",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fcacheable-request@6.0.3/0-LICENSE"
@@ -4692,7 +4692,7 @@
       "version": "4.1.13",
       "revision": "sha512:2925609909b33303e59ad9633a899aca847cf56e05ca70808b713c3cfb3bbe60d53def38853faf18f2a425f4e19265ecd31d2301a6bd53cb96f1b6dfc92d9f5b",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/debug@4.1.13",
+      "purl": "pkg:npm/%40types/debug@4.1.13",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fdebug@4.1.13/0-LICENSE"
@@ -4711,7 +4711,7 @@
       "version": "9.0.13",
       "revision": "sha512:9c49f007efb5bb99550ccd94238735fb947e15868a7da0334b83a87287229a3566de7430dd3bb31f950db2872b71305b8677ab6e5c878f8038f6a5db22265da4",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/fs-extra@9.0.13",
+      "purl": "pkg:npm/%40types/fs-extra@9.0.13",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Ffs-extra@9.0.13/0-LICENSE"
@@ -4730,7 +4730,7 @@
       "version": "4.2.0",
       "revision": "sha512:2f72e08a62c75ed1a45a290a9ec3e0d3f545c7d38665a0be78dd6ee2bf8e0755d1a87de6781200542db3af559d307f911e69d192a962400387349fc4d23fded1",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/http-cache-semantics@4.2.0",
+      "purl": "pkg:npm/%40types/http-cache-semantics@4.2.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fhttp-cache-semantics@4.2.0/0-LICENSE"
@@ -4749,7 +4749,7 @@
       "version": "3.1.4",
       "revision": "sha512:050e5a64d482a63ec3e8ada4b2b4424e62912c4a673ef58388b3dfa06ca167efbc62d88af5dff70c128f260af2df9f57fcfd4f7ebbb2630be7bf0163b8488422",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/keyv@3.1.4",
+      "purl": "pkg:npm/%40types/keyv@3.1.4",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fkeyv@3.1.4/0-LICENSE"
@@ -4768,7 +4768,7 @@
       "version": "2.1.0",
       "revision": "sha512:1ac0822190c4fe9de2f7abed12ac7eedd054197adcef37922b7c303c721a453852fbd3a15885d1ab3b3877a93549553c83dd43acd456c56506869e4a5d06f654",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/ms@2.1.0",
+      "purl": "pkg:npm/%40types/ms@2.1.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fms@2.1.0/0-LICENSE"
@@ -4787,7 +4787,7 @@
       "version": "24.19.2",
       "revision": "sha512:f77778f700962640b237ceccc4ba4d37a2973c2c05c3b6d5520efd986515d4e4b8d09196c150abf27eb50d7092ab3ec257afd57cf91bef179ceee3f633e40759",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/node@24.19.2",
+      "purl": "pkg:npm/%40types/node@24.19.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fnode@24.19.2/0-LICENSE"
@@ -4806,7 +4806,7 @@
       "version": "1.0.3",
       "revision": "sha512:1fff8bf94913577dee7f8f4f1f9a420140553cd8f69c30574cdfaa4b574ec32ca0db897709c89c89c080edc6be1ccbc9059705825e6bf1ef9147a7a5b1be0bcb",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/responselike@1.0.3",
+      "purl": "pkg:npm/%40types/responselike@1.0.3",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fresponselike@1.0.3/0-LICENSE"
@@ -4825,7 +4825,7 @@
       "version": "0.8.15",
       "revision": "b5b8fb5b579ae1183b34e74b3bc39d7eb50a226a",
       "repository": "https://github.com/xmldom/xmldom.git",
-      "purl": "pkg:npm/@xmldom/xmldom@0.8.15",
+      "purl": "pkg:npm/%40xmldom/xmldom@0.8.15",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40xmldom%2Fxmldom@0.8.15/0-LICENSE"
@@ -4960,7 +4960,7 @@
       "version": "3.1.0",
       "revision": "0adc5b9425aaf92a3039297b767bf6b40443a986",
       "repository": "https://github.com/electron/get.git",
-      "purl": "pkg:npm/@electron/get@3.1.0",
+      "purl": "pkg:npm/%40electron/get@3.1.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40electron%2Fget@3.1.0/0-LICENSE"
@@ -7948,7 +7948,7 @@
       "version": "1.8.0",
       "revision": "32f700f38ec49d7e6b2ab687904d6b2d7d60d80a",
       "repository": "https://github.com/paulmillr/noble-hashes.git",
-      "purl": "pkg:npm/@noble/hashes@1.8.0",
+      "purl": "pkg:npm/%40noble/hashes@1.8.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40noble%2Fhashes@1.8.0/0-LICENSE"
@@ -9299,7 +9299,7 @@
       "version": "0.5.1",
       "revision": "sha512:e3c3b2b1f496dcc9106355e39219293e482b1243af81fa321f30367b25f9c29cc5a628c2d36b968a0bf786435d25d4f70bbc9b5bf535ef26075de47af292dec3",
       "repository": "https://github.com/cloudflare/workers-sdk.git",
-      "purl": "pkg:npm/@cloudflare/kv-asset-handler@0.5.1",
+      "purl": "pkg:npm/%40cloudflare/kv-asset-handler@0.5.1",
       "licence": "MIT OR Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Fkv-asset-handler@0.5.1/0-LICENSE-MIT"
@@ -9318,7 +9318,7 @@
       "version": "2.16.2",
       "revision": "sha512:2413f5f99ed948d1bf7789913fecbc542e5d91aded65530b11946f4beaf34380c6575128c511507247094d39176c74908938f40ed348d356706ff5767d7d26bd",
       "repository": "https://github.com/cloudflare/workers-sdk.git",
-      "purl": "pkg:npm/@cloudflare/unenv-preset@2.16.2",
+      "purl": "pkg:npm/%40cloudflare/unenv-preset@2.16.2",
       "licence": "MIT OR Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Funenv-preset@2.16.2/0-LICENSE-MIT"
@@ -9337,7 +9337,7 @@
       "version": "1.8.5",
       "revision": "sha512:570f61bb08951d04813e8c58f1d886d34113eeb9b70f329f43a9592e03c4e687634e5a041ffe8e21324ab2d7b7b4b12bf7e9e27bb5c8d6adc82b337a078f5461",
       "repository": "https://github.com/cloudflare/workers-sdk.git",
-      "purl": "pkg:npm/@cloudflare/vitest-plugin@1.8.5",
+      "purl": "pkg:npm/%40cloudflare/vitest-plugin@1.8.5",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40cloudflare%2Fvitest-plugin@1.8.5/0-LICENSE-MIT"
@@ -9356,7 +9356,7 @@
       "version": "1.20261118.1",
       "revision": "5a7d0ad7303965e9598b9e65c441e814eef6f37d",
       "repository": "https://github.com/cloudflare/workerd.git",
-      "purl": "pkg:npm/@cloudflare/workerd-darwin-64@1.20261118.1",
+      "purl": "pkg:npm/%40cloudflare/workerd-darwin-64@1.20261118.1",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Fworkerd-darwin-64@1.20261118.1/0-LICENSE"
@@ -9375,7 +9375,7 @@
       "version": "1.20261118.1",
       "revision": "5a7d0ad7303965e9598b9e65c441e814eef6f37d",
       "repository": "https://github.com/cloudflare/workerd.git",
-      "purl": "pkg:npm/@cloudflare/workerd-darwin-arm64@1.20261118.1",
+      "purl": "pkg:npm/%40cloudflare/workerd-darwin-arm64@1.20261118.1",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Fworkerd-darwin-arm64@1.20261118.1/0-LICENSE"
@@ -9394,7 +9394,7 @@
       "version": "1.20261118.1",
       "revision": "5a7d0ad7303965e9598b9e65c441e814eef6f37d",
       "repository": "https://github.com/cloudflare/workerd.git",
-      "purl": "pkg:npm/@cloudflare/workerd-linux-64@1.20261118.1",
+      "purl": "pkg:npm/%40cloudflare/workerd-linux-64@1.20261118.1",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Fworkerd-linux-64@1.20261118.1/0-LICENSE"
@@ -9413,7 +9413,7 @@
       "version": "1.20261118.1",
       "revision": "5a7d0ad7303965e9598b9e65c441e814eef6f37d",
       "repository": "https://github.com/cloudflare/workerd.git",
-      "purl": "pkg:npm/@cloudflare/workerd-linux-arm64@1.20261118.1",
+      "purl": "pkg:npm/%40cloudflare/workerd-linux-arm64@1.20261118.1",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Fworkerd-linux-arm64@1.20261118.1/0-LICENSE"
@@ -9432,7 +9432,7 @@
       "version": "1.20261118.1",
       "revision": "5a7d0ad7303965e9598b9e65c441e814eef6f37d",
       "repository": "https://github.com/cloudflare/workerd.git",
-      "purl": "pkg:npm/@cloudflare/workerd-windows-64@1.20261118.1",
+      "purl": "pkg:npm/%40cloudflare/workerd-windows-64@1.20261118.1",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Fworkerd-windows-64@1.20261118.1/0-LICENSE"
@@ -9451,7 +9451,7 @@
       "version": "5.20261120.1",
       "revision": "065dcca0b991bbce9b70770b7053ce9d426edbb9",
       "repository": "https://github.com/cloudflare/workerd.git",
-      "purl": "pkg:npm/@cloudflare/workers-types@5.20261120.1",
+      "purl": "pkg:npm/%40cloudflare/workers-types@5.20261120.1",
       "licence": "MIT OR Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Fworkers-types@5.20261120.1/0-LICENSE"
@@ -9470,7 +9470,7 @@
       "version": "0.55.0",
       "revision": "sha512:0f9d61923bb7e63f2929a98b4240f8f8bd07f37d12997da9c2d7672155fa297e2cf98cf73657c08758965d898c17bef41612c37d8882ea3ea59fbccb13c55571",
       "repository": "https://github.com/cloudflare/workers-sdk.git",
-      "purl": "pkg:npm/@cloudflare/workers-utils@0.55.0",
+      "purl": "pkg:npm/%40cloudflare/workers-utils@0.55.0",
       "licence": "MIT OR Apache-2.0",
       "notices": [
         "notices/npm/%40cloudflare%2Fworkers-utils@0.55.0/0-LICENSE-MIT"
@@ -9489,7 +9489,7 @@
       "version": "0.8.1",
       "revision": "0.8.1",
       "repository": "https://github.com/cspotcode/node-source-map-support.git",
-      "purl": "pkg:npm/@cspotcode/source-map-support@0.8.1",
+      "purl": "pkg:npm/%40cspotcode/source-map-support@0.8.1",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40cspotcode%2Fsource-map-support@0.8.1/0-LICENSE.md"
@@ -9508,7 +9508,7 @@
       "version": "2.0.0-beta.2",
       "revision": "5afb65887f6463bbef7a13607bf86406c33218e5",
       "repository": "https://github.com/toyobayashi/emnapi.git",
-      "purl": "pkg:npm/@emnapi/core@2.0.0-beta.2",
+      "purl": "pkg:npm/%40emnapi/core@2.0.0-beta.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40emnapi%2Fcore@2.0.0-beta.2/0-LICENSE"
@@ -9527,7 +9527,7 @@
       "version": "1.11.3",
       "revision": "b2011ea96d28fe60a6b8eabb82c2d6264daf7460",
       "repository": "https://github.com/toyobayashi/emnapi.git",
-      "purl": "pkg:npm/@emnapi/runtime@1.11.3",
+      "purl": "pkg:npm/%40emnapi/runtime@1.11.3",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40emnapi%2Fruntime@1.11.3/0-LICENSE"
@@ -9546,7 +9546,7 @@
       "version": "2.2.0",
       "revision": "64c78aee566f3a40abbd8e490f2d63609a067d3e",
       "repository": "https://github.com/toyobayashi/emnapi.git",
-      "purl": "pkg:npm/@emnapi/wasi-threads@2.2.0",
+      "purl": "pkg:npm/%40emnapi/wasi-threads@2.2.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40emnapi%2Fwasi-threads@2.2.0/0-LICENSE"
@@ -9565,7 +9565,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/aix-ppc64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/aix-ppc64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Faix-ppc64@0.28.2/0-LICENSE.md"
@@ -9584,7 +9584,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/android-arm@0.28.2",
+      "purl": "pkg:npm/%40esbuild/android-arm@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fandroid-arm@0.28.2/0-LICENSE.md"
@@ -9603,7 +9603,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/android-arm64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/android-arm64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fandroid-arm64@0.28.2/0-LICENSE.md"
@@ -9622,7 +9622,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/android-x64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/android-x64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fandroid-x64@0.28.2/0-LICENSE.md"
@@ -9641,7 +9641,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/darwin-arm64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/darwin-arm64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fdarwin-arm64@0.28.2/0-LICENSE.md"
@@ -9660,7 +9660,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/darwin-x64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/darwin-x64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fdarwin-x64@0.28.2/0-LICENSE.md"
@@ -9679,7 +9679,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/freebsd-arm64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/freebsd-arm64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Ffreebsd-arm64@0.28.2/0-LICENSE.md"
@@ -9698,7 +9698,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/freebsd-x64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/freebsd-x64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Ffreebsd-x64@0.28.2/0-LICENSE.md"
@@ -9717,7 +9717,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-arm@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-arm@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-arm@0.28.2/0-LICENSE.md"
@@ -9736,7 +9736,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-arm64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-arm64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-arm64@0.28.2/0-LICENSE.md"
@@ -9755,7 +9755,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-ia32@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-ia32@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-ia32@0.28.2/0-LICENSE.md"
@@ -9774,7 +9774,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-loong64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-loong64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-loong64@0.28.2/0-LICENSE.md"
@@ -9793,7 +9793,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-mips64el@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-mips64el@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-mips64el@0.28.2/0-LICENSE.md"
@@ -9812,7 +9812,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-ppc64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-ppc64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-ppc64@0.28.2/0-LICENSE.md"
@@ -9831,7 +9831,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-riscv64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-riscv64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-riscv64@0.28.2/0-LICENSE.md"
@@ -9850,7 +9850,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-s390x@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-s390x@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-s390x@0.28.2/0-LICENSE.md"
@@ -9869,7 +9869,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/linux-x64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/linux-x64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Flinux-x64@0.28.2/0-LICENSE.md"
@@ -9888,7 +9888,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/netbsd-arm64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/netbsd-arm64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fnetbsd-arm64@0.28.2/0-LICENSE.md"
@@ -9907,7 +9907,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/netbsd-x64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/netbsd-x64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fnetbsd-x64@0.28.2/0-LICENSE.md"
@@ -9926,7 +9926,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/openbsd-arm64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/openbsd-arm64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fopenbsd-arm64@0.28.2/0-LICENSE.md"
@@ -9945,7 +9945,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/openbsd-x64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/openbsd-x64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fopenbsd-x64@0.28.2/0-LICENSE.md"
@@ -9964,7 +9964,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/openharmony-arm64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/openharmony-arm64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fopenharmony-arm64@0.28.2/0-LICENSE.md"
@@ -9983,7 +9983,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/sunos-x64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/sunos-x64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fsunos-x64@0.28.2/0-LICENSE.md"
@@ -10002,7 +10002,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/win32-arm64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/win32-arm64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fwin32-arm64@0.28.2/0-LICENSE.md"
@@ -10021,7 +10021,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/win32-ia32@0.28.2",
+      "purl": "pkg:npm/%40esbuild/win32-ia32@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fwin32-ia32@0.28.2/0-LICENSE.md"
@@ -10040,7 +10040,7 @@
       "version": "0.28.2",
       "revision": "609683d892977362a0f99026cb74b96263d728a9",
       "repository": "https://github.com/evanw/esbuild.git",
-      "purl": "pkg:npm/@esbuild/win32-x64@0.28.2",
+      "purl": "pkg:npm/%40esbuild/win32-x64@0.28.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40esbuild%2Fwin32-x64@0.28.2/0-LICENSE.md"
@@ -10059,7 +10059,7 @@
       "version": "1.1.0",
       "revision": "179fa91fbdb8786b661f6bfb2b6de2885d4860f8",
       "repository": "https://github.com/lovell/colour.git",
-      "purl": "pkg:npm/@img/colour@1.1.0",
+      "purl": "pkg:npm/%40img/colour@1.1.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40img%2Fcolour@1.1.0/0-LICENSE.md"
@@ -10078,7 +10078,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-darwin-arm64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-darwin-arm64@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-darwin-arm64@0.35.5/0-LICENSE"
@@ -10097,7 +10097,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-darwin-x64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-darwin-x64@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-darwin-x64@0.35.5/0-LICENSE"
@@ -10116,7 +10116,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-freebsd-wasm32@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-freebsd-wasm32@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-freebsd-wasm32@0.35.5/0-LICENSE"
@@ -10135,7 +10135,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-darwin-arm64@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-darwin-arm64@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-darwin-arm64@1.3.4/0-LICENSE"
@@ -10154,7 +10154,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-darwin-x64@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-darwin-x64@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-darwin-x64@1.3.4/0-LICENSE"
@@ -10173,7 +10173,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-linux-arm@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-linux-arm@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-linux-arm@1.3.4/0-LICENSE"
@@ -10192,7 +10192,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-linux-arm64@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-linux-arm64@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-linux-arm64@1.3.4/0-LICENSE"
@@ -10211,7 +10211,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-linux-ppc64@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-linux-ppc64@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-linux-ppc64@1.3.4/0-LICENSE"
@@ -10230,7 +10230,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-linux-riscv64@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-linux-riscv64@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-linux-riscv64@1.3.4/0-LICENSE"
@@ -10249,7 +10249,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-linux-s390x@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-linux-s390x@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-linux-s390x@1.3.4/0-LICENSE"
@@ -10268,7 +10268,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-linux-x64@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-linux-x64@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-linux-x64@1.3.4/0-LICENSE"
@@ -10287,7 +10287,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-linuxmusl-arm64@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-linuxmusl-arm64@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-linuxmusl-arm64@1.3.4/0-LICENSE"
@@ -10306,7 +10306,7 @@
       "version": "1.3.4",
       "revision": "ebb95f8add54eee8bed840e3fb587e4cbec857d7",
       "repository": "https://github.com/lovell/sharp-libvips.git",
-      "purl": "pkg:npm/@img/sharp-libvips-linuxmusl-x64@1.3.4",
+      "purl": "pkg:npm/%40img/sharp-libvips-linuxmusl-x64@1.3.4",
       "licence": "LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-libvips-linuxmusl-x64@1.3.4/0-LICENSE"
@@ -10325,7 +10325,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-linux-arm@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-linux-arm@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-linux-arm@0.35.5/0-LICENSE"
@@ -10344,7 +10344,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-linux-arm64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-linux-arm64@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-linux-arm64@0.35.5/0-LICENSE"
@@ -10363,7 +10363,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-linux-ppc64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-linux-ppc64@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-linux-ppc64@0.35.5/0-LICENSE"
@@ -10382,7 +10382,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-linux-riscv64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-linux-riscv64@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-linux-riscv64@0.35.5/0-LICENSE"
@@ -10401,7 +10401,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-linux-s390x@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-linux-s390x@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-linux-s390x@0.35.5/0-LICENSE"
@@ -10420,7 +10420,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-linux-x64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-linux-x64@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-linux-x64@0.35.5/0-LICENSE"
@@ -10439,7 +10439,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-linuxmusl-arm64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-linuxmusl-arm64@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-linuxmusl-arm64@0.35.5/0-LICENSE"
@@ -10458,7 +10458,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-linuxmusl-x64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-linuxmusl-x64@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-linuxmusl-x64@0.35.5/0-LICENSE"
@@ -10477,7 +10477,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-wasm32@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-wasm32@0.35.5",
       "licence": "Apache-2.0 AND LGPL-3.0-or-later AND MIT",
       "notices": [
         "notices/npm/%40img%2Fsharp-wasm32@0.35.5/0-LICENSE"
@@ -10496,7 +10496,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-webcontainers-wasm32@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-webcontainers-wasm32@0.35.5",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40img%2Fsharp-webcontainers-wasm32@0.35.5/0-LICENSE"
@@ -10515,7 +10515,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-win32-arm64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-win32-arm64@0.35.5",
       "licence": "Apache-2.0 AND LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-win32-arm64@0.35.5/0-LICENSE"
@@ -10534,7 +10534,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-win32-ia32@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-win32-ia32@0.35.5",
       "licence": "Apache-2.0 AND LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-win32-ia32@0.35.5/0-LICENSE"
@@ -10553,7 +10553,7 @@
       "version": "0.35.5",
       "revision": "51a990faa26ade5586a4934ac9673c98d8893326",
       "repository": "https://github.com/lovell/sharp.git",
-      "purl": "pkg:npm/@img/sharp-win32-x64@0.35.5",
+      "purl": "pkg:npm/%40img/sharp-win32-x64@0.35.5",
       "licence": "Apache-2.0 AND LGPL-3.0-or-later",
       "notices": [
         "notices/npm/%40img%2Fsharp-win32-x64@0.35.5/0-LICENSE"
@@ -10572,7 +10572,7 @@
       "version": "3.1.2",
       "revision": "caa7a299d6c688570773c81732f77d3c7035ded6",
       "repository": "https://github.com/jridgewell/resolve-uri.git",
-      "purl": "pkg:npm/@jridgewell/resolve-uri@3.1.2",
+      "purl": "pkg:npm/%40jridgewell/resolve-uri@3.1.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40jridgewell%2Fresolve-uri@3.1.2/0-LICENSE"
@@ -10591,7 +10591,7 @@
       "version": "1.6.0",
       "revision": "94c82a925ca79d5eb193ce45d7f0824a4d91e77d",
       "repository": "https://github.com/jridgewell/sourcemaps.git",
-      "purl": "pkg:npm/@jridgewell/sourcemap-codec@1.6.0",
+      "purl": "pkg:npm/%40jridgewell/sourcemap-codec@1.6.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40jridgewell%2Fsourcemap-codec@1.6.0/0-LICENSE"
@@ -10610,7 +10610,7 @@
       "version": "0.3.9",
       "revision": "c9dbb54ca2de28d864cf47459aa34328d94fc915",
       "repository": "https://github.com/jridgewell/trace-mapping.git",
-      "purl": "pkg:npm/@jridgewell/trace-mapping@0.3.9",
+      "purl": "pkg:npm/%40jridgewell/trace-mapping@0.3.9",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40jridgewell%2Ftrace-mapping@0.3.9/0-LICENSE"
@@ -10629,7 +10629,7 @@
       "version": "1.2.6",
       "revision": "4fff029f67693d08be0ff16818eb9ead2637a99e",
       "repository": "https://github.com/napi-rs/napi-rs.git",
-      "purl": "pkg:npm/@napi-rs/wasm-runtime@1.2.6",
+      "purl": "pkg:npm/%40napi-rs/wasm-runtime@1.2.6",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40napi-rs%2Fwasm-runtime@1.2.6/0-LICENSE"
@@ -10648,7 +10648,7 @@
       "version": "0.156.0",
       "revision": "sha512:d43bb2838f1374935dca1101f179f52f7e9b4fd3efe8652d94a8c7c4ecacf3191a17fad0ab75c913e6c0bab48afc0808cf998616c6fbedc9fd3dbdb4f9609273",
       "repository": "https://github.com/oxc-project/oxc.git",
-      "purl": "pkg:npm/@oxc-project/types@0.156.0",
+      "purl": "pkg:npm/%40oxc-project/types@0.156.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40oxc-project%2Ftypes@0.156.0/0-LICENSE"
@@ -10667,7 +10667,7 @@
       "version": "4.1.6",
       "revision": "89700f40868e5dcb39d28ee1c50e1064f4bf3bfe",
       "repository": "https://github.com/poppinss/colors.git",
-      "purl": "pkg:npm/@poppinss/colors@4.1.6",
+      "purl": "pkg:npm/%40poppinss/colors@4.1.6",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40poppinss%2Fcolors@4.1.6/0-LICENSE.md"
@@ -10686,7 +10686,7 @@
       "version": "0.6.5",
       "revision": "d5c6991f90c7f475ac1615dee504722e4fb5ae57",
       "repository": "https://github.com/poppinss/dumper.git",
-      "purl": "pkg:npm/@poppinss/dumper@0.6.5",
+      "purl": "pkg:npm/%40poppinss/dumper@0.6.5",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40poppinss%2Fdumper@0.6.5/0-LICENSE.md"
@@ -10705,7 +10705,7 @@
       "version": "1.2.3",
       "revision": "6e8933ba4397460467dce3a0ad3b0ffa745fd8e2",
       "repository": "https://github.com/poppinss/exception.git",
-      "purl": "pkg:npm/@poppinss/exception@1.2.3",
+      "purl": "pkg:npm/%40poppinss/exception@1.2.3",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40poppinss%2Fexception@1.2.3/0-LICENSE.md"
@@ -10724,7 +10724,7 @@
       "version": "1.2.19",
       "revision": "sha512:7be11b7b4593fbdb5b5e634a3c8882f18ad6007630ba0de6ea2e29deb6461ae95f66b8b58ed2381ec953f8e66715ffce207a30585ef50d3947c1704fd92880ec",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-android-arm-eabi@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-android-arm-eabi@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-android-arm-eabi@1.2.19/0-LICENSE"
@@ -10743,7 +10743,7 @@
       "version": "1.2.19",
       "revision": "sha512:84ea266eb4c9faccedd9c884cd2ee8080efc94c3c1805e54310582248c8d7e7ac8ec62e5f0762816a0a7a4bda070f39a5ccaabc86094e44c5d40ac830dc0bec8",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-android-arm64@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-android-arm64@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-android-arm64@1.2.19/0-LICENSE"
@@ -10762,7 +10762,7 @@
       "version": "1.2.19",
       "revision": "sha512:5e8300da9c022864d0cd48cf82d47091e747e1699785d20f293ea5ea83b17753d46cda1d188e837017a480dec40bfffec77a5f0585ffa8bd60366640aa2bf0e6",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-darwin-arm64@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-darwin-arm64@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-darwin-arm64@1.2.19/0-LICENSE"
@@ -10781,7 +10781,7 @@
       "version": "1.2.19",
       "revision": "sha512:ce8f04b124b0319098fdef9f46719a5f4d981a0bc90f4caf84d8bff61a463c0d8c27d645f1d3c2c3be5419fa48e8ea50fe6c91fdd2189a8811bea8990f44eb5e",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-darwin-x64@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-darwin-x64@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-darwin-x64@1.2.19/0-LICENSE"
@@ -10800,7 +10800,7 @@
       "version": "1.2.19",
       "revision": "sha512:3bc21200e7c8d678fb02e04f777d05485e3bcfb7fb973964e69a105468228a4bd0b86101158bd6f248be5049d3f9824f9cd1a34339f7d38925b783bd15413b98",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-freebsd-x64@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-freebsd-x64@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-freebsd-x64@1.2.19/0-LICENSE"
@@ -10819,7 +10819,7 @@
       "version": "1.2.19",
       "revision": "sha512:fe56026dae4d3b4caae12d2318c1fc41306d92f431a178e8416cc5e41716a7d32307d8f15510f51900cda1f9158dc3a3df40d6ca12c837fe0e7bad092b368e37",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-linux-arm-gnueabihf@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-linux-arm-gnueabihf@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-linux-arm-gnueabihf@1.2.19/0-LICENSE"
@@ -10838,7 +10838,7 @@
       "version": "1.2.19",
       "revision": "sha512:a66fdaa453019d26c56f73ba9c6e691ced62a87859ae31831448d29bea2df49d7b5d73ef1fd2fdd32e61fa381f1c213e41d96cbf2f2a284714e152b18230febc",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-linux-arm64-gnu@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-linux-arm64-gnu@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-linux-arm64-gnu@1.2.19/0-LICENSE"
@@ -10857,7 +10857,7 @@
       "version": "1.2.19",
       "revision": "sha512:2b54a6429dc51627219fca2aacd230bc5a19e7072f8c2ee0a01ce968c36f2dff4565cf9007f42f2e69e92598000061e20fdf34b4ff056599d79362bde2bbe5c6",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-linux-arm64-musl@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-linux-arm64-musl@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-linux-arm64-musl@1.2.19/0-LICENSE"
@@ -10876,7 +10876,7 @@
       "version": "1.2.19",
       "revision": "sha512:234c700f9ee33ffdc0efee543d98a7db0f18ed71c4984339ceaa5864e710e39325356ead5095338b2995df246beeb2f8bf0c9f11c46c464b02e1aeca734f29e5",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-linux-ppc64-gnu@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-linux-ppc64-gnu@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-linux-ppc64-gnu@1.2.19/0-LICENSE"
@@ -10895,7 +10895,7 @@
       "version": "1.2.19",
       "revision": "sha512:06bb441d3db848d5e3f47897ab2facfe45e24a2406b7a10a08f525462ac0a088a85712869db5c150491b6404807a2ee2649074fd89e6fb424fd34229c7b0274b",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-linux-s390x-gnu@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-linux-s390x-gnu@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-linux-s390x-gnu@1.2.19/0-LICENSE"
@@ -10914,7 +10914,7 @@
       "version": "1.2.19",
       "revision": "sha512:ae6ef9ffd0e41ca794d969c0f30e17f785866202e50c21427e4402fb86e0b952660bf8ef0d1bf607edb02ce621c84d1f56ebfbfff0a4937f4ea0eb9fc82bbbe9",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-linux-x64-gnu@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-linux-x64-gnu@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-linux-x64-gnu@1.2.19/0-LICENSE"
@@ -10933,7 +10933,7 @@
       "version": "1.2.19",
       "revision": "sha512:8ab87fe3e89814ce06033a65b8312b823cfcf5b8fa343b6aa8c006ffa3b52c6dfc11ddcda7279bcc2a5c54d9055bcba1cbeff7fc1a1c52f9d70d1df709759ef4",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-linux-x64-musl@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-linux-x64-musl@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-linux-x64-musl@1.2.19/0-LICENSE"
@@ -10952,7 +10952,7 @@
       "version": "1.2.19",
       "revision": "sha512:f8a59358da0fb7e09f4aaf780a271e5aedf23c4f90ce4686fa984fcb3f46eb4b6664bc1f424700e007a4b1a7f3bc9030e29be0d6671de5ad53914a95bf4b3824",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-openharmony-arm64@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-openharmony-arm64@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-openharmony-arm64@1.2.19/0-LICENSE"
@@ -10971,7 +10971,7 @@
       "version": "1.2.19",
       "revision": "sha512:ec41feb243ac979aa95a72b4bf36a68091613afd5cc31429b319bcb48f3cdcaf5fbabe5cdbba7cabcedfcc43ba05b04f69b036ffeb3fcd1eb7fe92dcd77ee23a",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-wasm32-wasi@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-wasm32-wasi@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-wasm32-wasi@1.2.19/0-LICENSE"
@@ -10990,7 +10990,7 @@
       "version": "2.0.0-beta.2",
       "revision": "5afb65887f6463bbef7a13607bf86406c33218e5",
       "repository": "https://github.com/toyobayashi/emnapi.git",
-      "purl": "pkg:npm/@emnapi/runtime@2.0.0-beta.2",
+      "purl": "pkg:npm/%40emnapi/runtime@2.0.0-beta.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40emnapi%2Fruntime@2.0.0-beta.2/0-LICENSE"
@@ -11009,7 +11009,7 @@
       "version": "1.2.19",
       "revision": "sha512:dd0d5883543bb44bc15a865fe6b16f1bf18a6503e0c1faeefa9e3005a8c37c9141b344870a92fef9d7d38d6f60c8029dd53ed9a4862f75a51ac7b3dafc884555",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-win32-arm64-msvc@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-win32-arm64-msvc@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-win32-arm64-msvc@1.2.19/0-LICENSE"
@@ -11028,7 +11028,7 @@
       "version": "1.2.19",
       "revision": "sha512:cbfb2a45173a77b8440b33857399f72d27aa72d988a7d98c8d8d4aab8b35e2e2cf77f2d9e33ee2d73ad6e9f32da7698f7ae4080b87ba50b31cc10ccca26a906a",
       "repository": "https://github.com/rolldown/rolldown.git",
-      "purl": "pkg:npm/@rolldown/binding-win32-x64-msvc@1.2.19",
+      "purl": "pkg:npm/%40rolldown/binding-win32-x64-msvc@1.2.19",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fbinding-win32-x64-msvc@1.2.19/0-LICENSE"
@@ -11047,7 +11047,7 @@
       "version": "1.1.0",
       "revision": "sha512:2be354d870c211e9b8b029601c7e19657c1d25e345909a3e851938efd0c8c1d22f8803cdda11491f52871f083c0b11d05ef8b43395d8e1d7935c835f222486eb",
       "repository": "https://github.com/rolldown/plugins.git",
-      "purl": "pkg:npm/@rolldown/pluginutils@1.1.0",
+      "purl": "pkg:npm/%40rolldown/pluginutils@1.1.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40rolldown%2Fpluginutils@1.1.0/0-LICENSE"
@@ -11066,7 +11066,7 @@
       "version": "7.2.0",
       "revision": "eff8e6b318d098317d5673b9d391f8e72cb15363",
       "repository": "https://github.com/sindresorhus/is.git",
-      "purl": "pkg:npm/@sindresorhus/is@7.2.0",
+      "purl": "pkg:npm/%40sindresorhus/is@7.2.0",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40sindresorhus%2Fis@7.2.0/0-license"
@@ -11085,7 +11085,7 @@
       "version": "1.2.24",
       "revision": "589b2e3bb012725ff65323335efdca74ae0b86eb",
       "repository": "https://github.com/speed-highlight/core.git",
-      "purl": "pkg:npm/@speed-highlight/core@1.2.24",
+      "purl": "pkg:npm/%40speed-highlight/core@1.2.24",
       "licence": "CC0-1.0",
       "notices": [
         "notices/npm/%40speed-highlight%2Fcore@1.2.24/0-LICENSE"
@@ -11104,7 +11104,7 @@
       "version": "0.10.4",
       "revision": "51836d7bf26fb7f43b05dd6477b3ca4260c945cf",
       "repository": "https://github.com/toyobayashi/wasm-util.git",
-      "purl": "pkg:npm/@tybys/wasm-util@0.10.4",
+      "purl": "pkg:npm/%40tybys/wasm-util@0.10.4",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40tybys%2Fwasm-util@0.10.4/0-LICENSE"
@@ -11123,7 +11123,7 @@
       "version": "5.2.3",
       "revision": "sha512:330e79f28780f5f15bbfae7fcb8987b570ecf5b3e714c6402ff8f174f154a4e1c72175fdd667201076d2e4b6a1afea7064547c03b19095e456788e9c1850b650",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/chai@5.2.3",
+      "purl": "pkg:npm/%40types/chai@5.2.3",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fchai@5.2.3/0-LICENSE"
@@ -11142,7 +11142,7 @@
       "version": "4.0.2",
       "revision": "sha512:73d87d75554c8a030f7386f04ef0b9771aada8967040f78fb168cf96948e9e88dba2bea91aa764e78d657c0ec0a8542be6907505176ad23b98f5d6fcd41c3217",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/deep-eql@4.0.2",
+      "purl": "pkg:npm/%40types/deep-eql@4.0.2",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fdeep-eql@4.0.2/0-LICENSE"
@@ -11161,7 +11161,7 @@
       "version": "1.0.10",
       "revision": "sha512:953c8e32739c991073742bfaff8cd4642ac4855d31aea422519059b5571b98b1c15ca2e737cabcf6fff029117f4341dbc15b2a6c81b7a391c3a0597db1db8cfa",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/estree@1.0.10",
+      "purl": "pkg:npm/%40types/estree@1.0.10",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Festree@1.0.10/0-LICENSE"
@@ -11180,7 +11180,7 @@
       "version": "26.6.5",
       "revision": "sha512:b8ccecbfdb2d0dda1f219071e141a1e19f598179c60bdb1e443b1c8a505c4c701e38593aecc660fe4f5b5957cef9b938a99986fa5e768519cbc14887d8b9c94e",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/node@26.6.5",
+      "purl": "pkg:npm/%40types/node@26.6.5",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fnode@26.6.5/0-LICENSE"
@@ -11199,7 +11199,7 @@
       "version": "2.6.13",
       "revision": "sha512:406a51569cd2694b37d0905218f8ce83852f7aedfce1eadb1c1a13d7378e36fc827f043122452c84b00ea8dfe4f448c6be23d19964d37ba687daac9258a4d54b",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/node-fetch@2.6.13",
+      "purl": "pkg:npm/%40types/node-fetch@2.6.13",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fnode-fetch@2.6.13/0-LICENSE"
@@ -11218,7 +11218,7 @@
       "version": "17.0.24",
       "revision": "sha512:ea2d1a0bb8d5e90cd007c9ded63a15674792148b2d1ec0aba1b98eb6084cd75c86947d23e3714a2f652159d10b932a6cd33b9feea55351508247eb604a5c8b2f",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/yargs@17.0.24",
+      "purl": "pkg:npm/%40types/yargs@17.0.24",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fyargs@17.0.24/0-LICENSE"
@@ -11237,7 +11237,7 @@
       "version": "21.0.3",
       "revision": "sha512:238abd414f4c42fe2810ecf8b401c9b4dcf5730b8bc67d85df171cda257959da8b3e95278f7d1a52ec6dd660316131bea1ef0264c57ffbaad4e12e20443ceab5",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/yargs-parser@21.0.3",
+      "purl": "pkg:npm/%40types/yargs-parser@21.0.3",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fyargs-parser@21.0.3/0-LICENSE"
@@ -11256,7 +11256,7 @@
       "version": "5.0.5",
       "revision": "sha512:c4b2f79640de809670f8c1a819a082b056b20d9b611a0a40b6bdd5ce2c9f738a7bc47f3d2bb2913dc441061fe41189b402a92de43b539a462906d455fc5ac766",
       "repository": "https://github.com/vitest-dev/vitest.git",
-      "purl": "pkg:npm/@vitest/mocker@5.0.5",
+      "purl": "pkg:npm/%40vitest/mocker@5.0.5",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40vitest%2Fmocker@5.0.5/0-LICENSE"
@@ -11275,7 +11275,7 @@
       "version": "0.3.31",
       "revision": "74fc8e11d30641b82e3ca3532cd89477671afeab",
       "repository": "https://github.com/jridgewell/sourcemaps.git",
-      "purl": "pkg:npm/@jridgewell/trace-mapping@0.3.31",
+      "purl": "pkg:npm/%40jridgewell/trace-mapping@0.3.31",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40jridgewell%2Ftrace-mapping@0.3.31/0-LICENSE"
@@ -11294,7 +11294,7 @@
       "version": "5.0.5",
       "revision": "sha512:970251131b87e35ef6e7b439c2ff5062e80df48309928c5cacaad8c463d0901ce5ef094da535310ffe72357e0448a55421284a3e090672160f14c58e3a4d30cf",
       "repository": "https://github.com/vitest-dev/vitest.git",
-      "purl": "pkg:npm/@vitest/spy@5.0.5",
+      "purl": "pkg:npm/%40vitest/spy@5.0.5",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40vitest%2Fspy@5.0.5/0-LICENSE"
@@ -11447,7 +11447,7 @@
       "version": "18.19.130",
       "revision": "sha512:191697431ea319f2fcb0a7da2030fa3aea5b20706bf63bfb2676a697db41ee5e2fd3af0f00e5ea7dcba330ca393e16c8b3a8204755ce0c42ea6a14f647cbf47e",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/node@18.19.130",
+      "purl": "pkg:npm/%40types/node@18.19.130",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fnode@18.19.130/0-LICENSE"
@@ -12663,7 +12663,7 @@
       "version": "1.10.1",
       "revision": "e31c1b139cf1e7fea2fb914f650af3c28c42ec68",
       "repository": "https://github.com/bufbuild/protobuf-es.git",
-      "purl": "pkg:npm/@bufbuild/protobuf@1.10.1",
+      "purl": "pkg:npm/%40bufbuild/protobuf@1.10.1",
       "licence": "(Apache-2.0 AND BSD-3-Clause)",
       "notices": [
         "notices/npm/%40bufbuild%2Fprotobuf@1.10.1/0-LICENSE"
@@ -12682,7 +12682,7 @@
       "version": "1.1.1",
       "revision": "sha512:12cb2102e724966a6e5007e40013f124d8738fdbf6b06ec9bb31432f830bd68250495d78b2aae94d89ec68eb9d300c3dc8e696e77354dd041395442846ce1ccf",
       "repository": "https://github.com/livekit/ts-mutex.git",
-      "purl": "pkg:npm/@livekit/mutex@1.1.1",
+      "purl": "pkg:npm/%40livekit/mutex@1.1.1",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40livekit%2Fmutex@1.1.1/0-LICENSE"
@@ -12701,7 +12701,7 @@
       "version": "1.52.1",
       "revision": "sha512:5fc0f12a535bce4e8b87ebfadf4fa68dd1474a8b5d005c08cb3c5245252a9760db4f10a79696bb26cbc519ce8d6b799789ec763858748a242d5b03813f4ac860",
       "repository": "https://github.com/livekit/protocol.git",
-      "purl": "pkg:npm/@livekit/protocol@1.52.1",
+      "purl": "pkg:npm/%40livekit/protocol@1.52.1",
       "licence": "Apache-2.0",
       "notices": [
         "notices/npm/%40livekit%2Fprotocol@1.52.1/0-LICENSE"
@@ -12720,7 +12720,7 @@
       "version": "1.0.22",
       "revision": "sha512:9943192cadcdbf044b700013f6a99c2bef69eeda54d851dd0ec9ed477608e3e198f3c5eb806e17884eeed50d8b00ddbf1593b3fed74c0c2dc64024784fc9c5bb",
       "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
-      "purl": "pkg:npm/@types/dom-mediacapture-record@1.0.22",
+      "purl": "pkg:npm/%40types/dom-mediacapture-record@1.0.22",
       "licence": "MIT",
       "notices": [
         "notices/npm/%40types%2Fdom-mediacapture-record@1.0.22/0-LICENSE"
@@ -26693,12 +26693,12 @@
     },
     "dependencies": [
       {
-        "name": "pkg:npm/@electron-internal/extract-zip",
+        "name": "pkg:npm/%40electron-internal/extract-zip",
         "version": "1.0.6",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@electron/asar",
+        "name": "pkg:npm/%40electron/asar",
         "version": "3.4.1",
         "isolation": "isolated"
       },
@@ -26718,7 +26718,7 @@
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@electron/fuses",
+        "name": "pkg:npm/%40electron/fuses",
         "version": "1.8.0",
         "isolation": "isolated"
       },
@@ -26728,17 +26728,17 @@
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@electron/get",
+        "name": "pkg:npm/%40electron/get",
         "version": "5.1.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@electron/notarize",
+        "name": "pkg:npm/%40electron/notarize",
         "version": "2.5.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@electron/osx-sign",
+        "name": "pkg:npm/%40electron/osx-sign",
         "version": "1.3.3",
         "isolation": "isolated"
       },
@@ -26748,117 +26748,117 @@
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@electron/rebuild",
+        "name": "pkg:npm/%40electron/rebuild",
         "version": "4.2.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@electron/universal",
+        "name": "pkg:npm/%40electron/universal",
         "version": "2.0.3",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@electron/windows-sign",
+        "name": "pkg:npm/%40electron/windows-sign",
         "version": "1.2.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@isaacs/fs-minipass",
+        "name": "pkg:npm/%40isaacs/fs-minipass",
         "version": "4.0.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@isaacs/nonrecursive-glob-match",
+        "name": "pkg:npm/%40isaacs/nonrecursive-glob-match",
         "version": "1.1.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@malept/cross-spawn-promise",
+        "name": "pkg:npm/%40malept/cross-spawn-promise",
         "version": "2.0.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@malept/flatpak-bundler",
+        "name": "pkg:npm/%40malept/flatpak-bundler",
         "version": "0.4.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@noble/hashes",
+        "name": "pkg:npm/%40noble/hashes",
         "version": "2.4.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@peculiar/asn1-schema",
+        "name": "pkg:npm/%40peculiar/asn1-schema",
         "version": "2.11.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@peculiar/json-schema",
+        "name": "pkg:npm/%40peculiar/json-schema",
         "version": "1.1.12",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@peculiar/utils",
+        "name": "pkg:npm/%40peculiar/utils",
         "version": "2.0.3",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@peculiar/webcrypto",
+        "name": "pkg:npm/%40peculiar/webcrypto",
         "version": "1.7.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@sindresorhus/is",
+        "name": "pkg:npm/%40sindresorhus/is",
         "version": "4.6.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@szmarczak/http-timer",
+        "name": "pkg:npm/%40szmarczak/http-timer",
         "version": "4.0.6",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/cacheable-request",
+        "name": "pkg:npm/%40types/cacheable-request",
         "version": "6.0.3",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/debug",
+        "name": "pkg:npm/%40types/debug",
         "version": "4.1.13",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/fs-extra",
+        "name": "pkg:npm/%40types/fs-extra",
         "version": "9.0.13",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/http-cache-semantics",
+        "name": "pkg:npm/%40types/http-cache-semantics",
         "version": "4.2.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/keyv",
+        "name": "pkg:npm/%40types/keyv",
         "version": "3.1.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/ms",
+        "name": "pkg:npm/%40types/ms",
         "version": "2.1.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/node",
+        "name": "pkg:npm/%40types/node",
         "version": "24.19.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/responselike",
+        "name": "pkg:npm/%40types/responselike",
         "version": "1.0.3",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@xmldom/xmldom",
+        "name": "pkg:npm/%40xmldom/xmldom",
         "version": "0.8.15",
         "isolation": "isolated"
       },
@@ -27898,512 +27898,512 @@
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/kv-asset-handler",
+        "name": "pkg:npm/%40cloudflare/kv-asset-handler",
         "version": "0.5.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/unenv-preset",
+        "name": "pkg:npm/%40cloudflare/unenv-preset",
         "version": "2.16.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/vitest-plugin",
+        "name": "pkg:npm/%40cloudflare/vitest-plugin",
         "version": "1.8.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/workerd-darwin-64",
+        "name": "pkg:npm/%40cloudflare/workerd-darwin-64",
         "version": "1.20261118.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/workerd-darwin-arm64",
+        "name": "pkg:npm/%40cloudflare/workerd-darwin-arm64",
         "version": "1.20261118.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/workerd-linux-64",
+        "name": "pkg:npm/%40cloudflare/workerd-linux-64",
         "version": "1.20261118.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/workerd-linux-arm64",
+        "name": "pkg:npm/%40cloudflare/workerd-linux-arm64",
         "version": "1.20261118.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/workerd-windows-64",
+        "name": "pkg:npm/%40cloudflare/workerd-windows-64",
         "version": "1.20261118.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/workers-types",
+        "name": "pkg:npm/%40cloudflare/workers-types",
         "version": "5.20261120.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cloudflare/workers-utils",
+        "name": "pkg:npm/%40cloudflare/workers-utils",
         "version": "0.55.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@cspotcode/source-map-support",
+        "name": "pkg:npm/%40cspotcode/source-map-support",
         "version": "0.8.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@emnapi/core",
+        "name": "pkg:npm/%40emnapi/core",
         "version": "2.0.0-beta.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@emnapi/runtime",
+        "name": "pkg:npm/%40emnapi/runtime",
         "version": "1.11.3",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@emnapi/wasi-threads",
+        "name": "pkg:npm/%40emnapi/wasi-threads",
         "version": "2.2.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/aix-ppc64",
+        "name": "pkg:npm/%40esbuild/aix-ppc64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/android-arm",
+        "name": "pkg:npm/%40esbuild/android-arm",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/android-arm64",
+        "name": "pkg:npm/%40esbuild/android-arm64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/android-x64",
+        "name": "pkg:npm/%40esbuild/android-x64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/darwin-arm64",
+        "name": "pkg:npm/%40esbuild/darwin-arm64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/darwin-x64",
+        "name": "pkg:npm/%40esbuild/darwin-x64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/freebsd-arm64",
+        "name": "pkg:npm/%40esbuild/freebsd-arm64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/freebsd-x64",
+        "name": "pkg:npm/%40esbuild/freebsd-x64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-arm",
+        "name": "pkg:npm/%40esbuild/linux-arm",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-arm64",
+        "name": "pkg:npm/%40esbuild/linux-arm64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-ia32",
+        "name": "pkg:npm/%40esbuild/linux-ia32",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-loong64",
+        "name": "pkg:npm/%40esbuild/linux-loong64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-mips64el",
+        "name": "pkg:npm/%40esbuild/linux-mips64el",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-ppc64",
+        "name": "pkg:npm/%40esbuild/linux-ppc64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-riscv64",
+        "name": "pkg:npm/%40esbuild/linux-riscv64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-s390x",
+        "name": "pkg:npm/%40esbuild/linux-s390x",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/linux-x64",
+        "name": "pkg:npm/%40esbuild/linux-x64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/netbsd-arm64",
+        "name": "pkg:npm/%40esbuild/netbsd-arm64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/netbsd-x64",
+        "name": "pkg:npm/%40esbuild/netbsd-x64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/openbsd-arm64",
+        "name": "pkg:npm/%40esbuild/openbsd-arm64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/openbsd-x64",
+        "name": "pkg:npm/%40esbuild/openbsd-x64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/openharmony-arm64",
+        "name": "pkg:npm/%40esbuild/openharmony-arm64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/sunos-x64",
+        "name": "pkg:npm/%40esbuild/sunos-x64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/win32-arm64",
+        "name": "pkg:npm/%40esbuild/win32-arm64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/win32-ia32",
+        "name": "pkg:npm/%40esbuild/win32-ia32",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@esbuild/win32-x64",
+        "name": "pkg:npm/%40esbuild/win32-x64",
         "version": "0.28.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/colour",
+        "name": "pkg:npm/%40img/colour",
         "version": "1.1.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-darwin-arm64",
+        "name": "pkg:npm/%40img/sharp-darwin-arm64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-darwin-x64",
+        "name": "pkg:npm/%40img/sharp-darwin-x64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-freebsd-wasm32",
+        "name": "pkg:npm/%40img/sharp-freebsd-wasm32",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-darwin-arm64",
+        "name": "pkg:npm/%40img/sharp-libvips-darwin-arm64",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-darwin-x64",
+        "name": "pkg:npm/%40img/sharp-libvips-darwin-x64",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-linux-arm",
+        "name": "pkg:npm/%40img/sharp-libvips-linux-arm",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-linux-arm64",
+        "name": "pkg:npm/%40img/sharp-libvips-linux-arm64",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-linux-ppc64",
+        "name": "pkg:npm/%40img/sharp-libvips-linux-ppc64",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-linux-riscv64",
+        "name": "pkg:npm/%40img/sharp-libvips-linux-riscv64",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-linux-s390x",
+        "name": "pkg:npm/%40img/sharp-libvips-linux-s390x",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-linux-x64",
+        "name": "pkg:npm/%40img/sharp-libvips-linux-x64",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-linuxmusl-arm64",
+        "name": "pkg:npm/%40img/sharp-libvips-linuxmusl-arm64",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-libvips-linuxmusl-x64",
+        "name": "pkg:npm/%40img/sharp-libvips-linuxmusl-x64",
         "version": "1.3.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-linux-arm",
+        "name": "pkg:npm/%40img/sharp-linux-arm",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-linux-arm64",
+        "name": "pkg:npm/%40img/sharp-linux-arm64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-linux-ppc64",
+        "name": "pkg:npm/%40img/sharp-linux-ppc64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-linux-riscv64",
+        "name": "pkg:npm/%40img/sharp-linux-riscv64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-linux-s390x",
+        "name": "pkg:npm/%40img/sharp-linux-s390x",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-linux-x64",
+        "name": "pkg:npm/%40img/sharp-linux-x64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-linuxmusl-arm64",
+        "name": "pkg:npm/%40img/sharp-linuxmusl-arm64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-linuxmusl-x64",
+        "name": "pkg:npm/%40img/sharp-linuxmusl-x64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-wasm32",
+        "name": "pkg:npm/%40img/sharp-wasm32",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-webcontainers-wasm32",
+        "name": "pkg:npm/%40img/sharp-webcontainers-wasm32",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-win32-arm64",
+        "name": "pkg:npm/%40img/sharp-win32-arm64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-win32-ia32",
+        "name": "pkg:npm/%40img/sharp-win32-ia32",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@img/sharp-win32-x64",
+        "name": "pkg:npm/%40img/sharp-win32-x64",
         "version": "0.35.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@jridgewell/resolve-uri",
+        "name": "pkg:npm/%40jridgewell/resolve-uri",
         "version": "3.1.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@jridgewell/sourcemap-codec",
+        "name": "pkg:npm/%40jridgewell/sourcemap-codec",
         "version": "1.6.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@jridgewell/trace-mapping",
+        "name": "pkg:npm/%40jridgewell/trace-mapping",
         "version": "0.3.9",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@napi-rs/wasm-runtime",
+        "name": "pkg:npm/%40napi-rs/wasm-runtime",
         "version": "1.2.6",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@oxc-project/types",
+        "name": "pkg:npm/%40oxc-project/types",
         "version": "0.156.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@poppinss/colors",
+        "name": "pkg:npm/%40poppinss/colors",
         "version": "4.1.6",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@poppinss/dumper",
+        "name": "pkg:npm/%40poppinss/dumper",
         "version": "0.6.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@poppinss/exception",
+        "name": "pkg:npm/%40poppinss/exception",
         "version": "1.2.3",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-android-arm-eabi",
+        "name": "pkg:npm/%40rolldown/binding-android-arm-eabi",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-android-arm64",
+        "name": "pkg:npm/%40rolldown/binding-android-arm64",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-darwin-arm64",
+        "name": "pkg:npm/%40rolldown/binding-darwin-arm64",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-darwin-x64",
+        "name": "pkg:npm/%40rolldown/binding-darwin-x64",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-freebsd-x64",
+        "name": "pkg:npm/%40rolldown/binding-freebsd-x64",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-linux-arm-gnueabihf",
+        "name": "pkg:npm/%40rolldown/binding-linux-arm-gnueabihf",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-linux-arm64-gnu",
+        "name": "pkg:npm/%40rolldown/binding-linux-arm64-gnu",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-linux-arm64-musl",
+        "name": "pkg:npm/%40rolldown/binding-linux-arm64-musl",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-linux-ppc64-gnu",
+        "name": "pkg:npm/%40rolldown/binding-linux-ppc64-gnu",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-linux-s390x-gnu",
+        "name": "pkg:npm/%40rolldown/binding-linux-s390x-gnu",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-linux-x64-gnu",
+        "name": "pkg:npm/%40rolldown/binding-linux-x64-gnu",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-linux-x64-musl",
+        "name": "pkg:npm/%40rolldown/binding-linux-x64-musl",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-openharmony-arm64",
+        "name": "pkg:npm/%40rolldown/binding-openharmony-arm64",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-wasm32-wasi",
+        "name": "pkg:npm/%40rolldown/binding-wasm32-wasi",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-win32-arm64-msvc",
+        "name": "pkg:npm/%40rolldown/binding-win32-arm64-msvc",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/binding-win32-x64-msvc",
+        "name": "pkg:npm/%40rolldown/binding-win32-x64-msvc",
         "version": "1.2.19",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@rolldown/pluginutils",
+        "name": "pkg:npm/%40rolldown/pluginutils",
         "version": "1.1.0",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@speed-highlight/core",
+        "name": "pkg:npm/%40speed-highlight/core",
         "version": "1.2.24",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@tybys/wasm-util",
+        "name": "pkg:npm/%40tybys/wasm-util",
         "version": "0.10.4",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/chai",
+        "name": "pkg:npm/%40types/chai",
         "version": "5.2.3",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/deep-eql",
+        "name": "pkg:npm/%40types/deep-eql",
         "version": "4.0.2",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/estree",
+        "name": "pkg:npm/%40types/estree",
         "version": "1.0.10",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/node-fetch",
+        "name": "pkg:npm/%40types/node-fetch",
         "version": "2.6.13",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/yargs",
+        "name": "pkg:npm/%40types/yargs",
         "version": "17.0.24",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/yargs-parser",
+        "name": "pkg:npm/%40types/yargs-parser",
         "version": "21.0.3",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@vitest/mocker",
+        "name": "pkg:npm/%40vitest/mocker",
         "version": "5.0.5",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@vitest/spy",
+        "name": "pkg:npm/%40vitest/spy",
         "version": "5.0.5",
         "isolation": "isolated"
       },
@@ -28718,22 +28718,22 @@
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@bufbuild/protobuf",
+        "name": "pkg:npm/%40bufbuild/protobuf",
         "version": "1.10.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@livekit/mutex",
+        "name": "pkg:npm/%40livekit/mutex",
         "version": "1.1.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@livekit/protocol",
+        "name": "pkg:npm/%40livekit/protocol",
         "version": "1.52.1",
         "isolation": "isolated"
       },
       {
-        "name": "pkg:npm/@types/dom-mediacapture-record",
+        "name": "pkg:npm/%40types/dom-mediacapture-record",
         "version": "1.0.22",
         "isolation": "isolated"
       },

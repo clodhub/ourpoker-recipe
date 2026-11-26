@@ -1,6 +1,6 @@
 package app.ourapps.ourpoker
 
-import ae.androidhost.ShellLanguage
+import com.clodhub.androidhost.ShellLanguage
 
 // The app's language: the one picked on the home screen, else the phone's. The android-host shell
 // carries it on the activity's context, so a change takes effect when the activity is recreated.

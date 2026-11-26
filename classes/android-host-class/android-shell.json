@@ -1,9 +1,9 @@
 {
   "openrpc": "1.3.2",
   "info": {
-    "title": "ae/android-shell",
+    "title": "com.clodhub/android-shell",
     "version": "1.0.0",
-    "description": "Android application shell. Methods tagged typescript are exported functions of android/render.ts and android/language.ts run at build time under Node; methods tagged kotlin are public Kotlin API in package ae.androidhost compiled into the application. Methods tagged with both exist in both languages with the same behaviour.",
+    "description": "Android application shell. Methods tagged typescript are exported functions of android/render.ts and android/language.ts run at build time under Node; methods tagged kotlin are public Kotlin API in package com.clodhub.androidhost compiled into the application. Methods tagged with both exist in both languages with the same behaviour.",
     "license": {
       "name": "Apache-2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0"

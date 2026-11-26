@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Turns an evaluated design (aepm.recipe) into a drawing for aepm's diagram generator.
+"""Turns an evaluated design (clod.recipe) into a drawing for clod's diagram generator.
 
 The drawing is a diagram design (schemaVersion 1): each included component's visual definition, one instance per component
 carrying its effective settings, the recipe's own component as `application`, and the design's connections. It draws only.
-Usage (library): drawing(design, components_directory, recipe_directory) -> dict; check it with aepm.diagram.generate.validate_design.
+Usage (library): drawing(design, components_directory, recipe_directory) -> dict; check it with clod.diagram.generate.validate_design.
 """
 import os
 import json
@@ -21,7 +21,7 @@ def _read(path):
 def drawing(design, components_directory=COMPONENTS, recipe_directory=HERE, drawing_id=None, title=None):
     definitions, instances = [], []
     for component in design["components"]:
-        visual = _read(Path(components_directory) / component["name"].split("/")[1] / "visual" / "definition.json")
+        visual = _read(Path(components_directory) / component["name"].rsplit("/", 1)[1] / "visual" / "definition.json")
         definitions.append(visual)
         instances.append({"id": component["id"], "name": visual["name"], "definition": visual["id"], "configuration": component["configuration"]})
     own = _read(Path(recipe_directory) / "visual" / "definition.json")

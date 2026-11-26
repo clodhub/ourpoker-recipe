@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Writes recipe.json for clodhub/ourpoker in the decided format (component-standard.md, "Recipe evaluation rules").
+"""Writes recipe.json for pkg:clod/com.clodhub/ourpoker-recipe in the decided format (component-standard.md, "Recipe evaluation rules").
 
 Everything that can be read from the components is read from them: names, versions, port ids and which requirements are
 optional come from each component.json; connections are derived from the manifests. Settings, questions and answer sets
-are written below. Nothing here evaluates the recipe (aepm's evaluator, aepm.recipe, does).
+are written below. Nothing here evaluates the recipe (clod's evaluator, clod.recipe, does).
 Usage: python3 -B authoring/make_recipe.py
 """
 import os
@@ -13,8 +13,18 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent.parent
 COMPONENTS = Path(os.environ.get("OURPOKER_COMPONENTS") or HERE.parent.parent / "components")  # the component checkouts
-sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(HERE.parent.parent / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
-from aepm.model import SCOPE, canonical, digest  # noqa: E402
+sys.path.insert(0, os.environ.get("CLOD_CHECKOUT", str(HERE.parent.parent / "clod")))  # CLOD_CHECKOUT, else the sibling checkout
+from clod.model import DEFAULT_NAMESPACE, PACKAGE_PREFIX, canonical, digest, short_name  # noqa: E402
+from clod.recipe import RECIPE_FORMAT  # noqa: E402
+
+NAME = f"{PACKAGE_PREFIX}{DEFAULT_NAMESPACE}/ourpoker-recipe"
+VERSION = "0.13.0"
+
+
+def package(short):
+    """The package name of a library component."""
+    return f"{PACKAGE_PREFIX}{DEFAULT_NAMESPACE}/{short}"
+
 
 # Order follows paper Section 5.3.
 ORDER = [
@@ -94,7 +104,7 @@ WITHOUT_COMPUTERS = "computerPlayers != 'none'"
 
 def conditions(manifests):
     """includedWhen of every conditional component (the rest are always in the design)."""
-    computers = next(p for p in manifests["turn-engine"]["requires"] if p["type"] == "ae/computer-players")
+    computers = next(p for p in manifests["turn-engine"]["requires"] if p["type"] == "com.clodhub/computer-players")
     assert computers.get("optional") is True, "turn-engine's computer-players requirement must be optional"
     return {**INCLUDED_WHEN, "computer-players": WITHOUT_COMPUTERS, "poker-strategy": WITHOUT_COMPUTERS}
 
@@ -209,10 +219,10 @@ QUESTIONS = [
 # Server provider and size are chosen by selection (rule 7); the server answer restricts the candidates.
 JOBS = [
     {"id": "server", "slot": "server-host", "overrideQuestion": "server",
-     "candidates": [{"component": f"{SCOPE}/server-host", "profile": p} for p in ("cloudflare-free", "cloudflare-paid", "own-hardware")]},
+     "candidates": [{"component": package("server-host"), "profile": p} for p in ("cloudflare-free", "cloudflare-paid", "own-hardware")]},
     {"id": "realtime", "slot": "realtime-rooms", "overrideQuestion": "server",
-     "candidates": [{"component": f"{SCOPE}/realtime-rooms", "profile": p} for p in ("free", "paid", "own-hardware")]},
-    {"id": "video", "slot": "video-calls", "candidates": [{"component": f"{SCOPE}/video-calls", "profile": p} for p in ("free", "paid", "scale")]},
+     "candidates": [{"component": package("realtime-rooms"), "profile": p} for p in ("free", "paid", "own-hardware")]},
+    {"id": "video", "slot": "video-calls", "candidates": [{"component": package("video-calls"), "profile": p} for p in ("free", "paid", "scale")]},
 ]
 
 SCALE = {"question": "scale", "bands": [
@@ -268,7 +278,7 @@ def read(path):
 
 
 def connections_from(manifests, application, included_when):
-    """One connection per requirement, from the manifests alone. A type with two providers (ae/game-adapter: turn-engine's
+    """One connection per requirement, from the manifests alone. A type with two providers (com.clodhub/game-adapter: turn-engine's
     adapter and the application's own poker adapter) is resolved by PREFERRED."""
     providers = {}
     for slug in ORDER:
@@ -301,9 +311,9 @@ def connections_from(manifests, application, included_when):
     return out
 
 
-def slot_class(slug):
-    """Exact reference to the independently authored class contract."""
-    descriptor = read(HERE.parent.parent / 'classes' / (slug + '-class') / 'class.json')
+def slot_class(manifest):
+    """Exact reference to the independently authored class contract the slot's preferred component implements."""
+    descriptor = read(HERE.parent.parent / 'classes' / short_name(manifest['implements'][0]['name']) / 'class.json')
     return {'name': descriptor['name'], 'version': descriptor['version'], 'digest': digest(canonical(descriptor))}
 
 
@@ -318,13 +328,13 @@ def main() -> None:
     components = []
     for slug in ORDER:
         ident = manifests[slug]["identity"]
-        assert ident["name"] == f"{SCOPE}/{slug}"
-        components.append({"id": slug, "class": slot_class(slug),
+        assert ident["name"] == package(slug)
+        components.append({"id": slug, "class": slot_class(manifests[slug]),
                            "preferred": {"name": ident["name"], "version": ident["version"]},
                            "configuration": CONFIGURATION.get(slug, {}), "includedWhen": included_when.get(slug)})
 
     recipe = {
-        "format": 2, "name": f"{SCOPE}/ourpoker", "version": "0.12.0", "title": "OurPoker",
+        "format": RECIPE_FORMAT, "name": NAME, "version": VERSION, "title": "OurPoker",
         "summary": "A complete Texas hold'em game for two to nine players: phones, tablets, computers, the web and a television as a shared table, optional video, computer players, lessons, rebuys and rising blinds.",
         "category": "games", "tags": ["cards", "multiplayer", "poker", "texas-holdem", "tournament"],
         "targets": {"client": ALL_TARGETS, "server": ["hosting-provider", "own-hardware"]},

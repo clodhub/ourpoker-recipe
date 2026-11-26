@@ -6,19 +6,19 @@
   "view": "application",
   "definitions": [
     {
-      "id": "clodhub.theme",
+      "id": "com.clodhub.theme",
       "name": "Theme",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/theme",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/theme",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
           "name": "Theme",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0"
         }
       ],
@@ -48,19 +48,19 @@
       ]
     },
     {
-      "id": "clodhub.controls",
+      "id": "com.clodhub.controls",
       "name": "Controls",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/controls",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/controls",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
           "name": "Theme",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -70,26 +70,26 @@
           "name": "Controls",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/controls",
+          "type": "com.clodhub/controls",
           "version": "1.0.0"
         }
       ],
       "settings": []
     },
     {
-      "id": "clodhub.table-layout",
+      "id": "com.clodhub.table-layout",
       "name": "Table layout",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/table-layout",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/table-layout",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
           "name": "Theme",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -99,7 +99,7 @@
           "name": "Controls",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/controls",
+          "type": "com.clodhub/controls",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -109,26 +109,26 @@
           "name": "Table layout",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/table-layout",
+          "type": "com.clodhub/table-layout",
           "version": "1.0.0"
         }
       ],
       "settings": []
     },
     {
-      "id": "clodhub.card-graphics",
+      "id": "com.clodhub.card-graphics",
       "name": "Card graphics",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/card-graphics",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/card-graphics",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
           "name": "Theme",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -138,7 +138,7 @@
           "name": "Card graphics",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/card-graphics",
+          "type": "com.clodhub/card-graphics",
           "version": "1.0.0"
         }
       ],
@@ -170,19 +170,19 @@
       ]
     },
     {
-      "id": "clodhub.chip-graphics",
+      "id": "com.clodhub.chip-graphics",
       "name": "Chip graphics",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/chip-graphics",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/chip-graphics",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "theme",
           "name": "Theme",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/theme",
+          "type": "com.clodhub/theme",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -192,7 +192,7 @@
           "name": "Chip graphics",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/chip-graphics",
+          "type": "com.clodhub/chip-graphics",
           "version": "1.0.0"
         }
       ],
@@ -216,19 +216,19 @@
       ]
     },
     {
-      "id": "clodhub.sound-cues",
+      "id": "com.clodhub.sound-cues",
       "name": "Sound cues",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/sound-cues",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/sound-cues",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "preferences",
           "name": "Preferences",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/preferences",
+          "type": "com.clodhub/preferences",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -238,7 +238,7 @@
           "name": "Sound cues",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/sound-cues",
+          "type": "com.clodhub/sound-cues",
           "version": "1.0.0"
         }
       ],
@@ -262,19 +262,19 @@
       ]
     },
     {
-      "id": "clodhub.guided-tour",
+      "id": "com.clodhub.guided-tour",
       "name": "Guided tour",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/guided-tour",
-      "version": "0.10.0",
+      "package": "pkg:clod/com.clodhub/guided-tour",
+      "version": "0.11.0",
       "ports": [
         {
           "id": "controls",
           "name": "Controls",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/controls",
+          "type": "com.clodhub/controls",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -284,7 +284,7 @@
           "name": "Preferences",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/preferences",
+          "type": "com.clodhub/preferences",
           "version": "1.0.0",
           "required": false,
           "cardinality": "one"
@@ -294,7 +294,7 @@
           "name": "Language",
           "direction": "input",
           "kind": "interface",
-          "type": "ae/language",
+          "type": "com.clodhub/language",
           "version": "1.0.0",
           "required": true,
           "cardinality": "one"
@@ -304,26 +304,26 @@
           "name": "Guided tour",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/guided-tour",
+          "type": "com.clodhub/guided-tour",
           "version": "1.0.0"
         }
       ],
       "settings": []
     },
     {
-      "id": "clodhub.translations",
+      "id": "com.clodhub.translations",
       "name": "Translations",
       "kind": "component",
       "status": "example",
-      "package": "clodhub/translations",
-      "version": "0.12.0",
+      "package": "pkg:clod/com.clodhub/translations",
+      "version": "0.13.0",
       "ports": [
         {
           "id": "language",
           "name": "Translations",
           "direction": "output",
           "kind": "interface",
-          "type": "ae/language",
+          "type": "com.clodhub/language",
           "version": "1.0.0"
         }
       ],
@@ -343,7 +343,7 @@
     {
       "id": "theme",
       "name": "Theme",
-      "definition": "clodhub.theme",
+      "definition": "com.clodhub.theme",
       "configuration": {
         "themeName": "night"
       }
@@ -351,19 +351,19 @@
     {
       "id": "controls",
       "name": "Controls",
-      "definition": "clodhub.controls",
+      "definition": "com.clodhub.controls",
       "configuration": {}
     },
     {
       "id": "table-layout",
       "name": "Table layout",
-      "definition": "clodhub.table-layout",
+      "definition": "com.clodhub.table-layout",
       "configuration": {}
     },
     {
       "id": "card-graphics",
       "name": "Card graphics",
-      "definition": "clodhub.card-graphics",
+      "definition": "com.clodhub.card-graphics",
       "configuration": {
         "backStyle": "stripes",
         "cornerStyle": "rounded",
@@ -373,7 +373,7 @@
     {
       "id": "chip-graphics",
       "name": "Chip graphics",
-      "definition": "clodhub.chip-graphics",
+      "definition": "com.clodhub.chip-graphics",
       "configuration": {
         "denominations": "casino 5000 1000 500 100 25 5 1",
         "chipColours": "casino"
@@ -382,7 +382,7 @@
     {
       "id": "sound-cues",
       "name": "Sound cues",
-      "definition": "clodhub.sound-cues",
+      "definition": "com.clodhub.sound-cues",
       "configuration": {
         "soundManifest": "sounds",
         "defaultMuted": false
@@ -391,13 +391,13 @@
     {
       "id": "guided-tour",
       "name": "Guided tour",
-      "definition": "clodhub.guided-tour",
+      "definition": "com.clodhub.guided-tour",
       "configuration": {}
     },
     {
       "id": "translations",
       "name": "Translations",
-      "definition": "clodhub.translations",
+      "definition": "com.clodhub.translations",
       "configuration": {
         "languages": "en fr de es"
       }

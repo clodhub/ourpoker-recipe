@@ -2,7 +2,7 @@
 """Write the recipe component's manifest, asset list and visual files from what is on disk.
 
 Usage (from anywhere):
-  PYTHONPATH=<aepm checkout> python3.12 -B scripts/make_component.py [--render]
+  PYTHONPATH=<clod checkout> python3.12 -B scripts/make_component.py [--render]
 
 Computes `files` (everything packaged), `artefacts` (the destination map below), the asset list
 (assets/ASSETS.json) and the visual definition and example, and checks every template against the
@@ -21,17 +21,17 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parent.parent
 WORKSPACE = ROOT.parent.parent
 COMPONENTS = Path(os.environ.get("OURPOKER_COMPONENTS") or WORKSPACE / "components")  # the component checkouts
-sys.path.insert(0, os.environ.get("AEPM_CHECKOUT", str(WORKSPACE / "aepm")))  # AEPM_CHECKOUT, else the sibling checkout
-from aepm import application, model  # noqa: E402
-AEPM = Path(application.__file__).resolve().parent.parent
+sys.path.insert(0, os.environ.get("CLOD_CHECKOUT", str(WORKSPACE / "clod")))  # CLOD_CHECKOUT, else the sibling checkout
+from clod import application, model  # noqa: E402
+CLOD = Path(application.__file__).resolve().parent.parent
 
 sys.path.insert(0, str(ROOT / "authoring"))
 import component_imports  # noqa: E402
 import make_recipe  # noqa: E402
 import poker_game_adapter  # noqa: E402
 
-NAME = f"{model.SCOPE}/ourpoker"
-# Tool pins are MAJOR.MINOR: aepm matches an installed tool's version by its leading components.
+NAME = make_recipe.NAME
+# Tool pins are MAJOR.MINOR: clod matches an installed tool's version by its leading components.
 TOOLS = {"node": "26.5", "python3": "3.12", "swiftc": "6.4", "kotlinc": "2.2", "java": "26.0"}
 VERSION = json.loads((Path(__file__).resolve().parent.parent / "recipe.json").read_text(encoding="utf-8"))["version"]
 TITLE = "OurPoker"
@@ -71,7 +71,7 @@ COLLECT = [
 # The three configuration requirements of display-mode, video-calls and windows-desktop are optional (0.3.1), so the application
 # provides no configuration port: it passes the documents in code (web/src/configuration.ts, desktop/src/configuration.cjs).
 PROVIDES = [
-    ("game-adapter", "ae/game-adapter"),
+    ("game-adapter", "com.clodhub/game-adapter"),
 ]
 
 # Requirements whose provider the recipe can leave out of a design (its includedWhen is not null): optional in this manifest, so
@@ -281,7 +281,7 @@ REPOSITORY = {
     "workflows/ci-web.yml": ["web-host"], "workflows/ci-android.yml": ["android-host"],
     "workflows/platform-packages.yml": ["windows-desktop"], "scripts/build-windows.sh": ["windows-desktop"], "scripts/inspect-windows.ps1": ["windows-desktop"],
     "workflows/apple-testflight.yml": ["apple-host"], "scripts/build-apple-testflight.sh": ["apple-host"], "scripts/build-ipa.sh": ["apple-host"],
-    "workflows/apple-builds.yml": ["apple-host"], "workflows/aepm-update.yml": [],
+    "workflows/apple-builds.yml": ["apple-host"], "workflows/clod-update.yml": [],
 }
 
 
@@ -293,7 +293,7 @@ def repository_condition(source):
 
 def stand_ins(pairs, conditions):
     """source -> the component whose absence installs it: a stand-in under implementation/stand-ins/ replaces the real file
-    with its destination, which must be conditional (aepm installs one when the component is in, the other when it is not)."""
+    with its destination, which must be conditional (clod installs one when the component is in, the other when it is not)."""
     real = {d: s for s, d in pairs if not s.startswith("implementation/stand-ins/")}
     out = {}
     for source, destination in pairs:
@@ -344,7 +344,7 @@ def build_manifest(files):
     requires = []
     for port, component in REQUIRES:
         # a type the package both provides and requires: the required port is wrapped-<segment> (the component standard)
-        type_ = "ae/" + port.removeprefix("wrapped-")
+        type_ = "com.clodhub/" + port.removeprefix("wrapped-")
         # the type is the providing port's type; check it is real
         provided_port(component, type_)
         entry = {"id": port, "type": type_, "version": "1.0.0", "path": f"interfaces/required-{port}.json"}
@@ -371,7 +371,7 @@ def build_manifest(files):
         artefacts.append(item)
     packaged = sorted(set(files) | {"INSTRUCTIONS.md"})
     return {
-        "format": 3, "kind": "recipe",
+        "format": model.MANIFEST_FORMAT, "kind": "recipe",
         "identity": {"name": NAME, "version": VERSION, "sourceRevision": SOURCE_REVISION, "sourceTreeDigest": "0" * 64, "licence": "Apache-2.0"},
         "facilities": [{"id": "application", "description": "OurPoker application-specific component: screen flow, house rules, text, lessons, artwork, wiring and end-to-end tests"}],
         "documents": {"contract": "CONTRACT.md", "interfaces": sorted(f for f in files if f.startswith("interfaces/")) + ["suitability.json"],
@@ -415,7 +415,7 @@ def app_definition(manifest):
         if "default" in s:
             entry["default"] = s["default"]
         settings.append(entry)
-    return {"id": f"{model.SCOPE}.ourpoker", "name": TITLE, "kind": "application", "status": "example", "revision": VERSION, "ports": ports, "settings": settings}
+    return {"id": model.package_id(NAME), "name": TITLE, "kind": "application", "status": "example", "revision": VERSION, "ports": ports, "settings": settings}
 
 
 def connected_example(manifest, definition):
@@ -438,8 +438,8 @@ def connected_example(manifest, definition):
 
 
 def render(example):
-    generator = AEPM / "aepm" / "diagram" / "generate.py"
-    env = {"PATH": os.environ.get("PATH", os.defpath), "PYTHONDONTWRITEBYTECODE": "1", "PYTHONPATH": str(AEPM), "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "HOME": os.environ.get("HOME", "/")}
+    generator = CLOD / "clod" / "diagram" / "generate.py"
+    env = {"PATH": os.environ.get("PATH", os.defpath), "PYTHONDONTWRITEBYTECODE": "1", "PYTHONPATH": str(CLOD), "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8", "HOME": os.environ.get("HOME", "/")}
     out = ROOT / "visual/output"
     out.mkdir(parents=True, exist_ok=True)
     result = subprocess.run([sys.executable, "-B", str(generator), str(ROOT / "visual/examples/connected.json"), "--output-prefix", str(out / "connected")], env=env, capture_output=True, text=True, timeout=180)
@@ -458,7 +458,7 @@ def interfaces_json(manifest):
     out = {}
     for port, component in REQUIRES:
         provider = read(COMPONENTS / component / "component.json")
-        source = next(q["path"] for q in provider["provides"] if q["type"] == "ae/" + port.removeprefix("wrapped-"))
+        source = next(q["path"] for q in provider["provides"] if q["type"] == "com.clodhub/" + port.removeprefix("wrapped-"))
         (ROOT / f"interfaces/required-{port}.json").write_bytes((COMPONENTS / component / source).read_bytes())
     for p in manifest["provides"]:
         document = documents[p["id"]]
@@ -482,13 +482,13 @@ def generate_translations():
 
 # Every place a document names the package's own version, rewritten from recipe.json's version on each run.
 VERSION_PLACES = {
-    "INSTRUCTIONS.md": [r"(Package `clodhub/ourpoker` )\d+\.\d+\.\d+", r"(this file belongs to )\d+\.\d+\.\d+", r"(ourpoker@)\d+\.\d+\.\d+"],
-    "CONTRACT.md": [r"(Package `clodhub/ourpoker` version )\d+\.\d+\.\d+"],
+    "INSTRUCTIONS.md": [r"(Package `pkg:clod/com\.clodhub/ourpoker-recipe` )\d+\.\d+\.\d+", r"(this file belongs to )\d+\.\d+\.\d+", r"(ourpoker-recipe@)\d+\.\d+\.\d+"],
+    "CONTRACT.md": [r"(Package `pkg:clod/com\.clodhub/ourpoker-recipe` version )\d+\.\d+\.\d+"],
     "INTEGRATION-GAPS.md": [r"(# OurPoker integration status \(recipe )\d+\.\d+\.\d+"],
-    "REVIEW.md": [r"(package `clodhub/ourpoker` )\d+\.\d+\.\d+", r"(ourpoker@)\d+\.\d+\.\d+"],
-    "page/description.md": [r"(Version )\d+\.\d+\.\d+", r"(ourpoker@)\d+\.\d+\.\d+", r"(STORE )\d+\.\d+\.\d+"],
+    "REVIEW.md": [r"(package `pkg:clod/com\.clodhub/ourpoker-recipe` )\d+\.\d+\.\d+", r"(ourpoker-recipe@)\d+\.\d+\.\d+"],
+    "page/description.md": [r"(Version )\d+\.\d+\.\d+", r"(ourpoker-recipe@)\d+\.\d+\.\d+", r"(STORE )\d+\.\d+\.\d+"],
     "AGENTS.md": [r"(Version )\d+\.\d+\.\d+"],
-    ".opencode/knowledge/00-index.md": [r"(Package `clodhub/ourpoker` version )\d+\.\d+\.\d+"],
+    ".opencode/knowledge/00-index.md": [r"(Package `pkg:clod/com\.clodhub/ourpoker-recipe` version )\d+\.\d+\.\d+"],
 }
 
 

@@ -24,8 +24,8 @@ export async function startHand(page) {
 
 export async function openOwnedBrowser() {
   process.env.PLAYWRIGHT_BROWSERS_PATH = path.join(root, '.verification-browser');
-  if (!process.env.AEPM_PRIVATE_ROOT) throw new Error('private-root-required');
-  const base = process.env.AEPM_CONTEXT_FILE ? path.dirname(process.env.AEPM_CONTEXT_FILE) : process.env.AEPM_PRIVATE_ROOT;
+  if (!process.env.CLOD_PRIVATE_ROOT) throw new Error('private-root-required');
+  const base = process.env.CLOD_CONTEXT_FILE ? path.dirname(process.env.CLOD_CONTEXT_FILE) : process.env.CLOD_PRIVATE_ROOT;
   const profileRoot = path.join(base, 'profiles', 'browser');
   await mkdir(profileRoot, { recursive: true, mode: 0o700 });
   const { launchOwnedBrowser } = await import('../../components/video-calls/verification/index.mjs');
